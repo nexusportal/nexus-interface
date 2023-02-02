@@ -404,7 +404,9 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             </div>
           ) : (
             <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
-              <p>Space-Time Lock</p>
+                            <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+                {i18n._(t`🌌Space-Time⏲ Lock🔒`)}
+              </div>
               <div className="px-2 slider-wrapper">
                 <div className="flex items-center justify-between mt-2 -mx-2 font-extrabold labels">
                   <p>1x</p>
