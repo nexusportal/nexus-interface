@@ -21,6 +21,7 @@ import PRO from '../../../public/PRO.png'
 import LOVE from '../../../public/LOVE.png'
 import SFORT from '../../../public/sFORT.png'
 import PSB from '../../../public/PNG.png'
+import SPRK from '../../../public/SPRK.png'
 import xATH from '../../../public/xATH.png'
 import GKB from '../../../public/GKB.png'
 import SDOOD from '../../../public/sDOOD.png'
@@ -210,6 +211,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img src={PSB.src} width={size} height={size} className={className} />
     }
 
+    if (currency.symbol === 'SPRK') {
+      return <img src={SPRK.src} width={size} height={size} className={className} />
+    }
+
     if (currency.symbol === 'GKB') {
       return <img src={GKB.src} width={size} height={size} className={className} />
     }
@@ -312,6 +317,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
       if (currency.symbol === 'PSB') {
         return <img src={PSB.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'SPRK') {
+        return <img src={SPRK.src} width={size} height={size} className={className} />
       }
 
       if (currency.symbol === 'GKB') {

@@ -3835,6 +3835,14 @@
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
     },
     {
+      "name": "Sparks",
+      "address": "0xfd2a0fD402828fDB86F9a9D5a760242AD7526cC0",
+      "symbol": "SPRK",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
       "name": "Gokubi",
       "address": "0x1915462FeCE97854d6738b90d3F9Ec09e723D451",
       "symbol": "GKB",
