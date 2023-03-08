@@ -11,8 +11,8 @@ import HS from '../../../public/HS.png'
 import COOT from '../../../public/COOT.png'
 import ORACLE from '../../../public/ORACLE.png'
 import SFIN from '../../../public/SFIN.png'
-import SGB from '../../../public/SGB.png'
-import WSGB from '../../../public/WSGB.png'
+import XRP from '../../../public/XRP.png'
+import WXRP from '../../../public/WXRP.png'
 import XFIN from '../../../public/XFIN.png'
 import xORACLE from '../../../public/xORACLE.png'
 import EXFI from '../../../public/EXFI.png'
@@ -56,8 +56,7 @@ const BLOCKCHAIN = {
   [ChainId.XDAI]: 'xdai',
   [ChainId.ARBITRUM]: 'arbitrum',
   [ChainId.AVALANCHE]: 'avalanche',
-  [ChainId.HARDHAT]: 'hardhat',
-  [ChainId.SGB]: 'songbird',
+  [ChainId.XRPL]: 'songbird',
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -84,7 +83,7 @@ export const getCurrencyLogoUrls = (currency): string[] => {
       }/logo.png`
     )
 
-    if (currency.chainId === ChainId.SGB) {
+    if (currency.chainId === ChainId.XRPL) {
       // const hostname = window.location.hostname
       // const protocal = window.location.protocol
       // console.log('window.origin', window.origin)
@@ -149,8 +148,7 @@ const LOGO: Record<ChainId, string> = {
   [ChainId.MOONRIVER]: MovrLogo,
   [ChainId.FUSE]: FuseLogo,
   [ChainId.TELOS]: TelosLogo,
-  [ChainId.HARDHAT]: EthereumLogo,
-  [ChainId.SGB]: SongbirdLogo,
+  [ChainId.XRPL]: SongbirdLogo,
 }
 
 export interface CurrencyLogoProps {
@@ -182,15 +180,15 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     return [UNKNOWN_ICON]
   }, [currency, uriLocations])
 
-  if (currency?.equals(WNATIVE[currency.chainId]) && currency?.chainId === ChainId.SGB) {
-    return <img src={WSGB.src} width={size} height={size} className={className} />
+  if (currency?.equals(WNATIVE[currency.chainId]) && currency?.chainId === ChainId.XRPL) {
+    return <img src={WXRP.src} width={size} height={size} className={className} />
   }
 
-  if (currency?.isNative && currency?.chainId === ChainId.SGB) {
-    return <img src={SGB.src} width={size} height={size} className={className} />
+  if (currency?.isNative && currency?.chainId === ChainId.XRPL) {
+    return <img src={XRP.src} width={size} height={size} className={className} />
   }
 
-  if (currency?.chainId === ChainId.SGB) {
+  if (currency?.chainId === ChainId.XRPL) {
     if (currency.symbol === 'ORACLE') {
       return <img src={ORACLE.src} width={size} height={size} className={className} />
     }
@@ -278,11 +276,11 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     if (currency.symbol === 'SFIN') {
       return <img src={SFIN.src} width={size} height={size} className={className} />
     }
-    if (currency.symbol === 'SGB') {
-      return <img src={SGB.src} width={size} height={size} className={className} />
+    if (currency.symbol === 'XRP') {
+      return <img src={XRP.src} width={size} height={size} className={className} />
     }
-    if (currency.symbol === 'WSGB') {
-      return <img src={WSGB.src} width={size} height={size} className={className} />
+    if (currency.symbol === 'WXRP') {
+      return <img src={WXRP.src} width={size} height={size} className={className} />
     }
     if (currency.symbol === 'XFIN') {
       return <img src={XFIN.src} width={size} height={size} className={className} />
@@ -298,7 +296,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
   }
 
   if (currency instanceof Token) {
-    if (currency.chainId === ChainId.SGB) {
+    if (currency.chainId === ChainId.XRPL) {
       if (currency.symbol === 'ORACLE') {
         return <img src={ORACLE.src} width={size} height={size} className={className} />
       }
@@ -370,11 +368,11 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.symbol === 'SFIN') {
         return <img src={SFIN.src} width={size} height={size} className={className} />
       }
-      if (currency.symbol === 'SGB') {
-        return <img src={SGB.src} width={size} height={size} className={className} />
+      if (currency.symbol === 'XRP') {
+        return <img src={XRP.src} width={size} height={size} className={className} />
       }
-      if (currency.symbol === 'WSGB') {
-        return <img src={WSGB.src} width={size} height={size} className={className} />
+      if (currency.symbol === 'WXRP') {
+        return <img src={WXRP.src} width={size} height={size} className={className} />
       }
       if (currency.symbol === 'XFIN') {
         return <img src={XFIN.src} width={size} height={size} className={className} />
@@ -395,7 +393,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
   }
 
   if (currency instanceof WrappedTokenInfo) {
-    if (currency.tokenInfo.chainId === ChainId.SGB) {
+    if (currency.tokenInfo.chainId === ChainId.XRPL) {
       if (currency.tokenInfo.symbol === 'CAND') {
         return <img src={CAND.src} width={size} height={size} className={className} />
       }
@@ -422,11 +420,11 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.tokenInfo.symbol === 'SFIN') {
         return <img src={SFIN.src} width={size} height={size} className={className} />
       }
-      if (currency.tokenInfo.symbol === 'SGB') {
-        return <img src={SGB.src} width={size} height={size} className={className} />
+      if (currency.tokenInfo.symbol === 'XRP') {
+        return <img src={XRP.src} width={size} height={size} className={className} />
       }
-      if (currency.tokenInfo.symbol === 'WSGB') {
-        return <img src={WSGB.src} width={size} height={size} className={className} />
+      if (currency.tokenInfo.symbol === 'WXRP') {
+        return <img src={WXRP.src} width={size} height={size} className={className} />
       }
       if (currency.tokenInfo.symbol === 'XFIN') {
         return <img src={XFIN.src} width={size} height={size} className={className} />

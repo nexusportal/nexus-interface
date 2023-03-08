@@ -560,11 +560,11 @@ export function useProPendingReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.SGB, item.token, 18, 'OLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'OLP', 'OracleSwap LP Token')
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.SGB, item.token, 18, 'SGB', 'SGB');
+        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
       }
 
 
@@ -609,12 +609,12 @@ export function useProUserTotalReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.SGB, item.token, 18, 'OLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'OLP', 'OracleSwap LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.SGB, item.token, 18, 'SGB', 'SGB');
+        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
       }
 
       const amountInfo = item.amount ? JSBI.BigInt(item.amount.toString()) : undefined
@@ -707,12 +707,12 @@ export function useTotalDistributedReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.SGB, item.token, 18, 'OLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'OLP', 'OracleSwap LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.SGB, item.token, 18, 'SGB', 'SGB');
+        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
       }
 
       const amountInfo = item.amount ? JSBI.BigInt(item.amount.toString()) : undefined

@@ -383,7 +383,7 @@ const Swap = ({ banners }) => {
       <div className="flex items-center justify-center">
         <ExternalLink href="https://www.oracleswap.io">
           <div className="flex flex-col items-center mb-4">
-            {/* <div className="font-bold">1 SGB = $0.0645</div> */}
+            {/* <div className="font-bold">1 XRP = $0.0645</div> */}
             <img src={LogoImage.src} className={'w-[100px] h-[100px]'} alt="Logo" />
           </div>
         </ExternalLink>

@@ -130,8 +130,8 @@ const nextConfig = {
     defaultLocale: sourceLocale,
   },
   network: {
-    chainIds: [ChainId.SGB, ChainId.ARBITRUM],
-    defaultChainId: ChainId.SGB,
+    chainIds: [ChainId.XRPL, ChainId.ARBITRUM],
+    defaultChainId: ChainId.XRPL,
     domains: [
       // {
       //   domain: 'sushi.com',

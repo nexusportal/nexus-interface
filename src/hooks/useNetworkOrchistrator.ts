@@ -25,6 +25,7 @@ const CHAIN_ID_SUBDOMAIN: { [chainId: number]: string } = {
   [ChainId.MOONRIVER]: ChainSubdomain.MOONRIVER,
   [ChainId.FUSE]: ChainSubdomain.FUSE,
   [ChainId.TELOS]: ChainSubdomain.TELOS,
+  [ChainId.XRPL]: ChainSubdomain.XRP,
 }
 
 function useNetworkOrchistrator() {

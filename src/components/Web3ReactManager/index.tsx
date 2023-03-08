@@ -32,7 +32,7 @@ export const Web3ReactManager: FC = ({ children }) => {
     const activate = async () => {
       if (triedEager && !networkActive && !networkError && !active) {
         const Cookies = (await import('js-cookie')).default
-        // console.log('CHANGE CHAIN TO ' + Number(Cookies.get('chain-id')))
+        console.log('CHANGE CHAIN TO ' + Number(Cookies.get('chain-id')))
         if (!isNaN(Number(Cookies.get('chain-id')))) {
           network.changeChainId(Number(Cookies.get('chain-id')))
         }
