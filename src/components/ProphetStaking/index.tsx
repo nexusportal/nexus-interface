@@ -4,7 +4,8 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Slider from '@mui/material/Slider'
 import { Currency, CurrencyAmount, ZERO } from '@sushiswap/core-sdk'
-import { NEXUS, PROPHET, } from 'app/config/tokens'
+import QuestionHelper from 'app/components/QuestionHelper'
+import { NEXUS } from 'app/config/tokens'
 import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { tryParseAmount } from 'app/functions'
 import { ApprovalState, useApproveCallback } from 'app/hooks'
@@ -24,15 +25,13 @@ import Image from 'next/image'
 import CountDown from 'pages/prostaking/CountDown'
 import React, { FC, useEffect, useMemo, useState } from 'react'
 
+import PROLOGO from '../../../public/PRO_Logo3Gold.png'
 import AssetInput from '../AssetInput'
 import Button from '../Button'
 import { HeadlessUiModal } from '../Modal'
 import Switch from '../Switch'
 import Typography from '../Typography'
-import QuestionHelper from 'app/components/QuestionHelper'
 import Web3Connect from '../Web3Connect'
-
-import PROLOGO from '../../../public/PRO_Logo3Gold.png'
 
 const moment = require('moment')
 const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
@@ -553,7 +552,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             </div>
 
             <div className="flex items-center pb-1 balance1">
-              {/* <Image src="/PRO_Logo3Gold.png" height={32} width={32} alt="true" /> */}
+              {/* // eslint-disable-next-line @next/next/no-img-element */}
               <img src={PROLOGO.src} width={30} height={30} alt="Logo" />
               <p className="ml-2">{`PRO: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
             </div>

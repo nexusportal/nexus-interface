@@ -117,7 +117,7 @@ const PalmLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/p
 const MovrLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/movr.jpg'
 const FuseLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/fuse.jpg'
 const TelosLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/telos.jpg'
-const SongbirdLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/12186.png'
+const XRPLLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/52.png'
 
 const LOGO: Record<ChainId, string> = {
   [ChainId.ETHEREUM]: EthereumLogo,
@@ -149,7 +149,8 @@ const LOGO: Record<ChainId, string> = {
   [ChainId.MOONRIVER]: MovrLogo,
   [ChainId.FUSE]: FuseLogo,
   [ChainId.TELOS]: TelosLogo,
-  [ChainId.XRPL]: SongbirdLogo,
+  [ChainId.XRPL]: XRPLLogo,
+  [ChainId.HARDHAT]: ""
 }
 
 export interface CurrencyLogoProps {

@@ -1,36 +1,31 @@
 import { getAddress } from '@ethersproject/address'
-import { ChainId, Currency, JSBI, NATIVE, SUSHI, SUSHI_ADDRESS, Token } from '@sushiswap/core-sdk'
-import { ARBITRUM_TOKENS, MATIC_TOKENS, XDAI_TOKENS, XORACLE, PROPHET, NEXUS } from 'app/config/tokens'
-import { Chef, PairType } from 'app/features/onsen/enum'
-import { usePositions, useProphetPoolInfos, useUserInfo } from 'app/features/onsen/hooks'
-import { aprToApy } from 'app/functions/convert'
+import { ChainId, Currency, JSBI, NATIVE, Token } from '@sushiswap/core-sdk'
+import { ARBITRUM_TOKENS, MATIC_TOKENS, NEXUS,XDAI_TOKENS, XORACLE } from 'app/config/tokens'
 import { MASTERCHEF_ADDRESS } from 'app/constants'
+import { Chef, PairType } from 'app/features/onsen/enum'
+import { useProphetPoolInfos, useUserInfo } from 'app/features/onsen/hooks'
+import { aprToApy } from 'app/functions/convert'
 import {
   useAverageBlockTime,
   useCeloPrice,
   useEthPrice,
   useFantomPrice,
-  useFarms,
   useFusePrice,
   useGnoPrice,
-  useKashiPairs,
   useMagicPrice,
-  useMasterChefV1SushiPerBlock,
-  useMasterChefV1TotalAllocPoint,
   useMaticPrice,
   useMovrPrice,
   useOhmPrice,
   useOneDayBlock,
   useOnePrice,
   useSpellPrice,
-  useSushiPairs,
   useSushiPrice,
 } from 'app/services/graph'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult } from 'app/state/multicall/hooks'
 import { useTokenBalances } from 'app/state/wallet/hooks'
-import toLower from 'lodash/toLower'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
+
 import { useMasterChefContract } from '.'
 
 export function useMasterChefRewardPerBlock() {
@@ -147,7 +142,25 @@ export default function useFarmRewards() {
   //   shouldFetch: !!farmAddresses,
   // })
 
-  const swapPairs = [
+  const swapPairs: {
+    decimals: number;
+    id: string;
+    reserve0: number;
+    reserve1: number;
+    reserveETH: number;
+    reserveUSD: number;
+    timestamp: number;
+    token0: {derivedETH: number, id: string, name: string, symbol: string, totalSupply: number};
+    token0Price: number;
+    token1: {derivedETH: number, id: string, name: string, symbol: string, totalSupply: number};
+    token1Price: number;
+    totalSupply: number;
+    trackedReserveETH: number;
+    txCount: number;
+    untrackedVolumeUSD: number;
+    volumeUSD: number;
+    type?: number;
+  }[] = [
     {
       decimals: 18,
       id: '0x4Ac328392c8fE1fE410C344DA8481DF42AAa39Ab',
@@ -228,6 +241,7 @@ export default function useFarmRewards() {
 
     const liquidityToken = new Token(ChainId.XRPL, getAddress(pool.pair), 18, 'NLP')
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const stakedAmount = useUserInfo(pool, liquidityToken)
 
     const amount = parseFloat(stakedAmount ? stakedAmount?.toSignificant(10) : '0')
