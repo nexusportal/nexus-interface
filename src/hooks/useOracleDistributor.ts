@@ -35,31 +35,31 @@ export function useOracleDistributorEnableCheck() {
 export function useOracleDistributorCovertAmount() {
   const contract = useOracleDistributorContract()
 
-  const result = useSingleCallResult(contract, 'oracleFoundryTotalAmount')?.result
+  const result = useSingleCallResult(contract, 'nexusDiffuserTotalAmount')?.result
 
   const value = result?.[0]
 
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
-  const result1 = useSingleCallResult(contract, 'oracleTreasuryTotalAmount')?.result
+  const result1 = useSingleCallResult(contract, 'nexusTreasuryTotalAmount')?.result
 
   const value1 = result1?.[0]
 
   const amount1 = value1 ? JSBI.BigInt(value1.toString()) : undefined
 
-  const result2 = useSingleCallResult(contract, 'oracleBurnTotalAmount')?.result
+  const result2 = useSingleCallResult(contract, 'nexusBurnTotalAmount')?.result
 
   const value2 = result2?.[0]
 
   const amount2 = value2 ? JSBI.BigInt(value2.toString()) : undefined
 
-  const result3 = useSingleCallResult(contract, 'oracleTotalAmount')?.result
+  const result3 = useSingleCallResult(contract, 'nexusTotalAmount')?.result
 
   const value3 = result3?.[0]
 
   const amount3 = value3 ? JSBI.BigInt(value3.toString()) : undefined
 
-  const result4 = useSingleCallResult(contract, 'prophetSacrificeTotalAmount')?.result
+  const result4 = useSingleCallResult(contract, 'nexusBurnerTotalAmount')?.result
 
   const value4 = result4?.[0]
 

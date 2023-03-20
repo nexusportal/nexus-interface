@@ -109,10 +109,10 @@ export const XSUSHI = new Token(
 export const XORACLE = new Token(ChainId.XRPL, '0x5795377c85e0fdf6370fae1b74fe03b930c4a892', 18, 'xORACLE', 'OracleBar')
 export const ORACLE = new Token(
   ChainId.XRPL,
-  '0xD7565b16b65376e2Ddb6c71E7971c7185A7Ff3Ff',
+  '0x3965c4716091A1008db59D85a684DbA075950145',
   18,
-  'ORACLE',
-  'OracleSwap.io'
+  'NEXU',
+  'Nexus'
 )
 
 

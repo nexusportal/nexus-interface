@@ -187,10 +187,6 @@ export function useMaticPrice(swrConfig: SWRConfiguration = undefined) {
 
 // @ts-ignore TYPE NEEDS FIXING
 export function useSushiPrice(swrConfig: SWRConfiguration = undefined) {
-  const { chainId } = useActiveWeb3React()
-  if (chainId === ChainId.XRPL) {
-    return 0.02
-  }
   const { data } = useSWR(['sushiPrice'], () => getSushiPrice(), swrConfig)
   return data
 }

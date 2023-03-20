@@ -42,7 +42,7 @@ const InvestmentDetails = ({ farm }) => {
   const { harvest } = useMasterChef(farm.chef)
   const router = useRouter()
   const addTransaction = useTransactionAdder()
-  const kashiPair = useKashiPair(farm.pair.id)
+  // const kashiPair = useKashiPair(farm.pair.id)
   const [pendingTx, setPendingTx] = useState(false)
   const token0 = useCurrency(farm.pair.token0?.id)
   const token1 = useCurrency(farm.pair.token1?.id)
@@ -52,43 +52,43 @@ const InvestmentDetails = ({ farm }) => {
     chainId,
     getAddress(farm.pair.id),
     farm.pair.type === PairType.KASHI ? Number(farm.pair.asset.decimals) : 18,
-    farm.pair.type === PairType.SINGLE ? farm.pair.symbol : farm.pair.type === PairType.KASHI ? 'KMP' : 'OLP',
+    farm.pair.type === PairType.SINGLE ? farm.pair.symbol : farm.pair.type === PairType.KASHI ? 'KMP' : 'NLP',
     farm.pair.name
   )
 
   const stakedAmount = useUserInfo(farm, liquidityToken)
 
-  const kashiAssetAmount =
-    kashiPair &&
-    stakedAmount &&
-    easyAmount(
-      BigNumber.from(stakedAmount.quotient.toString()).mulDiv(
-        // @ts-ignore TYPE NEEDS FIXING
-        kashiPair.currentAllAssets.value,
-        // @ts-ignore TYPE NEEDS FIXING
-        kashiPair.totalAsset.base
-      ),
-      // @ts-ignore TYPE NEEDS FIXING
-      kashiPair.asset
-    )
+  // const kashiAssetAmount =
+  //   kashiPair &&
+  //   stakedAmount &&
+  //   easyAmount(
+  //     BigNumber.from(stakedAmount.quotient.toString()).mulDiv(
+  //       // @ts-ignore TYPE NEEDS FIXING
+  //       kashiPair.currentAllAssets.value,
+  //       // @ts-ignore TYPE NEEDS FIXING
+  //       kashiPair.totalAsset.base
+  //     ),
+  //     // @ts-ignore TYPE NEEDS FIXING
+  //     kashiPair.asset
+  //   )
 
   const pendingSushi = usePendingSushi(farm)
   const pendingReward = usePendingReward(farm)
 
-  const positionFiatValue = CurrencyAmount.fromRawAmount(
-    // @ts-ignore TYPE NEEDS FIXING
-    USD[chainId],
-    farm.pair.type === PairType.KASHI
-      ? // @ts-ignore TYPE NEEDS FIXING
-        kashiAssetAmount?.usdValue.toString() ?? ZERO
-      : JSBI.BigInt(
-          ((Number(stakedAmount?.toExact() ?? '0') * farm.pair.reserveUSD) / farm.pair.totalSupply)
-            // @ts-ignore TYPE NEEDS FIXING
-            .toFixed(USD[chainId].decimals)
-            // @ts-ignore TYPE NEEDS FIXING
-            .toBigNumber(USD[chainId].decimals)
-        )
-  )
+  // const positionFiatValue = CurrencyAmount.fromRawAmount(
+  //   // @ts-ignore TYPE NEEDS FIXING
+  //   USD[chainId],
+  //   farm.pair.type === PairType.KASHI
+  //     ? // @ts-ignore TYPE NEEDS FIXING
+  //       kashiAssetAmount?.usdValue.toString() ?? ZERO
+  //     : JSBI.BigInt(
+  //         ((Number(stakedAmount?.toExact() ?? '0') * farm.pair.reserveUSD) / farm.pair.totalSupply)
+  //           // @ts-ignore TYPE NEEDS FIXING
+  //           .toFixed(USD[chainId].decimals)
+  //           // @ts-ignore TYPE NEEDS FIXING
+  //           .toBigNumber(USD[chainId].decimals)
+  //       )
+  // )
 
   // @ts-ignore TYPE NEEDS FIXING
   const secondaryRewardOnly = [ChainId.FUSE].includes(chainId)

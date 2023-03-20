@@ -22,7 +22,7 @@ export const useAddDetails = () => {
   const slippage = useAppSelector(selectSlippage)
   const parsedAmounts = useAddLiquidityDerivedCurrencyAmounts()
 
-  // Returns the minimum OLP that will get minted given current input amounts
+  // Returns the minimum NLP that will get minted given current input amounts
   const liquidityMinted = useMemo(() => {
     if (
       poolWithState?.pool &&

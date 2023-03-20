@@ -8,12 +8,12 @@
       },
       {
         "internalType": "address",
-        "name": "_xOracle",
+        "name": "_xNexus",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_oracle",
+        "name": "_nexus",
         "type": "address"
       },
       {
@@ -31,7 +31,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "amountORACLE",
+        "name": "amountNXS",
         "type": "uint256"
       }
     ],
@@ -44,11 +44,11 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "amountORACLE",
+        "name": "amountNXS",
         "type": "uint256"
       }
     ],
-    "name": "FoundryConvert",
+    "name": "DiffuserConvert",
     "type": "event"
   },
   {
@@ -106,11 +106,24 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "amountORACLE",
+        "name": "amountNXS",
         "type": "uint256"
       }
     ],
     "name": "LogConvert",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountNXS",
+        "type": "uint256"
+      }
+    ],
+    "name": "NexusBurnerConvert",
     "type": "event"
   },
   {
@@ -138,20 +151,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "amountORACLE",
-        "type": "uint256"
-      }
-    ],
-    "name": "ProphetSacrificeConvert",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amountORACLE",
+        "name": "amountNXS",
         "type": "uint256"
       }
     ],
@@ -164,7 +164,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "amountORACLE",
+        "name": "amountNXS",
         "type": "uint256"
       }
     ],
@@ -251,6 +251,25 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "convertLpToBurnNxs",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address[]",
         "name": "token0",
         "type": "address[]"
@@ -307,46 +326,7 @@
   },
   {
     "inputs": [],
-    "name": "oracleBurnTotalAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "oracleFoundryTotalAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "oracleTotalAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "oracleTreasury",
+    "name": "multiStakingGetter",
     "outputs": [
       {
         "internalType": "address",
@@ -359,7 +339,7 @@
   },
   {
     "inputs": [],
-    "name": "oracleTreasurySetter",
+    "name": "nexus",
     "outputs": [
       {
         "internalType": "address",
@@ -372,7 +352,111 @@
   },
   {
     "inputs": [],
-    "name": "oracleTreasuryTotalAmount",
+    "name": "nexusBurn",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusBurnSetter",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusBurnTotalAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusBurnerTotalAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusDiffuserTotalAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusTotalAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusTreasury",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusTreasurySetter",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusTreasuryTotalAmount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -404,45 +488,6 @@
         "internalType": "address",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "prophetSacrifice",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "prophetSacrificeSetter",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "prophetSacrificeTotalAmount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -482,6 +527,24 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_lp",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_enable",
+        "type": "bool"
+      }
+    ],
+    "name": "setLpToBurnNxs",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_amount",
         "type": "uint256"
@@ -495,12 +558,51 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_getter",
+        "type": "address"
+      }
+    ],
+    "name": "setMultiStakingGetter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nexusBurn",
+        "type": "address"
+      }
+    ],
+    "name": "setNexusBurn",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_nexusBurnSetter",
+        "type": "address"
+      }
+    ],
+    "name": "setNexusBurnSetter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bool",
-        "name": "_onlyOracleLp",
+        "name": "_onlyNexusLp",
         "type": "bool"
       }
     ],
-    "name": "setOracleLPEnable",
+    "name": "setNexusLPEnable",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -513,7 +615,7 @@
         "type": "address"
       }
     ],
-    "name": "setOracleTreasury",
+    "name": "setNexusTreasury",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -522,37 +624,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_oracleTreasurySetter",
+        "name": "_nexusTreasurySetter",
         "type": "address"
       }
     ],
-    "name": "setOracleTreasurySetter",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_prophetSacrifice",
-        "type": "address"
-      }
-    ],
-    "name": "setProphetSacrifice",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_prophetSacrificeSetter",
-        "type": "address"
-      }
-    ],
-    "name": "setProphetSacrificeSetter",
+    "name": "setNexusTreasurySetter",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -582,7 +658,20 @@
   },
   {
     "inputs": [],
-    "name": "xOracle",
+    "name": "weth",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "xNexus",
     "outputs": [
       {
         "internalType": "address",

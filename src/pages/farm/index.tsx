@@ -9,7 +9,7 @@ import QuestionHelper from 'app/components/QuestionHelper'
 import Search from 'app/components/Search'
 import Typography from 'app/components/Typography'
 import { ORACLE } from 'app/config/tokens'
-import { PROPHET_SACRIFICE_ADDRESS } from 'app/constants'
+// import { PROPHET_SACRIFICE_ADDRESS } from 'app/constants'
 import { Chef, PairType } from 'app/features/onsen/enum'
 import FarmList from 'app/features/onsen/FarmList'
 import { classNames } from 'app/functions'
@@ -17,7 +17,7 @@ import { classNames } from 'app/functions'
 import useFarmRewards from 'app/hooks/useFarmRewards'
 import useFuse from 'app/hooks/useFuse'
 import { useOracleDistributorCovertAmount } from 'app/hooks/useOracleDistributor'
-import useProphetSacrifice, { useProphetSacrificeAmount } from 'app/hooks/useProphetSacrifice'
+// import useProphetSacrifice, { useProphetSacrificeAmount } from 'app/hooks/useProphetSacrifice'
 import { TridentBody } from 'app/layouts/Trident'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useDexWarningOpen, useWalletModalToggle } from 'app/state/application/hooks'
@@ -93,34 +93,34 @@ export default function Farm(): JSX.Element {
 
   const oracleBalance = useTokenBalance(account ?? undefined, ORACLE)
 
-  const sacrificeOracle = useTokenBalance(PROPHET_SACRIFICE_ADDRESS ?? undefined, ORACLE)
+  // const sacrificeOracle = useTokenBalance(PROPHET_SACRIFICE_ADDRESS ?? undefined, ORACLE)
 
-  const enabled = sacrificeOracle ? sacrificeOracle.greaterThan(ZERO) : false
+  // const enabled = sacrificeOracle ? sacrificeOracle.greaterThan(ZERO) : false
 
-  const { burnPro } = useProphetSacrifice()
+  // const { burnPro } = useProphetSacrifice()
 
   const walletConnected = !!account
   const toggleWalletModal = useWalletModalToggle()
 
-  const burnProClick = async () => {
-    if (!walletConnected) {
-      toggleWalletModal()
-    } else {
-      setPendingTx(true)
+  // const burnProClick = async () => {
+  //   if (!walletConnected) {
+  //     toggleWalletModal()
+  //   } else {
+  //     setPendingTx(true)
 
-      const success = await sendTx(() => burnPro())
-      if (!success) {
-        setPendingTx(false)
-        return
-      }
+  //     const success = await sendTx(() => burnPro())
+  //     if (!success) {
+  //       setPendingTx(false)
+  //       return
+  //     }
 
-      setPendingTx(false)
-    }
-  }
+  //     setPendingTx(false)
+  //   }
+  // }
 
   const [foundry, treasury, burned, prophet, total] = useOracleDistributorCovertAmount()
 
-  const [burnAmount, stakerAmount] = useProphetSacrificeAmount()
+  // const [burnAmount, stakerAmount] = useProphetSacrificeAmount()
 
   return (
     <>
@@ -153,7 +153,7 @@ export default function Farm(): JSX.Element {
       </TridentHeader> */}
       <TridentBody>
         <div className={classNames('flex flex-col w-full gap-6', showUseDexWarning && 'mt-5')}>
-          <div className="flex items-center justify-center">
+          {/* <div className="flex items-center justify-center">
             <div
               className={classNames('flex flex-col flex-wrap p-4 rounded bg-dark-900', !showUseDexWarning && 'mt-3')}
             >
@@ -204,7 +204,7 @@ export default function Farm(): JSX.Element {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Search search={search} term={term} />

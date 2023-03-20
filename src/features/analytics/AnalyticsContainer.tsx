@@ -9,7 +9,7 @@ export default function AnalyticsContainer({ children }): JSX.Element {
     <>
       <Head>
         <title>OracleSwap Analytics | OracleSwap</title>
-        <meta name="description" content="OracleSwap Liquidity Pair (OLP) Analytics by OracleSwap" />
+        <meta name="description" content="OracleSwap Liquidity Pair (NLP) Analytics by OracleSwap" />
       </Head>
 
       <Container
