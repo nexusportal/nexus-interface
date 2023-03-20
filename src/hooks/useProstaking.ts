@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ChainId, CurrencyAmount, JSBI, Token, ZERO } from '@sushiswap/core-sdk'
 import { PROPHET, XORACLE } from 'app/config/tokens'
-import { PROSTAKING_ADDRESS } from 'app/constants'
+import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult, useSingleContractMultipleData } from 'app/state/multicall/hooks'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
@@ -463,7 +463,7 @@ export function useOracleNFTAllApproved() {
     if (!account) {
       return
     }
-    return [String(account), PROSTAKING_ADDRESS]
+    return [String(account), NEXUS_NFT_MULTISTAKING_ADDRESS]
   }, [account])
 
   const approvedInfo = useSingleCallResult(args ? contract : null, 'isApprovedForAll', args)?.result
@@ -504,7 +504,7 @@ export function useOracleNFTApproved(tokenId: number) {
 
   const operator = approvedInfo?.[0]
 
-  return operator && operator.toLowerCase() === PROSTAKING_ADDRESS.toLowerCase()
+  return operator && operator.toLowerCase() === NEXUS_NFT_MULTISTAKING_ADDRESS.toLowerCase()
 }
 
 export function useOracleNFTApprove() {
@@ -514,7 +514,7 @@ export function useOracleNFTApprove() {
 
   const approveAll = useCallback(async () => {
     try {
-      const tx = await contract?.setApprovalForAll(PROSTAKING_ADDRESS, true)
+      const tx = await contract?.setApprovalForAll(NEXUS_NFT_MULTISTAKING_ADDRESS, true)
       return addTransaction(tx, { summary: 'Approve All Oracle NFTs For Multistaking' })
     } catch (e) {
       return e
@@ -524,7 +524,7 @@ export function useOracleNFTApprove() {
   const approveStaker = useCallback(
     async (tokenId: number) => {
       try {
-        const tx = await contract?.approve(PROSTAKING_ADDRESS, tokenId)
+        const tx = await contract?.approve(NEXUS_NFT_MULTISTAKING_ADDRESS, tokenId)
         return addTransaction(tx, { summary: 'Approve Oracle NFT For Multistaking' })
       } catch (e) {
         return e
@@ -560,7 +560,7 @@ export function useProPendingReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
@@ -609,7 +609,7 @@ export function useProUserTotalReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
@@ -707,7 +707,7 @@ export function useTotalDistributedReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 

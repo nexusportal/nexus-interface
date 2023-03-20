@@ -95,23 +95,30 @@ const useMenu: UseMenu = () => {
     //   })
     // }
 
-    const stakeMenu = [
-      {
-        key: 'oracle',
-        title: i18n._(t`Oracle`),
-        link: '/stake',
-      },
-      {
-        key: 'pro',
-        title: i18n._(t`PRO`),
-        link: `/prostaking`,
-      },
-      {
-        key: 'nft',
-        title: i18n._(t`NFT`),
-        link: `/prostaking`,
-      },
-    ]
+    const stakeMenu = {
+      key: 'stake',
+      title: i18n._(t`Stake`),
+      link: '/prostaking',
+      icon: <SwitchVerticalIcon width={20} />,
+    }
+
+    // const stakeMenu = [
+    //   {
+    //     key: 'oracle',
+    //     title: i18n._(t`Oracle`),
+    //     link: '/stake',
+    //   },
+    //   {
+    //     key: 'pro',
+    //     title: i18n._(t`PRO`),
+    //     link: `/prostaking`,
+    //   },
+    //   {
+    //     key: 'nft',
+    //     title: i18n._(t`NFT`),
+    //     link: `/prostaking`,
+    //   },
+    // ]
 
 
     const mainItems: Menu = [tradeMenu]
@@ -191,12 +198,13 @@ const useMenu: UseMenu = () => {
     //   icon: <GlobeIcon width={20} />,
     // }
 
-      mainItems.push({
-        key: 'stake',
-        title: i18n._(t`Stake`),
-        items: stakeMenu,
-        icon: <GlobeIcon width={20} />,
-      })
+      mainItems.push(stakeMenu);
+      // mainItems.push({
+      //   key: 'stake',
+      //   title: i18n._(t`Stake`),
+      //   items: stakeMenu,
+      //   icon: <GlobeIcon width={20} />,
+      // })
     }
 
     if (exploreMenu.length > 0)

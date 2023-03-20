@@ -19,7 +19,6 @@ import INFT from '../../../public/INFT.png'
 import LIZ from '../../../public/LIZ.png'
 import LOVE from '../../../public/LOVE.png'
 import NEXUS from '../../../public/NEXUS.png'
-import ORACLE from '../../../public/ORACLE.png'
 import PSB from '../../../public/PNG.png'
 import PRO from '../../../public/PRO.png'
 import SDOOD from '../../../public/sDOOD.png'
@@ -197,8 +196,8 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     if (currency.symbol === 'NEXU') {
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
-    if (currency.symbol === 'ORACLE') {
-      return <img alt="img" src={ORACLE.src} width={size} height={size} className={className} />
+    if (currency.symbol === 'NEXUS') {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
 
     if (currency.symbol === 'LOVE') {
@@ -305,8 +304,8 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
   if (currency instanceof Token) {
     if (currency.chainId === ChainId.XRPL) {
-      if (currency.symbol === 'ORACLE') {
-        return <img alt="img" src={ORACLE.src} width={size} height={size} className={className} />
+      if (currency.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
       }
 
       if (currency.symbol === 'LOVE') {
@@ -422,8 +421,8 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.tokenInfo.symbol === 'COOT') {
         return <img alt="img" src={COOT.src} width={size} height={size} className={className} />
       }
-      if (currency.tokenInfo.symbol === 'ORACLE') {
-        return <img alt="img" src={ORACLE.src} width={size} height={size} className={className} />
+      if (currency.tokenInfo.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
       }
       if (currency.tokenInfo.symbol === 'SFIN') {
         return <img alt="img" src={SFIN.src} width={size} height={size} className={className} />

@@ -7,7 +7,7 @@ import { HeadlessUiModal } from 'app/components/Modal'
 import Typography from 'app/components/Typography'
 import Web3Connect from 'app/components/Web3Connect'
 import { XORACLE } from 'app/config/tokens'
-import { PROSTAKING_ADDRESS } from 'app/constants'
+import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { classNames } from 'app/functions'
 import { ApprovalState, useApproveCallback } from 'app/hooks'
 import {
@@ -109,7 +109,7 @@ export const SelectedOracles = () => {
   // @ts-ignore TYPE NEEDS FIXING
   const [approvalState, approve] = useApproveCallback(
     minXOracleAmount?.multiply(selectedIDs.length),
-    PROSTAKING_ADDRESS
+    NEXUS_NFT_MULTISTAKING_ADDRESS
   )
 
   const depositError = !minXOracleAmount

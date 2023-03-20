@@ -356,10 +356,10 @@ const Swap = ({ banners }) => {
   return (
     <>
       <Head>
-        <title>Oracle Swap | DEX</title>
-        <meta key="description" name="description" content="OracleSwap AMM" />
-        <meta key="twitter:description" name="twitter:description" content="OracleSwap AMM" />
-        <meta key="og:description" property="og:description" content="OracleSwap AMM" />
+        <title>NEXUS Swap | DEX</title>
+        <meta key="description" name="description" content="NEXUSSwap AMM" />
+        <meta key="twitter:description" name="twitter:description" content="NEXUSSwap AMM" />
+        <meta key="og:description" property="og:description" content="NEXUSSwap AMM" />
       </Head>
       <ConfirmSwapModal
         isOpen={showConfirm}

@@ -8,7 +8,7 @@ import QuestionHelper from 'app/components/QuestionHelper'
 // import QuestionHelper from 'app/components/QuestionHelper'
 import Search from 'app/components/Search'
 import Typography from 'app/components/Typography'
-import { ORACLE } from 'app/config/tokens'
+import { NEXUS } from 'app/config/tokens'
 // import { PROPHET_SACRIFICE_ADDRESS } from 'app/constants'
 import { Chef, PairType } from 'app/features/onsen/enum'
 import FarmList from 'app/features/onsen/FarmList'
@@ -91,9 +91,9 @@ export default function Farm(): JSX.Element {
 
   const { account } = useActiveWeb3React()
 
-  const oracleBalance = useTokenBalance(account ?? undefined, ORACLE)
+  const oracleBalance = useTokenBalance(account ?? undefined, NEXUS)
 
-  // const sacrificeOracle = useTokenBalance(PROPHET_SACRIFICE_ADDRESS ?? undefined, ORACLE)
+  // const sacrificeOracle = useTokenBalance(PROPHET_SACRIFICE_ADDRESS ?? undefined, NEXUS)
 
   // const enabled = sacrificeOracle ? sacrificeOracle.greaterThan(ZERO) : false
 
@@ -125,10 +125,10 @@ export default function Farm(): JSX.Element {
   return (
     <>
       <Head>
-        <title>Oracle Swap | Farm</title>
-        <meta key="description" name="description" content="OracleSwap AMM" />
-        <meta key="twitter:description" name="twitter:description" content="OracleSwap AMM" />
-        <meta key="og:description" property="og:description" content="OracleSwap AMM" />
+        <title>NEXUS Swap | Farm</title>
+        <meta key="description" name="description" content="NEXUSSwap AMM" />
+        <meta key="twitter:description" name="twitter:description" content="NEXUSSwap AMM" />
+        <meta key="og:description" property="og:description" content="NEXUSSwap AMM" />
       </Head>
       {/* <TridentHeader className="sm:!flex-row justify-between items-center" pattern="bg-bubble">
         <div>
@@ -169,7 +169,7 @@ export default function Farm(): JSX.Element {
 
                 <QuestionHelper
                   className="!bg-dark-800 !shadow-xl p-2"
-                  text={`The Prophet Sacrifice receives ORACLE from the Oracle Distributor and sacrifices it to buy and burn PRO. Some of the PRO could be distributed to stakers.`}
+                  text={`The Prophet Sacrifice receives NEXUS from the Oracle Distributor and sacrifices it to buy and burn PRO. Some of the PRO could be distributed to stakers.`}
                 />
               </div>
 
@@ -182,7 +182,7 @@ export default function Farm(): JSX.Element {
                 </p>
 
                 <p>
-                  <span>&#128512;</span> ORACLE Available:{' '}
+                  <span>&#128512;</span> NEXUS Available:{' '}
                   <span className={classNames(enabled ? 'text-green' : 'text-red')}>{enabled ? 'Yes' : 'No'}</span>
                 </p>
 

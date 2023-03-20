@@ -41,7 +41,7 @@ export default function Lend() {
   return (
     <LendLayout>
       <Head>
-        <title>Lend | OracleSwap</title>
+        <title>Lend | NEXUSSwap</title>
         <meta
           key="description"
           name="description"

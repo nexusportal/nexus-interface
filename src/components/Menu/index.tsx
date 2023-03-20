@@ -11,17 +11,17 @@ import ExternalLink from '../ExternalLink'
 const items = (i18n: I18n) => [
   {
     name: i18n._(t`Docs`),
-    description: i18n._(t`Documentation for users of OracleSwap.`),
+    description: i18n._(t`Documentation for users of NEXUSSwap.`),
     href: 'https://docs.sushi.com',
   },
   {
     name: i18n._(t`Dev`),
-    description: i18n._(t`Documentation for developers of OracleSwap.`),
+    description: i18n._(t`Documentation for developers of NEXUSSwap.`),
     href: 'https://dev.sushi.com',
   },
   {
     name: i18n._(t`Open Source`),
-    description: i18n._(t`OracleSwap is a supporter of Open Source.`),
+    description: i18n._(t`NEXUSSwap is a supporter of Open Source.`),
     href: 'https://github.com/sushiswap',
   },
   {

@@ -8,8 +8,8 @@ export default function AnalyticsContainer({ children }): JSX.Element {
   return (
     <>
       <Head>
-        <title>OracleSwap Analytics | OracleSwap</title>
-        <meta name="description" content="OracleSwap Liquidity Pair (NLP) Analytics by OracleSwap" />
+        <title>NEXUSSwap Analytics | NEXUSSwap</title>
+        <meta name="description" content="NEXUSSwap Liquidity Pair (NLP) Analytics by NEXUSSwap" />
       </Head>
 
       <Container

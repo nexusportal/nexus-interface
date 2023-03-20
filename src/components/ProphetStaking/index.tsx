@@ -4,8 +4,8 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Slider from '@mui/material/Slider'
 import { Currency, CurrencyAmount, ZERO } from '@sushiswap/core-sdk'
-import { PROPHET, } from 'app/config/tokens'
-import { PROSTAKING_ADDRESS } from 'app/constants'
+import { NEXUS, PROPHET, } from 'app/config/tokens'
+import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { tryParseAmount } from 'app/functions'
 import { ApprovalState, useApproveCallback } from 'app/hooks'
 import {
@@ -85,7 +85,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   }
   const { account, chainId } = useActiveWeb3React()
 
-  const liquidityToken = PROPHET
+  const liquidityToken = NEXUS
 
   const balance = useTokenBalance(account ?? undefined, liquidityToken)
 
@@ -120,7 +120,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   const parsedDepositValue = tryParseAmount(depositValue, liquidityToken)
   const parsedWithdrawValue = tryParseAmount(withdrawValue, liquidityToken)
   // @ts-ignore TYPE NEEDS FIXING
-  const [approvalState, approve] = useApproveCallback(parsedDepositValue, PROSTAKING_ADDRESS)
+  const [approvalState, approve] = useApproveCallback(parsedDepositValue, NEXUS_NFT_MULTISTAKING_ADDRESS)
 
   const depositLowProAmount = useMemo(() => {
     if (minProAmount && parsedDepositValue && stakedAmount) {
@@ -338,7 +338,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   // @ts-ignore TYPE NEEDS FIXING
   const [xOracleApprovalState, xOralceApprove] = useApproveCallback(
     minXOracleAmount?.multiply(nftCount),
-    PROSTAKING_ADDRESS
+    NEXUS_NFT_MULTISTAKING_ADDRESS
   )
 
   const extendError = stakedAmount?.equalTo(ZERO)
@@ -360,7 +360,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
           <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-00/40">
             <div className="flex justify-between">
               <Typography variant="h3" weight={700} className="text-high-emphesis">
-                {toggle ? i18n._(t`Prophet Staking`) : i18n._(t`Prophet Unstake`)}
+                {toggle ? i18n._(t`Multi Staking`) : i18n._(t`Prophet Unstake`)}
               </Typography>
               <Switch
                 size="md"
@@ -559,7 +559,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             </div>
             <div className="flex items-center pb-1 balance2">
               <Image src="https://dex.oracleswap.io/profile_icon.webp" height={30} width={30} alt="true" />
-              <p className="ml-2">{`ORACLE NFT: ${nftCount}`}</p>
+              <p className="ml-2">{`NEXUS NFT: ${nftCount}`}</p>
             </div>
             <div className="flex items-center pb-1 balance3">
               <Image src="https://dex.oracleswap.io/ORACLE_SilverLogo.png" height={30} width={30} alt="true" />
@@ -593,7 +593,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
               <QuestionHelper
                 className="!bg-dark-800 !shadow-xl p-2"
-                text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: PRO/WXRP, PRO/ORACLE & PRO/xORACLE. Go to Pool > Browse to visualize it.`}
+                text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: PRO/WXRP, PRO/NEXUS & PRO/xORACLE. Go to Pool > Browse to visualize it.`}
               />
             </div>
 

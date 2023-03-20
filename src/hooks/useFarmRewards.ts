@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { ChainId, Currency, JSBI, NATIVE, SUSHI, SUSHI_ADDRESS, Token } from '@sushiswap/core-sdk'
-import { ARBITRUM_TOKENS, MATIC_TOKENS, XDAI_TOKENS, XORACLE, PROPHET, ORACLE } from 'app/config/tokens'
+import { ARBITRUM_TOKENS, MATIC_TOKENS, XDAI_TOKENS, XORACLE, PROPHET, NEXUS } from 'app/config/tokens'
 import { Chef, PairType } from 'app/features/onsen/enum'
 import { usePositions, useProphetPoolInfos, useUserInfo } from 'app/features/onsen/hooks'
 import { aprToApy } from 'app/functions/convert'
@@ -272,7 +272,7 @@ export default function useFarmRewards() {
         token: 'NEXU',
         icon: '/NEXUS.png',
         rewardPerBlock,
-        currency: ORACLE,
+        currency: NEXUS,
         rewardPerDay: rewardPerBlock * blocksPerDay,
         rewardPrice: prolPrice,
       }

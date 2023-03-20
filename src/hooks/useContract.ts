@@ -24,7 +24,7 @@ import MISO from '@sushiswap/miso/exports/all.json'
 import TRIDENT from '@sushiswap/trident/exports/all.json'
 import { OLD_FARMS } from 'app/config/farms'
 import { tridentMigrationContracts } from 'app/config/tridentMigration'
-import { MASTERCHEF_ADDRESS, ORACLE_DISTRIBUTOR_ADDRESS, ORACLE_NFT_ADDRESS, ORACLE_NFT_WEIGHT_ADDRESS, PROPHET_SACRIFICE_ADDRESS,PROSTAKING_ADDRESS, PROSTAKING_DISTRIBUTOR_ADDRESS,  PRO_ORALCE_DISTRIBUTOR_ADDRESS } from 'app/constants'
+import { MASTERCHEF_ADDRESS, ORACLE_DISTRIBUTOR_ADDRESS, ORACLE_NFT_ADDRESS, ORACLE_NFT_WEIGHT_ADDRESS, PROPHET_SACRIFICE_ADDRESS,NEXUS_NFT_MULTISTAKING_ADDRESS, PROSTAKING_DISTRIBUTOR_ADDRESS,  PRO_ORALCE_DISTRIBUTOR_ADDRESS } from 'app/constants'
 import {
   ARGENT_WALLET_DETECTOR_ABI,
   ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS,
@@ -209,7 +209,7 @@ export function useProStakingDistributorContract(withSignerIfPossible?: boolean)
 
 export function useProStakingContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? PROSTAKING_ADDRESS : undefined, PROSTAKING_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_NFT_MULTISTAKING_ADDRESS : undefined, PROSTAKING_ABI, withSignerIfPossible)
 }
 
 export function useOracleNFTContract(withSignerIfPossible?: boolean): Contract | null {
