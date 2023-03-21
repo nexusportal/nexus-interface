@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import ExclamationIcon from '@heroicons/react/outline/ExclamationIcon'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'

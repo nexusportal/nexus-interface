@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // import { XIcon } from '@heroicons/react/solid'
 // import Typography from 'app/components/Typography'
 import { i18n } from '@lingui/core'
@@ -33,6 +34,7 @@ import { useTokenBalance } from 'app/state/wallet/hooks'
 import Head from 'next/head'
 import React, { useState } from 'react'
 
+import Holowidget from '../../../public/holowidget.gif'
 import OracleDistributor from './OracleDistributor'
 
 const INPUT_CHAR_LIMIT = 18
@@ -155,7 +157,7 @@ USE AT YOUR OWN RISK!`}
           <div className="flex flex-wrap top-area">
             <div className="w-full md:w-[calc(100%-300px)] md:pr-4">
               <div className="self-end text-lg font-bold md:text-2xl text-high-emphesis md:mb-3">
-                {i18n._(t`The Oracle/Prophet Multi-Staking`)}
+                {i18n._(t`The NEXUS NFT Multi-Staking`)}
               </div>
 
               <div className="mb-4 text-sm font-normal content md:text-base">
@@ -230,10 +232,19 @@ USE AT YOUR OWN RISK!`}
               <div className="bg-dark-900 rounded-3xl p-5">
                 <div className="flex flex-col flex-grow w-full rounded">
                   <div className="flex flex-col flex-wrap">
-                    {/* <img src={xORACLEFImage.src} alt="xORACLE sign" width="100%" height="100%" /> */}
+                    <div>
+                      <img
+                        src={Holowidget.src}
+                        alt="xORACLE sign"
+                        width="150px"
+                        height="100%"
+                        className="object-center mx-auto"
+                      />
+                    </div>
+
                     <div className="flex flex-row mb-3">
                       <p className="text-lg font-bold md:text-2xl md:font-medium text-high-emphesis">
-                        {i18n._(t`Distributor`)}
+                        {i18n._(t`NEXUS Diffuser`)}
                       </p>
 
                       <QuestionHelper

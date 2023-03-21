@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { BigNumber } from '@ethersproject/bignumber'
 import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
 import { i18n } from '@lingui/core'
@@ -101,14 +102,14 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
     lockXOracle,
   } = useProStakingUserInfo()
 
-  const minProAmount = useMinProAmount()
+  const minNexusAmount = useMinProAmount()
 
   const lowProAmount = useMemo(() => {
-    if (minProAmount && stakedAmount) {
-      return minProAmount.subtract(stakedAmount).greaterThan(ZERO)
+    if (minNexusAmount && stakedAmount) {
+      return minNexusAmount.subtract(stakedAmount).greaterThan(ZERO)
     }
     return true
-  }, [minProAmount, stakedAmount])
+  }, [minNexusAmount, stakedAmount])
 
 
 
@@ -122,11 +123,11 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   const [approvalState, approve] = useApproveCallback(parsedDepositValue, NEXUS_NFT_MULTISTAKING_ADDRESS)
 
   const depositLowProAmount = useMemo(() => {
-    if (minProAmount && parsedDepositValue && stakedAmount) {
-      return minProAmount.add(parsedDepositValue?.divide(100)).subtract(parsedDepositValue).subtract(stakedAmount).greaterThan(ZERO)
+    if (minNexusAmount && parsedDepositValue && stakedAmount) {
+      return minNexusAmount.add(parsedDepositValue?.divide(100)).subtract(parsedDepositValue).subtract(stakedAmount).greaterThan(ZERO)
     }
     return true
-  }, [minProAmount, parsedDepositValue, stakedAmount])
+  }, [minNexusAmount, parsedDepositValue, stakedAmount])
 
 
   const depositError = !parsedDepositValue
@@ -359,7 +360,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
           <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-00/40">
             <div className="flex justify-between">
               <Typography variant="h3" weight={700} className="text-high-emphesis">
-                {toggle ? i18n._(t`Multi Staking`) : i18n._(t`Prophet Unstake`)}
+                {toggle ? i18n._(t`Multi Staking`) : i18n._(t`Nexus Unstake`)}
               </Typography>
               <Switch
                 size="md"

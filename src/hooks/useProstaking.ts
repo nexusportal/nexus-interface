@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ChainId, CurrencyAmount, JSBI, Token, ZERO } from '@sushiswap/core-sdk'
-import { PROPHET, XORACLE } from 'app/config/tokens'
+import { NEXUS, XORACLE } from 'app/config/tokens'
 import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult, useSingleContractMultipleData } from 'app/state/multicall/hooks'
@@ -242,15 +242,15 @@ export function useProStakingUserInfo() {
 
   const lockedAmount = lockedAmountInfo ? JSBI.BigInt(lockedAmountInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const lockedProAmount = lockedAmount ? CurrencyAmount.fromRawAmount(PROPHET, lockedAmount) : undefined
+  const lockedProAmount = lockedAmount ? CurrencyAmount.fromRawAmount(NEXUS, lockedAmount) : undefined
 
   const nftWeight = nftWeightInfo ? JSBI.BigInt(nftWeightInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const userNFTWeight = nftWeight ? CurrencyAmount.fromRawAmount(PROPHET, nftWeight) : undefined
+  const userNFTWeight = nftWeight ? CurrencyAmount.fromRawAmount(NEXUS, nftWeight) : undefined
 
   const totalWeight = totalWeightInfo ? JSBI.BigInt(totalWeightInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const userTotalWeight = totalWeight ? CurrencyAmount.fromRawAmount(PROPHET, totalWeight) : undefined
+  const userTotalWeight = totalWeight ? CurrencyAmount.fromRawAmount(NEXUS, totalWeight) : undefined
 
   const xOracleLock = xOracleLockInfo ? JSBI.BigInt(xOracleLockInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
@@ -290,7 +290,7 @@ export function useProStakingNFTWeightInfo() : { [address: string]: number } {
   }, [userStakedNFT,userWalletNFT])
 
   // @ts-ignore TYPE NEEDS FIXING
-  const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'oracleNFTWeight', weightArgs)
+  const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'nexusNFTWeight', weightArgs)
 
   return useMemo(() => {
 
@@ -339,7 +339,7 @@ export function useProStakingNFTInfo() {
   // }, [userStakedNFT,userWalletNFT])
 
   // // @ts-ignore TYPE NEEDS FIXING
-  // const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'oracleNFTWeight', weightArgs)
+  // const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'nexusNFTWeight', weightArgs)
 
   // const oracleStakingWeight =  useMemo(() => {
   //   if (!nftWeightInfo) {
@@ -483,7 +483,7 @@ export function useOracleNFTWeight(tokenId: number) {
     return [String(tokenId)]
   }, [tokenId])
 
-  const weightInfo = useSingleCallResult(args ? contract : null, 'oracleNFTWeight', args)?.result
+  const weightInfo = useSingleCallResult(args ? contract : null, 'nexusNFTWeight', args)?.result
 
   const weight = weightInfo?.[0]
 
@@ -525,7 +525,7 @@ export function useOracleNFTApprove() {
     async (tokenId: number) => {
       try {
         const tx = await contract?.approve(NEXUS_NFT_MULTISTAKING_ADDRESS, tokenId)
-        return addTransaction(tx, { summary: 'Approve Oracle NFT For Multistaking' })
+        return addTransaction(tx, { summary: 'Approve NEXUS NFT For Multistaking' })
       } catch (e) {
         return e
       }
@@ -637,20 +637,20 @@ export function useProUserTotalReward() {
 export function useMinProAmount() {
   const contract = useProStakingContract()
 
-  const results = useSingleCallResult(contract, 'minProAmount')?.result
+  const results = useSingleCallResult(contract, 'minNexusAmount')?.result
 
   const value = results?.[0]
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  const minPro = amount ? CurrencyAmount.fromRawAmount(PROPHET, amount) : undefined
+  const minPro = amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
 
   return minPro
 }
 
 export function useMinXOracleAmount() {
   const contract = useProStakingContract()
-  const results = useSingleCallResult(contract, 'minxOracleAmount')?.result
+  const results = useSingleCallResult(contract, 'minNexusCollateralAmount')?.result
 
   const value = results?.[0]
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
@@ -668,21 +668,21 @@ export function useProStakingInfo() {
 
   const totalPoolInfo = results?.poolSize
 
-  const proAmountInfo = results?.proAmount
+  const proAmountInfo = results?.nexusAmount
 
   const nftCountInfo = results?.nftCount
 
   const totalNFTCount = nftCountInfo ? nftCountInfo.toNumber() : undefined
 
-  const xOracleAmountInfo = results?.xOracleAmount
+  const xOracleAmountInfo = results?.NexusCollateralAmount
 
   const totalPool = totalPoolInfo ? JSBI.BigInt(totalPoolInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const totalPoolSize = totalPool ? CurrencyAmount.fromRawAmount(PROPHET, totalPool) : undefined
+  const totalPoolSize = totalPool ? CurrencyAmount.fromRawAmount(NEXUS, totalPool) : undefined
 
   const proAmount = proAmountInfo ? JSBI.BigInt(proAmountInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const totalProAmount = proAmount ? CurrencyAmount.fromRawAmount(PROPHET, proAmount) : undefined
+  const totalProAmount = proAmount ? CurrencyAmount.fromRawAmount(NEXUS, proAmount) : undefined
 
   const xOracleAmount = xOracleAmountInfo ? JSBI.BigInt(xOracleAmountInfo.toString()) : undefined
 

@@ -26,7 +26,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "oracleNFTWeight",
+		"name": "nexusNFTWeight",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -70,7 +70,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "setOracleNFTWeight",
+		"name": "setNexusNFTWeight",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

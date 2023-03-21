@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { ZERO } from '@sushiswap/core-sdk'
@@ -65,7 +66,7 @@ export const SelectedOracles = () => {
 
   const { lockedProAmount, lockMode, lockXOracle, unlockTime } = useProStakingUserInfo()
 
-  const minProAmount = useMinProAmount()
+  const minNexusAmount = useMinProAmount()
 
   const lowProAmount = useMemo(() => {
     if (lockMode > 0) {
@@ -73,13 +74,13 @@ export const SelectedOracles = () => {
         return false
       }
 
-      if (minProAmount && lockedProAmount) {
-        return minProAmount.subtract(lockedProAmount).greaterThan(ZERO)
+      if (minNexusAmount && lockedProAmount) {
+        return minNexusAmount.subtract(lockedProAmount).greaterThan(ZERO)
       }
       return true
     }
     return false
-  }, [minProAmount, lockedProAmount, lockMode])
+  }, [minNexusAmount, lockedProAmount, lockMode])
 
   const { walletNFT, stakedNFT } = useProStakingNFTInfo()
 
@@ -390,7 +391,7 @@ export const SelectedOracles = () => {
               crossOrigin="anonymous"
               referrerPolicy="origin"
               className="object-cover object-center w-full"
-              src={`https://the-oracles.fra1.cdn.digitaloceanspaces.com/assets/${nft.edition}.jpeg`}
+              src={`https://ethereals.fra1.cdn.digitaloceanspaces.com/images/${nft.edition}.jpeg`}
               alt="oracle"
             />
           </div>
@@ -443,18 +444,18 @@ export const SelectedOracles = () => {
 
         <div className={classNames('flex justify-between py-2 px-3 w-content')}>
           <div className="flex items-center gap-1.5 mr-1">
-            <Typography variant="sm" className={classNames(minProAmount ? 'text-high-emphesis' : 'text-low-emphesis')}>
+            <Typography variant="sm" className={classNames(minNexusAmount ? 'text-high-emphesis' : 'text-low-emphesis')}>
               {i18n._(t`Min Lock Prophet Amount:`)}
             </Typography>
           </div>
           <Typography
             variant="sm"
             weight={700}
-            className={classNames(minProAmount ? 'text-high-emphesis' : 'text-low-emphesis', 'truncate')}
+            className={classNames(minNexusAmount ? 'text-high-emphesis' : 'text-low-emphesis', 'truncate')}
             // onClick={() => onClick(balance)}
             id={'xoracle approve'}
           >
-            {minProAmount ? `${minProAmount.toSignificant(6)} ${minProAmount.currency.symbol}` : '0.0000'} + 1%
+            {minNexusAmount ? `${minNexusAmount.toSignificant(6)} ${minNexusAmount.currency.symbol}` : '0.0000'} + 1%
           </Typography>
         </div>
       </div>
@@ -501,7 +502,7 @@ export const SelectedOracles = () => {
             onClick={approveNFT}
             disabled={pendingTx || !account || selectedIDs?.length === 0}
           >
-            {i18n._(t`Approve Oracle NFT`)}
+            {i18n._(t`Approve NEXUS NFT`)}
           </Button>
         ) : (
           <Button
@@ -569,7 +570,7 @@ export const SelectedOracles = () => {
                 <img
                   crossOrigin="anonymous"
                   referrerPolicy="origin"
-                  src={`https://the-oracles.fra1.cdn.digitaloceanspaces.com/assets/${nft.edition}.jpeg`}
+                  src={`https://ethereals.fra1.cdn.digitaloceanspaces.com/images/${nft.edition}.jpeg`}
                   alt="oracle"
                 />
               </div>
