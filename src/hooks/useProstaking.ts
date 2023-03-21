@@ -234,7 +234,7 @@ export function useProStakingUserInfo() {
 
   const unlockTimeInfo = results?.unlockTime
 
-  const xOracleLockInfo = results?.xOracleLock
+  const xOracleLockInfo = results?.nexusLock
 
   const lockMode = lockModeInfo ? lockModeInfo.toNumber() : undefined
 
@@ -254,7 +254,7 @@ export function useProStakingUserInfo() {
 
   const xOracleLock = xOracleLockInfo ? JSBI.BigInt(xOracleLockInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const lockXOracle = xOracleLock ? CurrencyAmount.fromRawAmount(XORACLE, xOracleLock) : undefined
+  const lockXOracle = xOracleLock ? CurrencyAmount.fromRawAmount(NEXUS, xOracleLock) : undefined
 
   return { lockMode, unlockTime, lockedProAmount, userNFTWeight, userTotalWeight, lockXOracle }
 }

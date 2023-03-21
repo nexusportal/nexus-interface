@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ZERO } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import { NEXUS  } from 'app/config/tokens'
@@ -7,7 +8,8 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import React, { useEffect, useMemo, useState } from 'react'
 import useCountDown from 'react-countdown-hook'
-import ORACLEImage from '../../../public/ORACLEGold.png'
+
+import NEXUSImage from '../../../public/NEXUS.png'
 
 export const getDateStringFromSeconds = (miliseconds:number) => {
   if (miliseconds === 0 || isNaN(miliseconds)) {
@@ -109,7 +111,7 @@ const OracleDistributor = () => {
           onClick={proDistribute}
           disabled={pendingTx || balance?.equalTo(ZERO) || !possible}
         >
-          <img src={ORACLEImage.src} alt="NEXUS" width={40} height={40} />
+          <img src={NEXUSImage.src} alt="NEXUS" width={40} height={40} />
         </Button>
       </div>
       <div className="flex flex-col text-base">

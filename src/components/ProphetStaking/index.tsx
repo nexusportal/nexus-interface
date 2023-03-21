@@ -26,6 +26,7 @@ import Image from 'next/image'
 import CountDown from 'pages/prostaking/CountDown'
 import React, { FC, useEffect, useMemo, useState } from 'react'
 
+import NEXUSLogo from '../../../public/NEXUS.png';
 import PROLOGO from '../../../public/PRO_Logo3Gold.png'
 import AssetInput from '../AssetInput'
 import Button from '../Button'
@@ -562,8 +563,8 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               <p className="ml-2">{`NEXUS NFT: ${nftCount}`}</p>
             </div>
             <div className="flex items-center pb-1 balance3">
-              <Image src="https://dex.oracleswap.io/ORACLE_SilverLogo.png" height={30} width={30} alt="true" />
-              <p className="ml-2">{`XORACLE: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
+              <img src={NEXUSLogo.src} height={30} width={30} alt="true" />
+              <p className="ml-2">{`NEXUS Collatoral: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
             </div>
             <p>
               YOUR TOTAL POOL SHARE:

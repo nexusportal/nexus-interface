@@ -185,9 +185,9 @@ USE AT YOUR OWN RISK!`}
                   </div>
 
                   <p>{`Current Global Pool Size:  ${totalPoolSize ? totalPoolSize.toSignificant(6) : ''}`}</p>
-                  <p>{`Total PRO Locked:  ${totalProAmount ? totalProAmount.toSignificant(6) : ''}`}</p>
-                  <p>{`Total Oracle NFTs Locked:  ${totalNFTCount ? totalNFTCount : ''}`}</p>
-                  <p>{`Total XORACLE Locked:  ${totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''}`}</p>
+                  <p>{`Total NEXUS Locked:  ${totalProAmount ? totalProAmount.toSignificant(6) : ''}`}</p>
+                  <p>{`Total NEXUS NFTs Locked:  ${totalNFTCount ? totalNFTCount : ''}`}</p>
+                  <p>{`Total NEXUS Collatoral Locked:  ${totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''}`}</p>
                   <Button
                     size="sm"
                     className="mt-3"
