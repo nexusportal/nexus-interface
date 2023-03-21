@@ -656,7 +656,7 @@ export function useMinXOracleAmount() {
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  const minXOracle = amount ? CurrencyAmount.fromRawAmount(XORACLE, amount) : undefined
+  const minXOracle = amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
 
   return minXOracle
 }
