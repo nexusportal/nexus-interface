@@ -11,7 +11,7 @@ import React from 'react'
 
 import Container from '../Container'
 
-import LogoImage from '../../../public/songbird.png'
+import LogoImage from '../../../public/Mainnets.png'
 import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
 import { useNetworkModalToggle } from 'app/state/application/hooks'
 // import Image from 'next/image'

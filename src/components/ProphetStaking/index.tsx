@@ -22,12 +22,10 @@ import {
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import { isArray } from 'lodash'
-import Image from 'next/image'
 import CountDown from 'pages/prostaking/CountDown'
 import React, { FC, useEffect, useMemo, useState } from 'react'
 
 import NEXUSLogo from '../../../public/NEXUS.png';
-import PROLOGO from '../../../public/PRO_Logo3Gold.png'
 import AssetInput from '../AssetInput'
 import Button from '../Button'
 import { HeadlessUiModal } from '../Modal'
@@ -399,8 +397,8 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                 </div>
               </div>
               <p className="mt-2 font-bold text-red-500">
-                *If you withdraw your PRO before the time-lock period is over you will forfeit 50% of your staked
-                PRO/xORACLES!
+                *If you withdraw your NEXU before the time-lock period is over you will forfeit 50% of your staked
+                NEXU/Nexus!
               </p>
             </div>
           ) : (
@@ -555,11 +553,11 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
             <div className="flex items-center pb-1 balance1">
               {/* // eslint-disable-next-line @next/next/no-img-element */}
-              <img src={PROLOGO.src} width={30} height={30} alt="Logo" />
-              <p className="ml-2">{`PRO: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
+              <img src={NEXUSLogo.src} width={30} height={30} alt="Logo" />
+              <p className="ml-2">{`NEXUS: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
             </div>
             <div className="flex items-center pb-1 balance2">
-              <Image src="https://dex.oracleswap.io/profile_icon.webp" height={30} width={30} alt="true" />
+            <img src={NEXUSLogo.src} width={30} height={30} alt="Logo" />
               <p className="ml-2">{`NEXUS NFT: ${nftCount}`}</p>
             </div>
             <div className="flex items-center pb-1 balance3">
@@ -594,7 +592,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
               <QuestionHelper
                 className="!bg-dark-800 !shadow-xl p-2"
-                text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: PRO/WXRP, PRO/NEXUS & PRO/xORACLE. Go to Pool > Browse to visualize it.`}
+                text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXRP, NEXU/NEXUS & NEXU/Nexus. Go to Pool > Browse to visualize it.`}
               />
             </div>
 

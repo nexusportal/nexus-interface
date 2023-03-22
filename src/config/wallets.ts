@@ -48,8 +48,8 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   },
   Bif: {
     connector: injected,
-    name: 'Bifrost',
-    iconName: 'bifrost.png',
+    name: 'XDCPay',
+    iconName: 'xdcpay.png',
     description: 'Easy-to-use browser extension.',
     href: null,
     color: '#E8831D',

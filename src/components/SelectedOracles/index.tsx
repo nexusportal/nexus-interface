@@ -114,9 +114,9 @@ export const SelectedOracles = () => {
   )
 
   const depositError = !minXOracleAmount
-    ? 'Invalid xOracle'
+    ? 'Invalid Nexus'
     : balance?.lessThan(minXOracleAmount?.multiply(selectedIDs.length)) && lockMode > 0
-      ? 'Insufficient xOracle balance'
+      ? 'Insufficient Nexus balance'
       : lowProAmount
         ? 'Low Prophet Staked'
         : undefined
@@ -342,12 +342,12 @@ export const SelectedOracles = () => {
     <div className="mt-5 select-oracles">
 
       <div className="self-end text-2xl md:text-2xl text-high-emphesis md:mb-1">
-        {i18n._(t`Select Your Oracles`)}
+        {i18n._(t`Select Your Nexus`)}
       </div>
 
       <p className="mb-2">
-        Select The Oracles you would like to deploy. Some Oracles wield more power than others, choose wisely! Each
-        Oracle selected must be paired with XORACLE. The highest PRO weight is 8500, the lowest PRO weight is 600, the average PRO Weight is 1073. Tap to
+        Select The Nexus you would like to deploy. Some Nexus wield more power than others, choose wisely! Each
+        Nexus selected must be paired with XORACLE. The highest PRO weight is 8500, the lowest PRO weight is 600, the average PRO Weight is 1073. Tap to
         select or select max 40 at a time.
       </p>
       <button
@@ -428,7 +428,7 @@ export const SelectedOracles = () => {
               variant="sm"
               className={classNames(minXOracleAmount ? 'text-high-emphesis' : 'text-low-emphesis')}
             >
-              {i18n._(t`Min xOracle Amount:`)}
+              {i18n._(t`Min Nexus Amount:`)}
             </Typography>
           </div>
           <Typography
@@ -464,7 +464,7 @@ export const SelectedOracles = () => {
         <div className={classNames('flex justify-between py-2 px-3 w-content')}>
           <div className="flex items-center gap-1.5 mr-1">
             <Typography variant="sm" className={'text-white'}>
-              {i18n._(t`xOracle Required For Multiplier:`)}
+              {i18n._(t`Nexus Required For Multiplier:`)}
             </Typography>
           </div>
           <Typography
@@ -530,7 +530,7 @@ export const SelectedOracles = () => {
       {stakedNFT?.length > 0 && (
         <div>
           <div className="self-end text-2xl md:text-2xl text-high-emphesis md:mb-1">
-            {i18n._(t`Select Your Staked Oracles`)}
+            {i18n._(t`Select Your Staked Nexus`)}
           </div>
 
           <button
