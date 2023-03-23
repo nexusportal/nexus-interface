@@ -46,14 +46,14 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#E8831D',
   },
-  Bif: {
-    connector: injected,
-    name: 'XDCPay',
-    iconName: 'xdcpay.png',
-    description: 'Easy-to-use browser extension.',
-    href: null,
-    color: '#E8831D',
-  },
+  // Bif: {
+  //   connector: injected,
+  //   name: 'XDCPay',
+  //   iconName: 'xdcpay.png',
+  //   description: 'Easy-to-use browser extension.',
+  //   href: null,
+  //   color: '#E8831D',
+  // },
   METAMASK_MOBILE: {
     name: 'MetaMask',
     iconName: 'metamask.png',
