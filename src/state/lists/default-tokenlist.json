@@ -8569,7 +8569,7 @@
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"
     },
     {
-      "name": "Wrapped Ripple",
+      "name": "Wrapped XRP",
       "address": "0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4",
       "symbol": "WXRP",
       "decimals": 18,

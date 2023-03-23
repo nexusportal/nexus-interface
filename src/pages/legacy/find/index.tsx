@@ -100,7 +100,8 @@ export default function PoolFinder() {
         }
         type="information"
       />
-      <div className="relative p-4 space-y-4 rounded bg-dark-900 shadow-liquidity">
+      <div className="relative p-4 space-y-4 rounded bg-dark-900 shadow-liquidity flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
+
         <AutoColumn gap={'md'}>
           <CurrencySelectPanel
             currency={currency0}
@@ -160,7 +161,7 @@ export default function PoolFinder() {
             </div>
           ) : null
         ) : !account ? (
-          <Web3Connect className="w-full" size="lg" color="blue" />
+          <Web3Connect className="!bg-dark-900 bg-gradient-to-r from-blue/80 hover:from-blue to-green/80 hover:to-green text-white h-[38px]" />
         ) : (
           prerequisiteMessage
         )}

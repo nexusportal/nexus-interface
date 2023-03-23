@@ -130,29 +130,29 @@ const useMenu: UseMenu = () => {
     //   icon: <GlobeIcon width={20} />,
     // }
 
-    let earnMenu: MenuItem = {
-      key: 'earn',
-      title: i18n._(t`💲Earn`),
-      link: 'https://earn.oracleswap.io/',
-      external: true,
-      icon: <CurrencyDollarIcon width={20} />,
-    }
+    // let earnMenu: MenuItem = {
+    //   key: 'earn',
+    //   title: i18n._(t`💲Earn`),
+    //   link: 'https://earn.thenexusportal.io/',
+    //   external: true,
+    //   icon: <CurrencyDollarIcon width={20} />,
+    // }
 
     let nftMenu: MenuItem = {
       key: 'nft',
-      title: i18n._(t`NFT`),
-      link: 'https://comingsoon.oracleswap.io/',
+      title: i18n._(t`Mint`),
+      link: 'https://exrp.minter.thenexusportal.io/',
       external: true,
       icon: <CollectionIcon width={20} />,
     }
 
-    let analyticsMenu: MenuItem = {
-      key: 'analytics',
-      title: i18n._(t`Analytics`),
-      link: 'https://analytics.oracleswap.io/',
-      external: true,
-      icon: <PresentationChartBarIcon width={20} />,
-    }
+    // let analyticsMenu: MenuItem = {
+    //   key: 'analytics',
+    //   title: i18n._(t`Analytics`),
+    //   link: 'https://analytics.thenexusportal.io/',
+    //   external: true,
+    //   icon: <PresentationChartBarIcon width={20} />,
+    // }
 
 
     const exploreMenu: MenuItemLeaf[] = []
@@ -237,8 +237,8 @@ const useMenu: UseMenu = () => {
     }
 
     mainItems.push(nftMenu)
-    mainItems.push(analyticsMenu)
-    mainItems.push(earnMenu)
+    // mainItems.push(analyticsMenu)
+    // mainItems.push(earnMenu)
     // if (featureEnabled(Feature.KASHI, chainId)) {
     //   mainItems.push({
     //     key: 'lending',

@@ -3,34 +3,8 @@ import { ChainId, Currency, Token, WNATIVE } from '@sushiswap/core-sdk'
 import useHttpLocations from 'app/hooks/useHttpLocations'
 import { WrappedTokenInfo } from 'app/state/lists/wrappedTokenInfo'
 import React, { FunctionComponent, useMemo } from 'react'
-
-import CANARY from '../../../public/CANARY.png'
-import CAND from '../../../public/CAND.png'
-import CARE from '../../../public/CARE.png'
-import CGLD from '../../../public/CGLD.png'
-import CNYX from '../../../public/CNYX.png'
-import COOT from '../../../public/COOT.png'
-import dFLR from '../../../public/dFLR.png'
-import DOOD from '../../../public/DOOD.png'
-import EXFI from '../../../public/EXFI.png'
-import GKB from '../../../public/GKB.png'
-import HS from '../../../public/HS.png'
-import INFT from '../../../public/INFT.png'
-import LIZ from '../../../public/LIZ.png'
-import LOVE from '../../../public/LOVE.png'
 import NEXUS from '../../../public/NEXUS.png'
-import PSB from '../../../public/PNG.png'
-import PRO from '../../../public/PRO.png'
-import SDOOD from '../../../public/sDOOD.png'
-import SFIN from '../../../public/SFIN.png'
-import SFORT from '../../../public/sFORT.png'
-import SPRK from '../../../public/SPRK.png'
-import SRIBBITS from '../../../public/SRIBBITS.png'
-import TRSH from '../../../public/TRSH.png'
 import WXRP from '../../../public/WXRP.png'
-import xATH from '../../../public/xATH.png'
-import XFIN from '../../../public/XFIN.png'
-import xORACLE from '../../../public/xORACLE.png'
 import XRP from '../../../public/XRP.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
@@ -90,7 +64,7 @@ export const getCurrencyLogoUrls = (currency): string[] => {
       // console.log('window.origin', window.origin)
       urls.push(
         // @ts-ignore TYPE NEEDS FIXING
-        `https://dex.oracleswap.io/${currency.symbol}.png`
+        `https://dex.thenexusportal.io/${currency.symbol}.png`
       )
 
       // urls.push(

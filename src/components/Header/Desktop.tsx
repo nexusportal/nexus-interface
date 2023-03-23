@@ -54,7 +54,7 @@ const Desktop: FC = () => {
             <div className="flex items-center justify-between gap-4 px-6">
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
-                  <ExternalLink href="https://www.oracleswap.io">
+                  <ExternalLink href="https://www.thenexusportal.io">
                     <img src={LogoImage.src} className={'w-[30px] h-[30px]'} alt="Logo" />
                     {/* <Image src="/logo.png" alt="NEXUSSwap logo" width="24px" height="24px" /> */}
                   </ExternalLink>

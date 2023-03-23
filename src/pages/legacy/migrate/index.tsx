@@ -333,7 +333,7 @@ export default function Migrate() {
       </div>
 
       {!account ? (
-        <Web3Connect className="w-full !bg-dark-900 bg-gradient-to-r from-pink/80 hover:from-pink to-purple/80 hover:to-purple text-white h-[38px]" />
+          <Web3Connect className="!bg-dark-900 bg-gradient-to-r from-blue/80 hover:from-blue to-green/80 hover:to-green text-white h-[38px]" />
       ) : (
         <div className="p-4 space-y-4 rounded bg-dark-900">
           {state.loading ? (

@@ -10,7 +10,7 @@ export interface Layout {
 
 export const SwapLayoutCard: FC = ({ children }) => {
   return (
-    <div className="flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[24px] bg-dark-800 shadow-md shadow-dark-1000">
+    <div className="flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
       {children}
     </div>
   )

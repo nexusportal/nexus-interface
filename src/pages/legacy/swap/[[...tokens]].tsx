@@ -35,7 +35,7 @@ import { useExpertModeManager, useUserOpenMev, useUserSingleHopOnly } from 'app/
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
 import Head from 'next/head'
-import LogoImage from '../../../../public/icons/icon-152x152.png'
+import LogoImage from '../../../../public/NEXUS2.png'
 
 import { fetchAPI } from '../../../lib/api'
 import ExternalLink from 'app/components/ExternalLink'
@@ -381,10 +381,10 @@ const Swap = ({ banners }) => {
         onConfirm={handleConfirmTokenWarning}
       />
       <div className="flex items-center justify-center">
-        <ExternalLink href="https://www.oracleswap.io">
+        <ExternalLink href="https://www.thenexusportal.io">
           <div className="flex flex-col items-center mb-4">
             {/* <div className="font-bold">1 XRP = $0.0645</div> */}
-            <img src={LogoImage.src} className={'w-[100px] h-[100px]'} alt="Logo" />
+            <img src={LogoImage.src} className={'w-[175px] h-[175px]'} alt="Logo" />
           </div>
         </ExternalLink>
       </div>

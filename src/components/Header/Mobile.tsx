@@ -52,7 +52,7 @@ const Mobile: FC = () => {
             <MenuIcon width={28} className="text-white cursor-pointer hover:text-white" onClick={() => setOpen(true)} />
           </div>
           <div className="flex items-center mr-1">
-            <ExternalLink href="https://www.oracleswap.io">
+            <ExternalLink href="https://www.thenexusportal.io">
               <img src={LogoImage.src} className={'w-[30px] h-[30px]'} alt="Logo" />
             </ExternalLink>
           </div>

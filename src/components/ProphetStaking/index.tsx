@@ -26,6 +26,8 @@ import CountDown from 'pages/prostaking/CountDown'
 import React, { FC, useEffect, useMemo, useState } from 'react'
 
 import NEXUSLogo from '../../../public/NEXUS.png';
+import NEXUSLogo2 from '../../../public/NEXUS2.png';
+import NEXUSNFT from '../../../public/profile_icon.webp';
 import AssetInput from '../AssetInput'
 import Button from '../Button'
 import { HeadlessUiModal } from '../Modal'
@@ -355,11 +357,12 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   return (
     <>
       <div className="flex flex-wrap mt-4 prophet-staking-wrapper">
-        <div className="w-full md:w-[calc(100%-316px)] md:mr-4 md:pr-4 bg-dark-900 rounded-3xl p-5">
+        <div className="w-full md:w-[calc(100%-316px)] md:mr-4 md:pr-4 bg-dark-900 rounded-3xl p-5 flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
+
           <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-00/40">
             <div className="flex justify-between">
               <Typography variant="h3" weight={700} className="text-high-emphesis">
-                {toggle ? i18n._(t`Multi Staking`) : i18n._(t`Nexus Unstake`)}
+                {toggle ? i18n._(t`🌌Nexus Staking`) : i18n._(t`Nexus Unstake`)}
               </Typography>
               <Switch
                 size="md"
@@ -403,7 +406,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             </div>
           ) : (
             <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
-                            <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+              <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
                 {i18n._(t`🌌Space-Time⏲ Lock🔒`)}
               </div>
               <div className="px-2 slider-wrapper">
@@ -448,9 +451,9 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                     }
                   }}
                   sx={{
-                    color: 'yellow',
+                    color: 'light-blue',
                     '& .MuiSlider-markLabel': {
-                      color: 'yellow',
+                      color: 'green',
                       fontWeight: 700,
                     },
                   }}
@@ -545,9 +548,9 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
           </div>
         </div>
         <div className="w-full md:w-[300px] flex flex-col">
-          <div className="px-5 mt-4 mb-4 balance bg-dark-900 rounded-3xl py-7 md:mt-0">
+          <div className="px-5 mt-4 mb-4 balance rounded-3xl py-7 md:mt-0 flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
 
-            <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+            <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
               {i18n._(t`Stake Balance🥩`)}
             </div>
 
@@ -557,17 +560,17 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               <p className="ml-2">{`NEXUS: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
             </div>
             <div className="flex items-center pb-1 balance2">
-            <img src={NEXUSLogo.src} width={30} height={30} alt="Logo" />
+              <img src={NEXUSNFT.src} width={30} height={30} alt="Logo" />
               <p className="ml-2">{`NEXUS NFT: ${nftCount}`}</p>
             </div>
             <div className="flex items-center pb-1 balance3">
-              <img src={NEXUSLogo.src} height={30} width={30} alt="true" />
+              <img src={NEXUSLogo2.src} height={30} width={30} alt="true" />
               <p className="ml-2">{`NEXUS Collatoral: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
             </div>
             <p>
               YOUR TOTAL POOL SHARE:
               <br />{' '}
-              <span className="text-green-600">
+              <span className="text-blue-300">
                 {' '}
                 {`${userTotalWeight ? userTotalWeight.toSignificant(6) : ''} = ${rate.toFixed(6)}%`}
               </span>
@@ -580,8 +583,10 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               {/* <br /> <span className={``}>{timeLock}</span> */}
             </div>
           </div>
-
-          <div className="flex flex-col justify-between flex-1 px-4 py-4 rewards bg-dark-900 rounded-3xl">
+         
+          <br />
+          
+          <div className="flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
 
 
             <div className="flex flex-row mb-3">
@@ -634,7 +639,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               onClick={proHarvest}
               disabled={!userReward || userReward?.length === 0}
             >
-              {i18n._(t`HARVEST`)}
+              {i18n._(t`HARNESS`)}
             </Button>
           </div>
 
@@ -649,7 +654,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               {i18n._(t`Warning you are about to break your time lock!`)}
             </Typography>
             <Typography variant="sm" weight={700} className="text-red">
-              {i18n._(t`You will lose: `)}   {parsedWithdrawValue?.divide(2)?.toSignificant(5)}  {' PRO'}
+              {i18n._(t`You will lose: `)}   {parsedWithdrawValue?.divide(2)?.toSignificant(5)}  {' NEXU'}
             </Typography>
           </HeadlessUiModal.BorderedContent>
           <Button
