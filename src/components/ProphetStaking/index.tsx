@@ -22,7 +22,7 @@ import {
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import { isArray } from 'lodash'
-import CountDown from 'pages/prostaking/CountDown'
+import CountDown from 'pages/multistaking/CountDown'
 import React, { FC, useEffect, useMemo, useState } from 'react'
 
 import NEXUSLogo from '../../../public/NEXUS.png';

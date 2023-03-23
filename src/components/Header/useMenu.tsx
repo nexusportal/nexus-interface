@@ -98,7 +98,7 @@ const useMenu: UseMenu = () => {
     const stakeMenu = {
       key: 'stake',
       title: i18n._(t`Stake`),
-      link: '/prostaking',
+      link: '/multistaking',
       icon: <SwitchVerticalIcon width={20} />,
     }
 
