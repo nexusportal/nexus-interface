@@ -31,8 +31,7 @@ import Head from 'next/head'
 // import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
-import xORACLEImage from '../../../public/ORACLE_SilverLogo.png'
-import ORACLEImage from '../../../public/ORACLEGold.png'
+
 import NetworkGuard from '../../guards/Network'
 
 const INPUT_CHAR_LIMIT = 18
@@ -462,13 +461,13 @@ function Stake() {
                     {i18n._(t`Balance`)}
                   </p>
                   <div className="flex items-center space-x-4">
-                    <img
+                    {/* <img
                       src={xORACLEImage.src}
                       className="max-w-10 md:max-w-16 -ml-1 mr-1 md:mr-2 -mb-1.5 rounded"
                       alt="xORACLE"
                       width={64}
                       height={64}
-                    />
+                    /> */}
                     {/* <Image
                       className="max-w-10 md:max-w-16 -ml-1 mr-1 md:mr-2 -mb-1.5 rounded"
                       src="https://app.sushi.com/images/tokens/xsushi-square.jpg"
@@ -493,13 +492,13 @@ function Stake() {
                     {/* <img className="w-4 ml-2 cursor-pointer" src={MoreInfoSymbol} alt={'more info'} /> */}
                   </div>
                   <div className="flex items-center ml-8 space-x-4 md:ml-0">
-                    <img
+                    {/* <img
                       src={ORACLEImage.src}
                       className="max-w-10 md:max-w-16 -ml-1 mr-1 md:mr-2 -mb-1.5 rounded"
                       alt="NEXUS"
                       width={64}
                       height={64}
-                    />
+                    /> */}
                     {/* <Image
                       className="max-w-10 md:max-w-16 -ml-1 mr-1 md:mr-2 -mb-1.5 rounded"
                       src="https://app.sushi.com/images/tokens/sushi-square.jpg"

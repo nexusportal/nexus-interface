@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { DiscordIcon, GithubIcon, TelegramIcon, TwitterIcon, YoutubeIcon } from 'app/components/Icon'
+import { DiscordIcon, GithubIcon, TwitterIcon } from 'app/components/Icon'
 import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
 // import Typography from 'app/components/Typography'
 // import { Feature } from 'app/enums'

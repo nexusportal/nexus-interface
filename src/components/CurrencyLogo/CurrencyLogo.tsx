@@ -175,106 +175,14 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'LOVE') {
-      return <img alt="img" src={LOVE.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SFORT') {
-      return <img alt="img" src={SFORT.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SDOOD') {
-      return <img alt="img" src={SDOOD.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'PSB') {
-      return <img alt="img" src={PSB.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SPRK') {
-      return <img alt="img" src={SPRK.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'GKB') {
-      return <img alt="img" src={GKB.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'xATH') {
-      return <img alt="img" src={xATH.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CANARY') {
-      return <img alt="img" src={CANARY.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CARE') {
-      return <img alt="img" src={CARE.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'LIZ') {
-      return <img alt="img" src={LIZ.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'INFT') {
-      return <img alt="img" src={INFT.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'dFLR') {
-      return <img alt="img" src={dFLR.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SRIBBITS') {
-      return <img alt="img" src={SRIBBITS.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'TRSH') {
-      return <img alt="img" src={TRSH.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CGLD') {
-      return <img alt="img" src={CGLD.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'PRO') {
-      return <img alt="img" src={PRO.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CAND') {
-      return <img alt="img" src={CAND.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'CNYX') {
-      return <img alt="img" src={CNYX.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'EXFI') {
-      return <img alt="img" src={EXFI.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'HS') {
-      return <img alt="img" src={HS.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'COOT') {
-      return <img alt="img" src={COOT.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SFIN') {
-      return <img alt="img" src={SFIN.src} width={size} height={size} className={className} />
-    }
+   
     if (currency.symbol === 'XRP') {
       return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
     }
     if (currency.symbol === 'WXRP') {
       return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
     }
-    if (currency.symbol === 'XFIN') {
-      return <img alt="img" src={XFIN.src} width={size} height={size} className={className} />
-    }
 
-    if (currency.symbol === 'xORACLE') {
-      return <img alt="img" src={xORACLE.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'DOOD') {
-      return <img alt="img" src={DOOD.src} width={size} height={size} className={className} />
-    }
   }
 
   if (currency instanceof Token) {
@@ -283,124 +191,22 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
         return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
       }
 
-      if (currency.symbol === 'LOVE') {
-        return <img alt="img" src={LOVE.src} width={size} height={size} className={className} />
-      }
 
-      if (currency.symbol === 'SFORT') {
-        return <img alt="img" src={SFORT.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'SDOOD') {
-        return <img alt="img" src={SDOOD.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'PSB') {
-        return <img alt="img" src={PSB.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'SPRK') {
-        return <img alt="img" src={SPRK.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'GKB') {
-        return <img alt="img" src={GKB.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'xATH') {
-        return <img alt="img" src={xATH.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'CANARY') {
-        return <img alt="img" src={CANARY.src} width={size} height={size} className={className} />
-      }
-  
-      if (currency.symbol === 'CARE') {
-        return <img alt="img" src={CARE.src} width={size} height={size} className={className} />
-      }
-  
-      if (currency.symbol === 'LIZ') {
-        return <img alt="img" src={LIZ.src} width={size} height={size} className={className} />
-      }
-  
-      if (currency.symbol === 'INFT') {
-        return <img alt="img" src={INFT.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'dFLR') {
-        return <img alt="img" src={dFLR.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'CAND') {
-        return <img alt="img" src={CAND.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'CNYX') {
-        return <img alt="img" src={CNYX.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'EXFI') {
-        return <img alt="img" src={EXFI.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'HS') {
-        return <img alt="img" src={HS.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'COOT') {
-        return <img alt="img" src={COOT.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'SFIN') {
-        return <img alt="img" src={SFIN.src} width={size} height={size} className={className} />
-      }
       if (currency.symbol === 'XRP') {
         return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
       }
       if (currency.symbol === 'WXRP') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
-      if (currency.symbol === 'XFIN') {
-        return <img alt="img" src={XFIN.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'xORACLE') {
-        return <img alt="img" src={xORACLE.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'PRO') {
-        return <img alt="img" src={PRO.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'DOOD') {
-        return <img alt="img" src={DOOD.src} width={size} height={size} className={className} />
-      }
+   
     }
   }
 
   if (currency instanceof WrappedTokenInfo) {
     if (currency.tokenInfo.chainId === ChainId.XRPL) {
-      if (currency.tokenInfo.symbol === 'CAND') {
-        return <img alt="img" src={CAND.src} width={size} height={size} className={className} />
-      }
 
-      if (currency.tokenInfo.symbol === 'LOVE') {
-        return <img alt="img" src={LOVE.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.tokenInfo.symbol === 'CNYX') {
-        return <img alt="img" src={CNYX.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'EXFI') {
-        return <img alt="img" src={EXFI.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'HS') {
-        return <img alt="img" src={HS.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'COOT') {
-        return <img alt="img" src={COOT.src} width={size} height={size} className={className} />
-      }
       if (currency.tokenInfo.symbol === 'NEXUS') {
         return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'SFIN') {
-        return <img alt="img" src={SFIN.src} width={size} height={size} className={className} />
       }
       if (currency.tokenInfo.symbol === 'XRP') {
         return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
@@ -408,21 +214,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.tokenInfo.symbol === 'WXRP') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
-      if (currency.tokenInfo.symbol === 'XFIN') {
-        return <img alt="img" src={XFIN.src} width={size} height={size} className={className} />
-      }
 
-      if (currency.tokenInfo.symbol === 'xORACLE') {
-        return <img alt="img" src={xORACLE.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.tokenInfo.symbol === 'PRO') {
-        return <img alt="img" src={PRO.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.tokenInfo.symbol === 'DOOD') {
-        return <img alt="img" src={DOOD.src} width={size} height={size} className={className} />
-      }
 
       // return (
       //   <img alt="img" src={CAND.src} width={size} height={size} className={className} />
