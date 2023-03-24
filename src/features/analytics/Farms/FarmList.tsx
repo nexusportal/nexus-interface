@@ -25,7 +25,7 @@ type FarmListNameProps = {
       id: string
     }
     name: string
-    type: 'NEXUSSwap Farm' | 'Kashi Farm'
+    type: 'Nexus Generator' | 'Kashi Farm'
   }
 }
 

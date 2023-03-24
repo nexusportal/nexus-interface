@@ -47,7 +47,7 @@ enum FarmFilter {
   All = 'All Farms',
   Portfolio = 'Your Farms',
   Kashi = 'Kashi Farms',
-  NEXUSSwap = 'NEXUSSwap Farms',
+  NEXUSSwap = 'Nexus Generators',
   Old = 'Old Farms',
 }
 
@@ -81,7 +81,7 @@ const OnsenFilter = () => {
         ) : undefined,
       [FarmFilter.NEXUSSwap]:
         chainId === ChainId.ETHEREUM ? (
-          <MenuLink href={'/farm?filter=sushi'} label={i18n._(t`NEXUSSwap Farms`)} />
+          <MenuLink href={'/farm?filter=sushi'} label={i18n._(t`Nexus Generator`)} />
         ) : undefined,
       // @ts-ignore TYPE NEEDS FIXING
       [FarmFilter.Old]: [ChainId.CELO].includes(chainId) ? (
