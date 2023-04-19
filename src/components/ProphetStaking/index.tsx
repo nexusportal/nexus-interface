@@ -319,6 +319,21 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
       setPendingTx(false)
     }
   }
+  const resetLockTime = async () => {
+    setLockMode(0)
+    if (!account) {
+      return
+    } else {
+      setPendingTx(true)
+      const success = await sendTx(() => shortenLockMode(0))
+      if (!success) {
+        setPendingTx(false)
+        return
+      }
+
+      setPendingTx(false)
+    }
+  }
 
   const userReward = useProPendingReward()
 
@@ -419,7 +434,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             </div>
           ) : (
             <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
-                            <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+              <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
                 {i18n._(t`🌌Space-Time⏲ Lock🔒`)}
               </div>
               <div className="px-2 slider-wrapper">
@@ -439,7 +454,11 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                     if (isArray(value)) {
                       if (value && value.length > 0) {
                         if (freeLockTime) {
-                          setLockMode(value[0])
+                          if (isForceShortenLockTime) {
+                            setLockMode(0)
+                          } else {
+                            setLockMode(value[0])
+                          }
                         } else {
                           if (value[0] >= userLockMode) {
                             setLockMode(value[0])
@@ -448,7 +467,11 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                       }
                     } else {
                       if (freeLockTime) {
-                        setLockMode(value)
+                        if (isForceShortenLockTime) {
+                          setLockMode(0)
+                        } else {
+                          setLockMode(value)
+                        }
                       } else {
                         if (isLockAmount) {
                           if (value >= userLockMode) {
@@ -542,21 +565,28 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                   {i18n._(t`Approve xORACLE FOR NFT Staking`)}
                 </Button>
               )}
-            <Button
-              fullWidth
-              color={'blue'}
-              onClick={updateLockTime}
-              disabled={
-                pendingTx ||
-                !account ||
-                lockMode === userLockMode ||
-                (lockMode < userLockMode && !freeLockTime) ||
-                !!extendError
-              }
-            >
-              {lockMode >= userLockMode && extendError ? extendError : i18n._(t`Extend Lock`)}
-              {/* {lockMode < userLockMode && i18n._(t`Shorten Lock`)} */}
-            </Button>
+
+            {isForceShortenLockTime ? (
+              <Button fullWidth color={'blue'} onClick={resetLockTime} disabled={pendingTx || !account}>
+                {i18n._(t`RESET LOCK`)}
+              </Button>
+            ) : (
+              <Button
+                fullWidth
+                color={'blue'}
+                onClick={updateLockTime}
+                disabled={
+                  pendingTx ||
+                  !account ||
+                  lockMode === userLockMode ||
+                  (lockMode < userLockMode && !freeLockTime) ||
+                  !!extendError
+                }
+              >
+                {lockMode >= userLockMode && extendError ? extendError : i18n._(t`Extend Lock`)}
+                {/* {lockMode < userLockMode && i18n._(t`Shorten Lock`)} */}
+              </Button>
+            )}
           </div>
         </div>
         <div className="w-full md:w-[300px] flex flex-col">
