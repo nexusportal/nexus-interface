@@ -1,15 +1,15 @@
 import { ZERO } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
-import { ORACLE  } from 'app/config/tokens'
-import {  PRO_ORALCE_DISTRIBUTOR_ADDRESS } from 'app/constants'
-import {  useNextOracleDistributeTime, useProOracleDistributeAction } from 'app/hooks/useProOracleDistributor'
+import { ORACLE } from 'app/config/tokens'
+import { PRO_ORALCE_DISTRIBUTOR_ADDRESS } from 'app/constants'
+import { useNextOracleDistributeTime, useProOracleDistributeAction } from 'app/hooks/useProOracleDistributor'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import React, { useEffect, useMemo, useState } from 'react'
 import useCountDown from 'react-countdown-hook'
 import ORACLEImage from '../../../public/ORACLEGold.png'
 
-export const getDateStringFromSeconds = (miliseconds:number) => {
+export const getDateStringFromSeconds = (miliseconds: number) => {
   if (miliseconds === 0 || isNaN(miliseconds)) {
     return ''
   }
@@ -30,7 +30,6 @@ export const getDateStringFromSeconds = (miliseconds:number) => {
   var dayDisplay = days > 0 ? days + (days == 1 ? 'd ' : 'd ') : ''
   return dayDisplay + sss
 }
-
 
 const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
   let success = true
@@ -60,20 +59,23 @@ const OracleDistributor = () => {
 
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(leftTime)
 
-  const possible = useMemo(()=>{
-    if(nextDistributeTime && leftTime === 0){
-             return true;
+  const possible = useMemo(() => {
+    if (nextDistributeTime && leftTime === 0) {
+      return true
     }
-    return false;
-  },[nextDistributeTime,leftTime])
+    return false
+  }, [nextDistributeTime, leftTime])
 
   const harvestScheduleDateString = getDateStringFromSeconds(timeLeft)
 
   useEffect(() => {
-    if (leftTime && start) {
-      start(leftTime)
+    if (nextDistributeTime && nextDistributeTime * 1000 > current && start) {
+      if (timeLeft == 0) {
+        start(nextDistributeTime * 1000 - current)
+      }
     }
-  }, [leftTime, start])
+  }, [nextDistributeTime, current, start, timeLeft])
+
 
   const [pendingTx, setPendingTx] = useState(false)
 

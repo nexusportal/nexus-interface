@@ -56,6 +56,7 @@ const nextConfig = {
       'raw.githubusercontent.com',
       'logos.covalenthq.com',
       'api.gravityfinance.io',
+      'the-oracles.fra1.cdn.digitaloceanspaces.com',
     ],
   },
   async redirects() {
