@@ -1,42 +1,37 @@
 import { getAddress } from '@ethersproject/address'
-import { ChainId, Currency, JSBI, NATIVE, SUSHI, SUSHI_ADDRESS, Token } from '@sushiswap/core-sdk'
-import { ARBITRUM_TOKENS, MATIC_TOKENS, XDAI_TOKENS, XORACLE, PROPHET } from 'app/config/tokens'
-import { Chef, PairType } from 'app/features/onsen/enum'
-import { usePositions, useProphetPoolInfos, useUserInfo } from 'app/features/onsen/hooks'
-import { aprToApy } from 'app/functions/convert'
+import { ChainId, Currency, JSBI, NATIVE, Token } from '@sushiswap/core-sdk'
+import { ARBITRUM_TOKENS, MATIC_TOKENS, NEXUS,XDAI_TOKENS, XORACLE } from 'app/config/tokens'
 import { MASTERCHEF_ADDRESS } from 'app/constants'
+import { Chef, PairType } from 'app/features/onsen/enum'
+import { useProphetPoolInfos, useUserInfo } from 'app/features/onsen/hooks'
+import { aprToApy } from 'app/functions/convert'
 import {
   useAverageBlockTime,
   useCeloPrice,
   useEthPrice,
   useFantomPrice,
-  useFarms,
   useFusePrice,
   useGnoPrice,
-  useKashiPairs,
   useMagicPrice,
-  useMasterChefV1SushiPerBlock,
-  useMasterChefV1TotalAllocPoint,
   useMaticPrice,
   useMovrPrice,
   useOhmPrice,
   useOneDayBlock,
   useOnePrice,
   useSpellPrice,
-  useSushiPairs,
   useSushiPrice,
 } from 'app/services/graph'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult } from 'app/state/multicall/hooks'
 import { useTokenBalances } from 'app/state/wallet/hooks'
-import toLower from 'lodash/toLower'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
+
 import { useMasterChefContract } from '.'
 
 export function useMasterChefRewardPerBlock() {
   const contract = useMasterChefContract(false)
 
-  const info = useSingleCallResult(contract, 'proPerBlock')?.result
+  const info = useSingleCallResult(contract, 'nexusPerBlock')?.result
 
   const value = info?.[0]
 
@@ -82,279 +77,26 @@ export default function useFarmRewards() {
   // @ts-ignore TYPE NEEDS FIXING
   // const farms = useFarms({ chainId })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const farms = [
     {
       accSushiPerShare: '',
       allocPoint: 160,
       balance: 0,
       chef: 0,
-      id: '2',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x1987E504E70b9ACbAa4E042FDDE4ecB6CEaf5b77',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 60,
-      balance: 0,
-      chef: 0,
       id: '0',
       lastRewardTime: 12505142,
       owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
         totalAllocPoint: 1000,
       },
-      pair: '0x5795377c85e0fdf6370fae1b74fe03b930c4a892',
+      pair: '0x4Ac328392c8fE1fE410C344DA8481DF42AAa39Ab',
       slpBalance: 0,
       userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 20,
-      balance: 0,
-      chef: 0,
-      id: '1',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x728a6a7F7f4eeD1aeBB268e37BD5ca5071818457',
-      slpBalance: 0,
-      userCount: '0',
-    },
-
-    {
-      accSushiPerShare: '',
-      allocPoint: 140,
-      balance: 0,
-      chef: 0,
-      id: '3',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0xcAC275AF30B8D66c866F6C714d2119E87BA9c5b1',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 90,
-      balance: 0,
-      chef: 0,
-      id: '4',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x5dc49c1deA70D84408fa86a0Ef97AD21F8B6aA3a',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 80,
-      balance: 0,
-      chef: 0,
-      id: '5',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x6a4489858E7d168B940E03Da8933c377Af8f7863',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 50,
-      balance: 0,
-      chef: 0,
-      id: '6',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x110d911F007f90969131A83c0f74135429a6109a',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 50,
-      balance: 0,
-      chef: 0,
-      id: '7',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x4C71594d879310908A7ABF56689084eE4225b569',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 50,
-      balance: 0,
-      chef: 0,
-      id: '8',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x7Bf38785521b008FcDcB4655CBB55901BE9bD94c',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 50,
-      balance: 0,
-      chef: 0,
-      id: '9',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x97300650d6984259D0F9731173D96207cCBe67Be',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 50,
-      balance: 0,
-      chef: 0,
-      id: '10',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0xE54f1aF5Fa8a23cE99a630Db21c351d4b9E56234',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 50,
-      balance: 0,
-      chef: 0,
-      id: '11',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0xcD307B9869d870BA67b6403EA234e02dbaC9f97A',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 30,
-      balance: 0,
-      chef: 0,
-      id: '12',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x61db2FCd5e6bB80E33c08E3376F9677a0182E7e9',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 30,
-      balance: 0,
-      chef: 0,
-      id: '13',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0xf5Ede1927C339A5D209938f4C04A1D5008D4dfd4',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 30,
-      balance: 0,
-      chef: 0,
-      id: '14',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0xcF11e96BFa29332aF5BC3Bfcc1cBccEC94DB2919',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 20,
-      balance: 0,
-      chef: 0,
-      id: '15',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x6eE75C89305b8D5D40361dA0685b2CE786b49B1b',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 20,
-      balance: 0,
-      chef: 0,
-      id: '16',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x30f1907D4B5D23c1AAC00D803211bC992D35F774',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 20,
-      balance: 0,
-      chef: 0,
-      id: '17',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0xfDb3c94cA8aD50A35516f2A3d13d257A57A57C02',
-      slpBalance: 0,
-      userCount: '0',
-    },
+    }
   ]
+
+
 
   const liquidityTokens = useMemo(
     () =>
@@ -362,7 +104,7 @@ export default function useFarmRewards() {
         if (farm.pair === '0x5795377c85e0fdf6370fae1b74fe03b930c4a892') {
           return XORACLE
         } else {
-          const token = new Token(ChainId.SGB, getAddress(farm.pair), 18, 'OLP')
+          const token = new Token(ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
           return token
         }
       }),
@@ -371,7 +113,7 @@ export default function useFarmRewards() {
 
   const farmAddresses = useMemo(() => farms.map((farm) => farm.pair), [farms])
 
-  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[ChainId.SGB], liquidityTokens)
+  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[ChainId.XRPL], liquidityTokens)
 
   // const swapPairs = useSushiPairs({
   //   chainId,
@@ -400,557 +142,62 @@ export default function useFarmRewards() {
   //   shouldFetch: !!farmAddresses,
   // })
 
-  const swapPairs = [
+  const swapPairs: {
+    decimals: number;
+    id: string;
+    reserve0: number;
+    reserve1: number;
+    reserveETH: number;
+    reserveUSD: number;
+    timestamp: number;
+    token0: {derivedETH: number, id: string, name: string, symbol: string, totalSupply: number};
+    token0Price: number;
+    token1: {derivedETH: number, id: string, name: string, symbol: string, totalSupply: number};
+    token1Price: number;
+    totalSupply: number;
+    trackedReserveETH: number;
+    txCount: number;
+    untrackedVolumeUSD: number;
+    volumeUSD: number;
+    type?: number;
+  }[] = [
     {
       decimals: 18,
-      id: '0x5795377c85e0fdf6370fae1b74fe03b930c4a892',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
+      id: '0x4Ac328392c8fE1fE410C344DA8481DF42AAa39Ab',
+      reserve0: 9990.04,
+      reserve1: 1.001,
+      reserveETH: 2,
+      reserveUSD: 10,
       timestamp: 1621898381,
       token0: {
         derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x5795377c85e0fdf6370fae1b74fe03b930c4a892',
-        name: 'OracleBar',
-        symbol: 'xORACLE',
+        id: '0x3965c4716091A1008db59D85a684DbA075950145',
+        name: 'NEXUS',
+        symbol: 'NEXU',
         totalSupply: 1680,
       },
-      token0Price: 0.749748,
-
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      type: 2,
-      name: 'OracleBar',
-      symbol: 'xORACLE',
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x728a6a7F7f4eeD1aeBB268e37BD5ca5071818457',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
+      token0Price: 0.00048,
       token1: {
         derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x8d32E20d119d936998575B4AAff66B9999011D27',
-        name: 'CanaryX',
-        symbol: 'CNYX',
+        id: '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4',
+        name: 'Wrapped XRP',
+        symbol: 'WXRP',
         totalSupply: 1680,
       },
 
-      token1Price: 0.014,
+      token1Price: 0.2,
       totalSupply: 0.316227765016,
       trackedReserveETH: 1183.351142427706157233201110976883,
       txCount: 81365,
       untrackedVolumeUSD: 46853.79482616671033425777223395,
       volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x1987E504E70b9ACbAa4E042FDDE4ecB6CEaf5b77',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-
-    {
-      decimals: 18,
-      id: '0xcAC275AF30B8D66c866F6C714d2119E87BA9c5b1',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xf810576A68C3731875BDe07404BE815b16fC0B4e',
-        name: 'Prophet',
-        symbol: 'PRO',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x5dc49c1deA70D84408fa86a0Ef97AD21F8B6aA3a',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xf810576A68C3731875BDe07404BE815b16fC0B4e',
-        name: 'Prophet',
-        symbol: 'PRO',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-
-    {
-      decimals: 18,
-      id: '0x6a4489858E7d168B940E03Da8933c377Af8f7863',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x5795377c85e0fdf6370fae1b74fe03b930c4a892',
-        name: 'OracleFoundry',
-        symbol: 'xORACLE',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-
-    {
-      decimals: 18,
-      id: '0x110d911F007f90969131A83c0f74135429a6109a',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xe4671844Fcb3cA9A80A1224B6f9A0A6c2Ba2a7d5',
-        name: 'CootieCoin',
-        symbol: 'COOT',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x4C71594d879310908A7ABF56689084eE4225b569',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x8d32E20d119d936998575B4AAff66B9999011D27',
-        name: 'CanaryX',
-        symbol: 'CNYX',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x7Bf38785521b008FcDcB4655CBB55901BE9bD94c',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xC348F894d0E939FE72c467156E6d7DcbD6f16e21',
-        name: 'Experimental Finance Token',
-        symbol: 'EXFI',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x97300650d6984259D0F9731173D96207cCBe67Be',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x0D94e59332732D18CF3a3D457A8886A2AE29eA1B',
-        name: 'Songbird Finance Token',
-        symbol: 'SFIN',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0xE54f1aF5Fa8a23cE99a630Db21c351d4b9E56234',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x70Ad7172EF0b131A1428D0c1F66457EB041f2176',
-        name: 'Canary Dollar',
-        symbol: 'CAND',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0xcD307B9869d870BA67b6403EA234e02dbaC9f97A',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
-        name: 'OracleSwap.io',
-        symbol: 'ORACLE',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x612c20D14493dC6a389603aEF56006AD6a09A76f',
-        name: 'DoodCatsToken',
-        symbol: 'DOOD',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-
-    {
-      decimals: 18,
-      id: '0x61db2FCd5e6bB80E33c08E3376F9677a0182E7e9',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xe4671844Fcb3cA9A80A1224B6f9A0A6c2Ba2a7d5',
-        name: 'CootieCoin',
-        symbol: 'COOT',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0xf5Ede1927C339A5D209938f4C04A1D5008D4dfd4',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xC348F894d0E939FE72c467156E6d7DcbD6f16e21',
-        name: 'Experimental Finance Token',
-        symbol: 'EXFI',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0xcF11e96BFa29332aF5BC3Bfcc1cBccEC94DB2919',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x0D94e59332732D18CF3a3D457A8886A2AE29eA1B',
-        name: 'Songbird Finance Token',
-        symbol: 'SFIN',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x6eE75C89305b8D5D40361dA0685b2CE786b49B1b',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x70Ad7172EF0b131A1428D0c1F66457EB041f2176',
-        name: 'Canary Dollar',
-        symbol: 'CAND',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x30f1907D4B5D23c1AAC00D803211bC992D35F774',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x612c20D14493dC6a389603aEF56006AD6a09A76f',
-        name: 'DoodCatsToken',
-        symbol: 'DOOD',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0xfDb3c94cA8aD50A35516f2A3d13d257A57A57C02',
-      reserve0: 0.0887405995540289756,
-      reserve1: 0.04641,
-      reserveETH: 1183.351142427706157233201110976883,
-      reserveUSD: 0.004,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED',
-        name: 'Wrapped SGB',
-        symbol: 'WSGB',
-        totalSupply: 1680,
-      },
-      token0Price: 0.749748,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x9dC8639bff70B019088f0b7D960561654269B5BE',
-        name: 'Honey Stick',
-        symbol: 'HS',
-        totalSupply: 1680,
-      },
-      token1Price: 0.014,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
+    }
   ]
 
   const averageBlockTime = useAverageBlockTime({ chainId })
 
   const masterChefV1TotalAllocPoint = useMasterChefTotalAllocPoint() //useMasterChefV1TotalAllocPoint()
   const masterChefV1SushiPerBlock = useMasterChefRewardPerBlock() // useMasterChefV1SushiPerBlock()
-
-
 
   const [
     sushiPrice,
@@ -992,8 +239,9 @@ export default function useFarmRewards() {
     pool.owner = pool?.owner || pool?.masterChef || pool?.miniChef
     pool.balance = pool?.balance || pool?.slpBalance
 
-    const liquidityToken = new Token(ChainId.SGB, getAddress(pool.pair), 18, 'OLP')
+    const liquidityToken = new Token(ChainId.XRPL, getAddress(pool.pair), 18, 'NLP')
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const stakedAmount = useUserInfo(pool, liquidityToken)
 
     const amount = parseFloat(stakedAmount ? stakedAmount?.toSignificant(10) : '0')
@@ -1033,13 +281,12 @@ export default function useFarmRewards() {
       //   rewardPrice: sushiPrice,
       // }
 
-      const oracleTOken = new Token(ChainId.SGB, SUSHI_ADDRESS[ChainId.SGB], 18, 'ORACEL', 'OracleSwap.io')
 
       const defaultReward = {
-        token: 'PRO',
-        icon: '/PRO.png',
+        token: 'NEXU',
+        icon: '/NEXUS.png',
         rewardPerBlock,
-        currency: PROPHET,
+        currency: NEXUS,
         rewardPerDay: rewardPerBlock * blocksPerDay,
         rewardPrice: prolPrice,
       }
@@ -1259,7 +506,7 @@ export default function useFarmRewards() {
       const stakedBalance = Object.values(stakedBalaces).find(
         (token) => token.currency.address.toLowerCase() === pool.pair.toLowerCase()
       )
-      
+
       if (stakedBalance) {
         balance = parseFloat(stakedBalance.toExact())
       }

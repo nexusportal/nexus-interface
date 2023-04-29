@@ -8,7 +8,7 @@ import RPC from './rpc'
 const supportedChainIds = Object.values(ChainId) as number[]
 
 export const network = new NetworkConnector({
-  defaultChainId: 19,
+  defaultChainId: 1440001,
   urls: RPC,
 })
 
@@ -46,19 +46,19 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#E8831D',
   },
-  Bif: {
-    connector: injected,
-    name: 'Bifrost',
-    iconName: 'bifrost.png',
-    description: 'Easy-to-use browser extension.',
-    href: null,
-    color: '#E8831D',
-  },
+  // Bif: {
+  //   connector: injected,
+  //   name: 'XDCPay',
+  //   iconName: 'xdcpay.png',
+  //   description: 'Easy-to-use browser extension.',
+  //   href: null,
+  //   color: '#E8831D',
+  // },
   METAMASK_MOBILE: {
     name: 'MetaMask',
     iconName: 'metamask.png',
     description: 'Open in MetaMask app.',
-    href: 'https://metamask.app.link/dapp/dex.oracleswap.io',
+    href: 'https://metamask.app.link/dapp/dex.thenexusportal.io',
     color: '#E8831D',
     mobile: true,
     mobileOnly: true,
@@ -101,7 +101,7 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   //     return new LatticeConnector({
   //       chainId: 1,
   //       url: RPC[ChainId.ETHEREUM],
-  //       appName: 'OracleSwap',
+  //       appName: 'NEXUSSwap',
   //     })
   //   },
   //   name: 'Lattice',
@@ -116,7 +116,7 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   //     const WalletLinkConnector = (await import('@web3-react/walletlink-connector')).WalletLinkConnector
   //     return new WalletLinkConnector({
   //       url: RPC[ChainId.ETHEREUM],
-  //       appName: 'OracleSwap',
+  //       appName: 'NEXUSSwap',
   //       appLogoUrl: 'https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png',
   //       darkMode: true,
   //     })

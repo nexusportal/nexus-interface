@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { ZERO } from '@sushiswap/core-sdk'
@@ -7,7 +8,7 @@ import { HeadlessUiModal } from 'app/components/Modal'
 import Typography from 'app/components/Typography'
 import Web3Connect from 'app/components/Web3Connect'
 import { XORACLE } from 'app/config/tokens'
-import { PROSTAKING_ADDRESS } from 'app/constants'
+import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { classNames } from 'app/functions'
 import { ApprovalState, useApproveCallback } from 'app/hooks'
 import {
@@ -65,7 +66,7 @@ export const SelectedOracles = () => {
 
   const { lockedProAmount, lockMode, lockXOracle, unlockTime } = useProStakingUserInfo()
 
-  const minProAmount = useMinProAmount()
+  const minNexusAmount = useMinProAmount()
 
   const lowProAmount = useMemo(() => {
     if (lockMode > 0) {
@@ -73,13 +74,13 @@ export const SelectedOracles = () => {
         return false
       }
 
-      if (minProAmount && lockedProAmount) {
-        return minProAmount.subtract(lockedProAmount).greaterThan(ZERO)
+      if (minNexusAmount && lockedProAmount) {
+        return minNexusAmount.subtract(lockedProAmount).greaterThan(ZERO)
       }
       return true
     }
     return false
-  }, [minProAmount, lockedProAmount, lockMode])
+  }, [minNexusAmount, lockedProAmount, lockMode])
 
   const { walletNFT, stakedNFT } = useProStakingNFTInfo()
 
@@ -109,13 +110,13 @@ export const SelectedOracles = () => {
   // @ts-ignore TYPE NEEDS FIXING
   const [approvalState, approve] = useApproveCallback(
     minXOracleAmount?.multiply(selectedIDs.length),
-    PROSTAKING_ADDRESS
+    NEXUS_NFT_MULTISTAKING_ADDRESS
   )
 
   const depositError = !minXOracleAmount
-    ? 'Invalid xOracle'
+    ? 'Invalid Nexus'
     : balance?.lessThan(minXOracleAmount?.multiply(selectedIDs.length)) && lockMode > 0
-      ? 'Insufficient xOracle balance'
+      ? 'Insufficient Nexus balance'
       : lowProAmount
         ? 'Low Prophet Staked'
         : undefined
@@ -341,19 +342,19 @@ export const SelectedOracles = () => {
     <div className="mt-5 select-oracles">
 
       <div className="self-end text-2xl md:text-2xl text-high-emphesis md:mb-1">
-        {i18n._(t`Select Your Oracles`)}
+        {i18n._(t`Select Your Nexus NFTs`)}
       </div>
 
       <p className="mb-2">
-        Select The Oracles you would like to deploy. Some Oracles wield more power than others, choose wisely! Each
-        Oracle selected must be paired with XORACLE. The highest PRO weight is 8500, the lowest PRO weight is 600, the average PRO Weight is 1073. Tap to
+        Select The Nexus you would like to deploy. Some Nexus NFTs wield more power than others, choose wisely! Each
+        Nexus NFT selected must be paired with NEXU. Tap to
         select or select max 40 at a time.
       </p>
       <button
         onClick={() => {
           handleAllSelect(true)
         }}
-        className="inline-block px-2 py-1 mr-2 text-xs text-white rounded-md bg-green/50"
+        className="inline-block px-2 py-1 mr-2 text-xs text-white rounded-md bg-blue/50"
       >
         SELECT MAX
       </button>
@@ -361,7 +362,7 @@ export const SelectedOracles = () => {
         onClick={() => {
           handleAllSelect(false)
         }}
-        className="inline-block px-2 py-1 text-xs text-white rounded-md bg-green/50"
+        className="inline-block px-2 py-1 text-xs text-white rounded-md bg-blue/50"
       >
         UNSELECT ALL
       </button>
@@ -369,7 +370,7 @@ export const SelectedOracles = () => {
         {walletNFT.map((nft) => (
           <div
             key={nft.edition}
-            className={`item p-4 mb-5 sm:mb-0 w-full sm:w-[calc(50%-20px)] md:w-[calc(25%-20px)] rounded-md border-[5px] border-solid ${selectedIDs.includes(nft.edition) ? 'border-green-500' : 'border-green-500/0'
+            className={`item p-4 mb-5 sm:mb-0 w-full sm:w-[calc(50%-20px)] md:w-[calc(25%-20px)] rounded-md border-[5px] border-solid ${selectedIDs.includes(nft.edition) ? 'border-blue-500' : 'border-blue-500/0'
               }`}
             onClick={() => {
               // if (selected === nft.edition) {
@@ -390,7 +391,7 @@ export const SelectedOracles = () => {
               crossOrigin="anonymous"
               referrerPolicy="origin"
               className="object-cover object-center w-full"
-              src={`https://the-oracles.fra1.cdn.digitaloceanspaces.com/assets/${nft.edition}.jpeg`}
+              src={`https://ethereals.fra1.cdn.digitaloceanspaces.com/images/${nft.edition}.jpeg`}
               alt="oracle"
             />
           </div>
@@ -427,7 +428,7 @@ export const SelectedOracles = () => {
               variant="sm"
               className={classNames(minXOracleAmount ? 'text-high-emphesis' : 'text-low-emphesis')}
             >
-              {i18n._(t`Min xOracle Amount:`)}
+              {i18n._(t`Min NEXU Amount/NFT:`)}
             </Typography>
           </div>
           <Typography
@@ -443,18 +444,18 @@ export const SelectedOracles = () => {
 
         <div className={classNames('flex justify-between py-2 px-3 w-content')}>
           <div className="flex items-center gap-1.5 mr-1">
-            <Typography variant="sm" className={classNames(minProAmount ? 'text-high-emphesis' : 'text-low-emphesis')}>
-              {i18n._(t`Min Lock Prophet Amount:`)}
+            <Typography variant="sm" className={classNames(minNexusAmount ? 'text-high-emphesis' : 'text-low-emphesis')}>
+              {i18n._(t`Min NEXU Lock Amount:`)}
             </Typography>
           </div>
           <Typography
             variant="sm"
             weight={700}
-            className={classNames(minProAmount ? 'text-high-emphesis' : 'text-low-emphesis', 'truncate')}
+            className={classNames(minNexusAmount ? 'text-high-emphesis' : 'text-low-emphesis', 'truncate')}
             // onClick={() => onClick(balance)}
             id={'xoracle approve'}
           >
-            {minProAmount ? `${minProAmount.toSignificant(6)} ${minProAmount.currency.symbol}` : '0.0000'} + 1%
+            {minNexusAmount ? `${minNexusAmount.toSignificant(6)} ${minNexusAmount.currency.symbol}` : '0.0000'} + 1%
           </Typography>
         </div>
       </div>
@@ -463,7 +464,7 @@ export const SelectedOracles = () => {
         <div className={classNames('flex justify-between py-2 px-3 w-content')}>
           <div className="flex items-center gap-1.5 mr-1">
             <Typography variant="sm" className={'text-white'}>
-              {i18n._(t`xOracle Required For Multiplier:`)}
+              {i18n._(t`Total NEXU Required For NFT Multiplier:`)}
             </Typography>
           </div>
           <Typography
@@ -501,7 +502,7 @@ export const SelectedOracles = () => {
             onClick={approveNFT}
             disabled={pendingTx || !account || selectedIDs?.length === 0}
           >
-            {i18n._(t`Approve Oracle NFT`)}
+            {i18n._(t`Approve NEXUS NFT`)}
           </Button>
         ) : (
           <Button
@@ -529,14 +530,14 @@ export const SelectedOracles = () => {
       {stakedNFT?.length > 0 && (
         <div>
           <div className="self-end text-2xl md:text-2xl text-high-emphesis md:mb-1">
-            {i18n._(t`Select Your Staked Oracles`)}
+            {i18n._(t`Select Your Staked Nexus NFTs`)}
           </div>
 
           <button
             onClick={() => {
               handleStakedAllSelect(true)
             }}
-            className="inline-block px-2 py-1 mr-2 text-xs text-white rounded-md bg-green/50"
+            className="inline-block px-2 py-1 mr-2 text-xs text-white rounded-md bg-blue/50"
           >
             SELECT MAX
           </button>
@@ -544,7 +545,7 @@ export const SelectedOracles = () => {
             onClick={() => {
               handleStakedAllSelect(false)
             }}
-            className="inline-block px-2 py-1 text-xs text-white rounded-md bg-green/50"
+            className="inline-block px-2 py-1 text-xs text-white rounded-md bg-blue/50"
           >
             UNSELECT ALL
           </button>
@@ -554,8 +555,8 @@ export const SelectedOracles = () => {
               <div
                 key={nft.edition}
                 className={`item p-4 mb-5 sm:mb-0 w-full sm:w-[calc(50%-20px)] md:w-[calc(25%-20px)] rounded-md border-[5px] border-solid ${selectedStakedIDs.length === 0 || !selectedStakedIDs.includes(nft.edition)
-                  ? 'border-green-500/0'
-                  : 'border-green-500'
+                  ? 'border-blue-500/0'
+                  : 'border-blue-500'
                   }`}
                 onClick={() => {
                   handleStakedSelectOracles(nft.edition)
@@ -569,7 +570,7 @@ export const SelectedOracles = () => {
                 <img
                   crossOrigin="anonymous"
                   referrerPolicy="origin"
-                  src={`https://the-oracles.fra1.cdn.digitaloceanspaces.com/assets/${nft.edition}.jpeg`}
+                  src={`https://ethereals.fra1.cdn.digitaloceanspaces.com/images/${nft.edition}.jpeg`}
                   alt="oracle"
                 />
               </div>
@@ -596,7 +597,7 @@ export const SelectedOracles = () => {
               {i18n._(t`Warning you are about to break your time lock!`)}
             </Typography>
             <Typography variant="sm" weight={700} className="text-red">
-              {i18n._(t`You will lose: `)}  {withdrawXOracle?.toSignificant(5)}  {' xORACLE'}
+              {i18n._(t`You will lose: `)}  {withdrawXOracle?.toSignificant(5)}  {' NEXU'}
             </Typography>
           </HeadlessUiModal.BorderedContent>
           <Button

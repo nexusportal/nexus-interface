@@ -2,18 +2,18 @@
   {
     "inputs": [
       {
-        "internalType": "contract ProphetToken",
-        "name": "_pro",
+        "internalType": "contract NexusToken",
+        "name": "_nexus",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_devaddr",
+        "name": "_multiStakingDistributor",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_proPerBlock",
+        "name": "_nexusPerBlock",
         "type": "uint256"
       },
       {
@@ -194,32 +194,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_devaddr",
-        "type": "address"
-      }
-    ],
-    "name": "dev",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "devaddr",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
@@ -263,33 +237,59 @@
   },
   {
     "inputs": [],
+    "name": "multiStakingDistRate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "multiStakingDistributor",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexus",
+    "outputs": [
+      {
+        "internalType": "contract NexusToken",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nexusPerBlock",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ownerGovernance",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ownerSetter",
     "outputs": [
       {
         "internalType": "address",
@@ -313,7 +313,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingPro",
+    "name": "pendingNexus",
     "outputs": [
       {
         "internalType": "uint256",
@@ -351,7 +351,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "accProPerShare",
+        "name": "accNexusPerShare",
         "type": "uint256"
       }
     ],
@@ -373,33 +373,7 @@
   },
   {
     "inputs": [],
-    "name": "pro",
-    "outputs": [
-      {
-        "internalType": "contract ProphetToken",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "proPerBlock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "renounceOwnerSetter",
+    "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -430,17 +404,12 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "owner_",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "ownerGovernance_",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "_rate",
+        "type": "uint256"
       }
     ],
-    "name": "setOwner",
+    "name": "setMultiStakingDistRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -449,11 +418,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "newOwner",
+        "name": "_multiStakingDistributor",
         "type": "address"
       }
     ],
-    "name": "setOwnerSetter",
+    "name": "setMultiStakingDistributorGetter",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -487,12 +456,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_pid",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
       }
     ],
-    "name": "updatePool",
+    "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -501,11 +470,24 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_proPerBlock",
+        "name": "_nexusPerBlock",
         "type": "uint256"
       }
     ],
-    "name": "updateProPerBlock",
+    "name": "updateNexusPerBlock",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
+      }
+    ],
+    "name": "updatePool",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

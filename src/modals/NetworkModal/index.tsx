@@ -11,7 +11,7 @@ import { useModalOpen, useNetworkModalToggle } from 'app/state/application/hooks
 // @ts-ignore TYPE NEEDS FIXING
 import Image from 'next/image'
 import React, { FC } from 'react'
-import SGB from '../../../public/SGB.png'
+import XRP from '../../../public/XRP.png'
 
 export const SUPPORTED_NETWORKS: {
   [key: number]: {
@@ -196,16 +196,16 @@ export const SUPPORTED_NETWORKS: {
     rpcUrls: ['https://palm-mainnet.infura.io/v3/da5fbfafcca14b109e2665290681e267'],
     blockExplorerUrls: ['https://explorer.palm.io'],
   },
-  [ChainId.SGB]: {
-    chainId: '0x13',
-    chainName: 'Songbird',
+  [ChainId.XRPL]: {
+    chainId: '0x15f901',
+    chainName: 'Ripple XRPL',
     nativeCurrency: {
-      name: 'Songbird',
-      symbol: 'SGB',
+      name: 'Ripple',
+      symbol: 'XRP',
       decimals: 18,
     },
-    rpcUrls: ['https://sgb.ftso.com.au/ext/bc/C/rpc'],
-    blockExplorerUrls: ['https://songbird-explorer.flare.network'],
+    rpcUrls: ['https://rpc-evm-sidechain.xrpl.org'],
+    blockExplorerUrls: ['https://evm-sidechain.xrpl.org/'],
   },
 }
 
@@ -238,7 +238,7 @@ const NetworkModal: FC = () => {
             // ChainId.OKEX,
             // ChainId.HECO,
             // ChainId.PALM,
-            ChainId.SGB,
+            ChainId.XRPL,
           ].map((key: ChainId, i: number) => {
             if (chainId === key) {
               return (
@@ -246,8 +246,8 @@ const NetworkModal: FC = () => {
                   key={i}
                   className="bg-[rgba(0,0,0,0.2)] focus:outline-none flex items-center gap-4 w-full px-4 py-3 rounded border border-purple cursor-default"
                 >
-                  {key === ChainId.SGB ? (
-                    <img src={SGB.src} className="rounded-md" width="32px" height="32px" />
+                  {key === ChainId.XRPL ? (
+                    <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
                   ) : (
                     <Image
                       // @ts-ignore TYPE NEEDS FIXING
@@ -294,8 +294,8 @@ const NetworkModal: FC = () => {
                 )}
               >
                 {/*@ts-ignore TYPE NEEDS FIXING*/}
-                {key === ChainId.SGB ? (
-                  <img src={SGB.src} className="rounded-md" width="32px" height="32px" />
+                {key === ChainId.XRPL ? (
+                  <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
                 ) : (
                   <Image
                     // @ts-ignore TYPE NEEDS FIXING

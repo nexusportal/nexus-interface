@@ -88,7 +88,7 @@ export function usePendingSushi(farm) {
     return [String(farm.id), String(account)]
   }, [farm, account])
 
-  const result = useSingleCallResult(args ? contract : null, 'pendingPro', args)?.result
+  const result = useSingleCallResult(args ? contract : null, 'pendingNexus', args)?.result
 
   const value = result?.[0]
 
@@ -164,7 +164,7 @@ export function useChefPositions(contract?: Contract | null, rewarder?: Contract
   }, [numberOfPools, account])
 
   // @ts-ignore TYPE NEEDS FIXING
-  const pendingSushi = useSingleContractMultipleData(args ? contract : null, 'pendingPro', args)
+  const pendingSushi = useSingleContractMultipleData(args ? contract : null, 'pendingNexus', args)
 
   // @ts-ignore TYPE NEEDS FIXING
   const userInfo = useSingleContractMultipleData(args ? contract : null, 'userInfo', args)

@@ -5,19 +5,17 @@ import useMenu from 'app/components/Header/useMenu'
 import LanguageSwitch from 'app/components/LanguageSwitch'
 import Web3Network from 'app/components/Web3Network'
 import Web3Status from 'app/components/Web3Status'
+import { classNames } from 'app/functions'
 import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
 import { useActiveWeb3React } from 'app/services/web3'
+import { useDexWarningOpen, useToggleDexWarning } from 'app/state/application/hooks'
 import { useETHBalances } from 'app/state/wallet/hooks'
-// import Image from 'next/image'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
-import { NavigationItem } from './NavigationItem'
+
 import LogoImage from '../../../public/icons/icon-72x72.png'
-// import Typography from 'app/components/Typography'
-// import { XIcon } from '@heroicons/react/outline'
-import { useDexWarningOpen, useToggleDexWarning } from 'app/state/application/hooks'
 import ExternalLink from '../ExternalLink'
-import { classNames } from 'app/functions'
+import { NavigationItem } from './NavigationItem'
 const HEADER_HEIGHT = 64
 
 const Desktop: FC = () => {
@@ -46,7 +44,7 @@ const Desktop: FC = () => {
                   </div>
                 </div>
                 <Typography variant="xs" weight={700} className="py-0 px-4 text-[1rem] text-high-emphesis bg-[#eb4326]">
-                  {`You are using the Oracle Swap Beta platform on the Songbird Canary Network. OracleSwap is
+                  {`You are using the NEXUS Swap Beta platform on the Songbird Canary Network. NEXUSSwap is
   a brand new DEX on the Songbird Network. Liquidity is decentralized and added by users. Please be aware of the associated risks with using DeFi
   platforms.`}
                 </Typography>
@@ -56,9 +54,9 @@ const Desktop: FC = () => {
             <div className="flex items-center justify-between gap-4 px-6">
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
-                  <ExternalLink href="https://www.oracleswap.io">
+                  <ExternalLink href="https://www.thenexusportal.io">
                     <img src={LogoImage.src} className={'w-[30px] h-[30px]'} alt="Logo" />
-                    {/* <Image src="/logo.png" alt="OracleSwap logo" width="24px" height="24px" /> */}
+                    {/* <Image src="/logo.png" alt="NEXUSSwap logo" width="24px" height="24px" /> */}
                   </ExternalLink>
                 </div>
 

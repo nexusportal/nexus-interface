@@ -1,38 +1,13 @@
+/* eslint-disable @next/next/no-img-element */
 import { ChainId, Currency, Token, WNATIVE } from '@sushiswap/core-sdk'
 import useHttpLocations from 'app/hooks/useHttpLocations'
 import { WrappedTokenInfo } from 'app/state/lists/wrappedTokenInfo'
 import React, { FunctionComponent, useMemo } from 'react'
-
+import NEXUS from '../../../public/NEXUS.png'
+import WXRP from '../../../public/WXRP.png'
+import XRP from '../../../public/XRP.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
-import CAND from '../../../public/CAND.png'
-import CNYX from '../../../public/CNYX.png'
-import HS from '../../../public/HS.png'
-import COOT from '../../../public/COOT.png'
-import ORACLE from '../../../public/ORACLE.png'
-import SFIN from '../../../public/SFIN.png'
-import SGB from '../../../public/SGB.png'
-import WSGB from '../../../public/WSGB.png'
-import XFIN from '../../../public/XFIN.png'
-import xORACLE from '../../../public/xORACLE.png'
-import EXFI from '../../../public/EXFI.png'
-import DOOD from '../../../public/DOOD.png'
-import PRO from '../../../public/PRO.png'
-import LOVE from '../../../public/LOVE.png'
-import SFORT from '../../../public/sFORT.png'
-import PSB from '../../../public/PNG.png'
-import SPRK from '../../../public/SPRK.png'
-import xATH from '../../../public/xATH.png'
-import GKB from '../../../public/GKB.png'
-import SDOOD from '../../../public/sDOOD.png'
-import SRIBBITS from '../../../public/SRIBBITS.png'
-import TRSH from '../../../public/TRSH.png'
-import CGLD from '../../../public/CGLD.png'
-import dFLR from '../../../public/dFLR.png'
-import CANARY from '../../../public/CANARY.png'
-import CARE from '../../../public/CARE.png'
-import LIZ from '../../../public/LIZ.png'
-import INFT from '../../../public/INFT.png'
 
 
 
@@ -56,8 +31,7 @@ const BLOCKCHAIN = {
   [ChainId.XDAI]: 'xdai',
   [ChainId.ARBITRUM]: 'arbitrum',
   [ChainId.AVALANCHE]: 'avalanche',
-  [ChainId.HARDHAT]: 'hardhat',
-  [ChainId.SGB]: 'songbird',
+  [ChainId.XRPL]: 'songbird',
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -84,13 +58,13 @@ export const getCurrencyLogoUrls = (currency): string[] => {
       }/logo.png`
     )
 
-    if (currency.chainId === ChainId.SGB) {
+    if (currency.chainId === ChainId.XRPL) {
       // const hostname = window.location.hostname
       // const protocal = window.location.protocol
       // console.log('window.origin', window.origin)
       urls.push(
         // @ts-ignore TYPE NEEDS FIXING
-        `https://dex.oracleswap.io/${currency.symbol}.png`
+        `https://dex.thenexusportal.io/${currency.symbol}.png`
       )
 
       // urls.push(
@@ -104,7 +78,7 @@ export const getCurrencyLogoUrls = (currency): string[] => {
 
 const AvalancheLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/avax.jpg'
 const BinanceCoinLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/bnb.jpg'
-const EthereumLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/eth.jpg'
+const EthereumLogo = 'https://raw.githubusercontent.com/sushiswap/sushiswap-interface/master/public/images/native-tokens/eth.png'
 const FantomLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/ftm.jpg'
 const HarmonyLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/one.jpg'
 const HecoLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/heco.jpg'
@@ -117,7 +91,7 @@ const PalmLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/p
 const MovrLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/movr.jpg'
 const FuseLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/fuse.jpg'
 const TelosLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/telos.jpg'
-const SongbirdLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/12186.png'
+const XRPLLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/52.png'
 
 const LOGO: Record<ChainId, string> = {
   [ChainId.ETHEREUM]: EthereumLogo,
@@ -149,8 +123,8 @@ const LOGO: Record<ChainId, string> = {
   [ChainId.MOONRIVER]: MovrLogo,
   [ChainId.FUSE]: FuseLogo,
   [ChainId.TELOS]: TelosLogo,
-  [ChainId.HARDHAT]: EthereumLogo,
-  [ChainId.SGB]: SongbirdLogo,
+  [ChainId.XRPL]: XRPLLogo,
+  [ChainId.HARDHAT]: ""
 }
 
 export interface CurrencyLogoProps {
@@ -161,6 +135,7 @@ export interface CurrencyLogoProps {
 }
 
 const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '24px', className, style }) => {
+  
   const uriLocations = useHttpLocations(
     currency instanceof WrappedTokenInfo ? currency.logoURI || currency.tokenInfo.logoURI : undefined
   )
@@ -182,282 +157,72 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     return [UNKNOWN_ICON]
   }, [currency, uriLocations])
 
-  if (currency?.equals(WNATIVE[currency.chainId]) && currency?.chainId === ChainId.SGB) {
-    return <img src={WSGB.src} width={size} height={size} className={className} />
+
+
+  if (currency?.equals(WNATIVE[currency.chainId]) && currency?.chainId === ChainId.XRPL) {
+    return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
   }
 
-  if (currency?.isNative && currency?.chainId === ChainId.SGB) {
-    return <img src={SGB.src} width={size} height={size} className={className} />
+  if (currency?.isNative && currency?.chainId === ChainId.XRPL) {
+    return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
   }
 
-  if (currency?.chainId === ChainId.SGB) {
-    if (currency.symbol === 'ORACLE') {
-      return <img src={ORACLE.src} width={size} height={size} className={className} />
+  if (currency?.chainId === ChainId.XRPL) {
+    if (currency.symbol === 'NEXU') {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'NEXUS') {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'LOVE') {
-      return <img src={LOVE.src} width={size} height={size} className={className} />
+   
+    if (currency.symbol === 'XRP') {
+      return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'WXRP') {
+      return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'SFORT') {
-      return <img src={SFORT.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SDOOD') {
-      return <img src={SDOOD.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'PSB') {
-      return <img src={PSB.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SPRK') {
-      return <img src={SPRK.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'GKB') {
-      return <img src={GKB.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'xATH') {
-      return <img src={xATH.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CANARY') {
-      return <img src={CANARY.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CARE') {
-      return <img src={CARE.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'LIZ') {
-      return <img src={LIZ.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'INFT') {
-      return <img src={INFT.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'dFLR') {
-      return <img src={dFLR.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SRIBBITS') {
-      return <img src={SRIBBITS.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'TRSH') {
-      return <img src={TRSH.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CGLD') {
-      return <img src={CGLD.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'PRO') {
-      return <img src={PRO.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'CAND') {
-      return <img src={CAND.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'CNYX') {
-      return <img src={CNYX.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'EXFI') {
-      return <img src={EXFI.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'HS') {
-      return <img src={HS.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'COOT') {
-      return <img src={COOT.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'SFIN') {
-      return <img src={SFIN.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'SGB') {
-      return <img src={SGB.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'WSGB') {
-      return <img src={WSGB.src} width={size} height={size} className={className} />
-    }
-    if (currency.symbol === 'XFIN') {
-      return <img src={XFIN.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'xORACLE') {
-      return <img src={xORACLE.src} width={size} height={size} className={className} />
-    }
-
-    if (currency.symbol === 'DOOD') {
-      return <img src={DOOD.src} width={size} height={size} className={className} />
-    }
   }
 
   if (currency instanceof Token) {
-    if (currency.chainId === ChainId.SGB) {
-      if (currency.symbol === 'ORACLE') {
-        return <img src={ORACLE.src} width={size} height={size} className={className} />
+    if (currency.chainId === ChainId.XRPL) {
+      if (currency.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
       }
 
-      if (currency.symbol === 'LOVE') {
-        return <img src={LOVE.src} width={size} height={size} className={className} />
-      }
 
-      if (currency.symbol === 'SFORT') {
-        return <img src={SFORT.src} width={size} height={size} className={className} />
+      if (currency.symbol === 'XRP') {
+        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
       }
-
-      if (currency.symbol === 'SDOOD') {
-        return <img src={SDOOD.src} width={size} height={size} className={className} />
+      if (currency.symbol === 'WXRP') {
+        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
-
-      if (currency.symbol === 'PSB') {
-        return <img src={PSB.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'SPRK') {
-        return <img src={SPRK.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'GKB') {
-        return <img src={GKB.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'xATH') {
-        return <img src={xATH.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'CANARY') {
-        return <img src={CANARY.src} width={size} height={size} className={className} />
-      }
-  
-      if (currency.symbol === 'CARE') {
-        return <img src={CARE.src} width={size} height={size} className={className} />
-      }
-  
-      if (currency.symbol === 'LIZ') {
-        return <img src={LIZ.src} width={size} height={size} className={className} />
-      }
-  
-      if (currency.symbol === 'INFT') {
-        return <img src={INFT.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'dFLR') {
-        return <img src={dFLR.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'CAND') {
-        return <img src={CAND.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'CNYX') {
-        return <img src={CNYX.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'EXFI') {
-        return <img src={EXFI.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'HS') {
-        return <img src={HS.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'COOT') {
-        return <img src={COOT.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'SFIN') {
-        return <img src={SFIN.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'SGB') {
-        return <img src={SGB.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'WSGB') {
-        return <img src={WSGB.src} width={size} height={size} className={className} />
-      }
-      if (currency.symbol === 'XFIN') {
-        return <img src={XFIN.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'xORACLE') {
-        return <img src={xORACLE.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'PRO') {
-        return <img src={PRO.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.symbol === 'DOOD') {
-        return <img src={DOOD.src} width={size} height={size} className={className} />
-      }
+   
     }
   }
 
   if (currency instanceof WrappedTokenInfo) {
-    if (currency.tokenInfo.chainId === ChainId.SGB) {
-      if (currency.tokenInfo.symbol === 'CAND') {
-        return <img src={CAND.src} width={size} height={size} className={className} />
+    if (currency.tokenInfo.chainId === ChainId.XRPL) {
+
+      if (currency.tokenInfo.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      }
+      if (currency.tokenInfo.symbol === 'XRP') {
+        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+      }
+      if (currency.tokenInfo.symbol === 'WXRP') {
+        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
 
-      if (currency.tokenInfo.symbol === 'LOVE') {
-        return <img src={LOVE.src} width={size} height={size} className={className} />
-      }
 
-      if (currency.tokenInfo.symbol === 'CNYX') {
-        return <img src={CNYX.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'EXFI') {
-        return <img src={EXFI.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'HS') {
-        return <img src={HS.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'COOT') {
-        return <img src={COOT.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'ORACLE') {
-        return <img src={ORACLE.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'SFIN') {
-        return <img src={SFIN.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'SGB') {
-        return <img src={SGB.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'WSGB') {
-        return <img src={WSGB.src} width={size} height={size} className={className} />
-      }
-      if (currency.tokenInfo.symbol === 'XFIN') {
-        return <img src={XFIN.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.tokenInfo.symbol === 'xORACLE') {
-        return <img src={xORACLE.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.tokenInfo.symbol === 'PRO') {
-        return <img src={PRO.src} width={size} height={size} className={className} />
-      }
-
-      if (currency.tokenInfo.symbol === 'DOOD') {
-        return <img src={DOOD.src} width={size} height={size} className={className} />
-      }
-
-      return (
-        <img src={CAND.src} width={size} height={size} className={className} />
-        // <Image src={`/CAND.png`} width={size} height={size} alt={currency?.symbol} className={className} />
-        // <Logo
-        //   srcs={['/CAND.png']}
-        //   width={size}
-        //   height={size}
-        //   alt={currency?.symbol}
-        //   className={className}
-        //   style={style}
-        // />
-      )
+      // return (
+      //   <img alt="img" src={CAND.src} width={size} height={size} className={className} />
+      // )
     }
   }
+
+  console.log(currency, srcs);
 
   return <Logo srcs={srcs} width={size} height={size} alt={currency?.symbol} className={className} style={style} />
 }

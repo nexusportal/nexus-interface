@@ -3931,9 +3931,9 @@
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
     },
     {
-      "name": "OracleSwap.io",
+      "name": "NEXUSSwap.io",
       "address": "0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff",
-      "symbol": "ORACLE",
+      "symbol": "NEXUS",
       "decimals": 18,
       "chainId": 19,
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
@@ -3950,14 +3950,6 @@
       "name": "Songbird Finance Token",
       "address": "0x0D94e59332732D18CF3a3D457A8886A2AE29eA1B",
       "symbol": "SFIN",
-      "decimals": 18,
-      "chainId": 19,
-      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
-    },
-    {
-      "name": "Wrapped Songbird",
-      "address": "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED",
-      "symbol": "WSGB",
       "decimals": 18,
       "chainId": 19,
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
@@ -8575,6 +8567,22 @@
       "decimals": 18,
       "chainId": 80001,
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"
+    },
+    {
+      "name": "Wrapped XRP",
+      "address": "0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4",
+      "symbol": "WXRP",
+      "decimals": 18,
+      "chainId": 1440001,
+      "logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/52.png"
+    },
+    {
+      "name": "Nexus",
+      "address": "0x3965c4716091A1008db59D85a684DbA075950145",
+      "symbol": "NEXU",
+      "decimals": 18,
+      "chainId": 1440001,
+      "logoURI": "/NEXUS.png"
     },
     {
       "chainId": 1666600000,

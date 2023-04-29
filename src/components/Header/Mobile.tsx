@@ -40,7 +40,7 @@ const Mobile: FC = () => {
             </div>
           </div>
           <Typography variant="xs" weight={700} className="py-0 px-4 text-[1rem] text-high-emphesis bg-[#eb4326]">
-          {`You are using the Oracle Swap Beta platform on the Songbird Canary Network. OracleSwap is
+          {`You are using the NEXUS Swap Beta platform on the Songbird Canary Network. NEXUSSwap is
   a brand new DEX on the Songbird Network. Liquidity is decentralized and added by users. Please be aware of the associated risks with using DeFi
   platforms.`}
           </Typography>
@@ -52,7 +52,7 @@ const Mobile: FC = () => {
             <MenuIcon width={28} className="text-white cursor-pointer hover:text-white" onClick={() => setOpen(true)} />
           </div>
           <div className="flex items-center mr-1">
-            <ExternalLink href="https://www.oracleswap.io">
+            <ExternalLink href="https://www.thenexusportal.io">
               <img src={LogoImage.src} className={'w-[30px] h-[30px]'} alt="Logo" />
             </ExternalLink>
           </div>

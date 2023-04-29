@@ -30,7 +30,7 @@ const FILLED = {
   pink: 'bg-pink',
   purple: 'bg-purple',
   gradient:
-    '!bg-gradient-to-r from-pink to-purple-600 hover:from-pink/80 hover:to-purple-600/80 focus:from-blue/80 focus:to-pink-600/80 active:from-blue/70 active:to-pink-600/70 focus:border-blue-700',
+  '!bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400/80 hover:to-green-400/80 focus:from-blue-400/80 focus:to-green-400/80 active:from-blue-400/70 active:to-green-400/70 focus:border-blue-700',
   gray: 'bg-dark-700',
 }
 

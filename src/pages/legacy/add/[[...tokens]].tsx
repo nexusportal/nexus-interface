@@ -308,21 +308,21 @@ export default function Add() {
   return (
     <>
       <Head>
-        <title>Add Liquidity | OracleSwap</title>
+        <title>Add Liquidity | NEXUSSwap</title>
         <meta
           key="description"
           name="description"
-          content="Add liquidity to the OracleSwap AMM to enable gas optimised and low slippage trades across countless networks"
+          content="Add liquidity to the NEXUSSwap AMM to enable gas optimised and low slippage trades across countless networks"
         />
         <meta
           key="twitter:description"
           name="twitter:description"
-          content="Add liquidity to the OracleSwap AMM to enable gas optimised and low slippage trades across countless networks"
+          content="Add liquidity to the NEXUSSwap AMM to enable gas optimised and low slippage trades across countless networks"
         />
         <meta
           key="og:description"
           property="og:description"
-          content="Add liquidity to the OracleSwap AMM to enable gas optimised and low slippage trades across countless networks"
+          content="Add liquidity to the NEXUSSwap AMM to enable gas optimised and low slippage trades across countless networks"
         />
       </Head>
 
@@ -376,7 +376,8 @@ export default function Add() {
         /> */}
 
         <DoubleGlowShadow>
-          <div className="p-4 space-y-4 rounded bg-dark-900" style={{ zIndex: 1 }}>
+        <div className="flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
+
             {/* <AddRemoveTabs creating={isCreate} adding={true} defaultSlippage={DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE} /> */}
 
             <ExchangeHeader

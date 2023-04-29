@@ -1,21 +1,19 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { DiscordIcon, TwitterIcon, TelegramIcon, YoutubeIcon, GithubIcon } from 'app/components/Icon'
+import { DiscordIcon, GithubIcon, TwitterIcon } from 'app/components/Icon'
+import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
 // import Typography from 'app/components/Typography'
 // import { Feature } from 'app/enums'
 // import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
+import { useNetworkModalToggle } from 'app/state/application/hooks'
 // import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+import LogoImage from '../../../public/XRP.png'
 import Container from '../Container'
-
-import LogoImage from '../../../public/songbird.png'
-import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
-import { useNetworkModalToggle } from 'app/state/application/hooks'
 // import Image from 'next/image'
-// import SGB from '../../../public/SGB.png'
 // import { ChainId } from '@sushiswap/core-sdk'
 // import { NETWORK_ICON } from 'app/config/networks'
 const Footer = () => {
@@ -32,10 +30,10 @@ const Footer = () => {
           <div className="flex flex-col col-span-2 gap-3 sm:col-span-1">
             {/* <div className="flex items-center justify-start gap-2">
               <div className="">
-                <Image src="https://app.sushi.com/images/logo.svg" alt="OracleSwap logo" width="28px" height="28px" />
+                <Image src="https://app.sushi.com/images/logo.svg" alt="Nexus logo" width="28px" height="28px" />
               </div>
               <Typography variant="h2" weight={700} className="tracking-[0.02em] scale-y-90 hover:text-high-emphesis">
-                OracleSwap
+                Nexus
               </Typography>
             </div> */}
             {/* <Typography variant="xs" className="text-low-emphesis">
@@ -43,27 +41,29 @@ const Footer = () => {
               us!`)}
             </Typography> */}
             <div className="flex items-center gap-4">
-              <a href="https://twitter.com/Oracle_Swap" target="_blank" rel="noreferrer">
+              <a href="https://twitter.com/PoweredByNEXUS" target="_blank" rel="noreferrer">
                 <TwitterIcon width={16} className="text-low-emphesis" />
               </a>
-              <a href="https://t.me/OracleSwapOffical" target="_blank" rel="noreferrer">
+
+              {/* <a href="https://t.me/NexusOffical" target="_blank" rel="noreferrer">
                 <TelegramIcon width={16} className="text-low-emphesis" />
               </a>
-              <a href="https://www.youtube.com/channel/UCIaaQbRoi5TV7epRLg8y3Mg" target="_blank" rel="noreferrer">
+              <a href="https://www.youtube.com/channel/" target="_blank" rel="noreferrer">
                 <YoutubeIcon width={16} className="text-low-emphesis" />
-              </a>
-              <a href="https://discord.gg/WbDnWcRBxw" target="_blank" rel="noreferrer">
+              </a> */}
+
+              <a href="https://discord.com/invite/nexusportal" target="_blank" rel="noreferrer">
                 <DiscordIcon width={16} className="text-low-emphesis" />
               </a>
-              <a href="https://github.com/Oracle-Swap" target="_blank" rel="noreferrer">
+
+              <a href="https://github.com/nexusportal" target="_blank" rel="noreferrer">
                 <GithubIcon width={16} className="text-low-emphesis" />
               </a>
-              
 
               <Link href="/portfolio" passHref={true}>
                 <a className="text-low-emphesis ">
                   {/*@ts-ignore*/}
-                  {i18n._(t`Portfolio`)}
+                  {i18n._(t`Your Wallet`)}
                 </a>
               </Link>
 
@@ -75,7 +75,7 @@ const Footer = () => {
                   {i18n._(t`Network`)}
                   {/* <div className="grid items-center grid-flow-col  justify-center bg-dark-1000 h-[36px] w-[36px] text-sm rounded pointer-events-auto auto-cols-max text-secondary"> */}
                   {/*@ts-ignore TYPE NEEDS FIXING*/}
-                  {/* {chainId === ChainId.SGB ? (
+                  {/* {chainId === ChainId.XRPL ? (
                       <img src={SGB.src} className="rounded-md" width="22px" height="22px" />
                     ) : (
                       <Image
@@ -92,13 +92,9 @@ const Footer = () => {
                 </div>
               )}
 
-              <a href="https://docs.oracleswap.io/" target="_blank" rel="noreferrer">
+              <a href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
                 <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
               </a>
- 
-            <a href="https://docs.oracleswap.io/about/privacy" target="_blank" rel="noreferrer">
-                <span className="text-low-emphesis"> {i18n._(t`Privacy`)} </span>
-            </a>
             </div>
           </div>
           {/* <div className="flex flex-col gap-1 text-right">
@@ -136,13 +132,13 @@ const Footer = () => {
           </div> */}
           {/* <div className="flex flex-col gap-1 md:text-right lg:text-right"> */}
           {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
-              <a href="https://help.oracleswap.io" target="_blank" rel="noreferrer">
+              <a href="https://help.thenexusportal.io" target="_blank" rel="noreferrer">
                 {i18n._(t`Help`)}
               </a>
             </Typography> */}
           {/* <a href="https://docs.sushi.com" target="_blank" rel="noreferrer">
               <Typography variant="xs" className="text-low-emphesis hover:text-high-emphesis">
-                {i18n._(t`What is OracleSwap?`)}
+                {i18n._(t`What is Nexus?`)}
               </Typography>
             </a>
             <a href="https://discord.gg/NVPXN4e" target="_blank" rel="noreferrer">
@@ -182,7 +178,7 @@ const Footer = () => {
             </a>
             <a href="https://docs.openmev.org" target="_blank" rel="noreferrer">
               <Typography variant="xs" className="text-low-emphesis hover:text-high-emphesis">
-                {i18n._(t`OracleSwap Relay`)}
+                {i18n._(t`Nexus Relay`)}
               </Typography>
             </a>
           </div> */}
@@ -204,7 +200,7 @@ const Footer = () => {
 
           <div className="flex flex-row justify-start gap-1 text-right sm:justify-end">
             <div className="flex items-center ">
-              <a href="https://flare.xyz/" target="_blank" rel="noreferrer">
+              <a href="https://xrpl.org/" target="_blank" rel="noreferrer">
                 <img src={LogoImage.src} className={'h-[50px]'} alt="Logo" />
               </a>
             </div>

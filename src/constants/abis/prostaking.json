@@ -3,7 +3,17 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_oracleWeight",
+				"name": "_nexusToken",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_nexusNFT",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_nexusWeight",
 				"type": "address"
 			}
 		],
@@ -328,7 +338,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct PRONFTMultiStaking.Reward[]",
+				"internalType": "struct NexusNFTMultiStaking.Reward[]",
 				"name": "rewards",
 				"type": "tuple[]"
 			}
@@ -359,7 +369,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct PRONFTMultiStaking.Reward[]",
+				"internalType": "struct NexusNFTMultiStaking.Reward[]",
 				"name": "rewards",
 				"type": "tuple[]"
 			}
@@ -375,6 +385,26 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "emergencyWithdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "enableEmergency",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -404,7 +434,7 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "proAmount",
+				"name": "nexusAmount",
 				"type": "uint256"
 			},
 			{
@@ -414,7 +444,7 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "xOracleAmount",
+				"name": "NexusCollateralAmount",
 				"type": "uint256"
 			}
 		],
@@ -443,7 +473,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct PRONFTMultiStaking.Reward[]",
+				"internalType": "struct NexusNFTMultiStaking.Reward[]",
 				"name": "rewards",
 				"type": "tuple[]"
 			}
@@ -497,7 +527,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "minProAmount",
+		"name": "minNexusAmount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -510,12 +540,70 @@
 	},
 	{
 		"inputs": [],
-		"name": "minxOracleAmount",
+		"name": "minNexusCollateralAmount",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "nexusAmountForLock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "nexusNFT",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "nexusToken",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "nexusWeight",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -557,45 +645,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "oracle",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "oracleNFT",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "oracleWeight",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "owner",
 		"outputs": [
 			{
@@ -630,41 +679,9 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct PRONFTMultiStaking.Reward[]",
+				"internalType": "struct NexusNFTMultiStaking.Reward[]",
 				"name": "rewards",
 				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "proAmountForLock",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "proToken",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -693,12 +710,12 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_min",
-				"type": "uint256"
+				"internalType": "bool",
+				"name": "_flag",
+				"type": "bool"
 			}
 		],
-		"name": "setMinPro",
+		"name": "setEmergency",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -711,7 +728,20 @@
 				"type": "uint256"
 			}
 		],
-		"name": "setMinxOracle",
+		"name": "setMinNexusAmount",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_min",
+				"type": "uint256"
+			}
+		],
+		"name": "setMinNexusCollateral",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -720,11 +750,11 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_oracleWeight",
+				"name": "_nexusWeight",
 				"type": "address"
 			}
 		],
-		"name": "setOracleWeight",
+		"name": "setNexusWeight",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -757,11 +787,11 @@
 	},
 	{
 		"inputs": [],
-		"name": "totalPoolWeight",
+		"name": "totalNexusLocked",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
@@ -770,11 +800,11 @@
 	},
 	{
 		"inputs": [],
-		"name": "totalProLocked",
+		"name": "totalPoolWeight",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "",
 				"type": "uint256"
 			}
 		],
@@ -809,7 +839,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "totalXOracleLocked",
+		"name": "totalnexusLocked",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -870,7 +900,7 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "xOracleLock",
+				"name": "nexusLock",
 				"type": "uint256"
 			}
 		],
@@ -945,32 +975,6 @@
 		"name": "withdraw",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "wsgb",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "xOracle",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{

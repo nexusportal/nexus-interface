@@ -256,7 +256,7 @@ const MigrateButtons = ({ state, exchange }: { state: MigrateState; exchange: st
       )}
       <div className="text-sm text-center text-low-emphesis">
         {i18n._(
-          t`Your ${exchange} ${state.selectedLPToken.tokenA.symbol}/${state.selectedLPToken.tokenB.symbol} liquidity will become OracleSwap ${state.selectedLPToken.tokenA.symbol}/${state.selectedLPToken.tokenB.symbol} liquidity.`
+          t`Your ${exchange} ${state.selectedLPToken.tokenA.symbol}/${state.selectedLPToken.tokenB.symbol} liquidity will become NEXUSSwap ${state.selectedLPToken.tokenA.symbol}/${state.selectedLPToken.tokenB.symbol} liquidity.`
         )}
       </div>
     </div>
@@ -318,10 +318,10 @@ export default function Migrate() {
   return (
     <Container id="migrate-page" className="py-4 space-y-6 md:py-8 lg:py-12" maxWidth="2xl">
       <Head>
-        <title>Migrate | OracleSwap</title>
-        <meta key="description" name="description" content="Migrate your liquidity to OracleSwap." />
-        <meta key="twitter:description" name="twitter:description" content="Migrate your liquidity to OracleSwap." />
-        <meta key="og:description" property="og:description" content="Migrate your liquidity to OracleSwap." />
+        <title>Migrate | NEXUSSwap</title>
+        <meta key="description" name="description" content="Migrate your liquidity to NEXUSSwap." />
+        <meta key="twitter:description" name="twitter:description" content="Migrate your liquidity to NEXUSSwap." />
+        <meta key="og:description" property="og:description" content="Migrate your liquidity to NEXUSSwap." />
       </Head>
 
       <div className="p-4 mb-3 space-y-3">
@@ -333,7 +333,7 @@ export default function Migrate() {
       </div>
 
       {!account ? (
-        <Web3Connect className="w-full !bg-dark-900 bg-gradient-to-r from-pink/80 hover:from-pink to-purple/80 hover:to-purple text-white h-[38px]" />
+          <Web3Connect className="!bg-dark-900 bg-gradient-to-r from-blue/80 hover:from-blue to-green/80 hover:to-green text-white h-[38px]" />
       ) : (
         <div className="p-4 space-y-4 rounded bg-dark-900">
           {state.loading ? (

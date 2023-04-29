@@ -29,7 +29,7 @@ import useMasterChef from './useMasterChef'
 const APPROVAL_ADDRESSES = {
   [Chef.MASTERCHEF]: {
     [ChainId.ETHEREUM]: MASTERCHEF_ADDRESS[ChainId.ETHEREUM],
-    [ChainId.SGB]: MASTERCHEF_ADDRESS[ChainId.SGB],
+    [ChainId.XRPL]: MASTERCHEF_ADDRESS[ChainId.XRPL],
   },
   [Chef.MASTERCHEF_V2]: { [ChainId.ETHEREUM]: MASTERCHEF_V2_ADDRESS[ChainId.ETHEREUM] },
   [Chef.MINICHEF]: {
@@ -62,7 +62,7 @@ const ManageBar = ({ farm }) => {
     chainId || 1,
     getAddress(farm.pair.id),
     farm.pair.type === PairType.KASHI ? Number(farm.pair.asset.decimals) : 18,
-    farm.pair.type === PairType.SINGLE ? farm.pair.symbol : farm.pair.type === PairType.KASHI ? 'KMP' : 'OLP',
+    farm.pair.type === PairType.SINGLE ? farm.pair.symbol : farm.pair.type === PairType.KASHI ? 'KMP' : 'NLP',
     farm.pair.name
   )
 
@@ -165,7 +165,7 @@ const ManageBar = ({ farm }) => {
             color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
             onClick={async () => {
               try {
-                // KMP decimals depend on asset, OLP is always 18
+                // KMP decimals depend on asset, NLP is always 18
                 // @ts-ignore TYPE NEEDS FIXING
 
 
@@ -200,7 +200,7 @@ const ManageBar = ({ farm }) => {
           color={!isWithdrawValid && !!parsedWithdrawValue ? 'red' : 'blue'}
           onClick={async () => {
             try {
-              // KMP decimals depend on asset, OLP is always 18
+              // KMP decimals depend on asset, NLP is always 18
               // @ts-ignore TYPE NEEDS FIXING
               const tx = await withdraw(farm.id, BigNumber.from(parsedWithdrawValue?.quotient.toString()))
               if (tx?.hash) {

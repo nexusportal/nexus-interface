@@ -10,14 +10,14 @@ const DEFAULT_NETWORK = {
   [ChainId.ETHEREUM]: 'ethereum',
   [ChainId.BSC]: 'bsc',
   [ChainId.MATIC]: 'matic',
-  [ChainId.SGB]: 'songbird',
+  [ChainId.XRPL]: 'ripple xrpl',
 }
 
 const DEFAULT_CRYPTO_CURRENCY = {
   [ChainId.ETHEREUM]: 'ETH',
   [ChainId.BSC]: 'BNB',
   [ChainId.MATIC]: 'MATIC',
-  [ChainId.SGB]: 'SGB',
+  [ChainId.XRPL]: 'XRP',
 }
 
 export default function Buy() {
@@ -37,7 +37,7 @@ export default function Buy() {
       // email: '', // Your customer's email address
       redirectURL: '',
       hostURL: window.location.origin,
-      themeColor: '#0D0415',
+      themeColor: '#021327',
       widgetHeight: '680px',
       widgetWidth: '100%',
       // @ts-ignore TYPE NEEDS FIXING

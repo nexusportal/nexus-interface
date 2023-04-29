@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ChainId, CurrencyAmount, JSBI, Token, ZERO } from '@sushiswap/core-sdk'
-import { PROPHET, XORACLE } from 'app/config/tokens'
-import { PROSTAKING_ADDRESS } from 'app/constants'
+import { NEXUS, XORACLE } from 'app/config/tokens'
+import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult, useSingleContractMultipleData } from 'app/state/multicall/hooks'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
@@ -12,7 +12,7 @@ import { useAllTokens } from './Tokens'
 import { useOracleNFTContract, useProStakingContract, useProStakingDistributorContract, useProStakingOracleWeightContract } from './useContract'
 
 const fetchNFTMetaInfo = async (id: number) => {
-  const url = `https://ipfs.io/ipfs/QmV3yAjc2WXQNZycGq3G8B6KGfNZutJFcQM3UuCRiXYgBH/${id}.json`
+  const url = `https://ethereals.fra1.cdn.digitaloceanspaces.com/metadata/${id}.json`
   const response = await axios.get(url)
   const token = response.data
 
@@ -111,7 +111,7 @@ export const useProStakingActions = () => {
       try {
         const tx = await prostakingContract?.NFTStake(tokenId)
 
-        return addTransaction(tx, { summary: 'Stake Oracle NFT' })
+        return addTransaction(tx, { summary: 'Stake Nexus NFT' })
       } catch (e) {
         return e
       }
@@ -124,7 +124,7 @@ export const useProStakingActions = () => {
       try {
         const tx = await prostakingContract?.NFTWithdraw(tokenId)
 
-        return addTransaction(tx, { summary: 'Withdraw Oracle NFT' })
+        return addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
       } catch (e) {
         return e
       }
@@ -137,7 +137,7 @@ export const useProStakingActions = () => {
       try {
         const tx = await prostakingContract?.batchNFTStake(tokenIds)
 
-        return addTransaction(tx, { summary: 'Stake Oracle NFT' })
+        return addTransaction(tx, { summary: 'Stake Nexus NFT' })
       } catch (e) {
         return e
       }
@@ -150,7 +150,7 @@ export const useProStakingActions = () => {
       try {
         const tx = await prostakingContract?.batchNFTWithdraw(tokenIds)
 
-        return addTransaction(tx, { summary: 'Withdraw Oracle NFT' })
+        return addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
       } catch (e) {
         return e
       }
@@ -234,7 +234,7 @@ export function useProStakingUserInfo() {
 
   const unlockTimeInfo = results?.unlockTime
 
-  const xOracleLockInfo = results?.xOracleLock
+  const xOracleLockInfo = results?.nexusLock
 
   const lockMode = lockModeInfo ? lockModeInfo.toNumber() : undefined
 
@@ -242,19 +242,19 @@ export function useProStakingUserInfo() {
 
   const lockedAmount = lockedAmountInfo ? JSBI.BigInt(lockedAmountInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const lockedProAmount = lockedAmount ? CurrencyAmount.fromRawAmount(PROPHET, lockedAmount) : undefined
+  const lockedProAmount = lockedAmount ? CurrencyAmount.fromRawAmount(NEXUS, lockedAmount) : undefined
 
   const nftWeight = nftWeightInfo ? JSBI.BigInt(nftWeightInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const userNFTWeight = nftWeight ? CurrencyAmount.fromRawAmount(PROPHET, nftWeight) : undefined
+  const userNFTWeight = nftWeight ? CurrencyAmount.fromRawAmount(NEXUS, nftWeight) : undefined
 
   const totalWeight = totalWeightInfo ? JSBI.BigInt(totalWeightInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const userTotalWeight = totalWeight ? CurrencyAmount.fromRawAmount(PROPHET, totalWeight) : undefined
+  const userTotalWeight = totalWeight ? CurrencyAmount.fromRawAmount(NEXUS, totalWeight) : undefined
 
   const xOracleLock = xOracleLockInfo ? JSBI.BigInt(xOracleLockInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const lockXOracle = xOracleLock ? CurrencyAmount.fromRawAmount(XORACLE, xOracleLock) : undefined
+  const lockXOracle = xOracleLock ? CurrencyAmount.fromRawAmount(NEXUS, xOracleLock) : undefined
 
   return { lockMode, unlockTime, lockedProAmount, userNFTWeight, userTotalWeight, lockXOracle }
 }
@@ -290,7 +290,7 @@ export function useProStakingNFTWeightInfo() : { [address: string]: number } {
   }, [userStakedNFT,userWalletNFT])
 
   // @ts-ignore TYPE NEEDS FIXING
-  const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'oracleNFTWeight', weightArgs)
+  const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'nexusNFTWeight', weightArgs)
 
   return useMemo(() => {
 
@@ -339,7 +339,7 @@ export function useProStakingNFTInfo() {
   // }, [userStakedNFT,userWalletNFT])
 
   // // @ts-ignore TYPE NEEDS FIXING
-  // const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'oracleNFTWeight', weightArgs)
+  // const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'nexusNFTWeight', weightArgs)
 
   // const oracleStakingWeight =  useMemo(() => {
   //   if (!nftWeightInfo) {
@@ -463,7 +463,7 @@ export function useOracleNFTAllApproved() {
     if (!account) {
       return
     }
-    return [String(account), PROSTAKING_ADDRESS]
+    return [String(account), NEXUS_NFT_MULTISTAKING_ADDRESS]
   }, [account])
 
   const approvedInfo = useSingleCallResult(args ? contract : null, 'isApprovedForAll', args)?.result
@@ -483,7 +483,7 @@ export function useOracleNFTWeight(tokenId: number) {
     return [String(tokenId)]
   }, [tokenId])
 
-  const weightInfo = useSingleCallResult(args ? contract : null, 'oracleNFTWeight', args)?.result
+  const weightInfo = useSingleCallResult(args ? contract : null, 'nexusNFTWeight', args)?.result
 
   const weight = weightInfo?.[0]
 
@@ -504,7 +504,7 @@ export function useOracleNFTApproved(tokenId: number) {
 
   const operator = approvedInfo?.[0]
 
-  return operator && operator.toLowerCase() === PROSTAKING_ADDRESS.toLowerCase()
+  return operator && operator.toLowerCase() === NEXUS_NFT_MULTISTAKING_ADDRESS.toLowerCase()
 }
 
 export function useOracleNFTApprove() {
@@ -514,8 +514,8 @@ export function useOracleNFTApprove() {
 
   const approveAll = useCallback(async () => {
     try {
-      const tx = await contract?.setApprovalForAll(PROSTAKING_ADDRESS, true)
-      return addTransaction(tx, { summary: 'Approve All Oracle NFTs For Multistaking' })
+      const tx = await contract?.setApprovalForAll(NEXUS_NFT_MULTISTAKING_ADDRESS, true)
+      return addTransaction(tx, { summary: 'Approve All Nexus NFTs For Multistaking' })
     } catch (e) {
       return e
     }
@@ -524,8 +524,8 @@ export function useOracleNFTApprove() {
   const approveStaker = useCallback(
     async (tokenId: number) => {
       try {
-        const tx = await contract?.approve(PROSTAKING_ADDRESS, tokenId)
-        return addTransaction(tx, { summary: 'Approve Oracle NFT For Multistaking' })
+        const tx = await contract?.approve(NEXUS_NFT_MULTISTAKING_ADDRESS, tokenId)
+        return addTransaction(tx, { summary: 'Approve Nexus NFT For Multistaking' })
       } catch (e) {
         return e
       }
@@ -560,11 +560,11 @@ export function useProPendingReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.SGB, item.token, 18, 'OLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.SGB, item.token, 18, 'SGB', 'SGB');
+        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
       }
 
 
@@ -609,12 +609,12 @@ export function useProUserTotalReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.SGB, item.token, 18, 'OLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.SGB, item.token, 18, 'SGB', 'SGB');
+        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
       }
 
       const amountInfo = item.amount ? JSBI.BigInt(item.amount.toString()) : undefined
@@ -637,26 +637,26 @@ export function useProUserTotalReward() {
 export function useMinProAmount() {
   const contract = useProStakingContract()
 
-  const results = useSingleCallResult(contract, 'minProAmount')?.result
+  const results = useSingleCallResult(contract, 'minNexusAmount')?.result
 
   const value = results?.[0]
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  const minPro = amount ? CurrencyAmount.fromRawAmount(PROPHET, amount) : undefined
+  const minPro = amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
 
   return minPro
 }
 
 export function useMinXOracleAmount() {
   const contract = useProStakingContract()
-  const results = useSingleCallResult(contract, 'minxOracleAmount')?.result
+  const results = useSingleCallResult(contract, 'minNexusCollateralAmount')?.result
 
   const value = results?.[0]
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  const minXOracle = amount ? CurrencyAmount.fromRawAmount(XORACLE, amount) : undefined
+  const minXOracle = amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
 
   return minXOracle
 }
@@ -668,21 +668,21 @@ export function useProStakingInfo() {
 
   const totalPoolInfo = results?.poolSize
 
-  const proAmountInfo = results?.proAmount
+  const proAmountInfo = results?.nexusAmount
 
   const nftCountInfo = results?.nftCount
 
   const totalNFTCount = nftCountInfo ? nftCountInfo.toNumber() : undefined
 
-  const xOracleAmountInfo = results?.xOracleAmount
+  const xOracleAmountInfo = results?.NexusCollateralAmount
 
   const totalPool = totalPoolInfo ? JSBI.BigInt(totalPoolInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const totalPoolSize = totalPool ? CurrencyAmount.fromRawAmount(PROPHET, totalPool) : undefined
+  const totalPoolSize = totalPool ? CurrencyAmount.fromRawAmount(NEXUS, totalPool) : undefined
 
   const proAmount = proAmountInfo ? JSBI.BigInt(proAmountInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const totalProAmount = proAmount ? CurrencyAmount.fromRawAmount(PROPHET, proAmount) : undefined
+  const totalProAmount = proAmount ? CurrencyAmount.fromRawAmount(NEXUS, proAmount) : undefined
 
   const xOracleAmount = xOracleAmountInfo ? JSBI.BigInt(xOracleAmountInfo.toString()) : undefined
 
@@ -707,12 +707,12 @@ export function useTotalDistributedReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.SGB, item.token, 18, 'OLP', 'OracleSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.SGB, item.token, 18, 'SGB', 'SGB');
+        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
       }
 
       const amountInfo = item.amount ? JSBI.BigInt(item.amount.toString()) : undefined

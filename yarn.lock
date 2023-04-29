@@ -3131,9 +3131,9 @@
     tiny-warning "^1.0.0"
     toformat "^2.0.0"
 
-"@sushiswap/core-sdk@agelessZeal/oracleswap-core-sdk":
+"@sushiswap/core-sdk@nexusportal/nexus-core-sdk#v0.0.5":
   version "1.0.0-canary.63"
-  resolved "https://codeload.github.com/agelessZeal/oracleswap-core-sdk/tar.gz/6502454acbe9610c9e6049bcc5fdfd25947b0c94"
+  resolved "https://codeload.github.com/nexusportal/nexus-core-sdk/tar.gz/9fb089af8751abc0e6c7385ed4cd2ec7b0c17b03"
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bignumber" "^5.4.0"
@@ -3151,9 +3151,9 @@
   resolved "https://registry.yarnpkg.com/@sushiswap/core/-/core-2.0.0-canary.1.tgz#91c938668282d463e4fce6e0cf4d320ce5f3768f"
   integrity sha512-6YFT4EKgm0XgfwCBsKx5HrDtRI6EvhZHipjBKegdTV0b2zKuXnmdyZ+RwPCr0mCKq2pKB0qIiqCxfbgXYDlLCQ==
 
-"@sushiswap/default-token-list@agelessZeal/oracleswap-default-token-list":
+"@sushiswap/default-token-list@agelessZeal/nexus-default-token-list":
   version "23.14.0"
-  resolved "https://codeload.github.com/agelessZeal/oracleswap-default-token-list/tar.gz/0ebac55fc5b8ee984b90084fed596b17552d290c"
+  resolved "https://codeload.github.com/agelessZeal/nexus-default-token-list/tar.gz/0ebac55fc5b8ee984b90084fed596b17552d290c"
   dependencies:
     raise-version "^0.5.0"
 
