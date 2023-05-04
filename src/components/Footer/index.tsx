@@ -58,7 +58,7 @@ const Footer = () => {
               <a href="https://github.com/Oracle-Swap" target="_blank" rel="noreferrer">
                 <GithubIcon width={16} className="text-low-emphesis" />
               </a>
-              
+
 
               <Link href="/portfolio" passHref={true}>
                 <a className="text-low-emphesis ">
@@ -95,10 +95,13 @@ const Footer = () => {
               <a href="https://docs.oracleswap.io/" target="_blank" rel="noreferrer">
                 <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
               </a>
- 
-            <a href="https://docs.oracleswap.io/about/privacy" target="_blank" rel="noreferrer">
+
+              <a href="https://docs.oracleswap.io/about/privacy" target="_blank" rel="noreferrer">
                 <span className="text-low-emphesis"> {i18n._(t`Privacy`)} </span>
-            </a>
+              </a>
+              <a href="https://www.geckoterminal.com/songbird/oracleswap/pools" target="_blank" rel="noreferrer">
+                <span className="text-low-emphesis"> {i18n._(t`🦎Gecko Charts📈`)} </span>
+              </a>
             </div>
           </div>
           {/* <div className="flex flex-col gap-1 text-right">
