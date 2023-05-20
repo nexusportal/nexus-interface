@@ -18,7 +18,9 @@ import { AutoColumn } from '../Column'
 import { CurrencyLogo } from '../CurrencyLogo'
 import Dots from '../Dots'
 import DoubleCurrencyLogo from '../DoubleLogo'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface PositionCardProps {
   pair: Pair
   showUnwrapped?: boolean
@@ -40,71 +42,76 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
 
   const poolTokenPercentage =
     !!userPoolBalance &&
-    !!totalPoolTokens &&
-    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+      !!totalPoolTokens &&
+      JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? new Percent(userPoolBalance.quotient, totalPoolTokens.quotient)
       : undefined
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
-    !!totalPoolTokens &&
-    !!userPoolBalance &&
-    // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+      !!totalPoolTokens &&
+      !!userPoolBalance &&
+      // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+      JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? [
-          pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
-          pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false),
-        ]
+        pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
+        pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false),
+      ]
       : [undefined, undefined]
 
   return (
     <>
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.quotient, JSBI.BigInt(0)) ? (
-        <div className="p-5 rounded bg-dark-800 text-high-emphesis">
-          <AutoColumn gap={'md'}>
-            <div className="text-lg">Your Position</div>
-            <div className="flex flex-col md:flex-row md:justify-between">
-              <div className="flex items-center w-auto space-x-4">
-                <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={40} />
-                <div className="text-2xl font-semibold">
-                  {currency0.symbol}/{currency1.symbol}
+        <Frame animate={true}
+          level={3}
+          corners={3}
+          layer='primary'>
+          <div className="p-5 rounded  text-high-emphesis">
+            <AutoColumn gap={'md'}>
+              <div className="text-lg">Your Position</div>
+              <div className="flex flex-col md:flex-row md:justify-between">
+                <div className="flex items-center w-auto space-x-4">
+                  <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={40} />
+                  <div className="text-2xl font-semibold">
+                    {currency0.symbol}/{currency1.symbol}
+                  </div>
+                </div>
+                <div className="flex items-center mt-3 space-x-2 text-base md:mt-0">
+                  <div>{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'} </div>
+                  <div className="text-secondary">Pool Tokens</div>
                 </div>
               </div>
-              <div className="flex items-center mt-3 space-x-2 text-base md:mt-0">
-                <div>{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'} </div>
-                <div className="text-secondary">Pool Tokens</div>
+              <div className="flex flex-col w-full p-3 mt-3 space-y-1 text-sm rounded  text-high-emphesis">
+                <div className="flex justify-between">
+                  <div>{i18n._(t`Your pool share`)}</div>
+                  <div className="font-bold">{poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'}</div>
+                </div>
+                <div className="flex justify-between">
+                  <div>{currency0.symbol}:</div>
+                  {token0Deposited ? (
+                    <div className="flex space-x-2 font-bold">
+                      <div> {token0Deposited?.toSignificant(6)}</div>
+                      <div className="text-secondary">{currency0.symbol}</div>
+                    </div>
+                  ) : (
+                    '-'
+                  )}
+                </div>
+                <div className="flex justify-between">
+                  <div>{currency1.symbol}:</div>
+                  {token1Deposited ? (
+                    <div className="flex space-x-2 font-bold">
+                      <div>{token1Deposited?.toSignificant(6)}</div>
+                      <div className="text-secondary">{currency1.symbol}</div>
+                    </div>
+                  ) : (
+                    '-'
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col w-full p-3 mt-3 space-y-1 text-sm rounded bg-dark-900 text-high-emphesis">
-              <div className="flex justify-between">
-                <div>{i18n._(t`Your pool share`)}</div>
-                <div className="font-bold">{poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'}</div>
-              </div>
-              <div className="flex justify-between">
-                <div>{currency0.symbol}:</div>
-                {token0Deposited ? (
-                  <div className="flex space-x-2 font-bold">
-                    <div> {token0Deposited?.toSignificant(6)}</div>
-                    <div className="text-secondary">{currency0.symbol}</div>
-                  </div>
-                ) : (
-                  '-'
-                )}
-              </div>
-              <div className="flex justify-between">
-                <div>{currency1.symbol}:</div>
-                {token1Deposited ? (
-                  <div className="flex space-x-2 font-bold">
-                    <div>{token1Deposited?.toSignificant(6)}</div>
-                    <div className="text-secondary">{currency1.symbol}</div>
-                  </div>
-                ) : (
-                  '-'
-                )}
-              </div>
-            </div>
-          </AutoColumn>
-        </div>
+            </AutoColumn>
+          </div>
+        </Frame>
       ) : null}
     </>
   )
@@ -129,35 +136,35 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
 
   const poolTokenPercentage =
     !!userPoolBalance &&
-    !!totalPoolTokens &&
-    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+      !!totalPoolTokens &&
+      JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? new Percent(userPoolBalance.quotient, totalPoolTokens.quotient)
       : undefined
 
   const [token0Deposited, token1Deposited] =
     !!pair &&
-    !!totalPoolTokens &&
-    !!userPoolBalance &&
-    // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-    JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
+      !!totalPoolTokens &&
+      !!userPoolBalance &&
+      // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+      JSBI.greaterThanOrEqual(totalPoolTokens.quotient, userPoolBalance.quotient)
       ? [
-          pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
-          pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false),
-        ]
+        pair.getLiquidityValue(pair.token0, totalPoolTokens, userPoolBalance, false),
+        pair.getLiquidityValue(pair.token1, totalPoolTokens, userPoolBalance, false),
+      ]
       : [undefined, undefined]
 
   const backgroundColor = useColor(pair?.token0)
 
   return (
     <div
-      className="rounded bg-dark-800"
-      // style={{ backgroundColor }}
+      className="rounded "
+    // style={{ backgroundColor }}
     >
       <Button
         variant="empty"
         className={classNames(
-          'flex items-center justify-between w-full px-4 py-6 cursor-pointer bg-dark-800 hover:bg-dark-700 !text-blue',
-          showMore && '!bg-dark-800'
+          'flex items-center justify-between w-full px-4 py-6 cursor-pointer  !text-blue',
+          showMore && ''
         )}
         style={{ boxShadow: 'none' }}
         onClick={() => setShowMore(!showMore)}
@@ -188,7 +195,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
         leaveTo="opacity-0"
       >
         <div className="p-4 space-y-4">
-          <div className="px-4 py-4 space-y-1 text-sm rounded text-high-emphesis bg-dark-900">
+          <div className="px-4 py-4 space-y-1 text-sm rounded text-high-emphesis ">
             <div className="flex items-center justify-between">
               <div>{i18n._(t`Your total pool tokens`)}:</div>
               <div className="font-semibold">{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}</div>

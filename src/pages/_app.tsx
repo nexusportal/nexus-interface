@@ -1,6 +1,8 @@
 import '../bootstrap'
 import '../styles/index.css'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, createTheme } from 'arwes';
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { remoteLoader } from '@lingui/remote-loader'
@@ -25,7 +27,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -42,7 +44,7 @@ if (typeof window !== 'undefined' && !!window.ethereum) {
 function MyApp({ Component, pageProps, fallback, err }) {
   const router = useRouter()
   const { locale, events } = router
-
+  const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     // @ts-ignore TYPE NEEDS FIXING
     const handleRouteChange = (url) => {
@@ -90,7 +92,8 @@ function MyApp({ Component, pageProps, fallback, err }) {
       i18n.activate(locale)
     }
 
-    load(locale)
+    load(locale);
+    setHydrated(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale])
 
@@ -134,39 +137,59 @@ function MyApp({ Component, pageProps, fallback, err }) {
       />
       {/* <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script> */}
 
-      <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
-        <Web3ReactProvider getLibrary={getLibrary}>
-          <Web3ProviderNetwork getLibrary={getLibrary}>
-            <Web3ReactManager>
-              <ReduxProvider store={store}>
-                <PersistGate loading={<Dots>loading</Dots>} persistor={persistor}>
-                  <>
-                    <ListsUpdater />
-                    <UserUpdater />
-                    <ApplicationUpdater />
-                    <MulticallUpdater />
-                  </>
-                  <RecoilRoot>
-                    <SyncWithRedux />
-                    <Provider>
-                      <Layout>
-                        <Guard>
-                          {/* TODO: Added alert Jan 25. Delete component after a few months. */}
-                          <MultichainExploitAlertModal />
-                          {/*@ts-ignore TYPE NEEDS FIXING*/}
-                          <Component {...pageProps} err={err} />
-                        </Guard>
-                        <Portals />
-                      </Layout>
-                    </Provider>
-                    <TransactionUpdater />
-                  </RecoilRoot>
-                </PersistGate>
-              </ReduxProvider>
-            </Web3ReactManager>
-          </Web3ProviderNetwork>
-        </Web3ReactProvider>
-      </I18nProvider>
+      <ThemeProvider theme={createTheme()}>
+        <I18nProvider i18n={i18n} forceRenderOnLocaleChange={false}>
+          <Web3ReactProvider getLibrary={getLibrary}>
+            <Web3ProviderNetwork getLibrary={getLibrary}>
+              <Web3ReactManager>
+                <ReduxProvider store={store}>
+                  <PersistGate loading={<Dots>loading</Dots>} persistor={persistor}>
+                    <>
+                      <ListsUpdater />
+                      <UserUpdater />
+                      <ApplicationUpdater />
+                      <MulticallUpdater />
+                    </>
+                    <RecoilRoot>
+                      <SyncWithRedux />
+                      <Provider>
+
+                        {/* TODO: Added alert Jan 25. Delete component after a few months. */}
+                        <MultichainExploitAlertModal />
+                        {/*@ts-ignore TYPE NEEDS FIXING*/}
+                        {hydrated ? (
+                          <>
+                            <Arwes  animate show background='background.jpg' pattern='glow.png'>
+                              <Layout>
+                                <Guard>
+                                  <Component  {...pageProps} />
+                                </Guard>
+                              </Layout>
+                            </Arwes>
+                            <Portals />
+
+                          </>
+
+                        ) : (
+                          <Layout>
+                            <Guard>
+                              <Component  {...pageProps} />
+                            </Guard>
+                            <Portals />
+                          </Layout>
+                        )}
+
+
+                      </Provider>
+                      <TransactionUpdater />
+                    </RecoilRoot>
+                  </PersistGate>
+                </ReduxProvider>
+              </Web3ReactManager>
+            </Web3ProviderNetwork>
+          </Web3ReactProvider>
+        </I18nProvider >
+      </ThemeProvider >
     </>
   )
 }

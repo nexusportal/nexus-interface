@@ -16,7 +16,9 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useAppDispatch, useAppSelector } from 'app/state/hooks'
 import React, { FC, useCallback, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 import FarmListItem from './FarmListItem'
 
 const SortIcon: FC<{ id?: string; direction?: 'ascending' | 'descending'; active: boolean }> = ({
@@ -50,41 +52,51 @@ const FarmList = ({ farms, term }) => {
 
   return items ? (
     <>
-      <div className={classNames(TABLE_WRAPPER_DIV_CLASSNAME)}>
-        <div className="grid grid-cols-4 min-w-[768px]">
-          <div
-            className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 4))}
-            onClick={() => requestSort('pair.token0.symbol')}
-          >
-            <Typography variant="sm" weight={700}>
-              {i18n._(t`Pool`)}
-            </Typography>
-            <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'symbol'} />
+      <div className={classNames(TABLE_WRAPPER_DIV_CLASSNAME)} style={{overflow:"visible"}}>
+        <Frame animate={true}
+          level={3}
+          corners={3}
+          layer='primary'>
+          <div className="grid grid-cols-4 min-w-[768px]">
+            <div
+              className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 4))}
+              onClick={() => requestSort('pair.token0.symbol')}
+            >
+              <Typography variant="sm" weight={700}>
+                {i18n._(t`Pool`)}
+              </Typography>
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'symbol'} />
+            </div>
+            <div
+              className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(1, 4))}
+              onClick={() => requestSort('tvl')}
+            >
+              <Typography variant="sm" weight={700}>
+                {i18n._(t`TVL`)}
+              </Typography>
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'tvl'} />
+            </div>
+            <div className={classNames(TABLE_TR_TH_CLASSNAME(2, 4))}>
+              <Typography variant="sm" weight={700}>
+                {i18n._(t`Rewards`)}
+              </Typography>
+            </div>
+            <div
+              className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(3, 4))}
+              onClick={() => requestSort('roiPerYear')}
+            >
+              <Typography variant="sm" weight={700}>
+                {i18n._(t`APR`)}
+              </Typography>
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'roiPerYear'} />
+            </div>
           </div>
-          <div
-            className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(1, 4))}
-            onClick={() => requestSort('tvl')}
-          >
-            <Typography variant="sm" weight={700}>
-              {i18n._(t`TVL`)}
-            </Typography>
-            <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'tvl'} />
-          </div>
-          <div className={classNames(TABLE_TR_TH_CLASSNAME(2, 4))}>
-            <Typography variant="sm" weight={700}>
-              {i18n._(t`Rewards`)}
-            </Typography>
-          </div>
-          <div
-            className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(3, 4))}
-            onClick={() => requestSort('roiPerYear')}
-          >
-            <Typography variant="sm" weight={700}>
-              {i18n._(t`APR`)}
-            </Typography>
-            <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'roiPerYear'} />
-          </div>
-        </div>
+        </Frame>
+        <Frame animate={true}
+          level={3}
+          corners={3}
+          className="mt-3"
+          layer='primary'>
         <div className="divide-y divide-dark-900  min-w-[768px]">
           <InfiniteScroll
             dataLength={numDisplayed}
@@ -109,6 +121,7 @@ const FarmList = ({ farms, term }) => {
             ))}
           </InfiniteScroll>
         </div>
+        </Frame>
       </div>
       <HeadlessUiModal.Controlled
         isOpen={open}

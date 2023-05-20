@@ -25,7 +25,9 @@ import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useExpertModeManager } from 'app/state/user/hooks'
 import React, { useState } from 'react'
 import ReactGA from 'react-ga'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 // @ts-ignore TYPE NEEDS FIXING
 const PoolDeposit = ({ currencyA, currencyB, header }) => {
   const { i18n } = useLingui()
@@ -48,8 +50,8 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
 
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(currencyA, WNATIVE[chainId])) ||
-        (currencyB && currencyEquals(currencyB, WNATIVE[chainId])))
+    ((currencyA && currencyEquals(currencyA, WNATIVE[chainId])) ||
+      (currencyB && currencyEquals(currencyB, WNATIVE[chainId])))
   )
 
   // mint state
@@ -149,9 +151,8 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
 
           addTransaction(response, {
             summary: i18n._(
-              t`Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-                currencies[Field.CURRENCY_A]?.symbol
-              } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`
+              t`Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencies[Field.CURRENCY_A]?.symbol
+                } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`
             ),
           })
 
@@ -183,10 +184,16 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
           // @ts-ignore TYPE NEEDS FIXING
           onChange={onFieldAInput}
         />
-        <div className="z-10 flex justify-center -mt-6 -mb-6">
-          <div className="p-1.5 rounded-full bg-dark-800 border border-dark-800 shadow-md border-dark-700">
-            <PlusIcon width={14} className="text-high-emphesis" />
-          </div>
+        <div className="z-50 flex justify-center -mt-6 -mb-6">
+          <Frame animate={true}
+            level={3}
+            corners={2}
+            className="w-100"
+            layer='primary'>
+            <div className="p-1.5 rounded-full">
+              <PlusIcon width={14} className="text-high-emphesis" />
+            </div>
+          </Frame>
         </div>
         <AssetInput
           size="sm"
@@ -248,14 +255,14 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
             isExpertMode
               ? onAdd()
               : setContent(
-                  <PoolAddLiquidityReviewContent
-                    noLiquidity={noLiquidity}
-                    liquidityMinted={minLiquidityCurrencyAmount}
-                    poolShare={poolTokenPercentage}
-                    parsedAmounts={parsedAmounts}
-                    execute={onAdd}
-                  />
-                )
+                <PoolAddLiquidityReviewContent
+                  noLiquidity={noLiquidity}
+                  liquidityMinted={minLiquidityCurrencyAmount}
+                  poolShare={poolTokenPercentage}
+                  parsedAmounts={parsedAmounts}
+                  execute={onAdd}
+                />
+              )
           }}
           disabled={!isValid || attemptingTxn}
           fullWidth

@@ -36,7 +36,9 @@ import React, { useState } from 'react'
 
 import NexusDiff from '../../../public/NEXUS2.png'
 import OracleDistributor from './OracleDistributor'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 const INPUT_CHAR_LIMIT = 18
 
 const tabStyle = 'flex justify-center items-center h-full w-full rounded-lg cursor-pointer text-sm md:text-base'
@@ -195,110 +197,120 @@ USE AT YOUR OWN RISK!`}
             </div>
           </div>
 
-          <div className="flex flex-wrap top-area gap-4">
-            <div className="w-full md:w-[300px] mt-2 md:mt-0">
-              <div className="flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
-                <div className="flex flex-col flex-grow w-full rounded">
-                  <div className="flex flex-col flex-wrap">
-                    <div>
-                      <img
-                        src={NexusDiff.src}
-                        alt="Nexus sign"
-                        width="150px"
-                        height="100%"
-                        className="object-center mx-auto"
-                      />
-                    </div>
+          <div className="flex flex-wrap gap-4 top-area">
+            <div className="w-full md:w-[300px]  md:mt-0">
+              <Frame animate={true}
+                level={3}
+                corners={4}
+                layer='primary'>
+                <div className="flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md ">
+                  <div className="flex flex-col flex-grow w-full rounded">
+                    <div className="flex flex-col flex-wrap">
+                      <div>
+                        <img
+                          src={NexusDiff.src}
+                          alt="Nexus sign"
+                          width="150px"
+                          height="100%"
+                          className="object-center mx-auto"
+                        />
+                      </div>
 
-                    <div className="flex flex-row mb-3">
-                      <p className="text-lg font-bold md:text-2xl md:font-medium text-high-emphesis">
-                        {i18n._(t`Nexus Diffuser`)}
-                      </p>
+                      <div className="flex flex-row mb-3">
+                        <p className="text-lg font-bold md:text-2xl md:font-medium text-high-emphesis">
+                          {i18n._(t`Nexus Diffuser`)}
+                        </p>
 
-                      <QuestionHelper
-                        className="!bg-dark-800 !shadow-xl p-2"
-                        text={`BE AWARE OF GAS SPENDING WHEN CALLING THE DIST/BURN! The Nexus Diffuser receives DEX swap fees from the feeToo address of the NexusFactory Contract. 70% is burnt.`}
-                      />
-                    </div>
+                        <QuestionHelper
+                          className="!bg-dark-800 !shadow-xl p-2"
+                          text={`BE AWARE OF GAS SPENDING WHEN CALLING THE DIST/BURN! The Nexus Diffuser receives DEX swap fees from the feeToo address of the NexusFactory Contract. 70% is burnt.`}
+                        />
+                      </div>
 
-                    <div className="flex flex-col flex-grow text-base md:mb-3">
-                      <p>
-                        <span>&#128512;</span> NLP Available:{' '}
-                        <span className={classNames(enabled ? 'text-green' : 'text-red')}>
-                          {enabled ? 'Yes' : 'No'}
-                        </span>
-                      </p>
-                      <p>
-                        <span>&#128293; </span> Nexus Burned: <span>{foundry?.toSignificant(6)}</span>
-                        {/* &#127835; */}
-                      </p>
-                      <p>
-                        <span>&#128293;</span> Nexus Burned: <span>{burned?.toSignificant(6)}</span>
-                      </p>
-                      <p>
-                        <span>&#127789;</span> Nexus MultiStaking: <span>{prophet?.toSignificant(6)}</span>
-                      </p>
-                      <p>
-                        <span>&#127974;</span> Nexus Treasury: <span>{treasury?.toSignificant(6)}</span>
-                      </p>
+                      <div className="flex flex-col flex-grow text-base md:mb-3">
+                        <p>
+                          <span>&#128512;</span> NLP Available:{' '}
+                          <span className={classNames(enabled ? 'text-green' : 'text-red')}>
+                            {enabled ? 'Yes' : 'No'}
+                          </span>
+                        </p>
+                        <p>
+                          <span>&#128293; </span> Nexus Burned: <span>{foundry?.toSignificant(6)}</span>
+                          {/* &#127835; */}
+                        </p>
+                        <p>
+                          <span>&#128293;</span> Nexus Burned: <span>{burned?.toSignificant(6)}</span>
+                        </p>
+                        <p>
+                          <span>&#127789;</span> Nexus MultiStaking: <span>{prophet?.toSignificant(6)}</span>
+                        </p>
+                        <p>
+                          <span>&#127974;</span> Nexus Treasury: <span>{treasury?.toSignificant(6)}</span>
+                        </p>
 
-                      {oracleBalance?.equalTo(ZERO) && (
-                        <div className="mt-2 text-base text-red">{`Your nexus balance is zero, so you cannot dist/burn nlp`}</div>
-                      )}
+                        {oracleBalance?.equalTo(ZERO) && (
+                          <div className="mt-2 text-base text-red">{`Your nexus balance is zero, so you cannot dist/burn nlp`}</div>
+                        )}
 
-                      <div className="flex justify-center mt-4">
-                        <Button
-                          color={'gradient'}
-                          size={'sm'}
-                          variant={'filled'}
-                          disabled={pendingTx || !account || !enabled || oracleBalance?.equalTo(ZERO)}
-                          onClick={lpConvertClick}
-                          className="inline-flex items-center px-8 font-bold text-white rounded-full cursor-pointer bg-gradient-to-r from-blue to-green"
-                        >
-                          {`DIFFUSE`}
-                        </Button>
+                        <div className="flex justify-center mt-4">
+                          <Button
+                            color={'gradient'}
+                            size={'sm'}
+                            variant={'filled'}
+                            disabled={pendingTx || !account || !enabled || oracleBalance?.equalTo(ZERO)}
+                            onClick={lpConvertClick}
+                            className="inline-flex items-center px-8 font-bold text-white rounded-full cursor-pointer bg-gradient-to-r from-blue to-green"
+                          >
+                            {`DIFFUSE`}
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Frame>
             </div>
-            <div className="w-full flex-1 flex gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
-              <div className="w-full sm:w-1/2 md:pt-10">
-                <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
-                  {i18n._(t`Global Stats🌎`)}
+            <Frame animate={true}
+              level={3}
+              corners={4}
+              layer='primary'
+              className="flex flex-1 w-full"
+            >
+              <div className=" flex-1 flex gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md ">
+                <div className="w-full sm:w-1/2 md:pt-10">
+                  <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+                    {i18n._(t`Global Stats🌎`)}
+                  </div>
+
+                  <p>{`Current Global Pool Size:  ${totalPoolSize ? totalPoolSize.toSignificant(6) : ''}`}</p>
+                  <p>{`Total NEXUS Locked:  ${totalProAmount ? totalProAmount.toSignificant(6) : ''}`}</p>
+                  <p>{`Total NEXUS NFTs Locked:  ${totalNFTCount ? totalNFTCount : ''}`}</p>
+                  <p>{`Total NEXUS Collatoral Locked:  ${totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''
+                    }`}</p>
+                  <Button
+                    size="sm"
+                    className="mt-3"
+                    color={'blue'}
+                    onClick={proDistribute}
+                    disabled={pendingTx || !possibleDistribute}
+                  >
+                    {`Distribute`}
+                  </Button>
+                  <OracleDistributor />
                 </div>
 
-                <p>{`Current Global Pool Size:  ${totalPoolSize ? totalPoolSize.toSignificant(6) : ''}`}</p>
-                <p>{`Total NEXUS Locked:  ${totalProAmount ? totalProAmount.toSignificant(6) : ''}`}</p>
-                <p>{`Total NEXUS NFTs Locked:  ${totalNFTCount ? totalNFTCount : ''}`}</p>
-                <p>{`Total NEXUS Collatoral Locked:  ${
-                  totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''
-                }`}</p>
-                <Button
-                  size="sm"
-                  className="mt-3"
-                  color={'blue'}
-                  onClick={proDistribute}
-                  disabled={pendingTx || !possibleDistribute}
-                >
-                  {`Distribute`}
-                </Button>
-                <OracleDistributor />
-              </div>
+                <div className="w-full mt-5 sm:w-1/2 sm:mt-0 md:pt-10">
+                  <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+                    {i18n._(t`Distributed`)}
+                  </div>
 
-              <div className="w-full mt-5 sm:w-1/2 sm:mt-0 md:pt-10">
-                <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
-                  {i18n._(t`Distributed`)}
+                  {distributedReward.map((item, index) => (
+                    <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                      }`}</p>
+                  ))}
                 </div>
-
-                {distributedReward.map((item, index) => (
-                  <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${
-                    item.amount ? item.amount.toSignificant(6) : ''
-                  }`}</p>
-                ))}
               </div>
-            </div>
+            </Frame>
           </div>
 
           <ProphetStaking totalPoolSize={totalPoolSize} />

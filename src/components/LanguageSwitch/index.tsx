@@ -7,7 +7,9 @@ import { useRouter } from 'next/router'
 import React, { Fragment } from 'react'
 
 import Typography from '../Typography'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 const LANG_TO_COUNTRY: Record<string, string> = {
   en: 'English',
   de: 'Deutsch',
@@ -34,12 +36,22 @@ export default function LangSwitcher() {
   return (
     <Menu as="div" className="relative inline-block w-full text-left">
       <div>
-        <Menu.Button className="w-full px-4 py-2 text-sm font-bold bg-transparent border-2 rounded shadow-sm text-primary border-dark-800 hover:border-dark-700 bg-dark-1000">
+        <Menu.Button className="w-full px-4 py-2 text-sm font-bold bg-transparent rounded shadow-sm text-primary ">
           <div className="flex flex-row items-center justify-between">
-            <Typography weight={700} variant="sm">
-              {locale && LANG_TO_COUNTRY[locale]}
-            </Typography>
-            <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />
+            <Frame animate={true}
+              level={3}
+              corners={5}
+              className="w-100"
+              layer='primary'>
+              <div className="flex gap-1 p-2">
+                <Typography weight={700} variant="sm">
+                  {locale && LANG_TO_COUNTRY[locale]}
+                </Typography>
+                <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />
+              </div>
+
+
+            </Frame>
           </div>
         </Menu.Button>
       </div>

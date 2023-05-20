@@ -8,7 +8,9 @@ import Lottie from 'lottie-react'
 import React, { useCallback, useState } from 'react'
 
 import { CurrencyLogo } from '../CurrencyLogo'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface CurrencySelectPanelProps {
   onClick?: () => void
   onCurrencySelect?: (currency: Currency) => void
@@ -37,7 +39,12 @@ export default function CurrencySelectPanel({
   }, [setModalOpen])
 
   return (
-    <div id={id} className="p-5 rounded bg-dark-800">
+    <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
+    <div id={id} className="p-5 rounded ">
       <div className="flex flex-col justify-between space-y-3 sm:space-y-0 sm:flex-row">
         <div className="w-full" onClick={onClick}>
           <div
@@ -96,5 +103,6 @@ export default function CurrencySelectPanel({
         />
       )}
     </div>
+    </Frame>
   )
 }

@@ -22,7 +22,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 enum Fields {
   TOKEN0 = 0,
   TOKEN1 = 1,
@@ -52,9 +54,9 @@ export default function PoolFinder() {
     pairState === PairState.NOT_EXISTS ||
     Boolean(
       pairState === PairState.EXISTS &&
-        pair &&
-        JSBI.equal(pair.reserve0.quotient, JSBI.BigInt(0)) &&
-        JSBI.equal(pair.reserve1.quotient, JSBI.BigInt(0))
+      pair &&
+      JSBI.equal(pair.reserve0.quotient, JSBI.BigInt(0)) &&
+      JSBI.equal(pair.reserve1.quotient, JSBI.BigInt(0))
     )
 
   const position: CurrencyAmount<Token> | undefined = useTokenBalance(account ?? undefined, pair?.liquidityToken)
@@ -73,7 +75,13 @@ export default function PoolFinder() {
   )
 
   const prerequisiteMessage = (
-    <div className="p-5 text-center rounded bg-dark-800">{i18n._(t`Select a token to find your liquidity`)}</div>
+    <Frame animate={true}
+      level={3}
+      corners={2}
+      className="w-100"
+      layer='primary'>
+      <div className="p-5 text-center rounded ">{i18n._(t`Select a token to find your liquidity`)}</div>
+    </Frame>
   )
 
   return (
@@ -100,88 +108,123 @@ export default function PoolFinder() {
         }
         type="information"
       />
-      <div className="relative p-4 space-y-4 rounded bg-dark-900 shadow-liquidity flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
+      <Frame animate={true}
+        level={3}
+        corners={2}
+        className="w-100"
+        layer='primary'>
+        <div className="relative p-4 space-y-4 rounded  shadow-liquidity flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md  border-opacity-50">
 
-        <AutoColumn gap={'md'}>
-          <CurrencySelectPanel
-            currency={currency0}
-            onClick={() => setActiveField(Fields.TOKEN0)}
-            onCurrencySelect={handleCurrencySelect}
-            otherCurrency={currency1}
-            id="pool-currency-input"
-          />
-          <AutoColumn justify="space-between">
-            <AutoRow justify={'flex-start'} style={{ padding: '0 1rem' }}>
-              <button className="z-10 -mt-6 -mb-6 rounded-full bg-dark-900 p-3px">
-                <div className="p-3 rounded-full bg-dark-800 hover:bg-dark-700">
-                  <Plus size="32" />
-                </div>
-              </button>
-            </AutoRow>
+          <AutoColumn gap={'md'}>
+            <CurrencySelectPanel
+              currency={currency0}
+              onClick={() => setActiveField(Fields.TOKEN0)}
+              onCurrencySelect={handleCurrencySelect}
+              otherCurrency={currency1}
+              id="pool-currency-input"
+            />
+            <AutoColumn justify="space-between">
+              <AutoRow justify={'flex-start'} style={{ padding: '0 1rem' }}>
+                <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
+                  <button className="z-10 ">
+                    <div className="px-3 pt-3 rounded-full ">
+                      <Plus size="32" />
+                    </div>
+                  </button>
+                </Frame>
+              </AutoRow>
+            </AutoColumn>
+            <CurrencySelectPanel
+              currency={currency1}
+              onClick={() => setActiveField(Fields.TOKEN1)}
+              onCurrencySelect={handleCurrencySelect}
+              otherCurrency={currency0}
+              id="pool-currency-output"
+            />
           </AutoColumn>
-          <CurrencySelectPanel
-            currency={currency1}
-            onClick={() => setActiveField(Fields.TOKEN1)}
-            onCurrencySelect={handleCurrencySelect}
-            otherCurrency={currency0}
-            id="pool-currency-output"
-          />
-        </AutoColumn>
 
-        {currency0 && currency1 ? (
-          pairState === PairState.EXISTS ? (
-            hasPosition && pair ? (
-              <MinimalPositionCard pair={pair} border="1px solid #CED0D9" />
-            ) : (
-              <div className="p-5 rounded bg-dark-800">
-                <AutoColumn gap="sm" justify="center">
-                  {i18n._(t`You don’t have liquidity in this pool yet`)}
-                  <Link href={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
-                    <a className="text-center text-blue text-opacity-80 hover:text-opacity-100">
-                      {i18n._(t`Add liquidity`)}
-                    </a>
-                  </Link>
-                </AutoColumn>
-              </div>
-            )
-          ) : validPairNoLiquidity ? (
-            <div className="p-5 rounded bg-dark-800">
+          {currency0 && currency1 ? (
+            pairState === PairState.EXISTS ? (
+              hasPosition && pair ? (
+                <MinimalPositionCard pair={pair} border="1px solid #CED0D9" />
+              ) : (
+                <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
+                  <div className="p-5 rounded ">
+                    <AutoColumn gap="sm" justify="center">
+                      {i18n._(t`You don’t have liquidity in this pool yet`)}
+                      <Link href={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
+                        <a className="text-center text-blue text-opacity-80 hover:text-opacity-100">
+                          {i18n._(t`Add liquidity`)}
+                        </a>
+                      </Link>
+                    </AutoColumn>
+                  </div>
+                </Frame>
+              )
+            ) : validPairNoLiquidity ? (
+              <Frame animate={true}
+                level={3}
+                corners={2}
+                className="w-100"
+                layer='primary'>
+                <div className="p-5 rounded ">
+                  <AutoColumn gap="sm" justify="center">
+                    {i18n._(t`No pool found`)}
+                    <Link href={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
+                      <a className="text-center">{i18n._(t`Create pool`)}</a>
+                    </Link>
+                  </AutoColumn>
+                </div>
+              </Frame>
+            ) : pairState === PairState.INVALID ? (
+              <Frame animate={true}
+                level={3}
+                corners={2}
+                className="w-100"
+                layer='primary'>
+                <div className="p-5 text-center rounded">{i18n._(t`Invalid pair`)}</div></Frame>
+            ) : pairState === PairState.LOADING ? (
+              <Frame animate={true}
+                level={3}
+                corners={2}
+                className="w-100"
+                layer='primary'>
+                <div className="p-5 text-center rounded ">
+                  <Dots>{i18n._(t`Loading`)}</Dots>
+                </div>
+              </Frame>
+            ) : null
+          ) : !account ? (
+            <Web3Connect className="!bg-dark-900 bg-gradient-to-r from-blue/80 hover:from-blue to-green/80 hover:to-green text-white h-[38px]" />
+          ) : (
+            prerequisiteMessage
+          )}
+
+          {hasPosition && (
+            <div className="rounded bg-dark-800">
               <AutoColumn gap="sm" justify="center">
-                {i18n._(t`No pool found`)}
-                <Link href={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
-                  <a className="text-center">{i18n._(t`Create pool`)}</a>
-                </Link>
+                <Button
+                  color="blue"
+                  fullWidth={true}
+                  onClick={() => {
+                    router.push(`/pool`)
+                  }}
+                >
+                  {i18n._(t`Manage this pool`)}
+                </Button>
               </AutoColumn>
             </div>
-          ) : pairState === PairState.INVALID ? (
-            <div className="p-5 text-center rounded bg-dark-800">{i18n._(t`Invalid pair`)}</div>
-          ) : pairState === PairState.LOADING ? (
-            <div className="p-5 text-center rounded bg-dark-800">
-              <Dots>{i18n._(t`Loading`)}</Dots>
-            </div>
-          ) : null
-        ) : !account ? (
-          <Web3Connect className="!bg-dark-900 bg-gradient-to-r from-blue/80 hover:from-blue to-green/80 hover:to-green text-white h-[38px]" />
-        ) : (
-          prerequisiteMessage
-        )}
-
-        {hasPosition && (
-          <div className="rounded bg-dark-800">
-            <AutoColumn gap="sm" justify="center">
-              <Button
-                color="blue"
-                fullWidth={true}
-                onClick={() => {
-                  router.push(`/pool`)
-                }}
-              >
-                {i18n._(t`Manage this pool`)}
-              </Button>
-            </AutoColumn>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </Frame>
     </Container>
   )
 }

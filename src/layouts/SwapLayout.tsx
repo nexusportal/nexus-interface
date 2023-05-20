@@ -3,15 +3,25 @@ import DoubleGlowShadow from 'app/components/DoubleGlowShadow'
 import React, { FC } from 'react'
 
 import DefaultLayout from './Default'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 export interface Layout {
   id: string
 }
 
 export const SwapLayoutCard: FC = ({ children }) => {
   return (
-    <div className="flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
-      {children}
+    <div className="flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] ">
+      <Frame animate={true}
+        level={3}
+        corners={4}
+        layer='primary'>
+        <div className="p-3">
+
+          {children}
+        </div>
+      </Frame>
     </div>
   )
 }

@@ -6,7 +6,9 @@ import React, { FC, ReactNode } from 'react'
 import Chip from '../Chip'
 import { CurrencyLogo } from '../CurrencyLogo'
 import Typography from '../Typography'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface ListPanelProps {
   header?: ReactNode
   items?: ReactNode[]
@@ -19,15 +21,17 @@ const ListPanel = ({ header, items, footer, className = '' }: ListPanelProps) =>
     <div className={classNames(className, 'flex flex-col')}>
       {header && <div className="overflow-hidden border rounded-t border-dark-700">{header}</div>}
       {items && (
-        <div
+        <Frame animate={true}
+          level={3}
+          corners={4}
+          layer='primary'
           className={classNames(
-            header ? '' : 'border-t rounded-t',
-            footer ? 'bg-dark-800' : 'border-b rounded-b bg-dark-900',
-            'border-l border-r border-dark-700 divide-y divide-dark-700 overflow-hidden'
-          )}
-        >
+            header ? '' : ' rounded-t',
+            footer ? '' : ' ',
+            ' '
+          )}>
           {items}
-        </div>
+        </Frame>
       )}
       {footer && <div className="overflow-hidden border rounded-b bg-dark-900 border-dark-700">{footer}</div>}
     </div>

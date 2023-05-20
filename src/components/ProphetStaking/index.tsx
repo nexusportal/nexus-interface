@@ -34,6 +34,9 @@ import { HeadlessUiModal } from '../Modal'
 import Switch from '../Switch'
 import Typography from '../Typography'
 import Web3Connect from '../Web3Connect'
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 const moment = require('moment')
 const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
@@ -357,115 +360,39 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   return (
     <>
       <div className="flex flex-wrap mt-4 prophet-staking-wrapper">
-        <div className="w-full md:w-[calc(100%-316px)] md:mr-4 md:pr-4 bg-dark-900 rounded-3xl p-5 flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
 
-          <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-00/40">
-            <div className="flex justify-between">
-              <Typography variant="h3" weight={700} className="text-high-emphesis">
-                {toggle ? i18n._(t`🌌Nexus Staking`) : i18n._(t`Nexus Unstake`)}
-              </Typography>
-              <Switch
-                size="md"
-                checked={toggle}
-                onChange={() => setToggle(!toggle)}
-                checkedIcon={<PlusIcon className="text-dark-1000" />}
-                uncheckedIcon={<MinusIcon className="text-dark-1000" />}
-              />
-            </div>
-
-            <AssetInput
-              currencyLogo={false}
-              currency={liquidityToken}
-              value={toggle ? depositValue : withdrawValue}
-              onChange={toggle ? setDepositValue : setWithdrawValue}
-              balance={toggle ? balance : stakedAmount}
-              showMax={false}
-            />
-          </HeadlessUiModal.BorderedContent>
-
-          {!toggle ? (
-            <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
-              {/* <div className="flex justify-between p-2 mt-2 mb-1 rounded-md box-wrapper">
-                <p className="text-lg font-semibold">ORACLES SELECTED</p>
-                <p className="text-lg font-semibold"></p>
-              </div>
-              <div className="flex justify-between p-2 rounded-md box-wrapper">
-                <p className="text-lg font-semibold">xORACLES SELECTED</p>
-                <p className="text-lg font-semibold"></p>
-              </div> */}
-              <div className="flex justify-between p-2 rounded-md box-wrapper">
-                <p className="text-lg font-semibold">TIME-LOCK</p>
-                <div className="text-lg font-semibold text-red-500">
-                  <CountDown time={unlockTime} hidden={!userTotalWeight || userTotalWeight?.equalTo(ZERO)} />
-                </div>
-              </div>
-              <p className="mt-2 font-bold text-red-500">
-                *If you withdraw your NEXU before the time-lock period is over you will forfeit 50% of your staked
-                NEXU/Nexus!
-              </p>
-            </div>
-          ) : (
-            <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
-              <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
-                {i18n._(t`🌌Space-Time⏲ Lock🔒`)}
-              </div>
-              <div className="px-2 slider-wrapper">
-                <div className="flex items-center justify-between mt-2 -mx-2 font-extrabold labels">
-                  <p>1x</p>
-                  <p>1.5x</p>
-                  <p>7x</p>
-                  <p>15x</p>
-                  <p>31x</p>
-                </div>
-                <Slider
-                  aria-labelledby="track-inverted-slider"
-                  getAriaValueText={valuetext}
-                  defaultValue={userLockMode}
-                  marks={marks}
-                  onChange={(e, value, activeThumb) => {
-                    if (isArray(value)) {
-                      if (value && value.length > 0) {
-                        if (freeLockTime) {
-                          setLockMode(value[0])
-                        } else {
-                          if (value[0] >= userLockMode) {
-                            setLockMode(value[0])
-                          }
-                        }
-                      }
-                    } else {
-                      if (freeLockTime) {
-                        setLockMode(value)
-                      } else {
-                        if (isLockAmount) {
-                          if (value >= userLockMode) {
-                            setLockMode(value)
-                          }
-                        } else {
-                          if (value == 0 || value >= userLockMode) {
-                            setLockMode(value)
-                          }
-                        }
-
-                      }
-                    }
-                  }}
-                  sx={{
-                    color: 'light-blue',
-                    '& .MuiSlider-markLabel': {
-                      color: 'green',
-                      fontWeight: 700,
-                    },
-                  }}
-                  disableSwap={true}
-                  // disabled={lockMode < userLockMode}
-                  value={lockMode}
-                  min={0}
-                  max={4}
-                  step={1}
+        <div className="w-full md:w-[calc(100%-316px)] md:mr-4 md:pr-4 rounded-3xl pl-5 pr-5 pb-5 flex flex-col gap-3 p-2 md:pl-4 md:pr-4 md:pb-4 pt-0 rounded-[16px]  bg-opacity-25 shadow-md   border-opacity-50">
+          <Frame animate={true}
+            level={3}
+            corners={4}
+            layer='primary'>
+            <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-00/40">
+              <div className="flex justify-between">
+                <Typography variant="h3" weight={700} className="text-high-emphesis">
+                  {toggle ? i18n._(t`🌌Nexus Staking`) : i18n._(t`Nexus Unstake`)}
+                </Typography>
+                <Switch
+                  size="md"
+                  checked={toggle}
+                  onChange={() => setToggle(!toggle)}
+                  checkedIcon={<PlusIcon className="text-dark-1000" />}
+                  uncheckedIcon={<MinusIcon className="text-dark-1000" />}
                 />
               </div>
-              {/* <div className="flex justify-between p-2 mt-4 mb-2 rounded-md box-wrapper">
+
+              <AssetInput
+                currencyLogo={false}
+                currency={liquidityToken}
+                value={toggle ? depositValue : withdrawValue}
+                onChange={toggle ? setDepositValue : setWithdrawValue}
+                balance={toggle ? balance : stakedAmount}
+                showMax={false}
+              />
+            </HeadlessUiModal.BorderedContent>
+
+            {!toggle ? (
+              <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
+                {/* <div className="flex justify-between p-2 mt-2 mb-1 rounded-md box-wrapper">
                 <p className="text-lg font-semibold">ORACLES SELECTED</p>
                 <p className="text-lg font-semibold"></p>
               </div>
@@ -473,178 +400,267 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                 <p className="text-lg font-semibold">xORACLES SELECTED</p>
                 <p className="text-lg font-semibold"></p>
               </div> */}
-            </div>
-          )}
-          <div className="p-4">
-            {toggle ? (
-              !account ? (
-                <Web3Connect size="lg" color="blue" fullWidth />
-              ) : isDepositValid &&
-                (approvalState === ApprovalState.NOT_APPROVED || approvalState === ApprovalState.PENDING) ? (
-                <Button
-                  fullWidth
-                  loading={approvalState === ApprovalState.PENDING}
-                  color="gradient"
-                  onClick={approve}
-                  disabled={approvalState !== ApprovalState.NOT_APPROVED}
-                >
-                  {i18n._(t`Approve`)}
-                </Button>
+                <div className="flex justify-between p-2 rounded-md box-wrapper">
+                  <p className="text-lg font-semibold">TIME-LOCK</p>
+                  <div className="text-lg font-semibold text-red-500">
+                    <CountDown time={unlockTime} hidden={!userTotalWeight || userTotalWeight?.equalTo(ZERO)} />
+                  </div>
+                </div>
+                <p className="mt-2 font-bold text-red-500">
+                  *If you withdraw your NEXU before the time-lock period is over you will forfeit 50% of your staked
+                  NEXU/Nexus!
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col w-full gap-1 p-4 stake-wrap">
+                <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+                  {i18n._(t`🌌Space-Time⏲ Lock🔒`)}
+                </div>
+                <div className="px-2 slider-wrapper">
+                  <div className="flex items-center justify-between mt-2 -mx-2 font-extrabold labels">
+                    <p>1x</p>
+                    <p>1.5x</p>
+                    <p>7x</p>
+                    <p>15x</p>
+                    <p>31x</p>
+                  </div>
+                  <Slider
+                    aria-labelledby="track-inverted-slider"
+                    getAriaValueText={valuetext}
+                    defaultValue={userLockMode}
+                    marks={marks}
+                    onChange={(e, value, activeThumb) => {
+                      if (isArray(value)) {
+                        if (value && value.length > 0) {
+                          if (freeLockTime) {
+                            setLockMode(value[0])
+                          } else {
+                            if (value[0] >= userLockMode) {
+                              setLockMode(value[0])
+                            }
+                          }
+                        }
+                      } else {
+                        if (freeLockTime) {
+                          setLockMode(value)
+                        } else {
+                          if (isLockAmount) {
+                            if (value >= userLockMode) {
+                              setLockMode(value)
+                            }
+                          } else {
+                            if (value == 0 || value >= userLockMode) {
+                              setLockMode(value)
+                            }
+                          }
+
+                        }
+                      }
+                    }}
+                    sx={{
+                      color: 'light-blue',
+                      '& .MuiSlider-markLabel': {
+                        color: 'green',
+                        fontWeight: 700,
+                      },
+                    }}
+                    disableSwap={true}
+                    // disabled={lockMode < userLockMode}
+                    value={lockMode}
+                    min={0}
+                    max={4}
+                    step={1}
+                  />
+                </div>
+                {/* <div className="flex justify-between p-2 mt-4 mb-2 rounded-md box-wrapper">
+                <p className="text-lg font-semibold">ORACLES SELECTED</p>
+                <p className="text-lg font-semibold"></p>
+              </div>
+              <div className="flex justify-between p-2 rounded-md box-wrapper">
+                <p className="text-lg font-semibold">xORACLES SELECTED</p>
+                <p className="text-lg font-semibold"></p>
+              </div> */}
+              </div>
+            )}
+            <div className="p-4">
+              {toggle ? (
+                !account ? (
+                  <Web3Connect size="lg" color="blue" fullWidth />
+                ) : isDepositValid &&
+                  (approvalState === ApprovalState.NOT_APPROVED || approvalState === ApprovalState.PENDING) ? (
+                  <Button
+                    fullWidth
+                    loading={approvalState === ApprovalState.PENDING}
+                    color="gradient"
+                    onClick={approve}
+                    disabled={approvalState !== ApprovalState.NOT_APPROVED}
+                  >
+                    {i18n._(t`Approve`)}
+                  </Button>
+                ) : (
+                  <Button
+                    fullWidth
+                    color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
+                    onClick={proDeposit}
+                    disabled={!isDepositValid || pendingTx}
+                  >
+                    {depositError || depositButtonString}
+                  </Button>
+                )
+              ) : !account ? (
+                <Web3Connect color="blue" className="w-full" />
               ) : (
                 <Button
                   fullWidth
-                  color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
-                  onClick={proDeposit}
-                  disabled={!isDepositValid || pendingTx}
+                  color={!isWithdrawValid && !!parsedWithdrawValue ? 'red' : 'gradient'}
+                  onClick={proWithdraw}
+                  disabled={!isWithdrawValid || pendingTx}
                 >
-                  {depositError || depositButtonString}
-                </Button>
-              )
-            ) : !account ? (
-              <Web3Connect color="blue" className="w-full" />
-            ) : (
-              <Button
-                fullWidth
-                color={!isWithdrawValid && !!parsedWithdrawValue ? 'red' : 'gradient'}
-                onClick={proWithdraw}
-                disabled={!isWithdrawValid || pendingTx}
-              >
-                {withdrawError || i18n._(t`Confirm Withdraw`)}
-              </Button>
-            )}
-          </div>
-
-          <div className="p-4">
-            {lockMode > 0 &&
-              nftCount > 0 &&
-              (xOracleApprovalState === ApprovalState.NOT_APPROVED ||
-                xOracleApprovalState === ApprovalState.PENDING) && (
-                <Button
-                  fullWidth
-                  className="mb-2"
-                  loading={xOracleApprovalState === ApprovalState.PENDING}
-                  color="gradient"
-                  onClick={xOralceApprove}
-                  disabled={xOracleApprovalState !== ApprovalState.NOT_APPROVED}
-                >
-                  {i18n._(t`Approve xORACLE FOR NFT Staking`)}
+                  {withdrawError || i18n._(t`Confirm Withdraw`)}
                 </Button>
               )}
-            <Button
-              fullWidth
-              color={'blue'}
-              onClick={updateLockTime}
-              disabled={
-                pendingTx ||
-                !account ||
-                lockMode === userLockMode ||
-                (lockMode < userLockMode && !freeLockTime) ||
-                !!extendError
-              }
-            >
-              {lockMode >= userLockMode && extendError ? extendError : i18n._(t`Extend Lock`)}
-              {/* {lockMode < userLockMode && i18n._(t`Shorten Lock`)} */}
-            </Button>
-          </div>
+            </div>
+
+            <div className="p-4">
+              {lockMode > 0 &&
+                nftCount > 0 &&
+                (xOracleApprovalState === ApprovalState.NOT_APPROVED ||
+                  xOracleApprovalState === ApprovalState.PENDING) && (
+                  <Button
+                    fullWidth
+                    className="mb-2"
+                    loading={xOracleApprovalState === ApprovalState.PENDING}
+                    color="gradient"
+                    onClick={xOralceApprove}
+                    disabled={xOracleApprovalState !== ApprovalState.NOT_APPROVED}
+                  >
+                    {i18n._(t`Approve xORACLE FOR NFT Staking`)}
+                  </Button>
+                )}
+              <Button
+                fullWidth
+                color={'blue'}
+                onClick={updateLockTime}
+                disabled={
+                  pendingTx ||
+                  !account ||
+                  lockMode === userLockMode ||
+                  (lockMode < userLockMode && !freeLockTime) ||
+                  !!extendError
+                }
+              >
+                {lockMode >= userLockMode && extendError ? extendError : i18n._(t`Extend Lock`)}
+                {/* {lockMode < userLockMode && i18n._(t`Shorten Lock`)} */}
+              </Button>
+            </div>
+          </Frame>
         </div>
         <div className="w-full md:w-[300px] flex flex-col">
-          <div className="px-5 mt-4 mb-4 balance rounded-3xl py-7 md:mt-0 flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
-
-            <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
-              {i18n._(t`Stake Balance🥩`)}
-            </div>
-
-            <div className="flex items-center pb-1 balance1">
-              {/* // eslint-disable-next-line @next/next/no-img-element */}
-              <img src={NEXUSLogo.src} width={30} height={30} alt="Logo" />
-              <p className="ml-2">{`NEXUS: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
-            </div>
-            <div className="flex items-center pb-1 balance2">
-              <img src={NEXUSNFT.src} width={30} height={30} alt="Logo" />
-              <p className="ml-2">{`NEXUS NFT: ${nftCount}`}</p>
-            </div>
-            <div className="flex items-center pb-1 balance3">
-              <img src={NEXUSLogo2.src} height={30} width={30} alt="true" />
-              <p className="ml-2">{`NEXUS Collatoral: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
-            </div>
-            <p>
-              YOUR TOTAL POOL SHARE:
-              <br />{' '}
-              <span className="text-blue-300">
-                {' '}
-                {`${userTotalWeight ? userTotalWeight.toSignificant(6) : ''} = ${rate.toFixed(6)}%`}
-              </span>
-            </p>
-            <div>
-              TIME LOCK
-              <div>
-                <CountDown time={unlockTime} hidden={!userTotalWeight || userTotalWeight?.equalTo(ZERO)} />
-              </div>
-              {/* <br /> <span className={``}>{timeLock}</span> */}
-            </div>
-          </div>
-         
-          <br />
-          
-          <div className="flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
-
-
-            <div className="flex flex-row mb-3">
-
+          <Frame animate={true}
+            level={3}
+            corners={4}
+            layer='primary'>
+            <div className="px-5 mt-4 mb-4 balance rounded-3xl py-7 md:mt-0 flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md">
               <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
-                {i18n._(t`Rewards🌟`)}
+                {i18n._(t`Stake Balance🥩`)}
               </div>
 
-              <QuestionHelper
-                className="!bg-dark-800 !shadow-xl p-2"
-                text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXRP, NEXU/NEXUS & NEXU/Nexus. Go to Pool > Browse to visualize it.`}
-              />
-            </div>
-
-
-            <div className="grid h-full grid-cols-2">
-
-              <div className="border-r mr-2 ml-2">
-
-                <div className="self-end text-sm md:text-xl text-high-emphesis md:mb-1">
-                  {i18n._(t`Claimed`)}
-                </div>
-
-                <div className="flex flex-col">
-                  {userTotalReward.map((item, index) => (
-                    <p key={`user-rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(3) : ''
-                      }`}</p>
-                  ))}
-                </div>
+              <div className="flex items-center pb-1 balance1">
+                {/* // eslint-disable-next-line @next/next/no-img-element */}
+                <img src={NEXUSLogo.src} width={30} height={30} alt="Logo" />
+                <p className="ml-2">{`NEXUS: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
               </div>
-
+              <div className="flex items-center pb-1 balance2">
+                <img src={NEXUSNFT.src} width={30} height={30} alt="Logo" />
+                <p className="ml-2">{`NEXUS NFT: ${nftCount}`}</p>
+              </div>
+              <div className="flex items-center pb-1 balance3">
+                <img src={NEXUSLogo2.src} height={30} width={30} alt="true" />
+                <p className="ml-2">{`NEXUS Collatoral: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
+              </div>
+              <p>
+                YOUR TOTAL POOL SHARE:
+                <br />{' '}
+                <span className="text-blue-300">
+                  {' '}
+                  {`${userTotalWeight ? userTotalWeight.toSignificant(6) : ''} = ${rate.toFixed(6)}%`}
+                </span>
+              </p>
               <div>
-
-                <div className="self-end text-sm md:text-xl text-high-emphesis md:mb-1">
-                  {i18n._(t`Pending`)}
+                TIME LOCK
+                <div>
+                  <CountDown time={unlockTime} hidden={!userTotalWeight || userTotalWeight?.equalTo(ZERO)} />
                 </div>
-
-                <div className="flex flex-col">
-                  {userReward.map((item, index) => (
-                    <p key={`user-rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(3) : ''
-                      }`}</p>
-                  ))}
-                </div>
+                {/* <br /> <span className={``}>{timeLock}</span> */}
               </div>
             </div>
-            <Button
-              className="mt-1"
-              fullWidth
-              color={'gradient'}
-              onClick={proHarvest}
-              disabled={!userReward || userReward?.length === 0}
-            >
-              {i18n._(t`HARNESS`)}
-            </Button>
-          </div>
+          </Frame>
+
+          <br />
+
+          <Frame animate={true}
+            level={3}
+            corners={4}
+            layer='primary'>
+            <div className="flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px]  shadow-md ">
+
+              <div className="flex flex-row mb-3">
+
+                <div className="self-start text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+                  {i18n._(t`Rewards🌟`)}
+                </div>
+
+                <QuestionHelper
+                  className="!bg-dark-800 !shadow-xl p-2"
+                  text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXRP, NEXU/NEXUS & NEXU/Nexus. Go to Pool > Browse to visualize it.`}
+                />
+              </div>
+
+
+              <div className="grid h-full grid-cols-2">
+
+                <div className="ml-2 mr-2 border-r">
+
+                  <div className="self-end text-sm md:text-xl text-high-emphesis md:mb-1">
+                    {i18n._(t`Claimed`)}
+                  </div>
+
+                  <div className="flex flex-col">
+                    {userTotalReward.map((item, index) => (
+                      <p key={`user-rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(3) : ''
+                        }`}</p>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+
+                  <div className="self-end text-sm md:text-xl text-high-emphesis md:mb-1">
+                    {i18n._(t`Pending`)}
+                  </div>
+
+                  <div className="flex flex-col">
+                    {userReward.map((item, index) => (
+                      <p key={`user-rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(3) : ''
+                        }`}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Button
+                className="mt-1"
+                fullWidth
+                color={'gradient'}
+                onClick={proHarvest}
+                disabled={!userReward || userReward?.length === 0}
+              >
+                {i18n._(t`HARNESS`)}
+              </Button>
+            </div>
+          </Frame>
 
         </div>
-      </div>
+      </div >
 
       <HeadlessUiModal.Controlled isOpen={showConfirmation} onDismiss={() => setShowConfirmation(false)} maxWidth="md">
         <div className="flex flex-col gap-4">

@@ -15,7 +15,9 @@ import { useActiveWeb3React } from 'app/services/web3'
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import BentoBoxFundingSourceModal from '../add/BentoBoxFundingSourceModal'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface SwapAssetPanel {
   error?: boolean
   // @ts-ignore TYPE NEEDS FIXING
@@ -50,36 +52,45 @@ const SwapAssetPanel = ({
   currencies,
 }: SwapAssetPanel) => {
   return (
-    <div className="rounded-[14px] border border-dark-700 hover:border-dark-600 bg-dark-900 p-3 flex flex-col gap-4">
-      {header({
-        disabled,
-        onChange,
-        value,
-        currency,
-        currencies,
-        onSelect,
-        walletToggle,
-        spendFromWallet,
-      })}
-      <div className="flex gap-1 justify-between items-baseline px-1.5">
-        <InputPanel
-          {...{
-            selected,
-            error,
+
+    <div className="rounded-[14px] mt-1  p-3 flex flex-col gap-4">
+      <Frame animate={true}
+        level={3}
+        corners={4}
+        layer='primary'>
+        <div className="p-3">
+          {header({
+            disabled,
+            onChange,
+            value,
             currency,
             currencies,
-            value,
-            onChange,
-            disabled,
             onSelect,
-            priceImpact,
-            priceImpactCss,
+            walletToggle,
             spendFromWallet,
-          }}
-        />
-        <BalancePanel {...{ disabled, currency, onChange, spendFromWallet }} />
-      </div>
+          })}
+          <div className="flex gap-1 justify-between items-baseline px-1.5">
+            <InputPanel
+              {...{
+                selected,
+                error,
+                currency,
+                currencies,
+                value,
+                onChange,
+                disabled,
+                onSelect,
+                priceImpact,
+                priceImpactCss,
+                spendFromWallet,
+              }}
+            />
+            <BalancePanel {...{ disabled, currency, onChange, spendFromWallet }} />
+          </div>
+        </div>
+      </Frame>
     </div>
+
   )
 }
 
@@ -208,7 +219,7 @@ const SwapAssetPanelHeader: FC<
   const trigger = currency ? (
     <div
       id={id}
-      className="flex items-center gap-2 px-2 py-1 rounded-full shadow-md cursor-pointer text-high-emphesis bg-dark-800 hover:bg-dark-700"
+      className="flex items-center gap-2 px-2 py-1 rounded-full shadow-md cursor-pointer text-high-emphesis "
     >
       <CurrencyLogo currency={currency} className="!rounded-full overflow-hidden" size={20} />
       <Typography variant="sm" className="!text-xl" weight={700}>

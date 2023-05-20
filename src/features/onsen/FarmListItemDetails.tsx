@@ -43,7 +43,7 @@ const FarmListItemDetails = ({ farm, onDismiss }) => {
       <div className={classNames('')}>
         <div className={classNames(COLUMN_CONTAINER, content ? '' : 'hidden')}>{content}</div>
         <div className={classNames(COLUMN_CONTAINER, content ? 'hidden' : '')}>
-          <HeadlessUiModal.Header
+          <HeadlessUiModal.Header 
             header={
               <div className="flex gap-0.5 items-center">
                 {view === OnsenModalView.Liquidity

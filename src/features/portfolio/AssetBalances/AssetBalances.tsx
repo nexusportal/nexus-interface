@@ -11,7 +11,9 @@ import {
 import React, { FC } from 'react'
 // @ts-ignore TYPE NEEDS FIXING
 import { useFlexLayout, usePagination, useSortBy, useTable } from 'react-table'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface AssetBalancesProps {
   config: any
   onSelect?(row: any): void
@@ -32,20 +34,26 @@ const AssetBalances: FC<AssetBalancesProps> = ({ config, onSelect }) => {
   return (
     <div className={TABLE_WRAPPER_DIV_CLASSNAME}>
       <table id="asset-balances-table" {...getTableProps()} className={TABLE_TABLE_CLASSNAME}>
-        <thead>
+        <thead >
           {headerGroups.map((headerGroup, i) => (
-            <tr {...headerGroup.getHeaderGroupProps()} key={i}>
-              {headerGroup.headers.map((column, i) => (
-                <th
-                  // @ts-ignore TYPE NEEDS FIXING
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  key={i}
-                  className={TABLE_TR_TH_CLASSNAME(i, headerGroup.headers.length)}
-                >
-                  {column.render('Header')}
-                </th>
-              ))}
-            </tr>
+            <Frame animate={true}
+              level={3}
+              corners={3}
+              
+              layer='primary'  key={i}>
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, i) => (
+                  <th
+                    // @ts-ignore TYPE NEEDS FIXING
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    key={i}
+                    className={TABLE_TR_TH_CLASSNAME(i, headerGroup.headers.length)}
+                  >
+                    {column.render('Header')}
+                  </th>
+                ))}
+              </tr>
+            </Frame>
           ))}
         </thead>
         <tbody {...getTableBodyProps()} className="h-[65px]">
@@ -54,9 +62,15 @@ const AssetBalances: FC<AssetBalancesProps> = ({ config, onSelect }) => {
             page.map((row, i) => {
               prepareRow(row)
               return (
+                <Frame animate={true}
+              level={3}
+              corners={3}
+              
+              className="mt-3"
+              layer='primary'  key={i}>
                 <tr
                   {...row.getRowProps()}
-                  key={i}
+                  
                   onClick={() => onSelect && onSelect(row)}
                   className={TABLE_TBODY_TR_CLASSNAME}
                 >
@@ -69,6 +83,7 @@ const AssetBalances: FC<AssetBalancesProps> = ({ config, onSelect }) => {
                     )
                   })}
                 </tr>
+                </Frame>
               )
             })
           ) : (

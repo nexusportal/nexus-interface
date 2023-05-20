@@ -4,6 +4,9 @@ import { useRemovePopup } from 'app/state/application/hooks'
 import { useCallback, useEffect } from 'react'
 
 import TransactionPopup from './TransactionPopup'
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 // @ts-ignore TYPE NEEDS FIXING
 const AnimatedFader = ({ duration }) => (
@@ -62,15 +65,21 @@ export default function PopupItem({
 
   return (
     <div className="mb-4">
-      <div className="relative w-full overflow-hidden rounded bg-dark-700">
-        <div className="flex flex-row p-4">
-          {popupContent}
-          <div className="cursor-pointer hover:text-white">
-            <XIcon width={24} height={24} onClick={removeThisPopup} />
+      <Frame animate={true}
+        level={3}
+        corners={3}
+        className="w-full"
+        layer='primary'>
+        <div className="relative w-full overflow-hidden rounded ">
+          <div className="flex flex-row p-4">
+            {popupContent}
+            <div className="cursor-pointer hover:text-white">
+              <XIcon width={24} height={24} onClick={removeThisPopup} />
+            </div>
           </div>
+          {removeAfterMs !== null ? <AnimatedFader duration={removeAfterMs} /> : null}
         </div>
-        {removeAfterMs !== null ? <AnimatedFader duration={removeAfterMs} /> : null}
-      </div>
+      </Frame>
     </div>
   )
 }

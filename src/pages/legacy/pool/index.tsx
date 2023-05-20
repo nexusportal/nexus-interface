@@ -15,7 +15,9 @@ import { useActiveWeb3React } from 'app/services/web3'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 export default function Pool() {
   const { i18n } = useLingui()
   const router = useRouter()
@@ -81,7 +83,12 @@ export default function Pool() {
       {!account ? (
         <Web3Connect className="!bg-dark-900 bg-gradient-to-r from-blue/80 hover:from-blue to-green/80 hover:to-green text-white h-[38px]" />
       ) : (
-        <div className="p-4 space-b-4 rounded bg-dark-900">
+        <Frame animate={true}
+        level={3}
+        corners={2}
+        className="w-100"
+        layer='primary'>
+        <div className="p-4 space-b-4 rounded ">
           <div className="grid grid-flow-row gap-3">
             {loading ? (
               <Empty>
@@ -111,6 +118,7 @@ export default function Pool() {
             )}
           </div>
         </div>
+        </Frame>
       )}
     </Container>
   )

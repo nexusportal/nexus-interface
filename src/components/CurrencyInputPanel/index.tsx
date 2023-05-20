@@ -15,7 +15,9 @@ import { CurrencyLogo } from '../CurrencyLogo'
 import DoubleCurrencyLogo from '../DoubleLogo'
 import Input from '../Input'
 import { FiatValue } from './FiatValue'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface CurrencyInputPanelProps {
   value?: string
   onUserInput?: (value: string) => void
@@ -73,7 +75,13 @@ export default function CurrencyInputPanel({
   }, [setModalOpen])
 
   return (
-    <div id={id} className={classNames(hideInput ? 'p-4' : 'p-5', 'rounded bg-dark-800')}>
+
+      <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
+    <div id={id} className={classNames(hideInput ? 'p-4' : 'p-5', 'rounded')}>
       <div className="flex flex-col justify-between space-y-3 sm:space-y-0 sm:flex-row">
         <div className={classNames('w-full sm:w-2/5')}>
           <button
@@ -136,10 +144,11 @@ export default function CurrencyInputPanel({
             </div>
           </button>
         </div>
+        
         {!hideInput && (
           <div
             className={classNames(
-              'flex items-center w-full space-x-3 rounded bg-dark-900 focus:bg-dark-700 p-3 sm:w-3/5'
+              'flex items-center w-full space-x-3 rounded   p-3 sm:w-3/5'
             )}
           >
             <>
@@ -188,5 +197,6 @@ export default function CurrencyInputPanel({
         />
       )}
     </div>
+    </Frame>
   )
 }

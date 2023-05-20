@@ -20,7 +20,9 @@ import CurrencySearchModal from 'app/modals/SearchModal/CurrencySearchModal'
 import { useActiveWeb3React } from 'app/services/web3'
 import Lottie from 'lottie-react'
 import React, { createContext, FC, ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface AssetInputProps {
   value?: string
   currency?: Currency
@@ -216,66 +218,69 @@ const AssetInputPanel = ({
 
   if (currency) {
     content = (
-      <div
-        className={classNames(
-          error ? 'border-red border-opacity-40' : 'border-dark-800',
-          size === 'md' ? 'py-4' : 'py-2',
-          'flex gap-2 py-4 px-3 items-center border-b justify-between flex-row'
-        )}
-      >
-        <div className="flex flex-row flex-1">
-          {currencyLogo && (
-            <div className={classNames(size === 'md' ? 'w-[48px]  min-w-[48px]' : 'w-40px min-w-[40px]')}>
-              <CurrencyLogo currency={currency} size={size === 'md' ? 48 : 40} className="!rounded-full" />
-            </div>
+      <Frame 
+        >
+        <div
+          className={classNames(
+            error ? 'border-red border-opacity-40' : 'border-dark-800',
+            size === 'md' ? 'py-4' : 'py-2',
+            'flex gap-2 py-4 px-3 items-start border-b justify-between flex-row'
           )}
-          <div className="flex flex-col justify-between flex-1 ml-2 ">
-            <Typography variant="h3" weight={700} className="relative flex flex-row items-baseline overflow-hidden">
-              <NumericalInput
-                disabled={disabled}
-                value={value || ''}
-                onUserInput={onChange}
-                placeholder="0.00"
-                className="bg-transparent w-content "
-                autoFocus
-              />
+        >
+          <div className="flex flex-row flex-1">
+            {currencyLogo && (
+              <div className={classNames(size === 'md' ? 'w-[48px]  min-w-[48px]' : 'w-40px min-w-[40px]')}>
+                <CurrencyLogo currency={currency} size={size === 'md' ? 48 : 40} className="!rounded-full" />
+              </div>
+            )}
+            <div className="flex flex-col justify-between flex-1 ml-2 ">
+              <Typography variant="h3" weight={700} className="relative flex flex-row items-baseline ">
+                <NumericalInput
+                  disabled={disabled}
+                  value={value || ''}
+                  onUserInput={onChange}
+                  placeholder="0.00"
+                  className="bg-transparent w-content "
+                  autoFocus
+                />
 
-              {isDesktop && (
-                <span className="hidden pointer-events-none md:flex text-low-emphesis">{currency?.symbol}</span>
-              )}
-            </Typography>
-            <Typography
-              id={currency.symbol + '-usdc-value'}
-              variant="xs"
-              className={error ? 'text-red' : usdcValue && value ? 'text-green' : 'text-low-emphesis'}
-            >
-              ≈${usdcValue ? usdcValue.toSignificant(6) : '0.00'}
-            </Typography>
+                {isDesktop && (
+                  <span className="hidden pointer-events-none md:flex text-low-emphesis">{currency?.symbol}</span>
+                )}
+              </Typography>
+              <Typography
+                id={currency.symbol + '-usdc-value'}
+                variant="xs"
+                className={error ? 'text-red' : usdcValue && value ? 'text-green' : 'text-low-emphesis'}
+              >
+                ≈${usdcValue ? usdcValue.toSignificant(6) : '0.00'}
+              </Typography>
+            </div>
           </div>
+
+          {error ? (
+            <div className="w-8 h-8 mr-1 min-w-8 min-h-8">
+              <ExclamationCircleIcon className="w-8 h-8 min-w-8 min-h-8 text-red" />
+            </div>
+          ) : (
+            showMax && (
+              <Button size="xs" variant="outlined" color="gray" className="!border" onClick={() => onMax()}>
+                Max
+              </Button>
+            )
+          )}
         </div>
-
-        {error ? (
-          <div className="w-8 h-8 mr-1 min-w-8 min-h-8">
-            <ExclamationCircleIcon className="w-8 h-8 min-w-8 min-h-8 text-red" />
-          </div>
-        ) : (
-          showMax && (
-            <Button size="xs" variant="outlined" color="gray" className="!border" onClick={() => onMax()}>
-              Max
-            </Button>
-          )
-        )}
-      </div>
+      </Frame>
     )
   }
 
   return (
     <div
       className={classNames(
-        'border',
+
         error ? 'border-red border-opacity-40' : 'border-dark-800',
         headerRight ? 'lg:rounded-l lg:rounded-r-[0px]' : 'lg:rounded',
-        'flex-1 rounded bg-dark-900 flex flex-col overflow-hidden'
+        'flex-1 rounded  flex flex-col '
       )}
     >
       {/*This acts as a reference to get input width*/}

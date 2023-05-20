@@ -43,7 +43,9 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider,  Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 export default function Add() {
   const { i18n } = useLingui()
   const { account, chainId, library } = useActiveWeb3React()
@@ -376,7 +378,12 @@ export default function Add() {
         /> */}
 
         <DoubleGlowShadow>
-        <div className="flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px] bg-blue-100 bg-opacity-25 shadow-md border-2 border-cyan-500 border-opacity-50">
+        <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
+        <div className="flex flex-col justify-between flex-1 rewards rounded-3xl flex flex-col gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md  border-opacity-50">
 
             {/* <AddRemoveTabs creating={isCreate} adding={true} defaultSlippage={DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE} /> */}
 
@@ -422,11 +429,17 @@ export default function Add() {
 
                 <AutoColumn justify="space-between" className="py-2.5">
                   <AutoRow justify={isExpertMode ? 'space-between' : 'flex-start'} style={{ padding: '0 1rem' }}>
-                    <button className="z-0 -mt-6 -mb-6 rounded-full cursor-default bg-dark-900 p-3px">
-                      <div className="p-3 rounded-full bg-dark-800">
+                  <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
+                    <button className="z-0 rounded-full cursor-default  ">
+                      <div className="p-3 pt-2 pb-0 rounded-full ">
                         <Plus size="32" />
                       </div>
                     </button>
+                    </Frame>
                   </AutoRow>
                 </AutoColumn>
 
@@ -445,7 +458,12 @@ export default function Add() {
               </div>
 
               {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (
-                <div className="p-1 rounded bg-dark-800">
+                <div className="p-1 rounded ">
+                  <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
                   <LiquidityPrice
                     currencies={currencies}
                     price={price}
@@ -453,6 +471,7 @@ export default function Add() {
                     poolTokenPercentage={poolTokenPercentage}
                     className="bg-dark-900"
                   />
+                  </Frame>
                 </div>
               )}
 
@@ -538,6 +557,7 @@ export default function Add() {
               <UnsupportedCurrencyFooter currencies={[currencies.CURRENCY_A, currencies.CURRENCY_B]} />
             )}
           </div>
+          </Frame>
         </DoubleGlowShadow>
       </Container>
     </>

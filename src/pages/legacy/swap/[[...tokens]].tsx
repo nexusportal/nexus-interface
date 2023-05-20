@@ -39,6 +39,9 @@ import LogoImage from '../../../../public/NEXUS2.png'
 
 import { fetchAPI } from '../../../lib/api'
 import ExternalLink from 'app/components/ExternalLink'
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 export async function getServerSideProps() {
   try {
@@ -412,7 +415,7 @@ const Swap = ({ banners }) => {
           <div className="z-0 flex justify-center -mt-6 -mb-6">
             <div
               role="button"
-              className="p-1.5 rounded-full bg-dark-800 border shadow-md border-dark-700 hover:border-dark-600"
+              className="p-1.5 rounded-full  shadow-md "
               onClick={() => {
                 setApprovalSubmitted(false) // reset 2 step UI for approvals
                 onSwitchTokens()

@@ -7,6 +7,9 @@ import React from 'react'
 import { Activity } from 'react-feather'
 
 import Button, { ButtonProps } from '../Button'
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 export default function Web3Connect({ color = 'gray', size = 'sm', className = '', ...rest }: ButtonProps) {
   const { i18n } = useLingui()
@@ -23,16 +26,23 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
       {error instanceof UnsupportedChainIdError ? i18n._(t`You are on the wrong network`) : i18n._(t`Error`)}
     </div>
   ) : (
-    <Button
+    <Frame
+      animate={true}
+      level={3}
+      corners={4}
+      layer='primary'
       id="connect-wallet"
       onClick={toggleWalletModal}
       variant="outlined"
       color={color}
-      className={classNames(className, '!border-none')}
+      className="py-2 mx-auto text-center bg-transparent w-max"
       size={size}
       {...rest}
     >
+      <div className="px-3 py-2">
       {i18n._(t`Connect`)}
-    </Button>
+
+      </div>
+    </Frame>
   )
 }

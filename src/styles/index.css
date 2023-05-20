@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Electrolize;
+  src: url('../../public/Electrolize.ttf');
+}
 @tailwind base;
 
 @import '@fontsource/dm-sans/index.css';
@@ -14,7 +18,9 @@
 *:after {
   box-sizing: inherit;
 }
-
+h1,h2,h3,h4,h5,h6,p,div,button{
+  font-family: Electrolize !important;
+}
 html {
   height: 100%;
   box-sizing: border-box;
@@ -33,14 +39,19 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--primary);
+  /* background-color: var(--primary); */
   color: var(--text-primary);
 }
+html{
+  background-image: url('../../public/background.jpg');
 
+}
 body {
   position: relative;
   margin: 0;
   min-height: 100%;
+  background-image: url('../../public/glow.png');
+
 }
 
 a {

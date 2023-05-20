@@ -6,7 +6,9 @@ import React, { Fragment, useCallback, useState } from 'react'
 // @ts-ignore TYPE NEEDS FIXING
 import ReactDOM from 'react-dom'
 import { usePopper } from 'react-popper'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 export interface PopoverProps {
   content: React.ReactNode
   children: React.ReactNode
@@ -50,12 +52,17 @@ export default function Popover({ content, children, placement = 'auto', show, m
             ReactDOM.createPortal(
               <HeadlessuiPopover.Panel
                 static
-                className="z-1000 shadow-xl shadow-dark-1000/80 rounded overflow-hidden"
+                
                 ref={setPopperElement as any}
                 style={styles.popper}
                 {...attributes.popper}
               >
-                {content}
+                <Frame animate={true}
+                  level={3}
+                  corners={4}
+                  layer='primary'>
+                  {content}
+                </Frame>
                 <div
                   className={classNames('w-2 h-2 z-50')}
                   ref={setArrowElement as any}
@@ -64,6 +71,7 @@ export default function Popover({ content, children, placement = 'auto', show, m
                 />
               </HeadlessuiPopover.Panel>,
               document.querySelector('#popover-portal')
+
             )}
         </>
       )}

@@ -8,7 +8,9 @@ import { classNames } from 'app/functions'
 import useENS from 'app/hooks/useENS'
 import { useAppDispatch } from 'app/state/hooks'
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface RecipientField {
   recipient?: string
   action: any
@@ -54,10 +56,15 @@ const RecipientField: FC<RecipientField> = ({ recipient, action }) => {
         </Typography>
         <CloseIcon width={18} className="text-secondary hover:text-white cursor-pointer" onClick={handleClose} />
       </div>
+      <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
       <div
         className={classNames(
           error ? 'ring ring-red' : '',
-          'flex justify-between items-baseline bg-dark-900 rounded px-4 py-3 border border-dark-700 hover:border-dark-600'
+          'flex justify-between items-baseline  rounded px-4 py-3  '
         )}
       >
         <Typography weight={700} variant="lg" className="flex gap-3 flex-grow items-baseline relative overflow-hidden">
@@ -68,6 +75,7 @@ const RecipientField: FC<RecipientField> = ({ recipient, action }) => {
           />
         </Typography>
       </div>
+      </Frame>
     </div>
   )
 }

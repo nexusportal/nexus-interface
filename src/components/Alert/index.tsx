@@ -4,7 +4,9 @@ import React, { useState } from 'react'
 
 import { classNames } from '../../functions'
 import Typography from '../Typography'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 const TYPE = {
   information: {
     text: 'text-high-emphesis',
@@ -72,7 +74,12 @@ export default function Alert({
   const { color, icon, text } = TYPE[type]
 
   return message && show ? (
-    <div className={classNames('flex flex-row rounded p-4 gap-3', color, className)}>
+    <Frame animate={true}
+    level={3}
+    corners={2}
+    className="w-100"
+    layer='primary'>
+    <div className={classNames('flex flex-row rounded p-4 gap-3', className)}>
       {showIcon && <div>{icon}</div>}
       <div className="flex flex-col gap-1.5 justify-center">
         {title && (
@@ -95,5 +102,6 @@ export default function Alert({
         </button>
       )}
     </div>
+    </Frame>
   ) : null
 }

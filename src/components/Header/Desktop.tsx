@@ -16,6 +16,9 @@ import React, { FC, useState } from 'react'
 import LogoImage from '../../../public/icons/icon-72x72.png'
 import ExternalLink from '../ExternalLink'
 import { NavigationItem } from './NavigationItem'
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 const HEADER_HEIGHT = 64
 
 const Desktop: FC = () => {
@@ -31,7 +34,7 @@ const Desktop: FC = () => {
   return (
     <>
       <header className="fixed z-20 hidden w-full lg:block" style={{ height: HEADER_HEIGHT }}>
-        <nav className={classNames( NAV_CLASS,showUseDexWarning && 'before:backdrop-blur-[20px]')}>
+        <nav className={classNames(NAV_CLASS, showUseDexWarning && 'before:backdrop-blur-[20px]')}>
           <Container maxWidth="7xl" className="mx-auto">
             {/* {showUseDexWarning && (
               <div className="py-2 px-4 text-[1rem] text-high-emphesis bg-[#eb4326] relative">
@@ -51,7 +54,7 @@ const Desktop: FC = () => {
               </div>
             )} */}
 
-            <div className="flex items-center justify-between gap-4 px-6">
+            <div className="flex items-center justify-between gap-4 px-6 py-2">
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
                   <ExternalLink href="https://www.thenexusportal.io">
@@ -70,8 +73,12 @@ const Desktop: FC = () => {
                     <Web3Network />
                   </div>
                 )}
-
-                <div className="flex items-center w-auto text-sm font-bold border-2 rounded shadow cursor-pointer pointer-events-auto select-none border-dark-800 hover:border-dark-700 bg-dark-900 whitespace-nowrap">
+                <Frame animate={true}
+                  level={3}
+                  corners={5}
+                  className="w-100"
+                  layer='primary'>
+                <div className="flex items-center w-auto text-sm font-bold rounded shadow cursor-pointer pointer-events-auto select-none whitespace-nowrap">
                   {account && chainId && userEthBalance && (
                     <Link href="/portfolio" passHref={true}>
                       <a className="hidden px-3 text-high-emphesis text-bold md:block">
@@ -82,6 +89,7 @@ const Desktop: FC = () => {
                   )}
                   <Web3Status />
                 </div>
+                </Frame>
                 <div className="hidden lg:flex">
                   <LanguageSwitch />
                 </div>

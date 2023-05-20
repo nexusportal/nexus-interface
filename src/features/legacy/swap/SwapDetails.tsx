@@ -11,7 +11,9 @@ import useSwapSlippageTolerance from 'app/hooks/useSwapSlippageTollerence'
 import { TradeUnion } from 'app/types'
 import React, { FC, Fragment, useState } from 'react'
 import { isAddress } from 'web3-utils'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 interface SwapDetailsContent {
   trade?: TradeUnion
   recipient?: string
@@ -31,44 +33,52 @@ const SwapDetails: FC<SwapDetails> = ({ inputCurrency, outputCurrency, recipient
   return (
     <Disclosure as="div">
       {({ open }) => (
-        <div
-          className={classNames(
-            open ? 'bg-dark-900' : '',
-            'shadow-inner flex flex-col gap-2 py-2 rounded px-2 border border-dark-700 transition hover:border-dark-700',
-            className
-          )}
-        >
-          <div className="flex justify-between gap-2 items-center pl-2">
-            <div>
-              <TradePrice
-                inputCurrency={inputCurrency}
-                outputCurrency={outputCurrency}
-                price={trade?.executionPrice}
-                showInverted={inverted}
-                setShowInverted={setInverted}
-              />
-            </div>
-            <Disclosure.Button as={Fragment}>
-              <div className="flex flex-grow items-center justify-end p-1 cursor-pointer rounded">
-                <ChevronDownIcon
-                  width={20}
-                  className={classNames(open ? 'transform rotate-180' : '', 'transition hover:text-white')}
+        <Frame animate={true}
+          level={3}
+          corners={5}
+
+          layer='primary'>
+          <div
+            className={classNames(
+              open ? '' : '',
+              'shadow-inner flex flex-col gap-2 py-2 rounded px-2  transition ',
+              className
+            )}
+          >
+
+            <div className="flex items-center justify-between gap-2 pl-2">
+              <div>
+                <TradePrice
+                  inputCurrency={inputCurrency}
+                  outputCurrency={outputCurrency}
+                  price={trade?.executionPrice}
+                  showInverted={inverted}
+                  setShowInverted={setInverted}
                 />
               </div>
-            </Disclosure.Button>
+              <Disclosure.Button as={Fragment}>
+                <div className="flex items-center justify-end flex-grow p-1 rounded cursor-pointer">
+                  <ChevronDownIcon
+                    width={20}
+                    className={classNames(open ? 'transform rotate-180' : '', 'transition hover:text-white')}
+                  />
+                </div>
+              </Disclosure.Button>
+            </div>
+
+            <Transition
+              show={open}
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              unmount={false}
+            >
+              <Disclosure.Panel static className="px-1 pt-2">
+                <SwapDetailsContent trade={trade} recipient={recipient} />
+              </Disclosure.Panel>
+            </Transition>
           </div>
-          <Transition
-            show={open}
-            enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            unmount={false}
-          >
-            <Disclosure.Panel static className="px-1 pt-2">
-              <SwapDetailsContent trade={trade} recipient={recipient} />
-            </Disclosure.Panel>
-          </Transition>
-        </div>
+        </Frame>
       )}
     </Disclosure>
   )

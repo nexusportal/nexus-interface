@@ -8,7 +8,9 @@ import { currencyId } from 'app/functions/currency'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
-
+// @ts-ignore: Unreachable code error
+// eslint-disable-next-line simple-import-sort/imports
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 // @ts-ignore TYPE NEEDS FIXING
 const getQuery = (input, output) => {
   if (!input && !output) return
@@ -36,9 +38,14 @@ const ExchangeHeader: FC<ExchangeHeaderProps> = ({ input, output, allowedSlippag
 
   return (
     <div className="flex items-center justify-between mb-4 space-x-3">
-      <div className="flex rounded bg-dark-800 h-[46px]">
+      <div className="flex rounded  ">
+      <Frame animate={true}
+                  level={3}
+                  corners={2}
+                  className="w-100"
+                  layer='primary'>
         <NavLink
-          activeClassName="font-bold border rounded text-high-emphesis border-dark-800 bg-gradient-to-r from-opaque-blue to-opaque-pink hover:from-blue hover:to-pink"
+          activeClassName="font-bold  rounded text-high-emphesis  py-3"
           href={`/${!isRemove ? 'add' : 'remove'}${input ? `/${currencyId(input)}` : ''}${
             output ? `/${currencyId(output)}` : ''
           }`}
@@ -47,6 +54,7 @@ const ExchangeHeader: FC<ExchangeHeaderProps> = ({ input, output, allowedSlippag
             {i18n._(t`Liquidity`)}
           </a>
         </NavLink>
+        </Frame>
       </div>
       <div className="flex items-center">
         <div className="grid grid-flow-col gap-1">

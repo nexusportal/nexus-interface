@@ -86,7 +86,7 @@ const LimitOrder = () => {
     <>
       <SwapLayoutCard>
         <LimitOrderApprovalCheck />
-        <div className="px-2">
+        <div className="px-2 ">
           <HeaderNew inputCurrency={inputCurrency} outputCurrency={outputCurrency} />
         </div>
         <div className="flex flex-col gap-3">
