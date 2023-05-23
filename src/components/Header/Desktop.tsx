@@ -23,8 +23,11 @@ import { NavigationItem } from './NavigationItem'
 import { Arwes, Logo, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 import axios from 'axios';
 import Web3 from 'web3';
+import { ChainId } from '@sushiswap/core-sdk';
+import RPC from '../../config/rpc';
 
-const web3 = new Web3((window.ethereum as any));
+const rpcUrl = RPC[ChainId.XRPL]; // Change the ChainId value according to your requirement
+const web3 = new Web3(rpcUrl);
 
 // Contracts for calculating NEXU ERC-20 token price
 const nexuTokenAddress = '0x3965c4716091A1008db59D85a684DbA075950145';

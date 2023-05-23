@@ -18,7 +18,20 @@ import { NavigationItem } from './NavigationItem'
 import ExternalLink from '../ExternalLink'
 import { Logo } from 'arwes';
 import XRPLogo from '../../../public/XRP.png'
+import NEXULogo from '../../../public/NEXUS.png'
 import axios from 'axios';
+import routerABI from 'app/constants/abis/router.json';
+import Web3 from 'web3';
+import { ChainId } from '@sushiswap/core-sdk';
+import RPC from '../../config/rpc';
+
+const rpcUrl = RPC[ChainId.XRPL]; // Change the ChainId value according to your requirement
+const web3 = new Web3(rpcUrl);
+
+// Contracts for calculating NEXU ERC-20 token price
+const nexuTokenAddress = '0x3965c4716091A1008db59D85a684DbA075950145';
+const wXRPAddress = '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4';
+const routerAddress = '0x7AdE46144F5B14f72BF6918e8434356112a07C39';
 
 const Mobile: FC = () => {
   const menu = useMenu()
@@ -31,27 +44,65 @@ const Mobile: FC = () => {
   const showUseDexWarning = useDexWarningOpen()
 
   const [xrpPrice, setXrpPrice] = useState('');
+  const [nexuPrice, setNexuPrice] = useState('');
+
 
   useEffect(() => {
     const fetchXrpPrice = async () => {
       try {
         const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd');
-        const price = response.data.ripple.usd;
+        const price = response.data.ripple.usd; // Access the price using response.data.ripple.usd
         setXrpPrice(price);
       } catch (error) {
         console.error('Failed to fetch XRP price:', error);
       }
     };
 
-    // Fetch the initial XRP price
     fetchXrpPrice();
+    const interval = setInterval(() => {
+      fetchXrpPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
 
-    // Fetch the XRP price every 5 seconds (adjust the interval as desired)
-    const intervalId = setInterval(fetchXrpPrice, 5000);
-
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    const fetchNexuPrice = async () => {
+      try {
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd');
+        const xrpPrice = response.data.ripple.usd;
+
+        const tokenDecimals = 18; // Assuming the token has 18 decimal places
+        const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));
+
+        // Create the contract instance for the router
+        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress);
+
+
+        // Get the output amounts
+        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress, wXRPAddress]).call();
+
+        // Get the output amount for the token
+        const outputAmount = amounts[1];
+
+        // Calculate the NEXU token price based on the XRP price and output amount
+        const nexuPrice = (xrpPrice * outputAmount / 2) / (10 ** tokenDecimals);
+
+        setNexuPrice(nexuPrice.toString());
+      } catch (error) {
+        console.error('Failed to fetch NEXU price:', error);
+      }
+    };
+
+    fetchNexuPrice();
+
+    const interval = setInterval(() => {
+      fetchNexuPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
+
+  }, []);
+
 
   return (
     <>
@@ -78,9 +129,15 @@ const Mobile: FC = () => {
             <MenuIcon width={28} className="text-white cursor-pointer hover:text-white" onClick={() => setOpen(true)} />
           </div>
 
-          <div className="flex items-center">
-            <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
-            <span className="ml-2">${xrpPrice}</span>
+          <div className="flex flex-col items-center">
+            <div className="flex items-center">
+              <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
+              <span className="ml-2">${parseFloat(xrpPrice).toFixed(4)}</span>
+            </div>
+            <div className="flex items-center">
+              <img src={NEXULogo.src} className="rounded-md" width="25px" height="25px" alt="NEXU Logo" />
+              <span className="ml-2">${parseFloat(nexuPrice).toFixed(4)}</span>
+            </div>
           </div>
 
           <div className="flex items-center mr-1">
