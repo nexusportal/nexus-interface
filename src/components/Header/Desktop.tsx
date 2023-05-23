@@ -13,6 +13,8 @@ import { useETHBalances } from 'app/state/wallet/hooks'
 import Link from 'next/link'
 import React, { FC, useState, useEffect } from 'react';
 import XRPLogo from '../../../public/XRP.png'
+import NEXULogo from '../../../public/NEXUS.png'
+import routerABI from 'app/constants/abis/router.json';
 import LogoImage from '../../../public/icons/icon-72x72.png'
 import ExternalLink from '../ExternalLink'
 import { NavigationItem } from './NavigationItem'
@@ -20,6 +22,14 @@ import { NavigationItem } from './NavigationItem'
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 import axios from 'axios';
+import Web3 from 'web3';
+
+const web3 = new Web3((window.ethereum as any));
+
+// Contracts for calculating NEXU ERC-20 token price
+const nexuTokenAddress = '0x3965c4716091A1008db59D85a684DbA075950145';
+const wXRPAddress = '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4';
+const routerAddress = '0x7AdE46144F5B14f72BF6918e8434356112a07C39';
 
 const HEADER_HEIGHT = 70
 
@@ -34,6 +44,8 @@ const Desktop: FC = () => {
   const showUseDexWarning = useDexWarningOpen()
 
   const [xrpPrice, setXrpPrice] = useState('');
+  const [nexuPrice, setNexuPrice] = useState('');
+
 
   useEffect(() => {
     const fetchXrpPrice = async () => {
@@ -45,10 +57,54 @@ const Desktop: FC = () => {
         console.error('Failed to fetch XRP price:', error);
       }
     };
-  
+
     fetchXrpPrice();
+    const interval = setInterval(() => {
+      fetchXrpPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
+
   }, []);
-  
+
+  useEffect(() => {
+    const fetchNexuPrice = async () => {
+      try {
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd');
+        const xrpPrice = response.data.ripple.usd;
+
+        const tokenDecimals = 18; // Assuming the token has 18 decimal places
+        const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));
+
+        // Create the contract instance for the router
+        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress);
+
+
+        // Get the output amounts
+        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress, wXRPAddress]).call();
+
+        // Get the output amount for the token
+        const outputAmount = amounts[1];
+
+        // Calculate the NEXU token price based on the XRP price and output amount
+        const nexuPrice = (xrpPrice * outputAmount / 2) / (10 ** tokenDecimals);
+
+        setNexuPrice(nexuPrice.toString());
+      } catch (error) {
+        console.error('Failed to fetch NEXU price:', error);
+      }
+    };
+
+    fetchNexuPrice();
+
+    const interval = setInterval(() => {
+      fetchNexuPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
+
+  }, []);
+
+
+
 
   return (
     <>
@@ -77,7 +133,7 @@ const Desktop: FC = () => {
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
                   <ExternalLink href="https://www.thenexusportal.io">
-                    <Logo animate resources={LogoImage.src} size={30} alt="Logo" />
+                    <Logo animate resources={LogoImage.src} size={50} alt="Logo" />
                     {/* <Image src="/logo.png" alt="NEXUSSwap logo" width="24px" height="24px" /> */}
                   </ExternalLink>
                 </div>
@@ -87,10 +143,17 @@ const Desktop: FC = () => {
                 })}
               </div>
 
-              <div className="flex items-center">
-                <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
-                <span className="ml-2">${xrpPrice}</span>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center">
+                  <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
+                  <span className="ml-2">${parseFloat(xrpPrice).toFixed(4)}</span>
+                </div>
+                <div className="flex items-center">
+                  <img src={NEXULogo.src} className="rounded-md" width="25px" height="25px" alt="NEXU Logo" />
+                  <span className="ml-2">${parseFloat(nexuPrice).toFixed(4)}</span>
+                </div>
               </div>
+
 
               <div className="flex items-center justify-end gap-2">
                 {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
