@@ -10,12 +10,15 @@ import { useDexWarningOpen, useToggleDexWarning } from 'app/state/application/ho
 import { useETHBalances } from 'app/state/wallet/hooks'
 // import Image from 'next/image'
 import Link from 'next/link'
-import React, { FC, Fragment, useState } from 'react'
+import React, { FC, Fragment, useState, useEffect } from 'react'
 import LogoImage from '../../../public/icons/icon-72x72.png'
 import { NavigationItem } from './NavigationItem'
 // import { XIcon } from '@heroicons/react/outline'
 // import Typography from 'app/components/Typography'
 import ExternalLink from '../ExternalLink'
+import { Logo } from 'arwes';
+import XRPLogo from '../../../public/XRP.png'
+import axios from 'axios';
 
 const Mobile: FC = () => {
   const menu = useMenu()
@@ -26,6 +29,29 @@ const Mobile: FC = () => {
 
   const toggleWarning = useToggleDexWarning()
   const showUseDexWarning = useDexWarningOpen()
+
+  const [xrpPrice, setXrpPrice] = useState('');
+
+  useEffect(() => {
+    const fetchXrpPrice = async () => {
+      try {
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd');
+        const price = response.data.ripple.usd;
+        setXrpPrice(price);
+      } catch (error) {
+        console.error('Failed to fetch XRP price:', error);
+      }
+    };
+
+    // Fetch the initial XRP price
+    fetchXrpPrice();
+
+    // Fetch the XRP price every 5 seconds (adjust the interval as desired)
+    const intervalId = setInterval(fetchXrpPrice, 5000);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
@@ -51,9 +77,15 @@ const Mobile: FC = () => {
           <div className="p-2 rounded-full hover:bg-white/10">
             <MenuIcon width={28} className="text-white cursor-pointer hover:text-white" onClick={() => setOpen(true)} />
           </div>
+
+          <div className="flex items-center">
+            <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
+            <span className="ml-2">${xrpPrice}</span>
+          </div>
+
           <div className="flex items-center mr-1">
             <ExternalLink href="https://www.thenexusportal.io">
-              <img src={LogoImage.src} className={'w-[30px] h-[30px]'} alt="Logo" />
+              <Logo animate resources={LogoImage.src} size={50} alt="Logo" />
             </ExternalLink>
           </div>
         </div>

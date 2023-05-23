@@ -11,15 +11,17 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useDexWarningOpen, useToggleDexWarning } from 'app/state/application/hooks'
 import { useETHBalances } from 'app/state/wallet/hooks'
 import Link from 'next/link'
-import React, { FC, useState } from 'react'
-
+import React, { FC, useState, useEffect } from 'react';
+import XRPLogo from '../../../public/XRP.png'
 import LogoImage from '../../../public/icons/icon-72x72.png'
 import ExternalLink from '../ExternalLink'
 import { NavigationItem } from './NavigationItem'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
-import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
-const HEADER_HEIGHT = 64
+import { Arwes, Logo, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
+import axios from 'axios';
+
+const HEADER_HEIGHT = 70
 
 const Desktop: FC = () => {
   const menu = useMenu()
@@ -31,10 +33,27 @@ const Desktop: FC = () => {
   const toggleWarning = useToggleDexWarning()
   const showUseDexWarning = useDexWarningOpen()
 
+  const [xrpPrice, setXrpPrice] = useState('');
+
+  useEffect(() => {
+    const fetchXrpPrice = async () => {
+      try {
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ripple&vs_currencies=usd');
+        const price = response.data.ripple.usd; // Access the price using response.data.ripple.usd
+        setXrpPrice(price);
+      } catch (error) {
+        console.error('Failed to fetch XRP price:', error);
+      }
+    };
+  
+    fetchXrpPrice();
+  }, []);
+  
+
   return (
     <>
       <header className="fixed z-20 hidden w-full lg:block" style={{ height: HEADER_HEIGHT }}>
-        <nav className={classNames(NAV_CLASS, showUseDexWarning && 'before:backdrop-blur-[20px]')}>
+        <nav className={classNames(showUseDexWarning && 'before:backdrop-blur-[20px]')}>
           <Container maxWidth="7xl" className="mx-auto">
             {/* {showUseDexWarning && (
               <div className="py-2 px-4 text-[1rem] text-high-emphesis bg-[#eb4326] relative">
@@ -48,8 +67,8 @@ const Desktop: FC = () => {
                 </div>
                 <Typography variant="xs" weight={700} className="py-0 px-4 text-[1rem] text-high-emphesis bg-[#eb4326]">
                   {`You are using the NEXUS Swap Beta platform on the Songbird Canary Network. NEXUSSwap is
-  a brand new DEX on the Songbird Network. Liquidity is decentralized and added by users. Please be aware of the associated risks with using DeFi
-  platforms.`}
+                  a brand new DEX on the Songbird Network. Liquidity is decentralized and added by users. Please be aware of the associated risks with using DeFi
+                  platforms.`}
                 </Typography>
               </div>
             )} */}
@@ -58,7 +77,7 @@ const Desktop: FC = () => {
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
                   <ExternalLink href="https://www.thenexusportal.io">
-                    <img src={LogoImage.src} className={'w-[30px] h-[30px]'} alt="Logo" />
+                    <Logo animate resources={LogoImage.src} size={30} alt="Logo" />
                     {/* <Image src="/logo.png" alt="NEXUSSwap logo" width="24px" height="24px" /> */}
                   </ExternalLink>
                 </div>
@@ -67,28 +86,36 @@ const Desktop: FC = () => {
                   return <NavigationItem node={node} key={node.key} />
                 })}
               </div>
+
+              <div className="flex items-center">
+                <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
+                <span className="ml-2">${xrpPrice}</span>
+              </div>
+
               <div className="flex items-center justify-end gap-2">
                 {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
                   <div className="hidden sm:inline-block">
                     <Web3Network />
+
                   </div>
+
                 )}
                 <Frame animate={true}
                   level={3}
-                  corners={5}
+                  corners={3}
                   className="w-100"
                   layer='primary'>
-                <div className="flex items-center w-auto text-sm font-bold rounded shadow cursor-pointer pointer-events-auto select-none whitespace-nowrap">
-                  {account && chainId && userEthBalance && (
-                    <Link href="/portfolio" passHref={true}>
-                      <a className="hidden px-3 text-high-emphesis text-bold md:block">
-                        {/*@ts-ignore*/}
-                        {userEthBalance?.toSignificant(4)} {NATIVE[chainId || 1].symbol}
-                      </a>
-                    </Link>
-                  )}
-                  <Web3Status />
-                </div>
+                  <div className="flex items-center w-auto text-sm font-bold rounded shadow cursor-pointer pointer-events-auto select-none whitespace-nowrap">
+                    {account && chainId && userEthBalance && (
+                      <Link href="/portfolio" passHref={true}>
+                        <a className="hidden px-3 text-high-emphesis text-bold md:block">
+                          {/*@ts-ignore*/}
+                          {userEthBalance?.toSignificant(6)} {NATIVE[chainId || 1].symbol}
+                        </a>
+                      </Link>
+                    )}
+                    <Web3Status />
+                  </div>
                 </Frame>
                 <div className="hidden lg:flex">
                   <LanguageSwitch />
