@@ -122,13 +122,12 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
           >
             <Dialog.Overlay
               className={classNames(
-                isDesktop ? 'backdrop-blur-[10px]  bg-[rgb(0,0,0,0.4)]' : ' bg-[rgb(0,0,0,0.8)]',
+                isDesktop ? 'backdrop-blur-[10px] bg-[rgb(0,0,0,0.4)]' : ' bg-[rgb(0,0,0,0.8)]',
                 'fixed inset-0 filter'
               )}
             />
           </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
           <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>
@@ -144,35 +143,25 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
             leaveTo="opacity-0 scale-95"
           >
             <div
-            className={classNames(
-                  transparent ? '' : ' ',
-                  isDesktop ? MAX_WIDTH_CLASS_MAPPING[maxWidth] : '',
-                  isDesktop ? `w-full` : 'w-[85vw] max-h-[85vh] overflow-y-auto mx-auto',
-                  'inline-block align-bottom rounded-xl text-left  p-4'
-                )}
-
+              className={classNames(
+                'inline-block align-bottom text-left',
+                transparent ? '' : ' ',
+                isDesktop ? MAX_WIDTH_CLASS_MAPPING[maxWidth] : '',
+                isDesktop ? 'w-full' : 'w-[95vw] mx-auto'
+              )}
             >
-              <Frame animate={true}
-                level={3}
-                corners={3}
-                layer='primary'>
-                <div className={classNames(
-                  transparent ? '' : ' ',
-                  isDesktop ? MAX_WIDTH_CLASS_MAPPING[maxWidth] : '',
-                  isDesktop ? `w-full` : 'w-[85vw] max-h-[85vh] overflow-y-auto mx-auto',
-                  'inline-block align-bottom rounded-xl text-left overflow-hidden transform p-4'
-                )}>
-
-                  {children}
-                </div>
-              </Frame>
+              <div style={{ height: '100%', width: '100%', margin: '0 auto' }}>
+                <Frame animate={true} level={3} corners={3} layer="primary">
+                <div style={{ padding: '15px' }}>{children}</div>
+                </Frame>
+              </div>
             </div>
           </Transition.Child>
         </div>
       </Dialog>
     </Transition>
-  )
-}
+  );
+};
 
 HeadlessUiModal.Controlled = HeadlessUiModalControlled
 HeadlessUiModal.Header = ModalHeader

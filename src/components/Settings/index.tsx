@@ -42,13 +42,13 @@ const SettingsTab: FC<SettingsTabProps> = ({ placeholderSlippage, className, tri
         placement="bottom-end"
         content={
           <div className="flex flex-col gap-3 p-3 rounded shadow-xl w-80 ">
-            <div className="flex flex-col gap-4 p-3 border rounded border-dark-800/60">
+            <div className="flex flex-col gap-4 p-3 border rounded bg-gray-800/75 border-dark-800/60">
               <Typography variant="xxs" weight={700} className="text-secondary">
                 {i18n._(t`Transaction Settings`)}
               </Typography>
               <TransactionSettings placeholderSlippage={placeholderSlippage} trident={trident} />
             </div>
-            <div className="flex flex-col gap-3 p-3 border rounded border-dark-800/60">
+            <div className="flex flex-col gap-3 p-3 border rounded bg-gray-800/75 border-dark-800/60">
               <Typography variant="xxs" weight={700} className="text-secondary">
                 {i18n._(t`Interface Settings`)}
               </Typography>
