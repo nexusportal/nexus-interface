@@ -34,10 +34,18 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
   const sounds = {
     shared: { volume: 1 },
     players: {
+      click: { sound: { src: ['/sounds/click.mp3'] } },
       information: { sound: { src: ['/sounds/information.mp3'] } },
-      ask: { sound: { src: ['/sounds/ask.mp3'] } },
+      ask: { sound: { src: ['/sounds/object.mp3'] } },
       warning: { sound: { src: ['/sounds/warning.mp3'] } },
       error: { sound: { src: ['/sounds/error.mp3'] } },
+      assemble: { sound: { src: ['/sounds/assemble.mp3'] } },
+      object: { sound: { src: ['/sounds/object.mp3'] } },
+      readout: { sound: { src: ['/sounds/readout.mp3'] } },
+      toggle: { sound: { src: ['/sounds/toggle.mp3'] } },
+      type: { sound: { src: ['/sounds/type.mp3'] } },
+
+
     },
   };
   const handleToggle = useCallback((open, type) => {
@@ -51,45 +59,47 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
   if (node && node.hasOwnProperty('link')) {
     const { link, external } = node as MenuItemLeaf
     if (external) {
+      
+      {/* Mint Button */}
       return (
         <div className='mt-3 mr-5 lg:mr-0 lg:mt-0'>
-                  <SoundsProvider sounds={createSounds(sounds)}>
-          <Frame animate={true}
-            level={3}
-            corners={4}
-            layer='primary'>
-            <Typography
-              weight={700}
-              variant="sm"
-              className={classNames(
-                router.asPath === link ? 'text-white' : '',
-                'hover:text-white font-bold py-2 px-2 rounded flex gap-3'
-              )}
-            >
-              <a href={link} target="_blank" rel="noreferrer">
-                <div className="flex flex-row">
-                  {!isDesktop && node.icon}
-                  <div className={classNames(!isDesktop && 'ml-3')}><Player id="ask" content={node.title} /></div>
-                </div>
-              </a>
-            </Typography>
-          </Frame>
-        </SoundsProvider>
+          <SoundsProvider sounds={createSounds(sounds)}>
+            <Frame animate={true}
+              level={3}
+              corners={2}
+              layer='primary'>
+              <Typography
+                weight={700}
+                variant="sm"
+                className={classNames(
+                  router.asPath === link ? 'text-white' : '',
+                  'hover:text-white font-bold py-2 px-2 rounded flex gap-3'
+                )}
+              >
+                <a href={link} target="_blank" rel="noreferrer">
+                  <div className="flex flex-row">
+                    {node.icon}
+                    <div className={classNames('ml-2')}><Player id="ask" content={node.title} /></div>
+                  </div>
+                </a>
+              </Typography>
+            </Frame>
+          </SoundsProvider>
         </div>
 
       )
     }
+
+    {/* Swap Button */}
     return (
       <div className='mt-3 mr-5 lg:mr-0 lg:mt-0'>
-
-
         <SoundsProvider sounds={createSounds(sounds)}>
           <Frame animate={true}
             level={3}
-            corners={4}
+            corners={2}
             layer='primary'
             className="w-full "
-            >
+          >
             <Typography
               onClick={() => router.push(link)}
               weight={700}
@@ -99,17 +109,16 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                 'hover:text-white font-bold py-2 px-2 rounded flex gap-3'
               )}
             >
-              <Player id="ask" content={node.title}>
-                {!isDesktop && node.icon}
-
-              </Player>
+                {node.icon}
+              <Player id="ask" content={node.title} />
             </Typography>
           </Frame>
         </SoundsProvider>
       </div>
     )
   }
-
+ 
+  {/* Pool Button */}
   return (
     <Popover key={node.key} className="relative flex">
       {({ open }) => (
@@ -122,7 +131,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
           <SoundsProvider sounds={createSounds(sounds)} className="w-full ">
             <Frame animate={true}
               level={3}
-              corners={4}
+              corners={2}
               className="w-full "
               layer='primary'>
               <Popover.Button ref={buttonRef}>
@@ -131,13 +140,15 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                   variant="sm"
                   className={classNames(open ? 'text-white' : '', 'font-bold py-2 px-2 rounded flex gap-3 items-center')}
                 >
-                  {!isDesktop && node.icon}
+                  {node.icon}
                   <Player id="ask" content={node.title} />
                   <ChevronDownIcon strokeWidth={5} width={12} />
                 </Typography>
               </Popover.Button>
             </Frame>
           </SoundsProvider>
+    
+          {/* Pool and Farm Button */}
           {node.hasOwnProperty('items') && (
             <Transition
               as={Fragment}
@@ -151,8 +162,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
               <Popover.Panel className="z-10 w-full absolute w-40 translate-y-[-8px] translate-x-[-8px] ">
                 <Frame animate={true}
                   level={3}
-                  corners={4}
-                  
+                  corners={2}
                   layer='primary'>
                   <div
                     className={classNames(

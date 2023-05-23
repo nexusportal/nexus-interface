@@ -138,7 +138,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
     ? 'Enter an amount'
     : balance?.lessThan(parsedDepositValue)
       ? 'Insufficient balance'
-      : (nftCount > 0 && lockMode > 0 && depositLowProAmount) ? "More PRO Required for NFT Staking" : undefined
+      : (nftCount > 0 && lockMode > 0 && depositLowProAmount) ? "More NEXU Required for NFT Staking" : undefined
 
   const isDepositValid = !depositError
   const withdrawError = !parsedWithdrawValue
@@ -348,9 +348,9 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   const extendError = stakedAmount?.equalTo(ZERO)
     ? 'No Lock to extend'
     : userLockMode === 0 && lowProAmount
-      ? 'More PRO Required to Extend NFT Staking'
+      ? 'More NEXU Required to Extend NFT Staking'
       : xOracleApprovalState !== ApprovalState.APPROVED
-        ? 'xOracle Not Approved'
+        ? 'NEXU Not Approved'
         : undefined
 
 
@@ -369,7 +369,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-00/40">
               <div className="flex justify-between">
                 <Typography variant="h3" weight={700} className="text-high-emphesis">
-                  {toggle ? i18n._(t`🌌Nexus Staking`) : i18n._(t`Nexus Unstake`)}
+                  {toggle ? i18n._(t`🌌Nexus Staking`) : i18n._(t`🌌Nexus Unstake`)}
                 </Typography>
                 <Switch
                   size="md"
@@ -407,8 +407,8 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                   </div>
                 </div>
                 <p className="mt-2 font-bold text-red-500">
-                  *If you withdraw your NEXU before the time-lock period is over you will forfeit 50% of your staked
-                  NEXU/Nexus!
+                  *If you withdraw your NEXU or NFT before the time-lock period is over you will forfeit 50% of your staked
+                  NEXU!
                 </p>
               </div>
             ) : (
@@ -612,7 +612,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
                 <QuestionHelper
                   className="!bg-dark-800 !shadow-xl p-2"
-                  text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXRP, NEXU/NEXUS & NEXU/Nexus. Go to Pool > Browse to visualize it.`}
+                  text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXDC, NEXU/WBTC & NEXU/WUSDT. Go to Pool > Browse to visualize it.`}
                 />
               </div>
 

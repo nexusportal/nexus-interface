@@ -23,6 +23,11 @@ import { useTokenBalance } from 'app/state/wallet/hooks'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { Arwes, ThemeProvider, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
+
+const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
+  return show ? <>{children}</> : null;
+};
 
 const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
   let success = true
@@ -125,6 +130,7 @@ export default function Farm(): JSX.Element {
         <meta key="twitter:description" name="twitter:description" content="NEXUSSwap AMM" />
         <meta key="og:description" property="og:description" content="NEXUSSwap AMM" />
       </Head>
+
       {/* <TridentHeader className="sm:!flex-row justify-between items-center" pattern="bg-bubble">
         <div>
           <Typography variant="h2" className="text-high-emphesis" weight={700}>
@@ -200,6 +206,24 @@ export default function Farm(): JSX.Element {
               </div>
             </div>
           </div> */}
+
+          <Project animate header="🌟The Nexus Generator⚡">
+              {(anim: { entered: boolean }) => (
+                <AnimatedContent show={anim.entered}>
+                  <div className="mb-4 text-sm font-normal content md:text-base">
+                    <p>
+                    5 NEXU is generated every block and is distributed proportional to Liquidity Providers that Stake their NLP Tokens into the Nexus Generator. 
+                    10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
+                    </p>
+                    <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
+                      <span className="text-lg font-bold md:text-xl text-green">
+                        LEARN MORE
+                      </span>
+                    </Link>
+                  </div>
+                </AnimatedContent>
+              )}
+            </Project>
 
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Search search={search} term={term} />

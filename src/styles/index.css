@@ -68,7 +68,7 @@ input:focus {
 }
 
 .striped-background {
-  background: repeating-linear-gradient(45deg, #161522, #161522 10px, #021327 10px, #021327 20px);
+  background: repeating-linear-gradient(45deg, #1615227a, #1615227a 10px, #021327 10px, #021327 20px);
 }
 
 /**::-webkit-scrollbar {*/

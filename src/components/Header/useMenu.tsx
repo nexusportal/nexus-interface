@@ -1,9 +1,7 @@
-import { GlobeIcon, SwitchVerticalIcon, CollectionIcon, PresentationChartBarIcon } from '@heroicons/react/outline'
-PresentationChartBarIcon
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SUSHI_ADDRESS } from '@sushiswap/core-sdk'
-import { PoolIcon } from 'app/components/Icon'
+import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon  } from 'app/components/Icon'
 import { Feature } from 'app/enums'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -40,7 +38,7 @@ const useMenu: UseMenu = () => {
       key: 'swap',
       title: i18n._(t`Swap`),
       link: '/swap',
-      icon: <SwitchVerticalIcon width={20} />,
+      icon: <SwapIcon width={20} />,
     }
 
     // If limit orders is enabled, replace swap button with a submenu under trade
@@ -99,7 +97,7 @@ const useMenu: UseMenu = () => {
       key: 'stake',
       title: i18n._(t`Stake`),
       link: '/multistaking',
-      icon: <SwitchVerticalIcon width={20} />,
+      icon: <StakeIcon width={20} />,
     }
 
     // const stakeMenu = [
@@ -121,7 +119,7 @@ const useMenu: UseMenu = () => {
     // ]
 
 
-    const mainItems: Menu = [tradeMenu]
+
 
     // let stakeMenu: MenuItem = {
     //   key: 'stake',
@@ -143,7 +141,7 @@ const useMenu: UseMenu = () => {
       title: i18n._(t`Mint`),
       link: 'https://exrp.minter.thenexusportal.io/',
       external: true,
-      icon: <CollectionIcon width={20} />,
+      icon: <MintIcon width={20} />,
     }
 
     // let analyticsMenu: MenuItem = {
@@ -154,8 +152,9 @@ const useMenu: UseMenu = () => {
     //   icon: <PresentationChartBarIcon width={20} />,
     // }
 
-
+    const mainItems: Menu = [tradeMenu]
     const exploreMenu: MenuItemLeaf[] = []
+
     // if (featureEnabled(Feature.VESTING, chainId)) {
     //   mainItems.push(stakeMenu)
     //   // exploreMenu.push({
@@ -198,28 +197,28 @@ const useMenu: UseMenu = () => {
     //   icon: <GlobeIcon width={20} />,
     // }
 
-      mainItems.push(stakeMenu);
-      // mainItems.push({
+    
+    // mainItems.push({
       //   key: 'stake',
       //   title: i18n._(t`Stake`),
       //   items: stakeMenu,
       //   icon: <GlobeIcon width={20} />,
       // })
     }
-
+    
     if (exploreMenu.length > 0)
-      mainItems.push({
-        key: 'explore',
-        title: i18n._(t`Explore`),
-        items: exploreMenu,
-        icon: <GlobeIcon width={20} />,
-      })
-
+    mainItems.push({
+      key: 'explore',
+      title: i18n._(t`Explore`),
+      items: exploreMenu,
+      icon: <FarmIcon width={20} />,
+    })
+    
     if (featureEnabled(Feature.LIQUIDITY_MINING, chainId)) {
       const farmItems = {
         key: 'farm',
         title: i18n._(t`Farm`),
-        icon: <SwitchVerticalIcon width={20} className="rotate-90 filter" />,
+        icon: <FarmIcon width={20} />,
         items: [
           {
             key: 'your-farms',
@@ -235,7 +234,8 @@ const useMenu: UseMenu = () => {
       }
       mainItems.push(farmItems)
     }
-
+    
+    mainItems.push(stakeMenu);
     mainItems.push(nftMenu)
     // mainItems.push(analyticsMenu)
     // mainItems.push(earnMenu)

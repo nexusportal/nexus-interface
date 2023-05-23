@@ -34,7 +34,7 @@ function Balance({ balance }: { balance: CurrencyAmount<Currency> }) {
       )}
       title={balance.toExact()}
     >
-      {balance.greaterThan(ZERO) ? balance.toSignificant(4) : '0.00'}
+      {balance.greaterThan(ZERO) ? balance.toSignificant(6) : '0.00'}
     </Typography>
   )
 }

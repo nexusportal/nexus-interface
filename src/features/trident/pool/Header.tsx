@@ -59,7 +59,7 @@ export const Header: FC<HeaderProps> = ({ pool, i18n }) => {
           </Typography>
           {isFarm && (
             <>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="140" height="140" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"

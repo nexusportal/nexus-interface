@@ -23,14 +23,14 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
       <div className="mr-1">
         <Activity className="w-4 h-4" />
       </div>
-      {error instanceof UnsupportedChainIdError ? i18n._(t`You are on the wrong network`) : i18n._(t`Error`)}
+      {error instanceof UnsupportedChainIdError ? i18n._(t`Wrong network!`) : i18n._(t`Error`)}
     </div>
   ) : (
     <Frame
       animate={true}
       level={3}
       corners={4}
-      layer='primary'
+      layer='success'
       id="connect-wallet"
       onClick={toggleWalletModal}
       variant="outlined"

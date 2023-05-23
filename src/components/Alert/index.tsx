@@ -6,7 +6,7 @@ import { classNames } from '../../functions'
 import Typography from '../Typography'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
-import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
+import { Arwes, Words, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 const TYPE = {
   information: {
     text: 'text-high-emphesis',
@@ -83,9 +83,7 @@ export default function Alert({
       {showIcon && <div>{icon}</div>}
       <div className="flex flex-col gap-1.5 justify-center">
         {title && (
-          <Typography weight={700} className={classNames(text, 'text-left inline leading-6')}>
-            {title}
-          </Typography>
+                  <h3><Words animate>{title}</Words></h3>
         )}
         <Typography variant="sm" weight={700} className={classNames(text, 'text-left')}>
           {message}

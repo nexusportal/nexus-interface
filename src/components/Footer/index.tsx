@@ -10,6 +10,7 @@ import { useNetworkModalToggle } from 'app/state/application/hooks'
 // import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 import LogoImage from '../../../public/XRP.png'
 import Container from '../Container'
@@ -24,11 +25,12 @@ const Footer = () => {
   const toggleNetworkModal = useNetworkModalToggle()
 
   return (
-    <div className="z-10 w-full py-20 mt-20">
-      <Container maxWidth="7xl" className="px-6 mx-auto">
-        <div className="grid grid-cols-2 gap-2 pt-8 border-t xs:px-6 border-dark-900 sm:gap-3">
-          <div className="flex flex-col col-span-2 gap-3 sm:col-span-1">
-            {/* <div className="flex items-center justify-start gap-2">
+    <div className="z-10 w-full  mt-10">
+        <Frame animation>
+        <Container maxWidth="7xl" className="px-6 mx-auto">
+          <div className="grid grid-cols-2 gap-2 pt-8 xs:px-6 sm:gap-3">
+            <div className="flex flex-col col-span-2 gap-3 sm:col-span-1">
+              {/* <div className="flex items-center justify-start gap-2">
               <div className="">
                 <Image src="https://app.sushi.com/images/logo.svg" alt="Nexus logo" width="28px" height="28px" />
               </div>
@@ -36,46 +38,46 @@ const Footer = () => {
                 Nexus
               </Typography>
             </div> */}
-            {/* <Typography variant="xs" className="text-low-emphesis">
+              {/* <Typography variant="xs" className="text-low-emphesis">
               {i18n._(t`Our community is building a comprehensive decentralized trading platform for the future of finance. Join
               us!`)}
             </Typography> */}
-            <div className="flex items-center gap-4">
-              <a href="https://twitter.com/PoweredByNEXUS" target="_blank" rel="noreferrer">
-                <TwitterIcon width={16} className="text-low-emphesis" />
-              </a>
+              <div className="flex items-center gap-4">
+                <a href="https://twitter.com/PoweredByNEXUS" target="_blank" rel="noreferrer">
+                  <TwitterIcon width={16} className="text-low-emphesis" />
+                </a>
 
-              {/* <a href="https://t.me/NexusOffical" target="_blank" rel="noreferrer">
+                {/* <a href="https://t.me/NexusOffical" target="_blank" rel="noreferrer">
                 <TelegramIcon width={16} className="text-low-emphesis" />
               </a>
               <a href="https://www.youtube.com/channel/" target="_blank" rel="noreferrer">
                 <YoutubeIcon width={16} className="text-low-emphesis" />
               </a> */}
 
-              <a href="https://discord.com/invite/nexusportal" target="_blank" rel="noreferrer">
-                <DiscordIcon width={16} className="text-low-emphesis" />
-              </a>
-
-              <a href="https://github.com/nexusportal" target="_blank" rel="noreferrer">
-                <GithubIcon width={16} className="text-low-emphesis" />
-              </a>
-
-              <Link href="/portfolio" passHref={true}>
-                <a className="text-low-emphesis ">
-                  {/*@ts-ignore*/}
-                  {i18n._(t`Your Wallet`)}
+                <a href="https://discord.com/invite/nexusportal" target="_blank" rel="noreferrer">
+                  <DiscordIcon width={16} className="text-low-emphesis" />
                 </a>
-              </Link>
 
-              {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
-                <div
-                  className="flex items-center text-sm cursor-pointer pointer-events-auto select-none text-low-emphesis whitespace-nowrap"
-                  onClick={() => toggleNetworkModal()}
-                >
-                  {i18n._(t`Network`)}
-                  {/* <div className="grid items-center grid-flow-col  justify-center bg-dark-1000 h-[36px] w-[36px] text-sm rounded pointer-events-auto auto-cols-max text-secondary"> */}
-                  {/*@ts-ignore TYPE NEEDS FIXING*/}
-                  {/* {chainId === ChainId.XRPL ? (
+                <a href="https://github.com/nexusportal" target="_blank" rel="noreferrer">
+                  <GithubIcon width={16} className="text-low-emphesis" />
+                </a>
+
+                <Link href="/portfolio" passHref={true}>
+                  <a className="text-low-emphesis ">
+                    {/*@ts-ignore*/}
+                    {i18n._(t`Your Wallet`)}
+                  </a>
+                </Link>
+
+                {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
+                  <div
+                    className="flex items-center text-sm cursor-pointer pointer-events-auto select-none text-low-emphesis whitespace-nowrap"
+                    onClick={() => toggleNetworkModal()}
+                  >
+                    {i18n._(t`Network`)}
+                    {/* <div className="grid items-center grid-flow-col  justify-center bg-dark-1000 h-[36px] w-[36px] text-sm rounded pointer-events-auto auto-cols-max text-secondary"> */}
+                    {/*@ts-ignore TYPE NEEDS FIXING*/}
+                    {/* {chainId === ChainId.XRPL ? (
                       <img src={SGB.src} className="rounded-md" width="22px" height="22px" />
                     ) : (
                       <Image
@@ -88,16 +90,16 @@ const Footer = () => {
                       />
                     )} */}
 
-                  {/* </div> */}
-                </div>
-              )}
+                    {/* </div> */}
+                  </div>
+                )}
 
-              <a href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
-                <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
-              </a>
+                <a href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
+                  <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
+                </a>
+              </div>
             </div>
-          </div>
-          {/* <div className="flex flex-col gap-1 text-right">
+            {/* <div className="flex flex-col gap-1 text-right">
             <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
               {i18n._(t`Products`)}
             </Typography>
@@ -130,13 +132,13 @@ const Footer = () => {
               </Typography>
             </Link>
           </div> */}
-          {/* <div className="flex flex-col gap-1 md:text-right lg:text-right"> */}
-          {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
+            {/* <div className="flex flex-col gap-1 md:text-right lg:text-right"> */}
+            {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
               <a href="https://help.thenexusportal.io" target="_blank" rel="noreferrer">
                 {i18n._(t`Help`)}
               </a>
             </Typography> */}
-          {/* <a href="https://docs.sushi.com" target="_blank" rel="noreferrer">
+            {/* <a href="https://docs.sushi.com" target="_blank" rel="noreferrer">
               <Typography variant="xs" className="text-low-emphesis hover:text-high-emphesis">
                 {i18n._(t`What is Nexus?`)}
               </Typography>
@@ -156,8 +158,8 @@ const Footer = () => {
                 {i18n._(t`Ask on Forum`)}
               </Typography>
             </a> */}
-          {/* </div> */}
-          {/* <div className="flex flex-col gap-1 text-right xs:text-right md:text-left lg:text-right">
+            {/* </div> */}
+            {/* <div className="flex flex-col gap-1 text-right xs:text-right md:text-left lg:text-right">
             <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
               {i18n._(t`Developers`)}
             </Typography>
@@ -182,7 +184,7 @@ const Footer = () => {
               </Typography>
             </a>
           </div> */}
-          {/* <div className="flex flex-col gap-1 md:text-right lg:text-right">
+            {/* <div className="flex flex-col gap-1 md:text-right lg:text-right">
             <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
               {i18n._(t`Governance`)}
             </Typography>
@@ -198,13 +200,13 @@ const Footer = () => {
             </a>
           </div> */}
 
-          <div className="flex flex-row justify-start gap-1 text-right sm:justify-end">
-            <div className="flex items-center ">
-              <a href="https://xrpl.org/" target="_blank" rel="noreferrer">
-                <img src={LogoImage.src} className={'h-[50px]'} alt="Logo" />
-              </a>
-            </div>
-            {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
+            <div className="flex flex-row justify-start gap-1 text-right sm:justify-end">
+              <div className="flex items-center ">
+                <a href="https://xrpl.org/" target="_blank" rel="noreferrer">
+                  <img src={LogoImage.src} className={'h-[50px]'} alt="Logo" />
+                </a>
+              </div>
+              {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
               {i18n._(t`Protocol`)}
             </Typography>
             <a
@@ -226,15 +228,16 @@ const Footer = () => {
               </Typography>
             </a> */}
 
-            {/* <Link href="/vesting" passHref={true}>
+              {/* <Link href="/vesting" passHref={true}>
               <Typography variant="xs" className="text-low-emphesis hover:text-high-emphesis">
                 {i18n._(t`Vesting`)}
               </Typography>
             </Link> */}
+            </div>
           </div>
-        </div>
-      </Container>
-    </div>
+        </Container>
+    </Frame>
+      </div>
   )
 }
 

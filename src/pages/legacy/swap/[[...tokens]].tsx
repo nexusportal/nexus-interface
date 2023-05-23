@@ -41,7 +41,7 @@ import { fetchAPI } from '../../../lib/api'
 import ExternalLink from 'app/components/ExternalLink'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
-import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
+import { Arwes, Logo, Words, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 export async function getServerSideProps() {
   try {
@@ -100,13 +100,13 @@ const Swap = ({ banners }) => {
     () =>
       showWrap
         ? {
-            [Field.INPUT]: parsedAmount,
-            [Field.OUTPUT]: parsedAmount,
-          }
+          [Field.INPUT]: parsedAmount,
+          [Field.OUTPUT]: parsedAmount,
+        }
         : {
-            [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
-            [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
-          },
+          [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
+          [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
+        },
     [independentField, parsedAmount, showWrap, trade]
   )
 
@@ -151,7 +151,7 @@ const Swap = ({ banners }) => {
     [independentField]: typedValue,
     [dependentField]: showWrap
       ? /* @ts-ignore TYPE NEEDS FIXING */
-        parsedAmounts[independentField]?.toExact() ?? ''
+      parsedAmounts[independentField]?.toExact() ?? ''
       : parsedAmounts[dependentField]?.toSignificant(6) ?? '',
   }
 
@@ -240,8 +240,8 @@ const Swap = ({ banners }) => {
             recipient === null
               ? 'Swap w/o Send'
               : (recipientAddress ?? recipient) === account
-              ? 'Swap w/o Send + recipient'
-              : 'Swap w/ Send',
+                ? 'Swap w/o Send + recipient'
+                : 'Swap w/ Send',
           label: [
             trade?.inputAmount?.currency?.symbol,
             trade?.outputAmount?.currency?.symbol,
@@ -364,6 +364,7 @@ const Swap = ({ banners }) => {
         <meta key="twitter:description" name="twitter:description" content="NEXUSSwap AMM" />
         <meta key="og:description" property="og:description" content="NEXUSSwap AMM" />
       </Head>
+
       <ConfirmSwapModal
         isOpen={showConfirm}
         trade={trade}
@@ -383,14 +384,20 @@ const Swap = ({ banners }) => {
         tokens={importTokensNotInDefault}
         onConfirm={handleConfirmTokenWarning}
       />
-      <div className="flex items-center justify-center">
-        <ExternalLink href="https://www.thenexusportal.io">
-          <div className="flex flex-col items-center mb-4">
-            {/* <div className="font-bold">1 XRP = $0.0645</div> */}
-            <img src={LogoImage.src} className={'w-[175px] h-[175px]'} alt="Logo" />
+
+      <ExternalLink href="https://www.thenexusportal.io">
+        <div className="flex flex-col items-center mb-4">
+          <div className="relative">
+            <img src={LogoImage.src} className="w-[180px] h-[180px] relative z-10" alt="Logo" />
+            <div className="absolute bottom-4 right-4 transform translate-x-0 translate-y-0">
+              <Logo animate size={150} />
+            </div>
           </div>
-        </ExternalLink>
-      </div>
+          <h3>
+            <Words animate>Welcome To The Nexus</Words>
+          </h3>
+        </div>
+      </ExternalLink>
 
       <SwapLayoutCard>
         <div className="px-2">
@@ -474,8 +481,8 @@ const Swap = ({ banners }) => {
                 (wrapType === WrapType.WRAP
                   ? i18n._(t`Wrap`)
                   : wrapType === WrapType.UNWRAP
-                  ? i18n._(t`Unwrap`)
-                  : null)}
+                    ? i18n._(t`Unwrap`)
+                    : null)}
             </Button>
           ) : showApproveFlow ? (
             <div>
@@ -516,8 +523,8 @@ const Swap = ({ banners }) => {
                   {priceImpactSeverity > 3 && !isExpertMode
                     ? i18n._(t`Price Impact High`)
                     : priceImpactSeverity > 2
-                    ? i18n._(t`Swap Anyway`)
-                    : i18n._(t`Swap`)}
+                      ? i18n._(t`Swap Anyway`)
+                      : i18n._(t`Swap`)}
                 </Button>
               )}
             </div>
@@ -545,10 +552,10 @@ const Swap = ({ banners }) => {
               {swapInputError
                 ? swapInputError
                 : priceImpactSeverity > 3 && !isExpertMode
-                ? i18n._(t`Price Impact Too High`)
-                : priceImpactSeverity > 2
-                ? i18n._(t`Swap Anyway`)
-                : i18n._(t`Swap`)}
+                  ? i18n._(t`Price Impact Too High`)
+                  : priceImpactSeverity > 2
+                    ? i18n._(t`Swap Anyway`)
+                    : i18n._(t`Swap`)}
             </Button>
           )}
           {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}

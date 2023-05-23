@@ -12,6 +12,7 @@ import useAddTokenToMetaMask from 'app/hooks/useAddTokenToMetaMask'
 import { useActiveWeb3React } from 'app/services/web3'
 import Lottie from 'lottie-react'
 import React, { FC } from 'react'
+import { Loading } from 'arwes';
 
 interface ConfirmationPendingContentProps {
   onDismiss: () => void
@@ -25,7 +26,7 @@ export const ConfirmationPendingContent: FC<ConfirmationPendingContentProps> = (
       <HeadlessUiModal.Header header={i18n._(t`Confirm transaction`)} onClose={onDismiss} />
       <HeadlessUiModal.BorderedContent className="flex flex-col items-center justify-center gap-1">
         <div className="w-16 py-8 m-auto">
-          <Lottie animationData={loadingRollingCircle} autoplay loop />
+          <Loading animation />
         </div>
         <Typography variant="lg" weight={700} className="text-white">
           {pendingText}
@@ -57,7 +58,7 @@ export const TransactionSubmittedContent: FC<TransactionSubmittedContentProps> =
     <div className="flex flex-col gap-4 z-[1000]">
       <HeadlessUiModal.Header header={i18n._(t`Transaction submitted`)} onClose={onDismiss} />
       <HeadlessUiModal.BorderedContent className="flex flex-col items-center justify-center gap-1">
-        <div className="w-[102px] h-[102px] bg-dark-900 rounded-full">
+        <div className="w-[102px] h-[102px] rounded-full">
           <Lottie animationData={receiptPrinting} autoplay loop={false} />
         </div>
         <Typography id="text-transaction-submitted" variant="sm" weight={700} className="text-white">

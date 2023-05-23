@@ -40,7 +40,7 @@ export default function LangSwitcher() {
           <div className="flex flex-row items-center justify-between">
             <Frame animate={true}
               level={3}
-              corners={5}
+              corners={3}
               className="w-100"
               layer='primary'>
               <div className="flex gap-1 p-2">

@@ -154,7 +154,7 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
             >
               <Frame animate={true}
                 level={3}
-                corners={2}
+                corners={3}
                 layer='primary'>
                 <div className={classNames(
                   transparent ? '' : ' ',
