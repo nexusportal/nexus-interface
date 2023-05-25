@@ -212,8 +212,13 @@ export default function Farm(): JSX.Element {
                 <AnimatedContent show={anim.entered}>
                   <div className="mb-4 text-sm font-normal content md:text-base">
                     <p>
-                    5 NEXU is generated every block and is distributed proportional to Liquidity Providers that Stake their NLP Tokens into the Nexus Generator. 
+                    5 NEXU is generated every block and is distributed proportionally to Liquidity Providers that Stake their NLP Tokens into the Nexus Generator. 
                     10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
+                    </p>
+                    <br/>
+                    <p>
+                      The Rewards value shown for the Pairs below is the amount of NEXU that is proportionally distributed to NLP Stakers of that pair each day! 
+                      The more NLPs you stake the more of the daily NEXU reward you will get!
                     </p>
                     <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
                       <span className="text-lg font-bold md:text-xl text-green">
@@ -230,18 +235,6 @@ export default function Farm(): JSX.Element {
             {/* <OnsenFilter /> */}
           </div>
           <FarmList farms={result} term={term} />
-          {chainId && chainId === ChainId.CELO && (
-            <Typography variant="xs" weight={700} className="italic text-center text-secondary">
-              {i18n._(t`Users can now bridge back to Celo using a new version of Optics.`)}{' '}
-              <ExternalLink
-                color="blue"
-                id={`celo-optics-info-link`}
-                href="https://medium.com/@0xJiro/celo-farms-update-migrating-to-the-optics-v2-bridge-e8075d1c9ea"
-              >
-                {i18n._(t`Click for more info on Optics V1 Migration.`)}
-              </ExternalLink>
-            </Typography>
-          )}
         </div>
       </TridentBody>
     </>
