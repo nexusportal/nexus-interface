@@ -52,11 +52,14 @@ const FarmList = ({ farms, term }) => {
 
   return items ? (
     <>
-      <div className={classNames(TABLE_WRAPPER_DIV_CLASSNAME)} style={{overflow:"visible"}}>
-        <Frame animate={true}
-          level={3}
-          corners={3}
-          layer='primary'>
+      <div
+        className={classNames(TABLE_WRAPPER_DIV_CLASSNAME)}
+        style={{ overflow: "scroll", padding: "10px" }} // Add your desired padding value here
+      >        <Frame animate={true}
+        level={3}
+        corners={3}
+        className="width__set"
+        layer='primary'>
           <div className="grid grid-cols-4 min-w-[768px]">
             <div
               className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 4))}
@@ -95,32 +98,33 @@ const FarmList = ({ farms, term }) => {
         <Frame animate={true}
           level={3}
           corners={3}
-          className="mt-3"
+
+          className="mt-3 width__set"
           layer='primary'>
-        <div className="divide-y divide-dark-900  min-w-[768px]">
-          <InfiniteScroll
-            dataLength={numDisplayed}
-            next={() => setNumDisplayed(numDisplayed + 5)}
-            hasMore={true}
-            loader={null}
-          >
-            {items.slice(0, numDisplayed).map((farm, index) => (
-              <FarmListItem
-                key={index}
-                farm={farm}
-                onClick={() => {
-                  setSelectedFarm(farm)
-                  dispatch(
-                    setOnsenModalState({
-                      view: positionIds.includes(farm.id) ? OnsenModalView.Position : OnsenModalView.Liquidity,
-                      open: true,
-                    })
-                  )
-                }}
-              />
-            ))}
-          </InfiniteScroll>
-        </div>
+          <div className="divide-y divide-dark-900  min-w-[768px]">
+            <InfiniteScroll
+              dataLength={numDisplayed}
+              next={() => setNumDisplayed(numDisplayed + 5)}
+              hasMore={true}
+              loader={null}
+            >
+              {items.slice(0, numDisplayed).map((farm, index) => (
+                <FarmListItem
+                  key={index}
+                  farm={farm}
+                  onClick={() => {
+                    setSelectedFarm(farm)
+                    dispatch(
+                      setOnsenModalState({
+                        view: positionIds.includes(farm.id) ? OnsenModalView.Position : OnsenModalView.Liquidity,
+                        open: true,
+                      })
+                    )
+                  }}
+                />
+              ))}
+            </InfiniteScroll>
+          </div>
         </Frame>
       </div>
       <HeadlessUiModal.Controlled

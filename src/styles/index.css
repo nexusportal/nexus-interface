@@ -68,7 +68,7 @@ input:focus {
 }
 
 .striped-background {
-  background: repeating-linear-gradient(45deg, #1615227a, #1615227a 10px, #021327 10px, #021327 20px);
+  background: repeating-linear-gradient(45deg, #161522, #161522 10px, #021327 10px, #021327 20px);
 }
 
 /**::-webkit-scrollbar {*/
@@ -110,4 +110,10 @@ input[type=datetime-local]::-webkit-calendar-picker-indicator {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width:980px) {
+  .width__set{
+    width: 775px !important;
+  }
 }
