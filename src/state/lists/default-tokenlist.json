@@ -8585,6 +8585,14 @@
       "logoURI": "/NEXUS.png"
     },
     {
+      "name": "XVM",
+      "address": "0x087EFA983A85CaA80271740397a27494A02913B6",
+      "symbol": "XVM",
+      "decimals": 18,
+      "chainId": 1440001,
+      "logoURI": "/XVM.png"
+    },
+    {
       "chainId": 1666600000,
       "address": "0xdc54046c0451f9269FEe1840aeC808D36015697d",
       "symbol": "1BTC",

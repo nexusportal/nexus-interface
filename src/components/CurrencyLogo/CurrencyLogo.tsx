@@ -5,6 +5,7 @@ import { WrappedTokenInfo } from 'app/state/lists/wrappedTokenInfo'
 import React, { FunctionComponent, useMemo } from 'react'
 import NEXUS from '../../../public/NEXUS.png'
 import WXRP from '../../../public/WXRP.png'
+import XVM from '../../../public/XVM.png'
 import XRP from '../../../public/XRP.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
@@ -171,14 +172,19 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     if (currency.symbol === 'NEXU') {
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
+
     if (currency.symbol === 'NEXUS') {
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
 
-   
+    if (currency.symbol === 'XVM') {
+      return <img alt="img" src={XVM.src} width={size} height={size} className={className} />
+    }
+
     if (currency.symbol === 'XRP') {
       return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
     }
+    
     if (currency.symbol === 'WXRP') {
       return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
     }
@@ -191,6 +197,9 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
         return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
       }
 
+      if (currency.symbol === 'XVM') {
+        return <img alt="img" src={XVM.src} width={size} height={size} className={className} />
+      }
 
       if (currency.symbol === 'XRP') {
         return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
