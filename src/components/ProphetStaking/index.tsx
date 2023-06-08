@@ -534,7 +534,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                     onClick={xOralceApprove}
                     disabled={xOracleApprovalState !== ApprovalState.NOT_APPROVED}
                   >
-                    {i18n._(t`Approve xORACLE FOR NFT Staking`)}
+                    {i18n._(t`Approve NEXU FOR NFT Staking`)}
                   </Button>
                 )}
               <Button

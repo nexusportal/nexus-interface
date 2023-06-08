@@ -346,8 +346,8 @@ export const SelectedOracles = () => {
       </div>
 
       <p className="mb-2">
-        Select The Nexus you would like to deploy. Some Nexus NFTs wield more power than others, choose wisely! Each
-        Nexus NFT selected must be paired with NEXU. Tap to
+        Select The Nexus NFTs you would like to deploy. Some Nexus NFTs wield more power than others, choose wisely! Each
+        Nexus NFT selected must be paired with NEXU to receive the power of the time-lock multiplier. Tap to
         select or select max 40 at a time.
       </p>
       <button
@@ -475,7 +475,7 @@ export const SelectedOracles = () => {
           >
             {minXOracleAmount && lockMode > 0
               ? `${minXOracleAmount.multiply(selectedIDs.length).toSignificant(6)} ${minXOracleAmount.currency.symbol}`
-              : '0 xORACLE'}
+              : '0 NEXU'}
           </Typography>
         </div>
       </div>

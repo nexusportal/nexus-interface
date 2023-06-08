@@ -173,6 +173,11 @@ USE AT YOUR OWN RISK!`}
                       This staking system distributes a variety of tokens and token pairs. Some tokens are NEXU, Nexus NLPs, and more.
                       Examples of NLPs are NEXU/WBTC, NEXU/USDT, and many other pairs that are not used to burn NEXU.
                     </p>
+                    <br />
+                    <p>
+                    10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
+                    This equates to approximately 21,600 NEXU that is distributed to the Nexus Core Multi-Staking System each day!
+                    </p>
                     <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
                       <span className="text-lg font-bold md:text-xl text-green">
                         LEARN MORE
@@ -292,7 +297,7 @@ USE AT YOUR OWN RISK!`}
               layer='primary'
               className="flex flex-1 w-full"
             >
-              <div className=" flex-1 flex gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md ">
+              <div className=" flex-1 flex gap-3 p-2 md:p-4 pt-4 rounded-[16px]  bg-opacity-25 shadow-md">
                 <div className="w-full sm:w-1/2 md:pt-10">
                   <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
                     {i18n._(t`Global Stats🌎`)}
@@ -303,16 +308,21 @@ USE AT YOUR OWN RISK!`}
                   <p>{`Total NEXU NFTs Locked:  ${totalNFTCount ? totalNFTCount : ''}`}</p>
                   <p>{`Total NEXU Collatoral Locked:  ${totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''
                     }`}</p>
+
                   <Button
                     size="sm"
                     className="mt-3"
-                    color={'blue'}
+                    color={'gradient'}
                     onClick={proDistribute}
                     disabled={pendingTx || !possibleDistribute}
                   >
                     {`Distribute`}
                   </Button>
-                  <OracleDistributor />
+                  {/* <OracleDistributor /> */}
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
                 </div>
 
                 <div className="w-full mt-5 sm:w-1/2 sm:mt-0 md:pt-10">
