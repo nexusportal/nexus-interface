@@ -7,7 +7,7 @@ import { WalletIcon } from 'app/components/Icon'
 import { HeadlessUiModal } from 'app/components/Modal'
 import Typography from 'app/components/Typography'
 import Web3Connect from 'app/components/Web3Connect'
-import { XORACLE } from 'app/config/tokens'
+import { NEXUS } from 'app/config/tokens'
 import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { classNames } from 'app/functions'
 import { ApprovalState, useApproveCallback } from 'app/hooks'
@@ -54,7 +54,7 @@ export const SelectedOracles = () => {
   /// ipfs://QmfZhkQgWgG98JmaoaiUR5qNYPJh6ZS6HVFk5U6gRPaf1W/61.jpeg
   /// https://ipfs.io/ipfs/QmfZhkQgWgG98JmaoaiUR5qNYPJh6ZS6HVFk5U6gRPaf1W/61.jpeg
 
-  const liquidityToken = XORACLE
+  const liquidityToken = NEXUS
 
   const balance = useTokenBalance(account ?? undefined, liquidityToken)
 
@@ -455,7 +455,7 @@ export const SelectedOracles = () => {
             // onClick={() => onClick(balance)}
             id={'xoracle approve'}
           >
-            {minNexusAmount ? `${minNexusAmount.toSignificant(6)} ${minNexusAmount.currency.symbol}` : '0.0000'} + 1%
+            {minNexusAmount ? `${minNexusAmount.toSignificant(6)} ${minNexusAmount.currency.symbol}` : '0.0000'}
           </Typography>
         </div>
       </div>
@@ -608,7 +608,7 @@ export const SelectedOracles = () => {
               multiUnStakeNFTAction()
             }}
           >
-            {i18n._(t`Break Lock`)}
+            {i18n._(t`BREAK LOCK`)}
           </Button>
         </div>
       </HeadlessUiModal.Controlled>

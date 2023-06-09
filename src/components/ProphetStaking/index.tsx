@@ -681,7 +681,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               proWithdrawAction()
             }}
           >
-            {i18n._(t`Break Lock`)}
+            {i18n._(t`BREAK LOCK`)}
           </Button>
         </div>
       </HeadlessUiModal.Controlled>

@@ -24,7 +24,7 @@ import MISO from '@sushiswap/miso/exports/all.json'
 import TRIDENT from '@sushiswap/trident/exports/all.json'
 import { OLD_FARMS } from 'app/config/farms'
 import { tridentMigrationContracts } from 'app/config/tridentMigration'
-import { MASTERCHEF_ADDRESS, NEXUS_NFT_MULTISTAKING_ADDRESS, ORACLE_DISTRIBUTOR_ADDRESS, ORACLE_NFT_ADDRESS, ORACLE_NFT_WEIGHT_ADDRESS, PRO_ORALCE_DISTRIBUTOR_ADDRESS,PROPHET_SACRIFICE_ADDRESS,PROSTAKING_DISTRIBUTOR_ADDRESS } from 'app/constants'
+import { MASTERCHEF_ADDRESS, NEXUS_NFT_MULTISTAKING_ADDRESS, NEXU_DISTRIBUTOR_ADDRESS, NEXUS_NFT_ADDRESS, NEXUS_NFT_WEIGHT_ADDRESS, PRO_ORALCE_DISTRIBUTOR_ADDRESS,PROPHET_SACRIFICE_ADDRESS,MULTISTAKING_DISTRIBUTOR_ADDRESS } from 'app/constants'
 import {
   ARGENT_WALLET_DETECTOR_ABI,
   ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS,
@@ -194,7 +194,7 @@ export function useSushiBarContract(withSignerIfPossible?: boolean): Contract | 
 
 export function useProStakingOracleWeightContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? ORACLE_NFT_WEIGHT_ADDRESS : undefined, PROSTAKING_ORACLE_WEIGHT_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_NFT_WEIGHT_ADDRESS : undefined, PROSTAKING_ORACLE_WEIGHT_ABI, withSignerIfPossible)
 }
 
 export function useProOracleDistributorContract(withSignerIfPossible?: boolean): Contract | null {
@@ -204,7 +204,7 @@ export function useProOracleDistributorContract(withSignerIfPossible?: boolean):
 
 export function useProStakingDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? PROSTAKING_DISTRIBUTOR_ADDRESS : undefined, PROSTAKING_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? MULTISTAKING_DISTRIBUTOR_ADDRESS : undefined, PROSTAKING_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProStakingContract(withSignerIfPossible?: boolean): Contract | null {
@@ -214,12 +214,12 @@ export function useProStakingContract(withSignerIfPossible?: boolean): Contract 
 
 export function useOracleNFTContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? ORACLE_NFT_ADDRESS : undefined, ORACLE_NFT_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_NFT_ADDRESS : undefined, ORACLE_NFT_ABI, withSignerIfPossible)
 }
 
 export function useOracleDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? ORACLE_DISTRIBUTOR_ADDRESS : undefined, ORACLE_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXU_DISTRIBUTOR_ADDRESS : undefined, ORACLE_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProphetSacrificeContract(withSignerIfPossible?: boolean): Contract | null {

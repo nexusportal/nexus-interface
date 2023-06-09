@@ -116,7 +116,7 @@ export default function useFarmRewards() {
   const liquidityTokens = useMemo(
     () =>
       farms.map((farm) => {
-        if (farm.pair === '0x5795377c85e0fdf6370fae1b74fe03b930c4a892') {
+        if (farm.pair === '0x3965c4716091A1008db59D85a684DbA075950145') {
           return XORACLE
         } else {
           const token = new Token(ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
