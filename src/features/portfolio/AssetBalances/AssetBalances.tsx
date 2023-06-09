@@ -39,7 +39,7 @@ const AssetBalances: FC<AssetBalancesProps> = ({ config, onSelect }) => {
             <Frame animate={true}
               level={3}
               corners={3}
-              
+              className="mt-3 mb-3 p-10"
               layer='primary'  key={i}>
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column, i) => (

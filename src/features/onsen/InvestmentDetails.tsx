@@ -224,14 +224,14 @@ const InvestmentDetails = ({ farm }) => {
       <Button
         loading={pendingTx}
         fullWidth
-        color="blue"
+        color="gradient"
         disabled={
           pendingTx ||
           !((pendingSushi && pendingSushi.greaterThan(ZERO)) || (pendingReward && Number(pendingReward) > 0))
         }
         onClick={onHarvest}
       >
-        {i18n._(t`Harvest Rewards`)}
+        {i18n._(t`HARNESS REWARDS`)}
       </Button>
     </>
   )
