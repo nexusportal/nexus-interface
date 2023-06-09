@@ -146,17 +146,6 @@ const Desktop: FC = () => {
                 })}
               </div>
 
-              <div className="flex flex-col items-center">
-                <div className="flex items-center">
-                  <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
-                  <span className="ml-2">${parseFloat(xrpPrice).toFixed(4)}</span>
-                </div>
-                <div className="flex items-center">
-                  <img src={NEXULogo.src} className="rounded-md" width="25px" height="25px" alt="NEXU Logo" />
-                  <span className="ml-2">${parseFloat(nexuPrice).toFixed(4)}</span>
-                </div>
-              </div>
-
 
               <div className="flex items-center justify-end gap-2">
                 {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
@@ -189,6 +178,19 @@ const Desktop: FC = () => {
               </div>
             </div>
           </Container>
+
+          <div className="flex items-center justify-center">
+            <div className="flex items-center">
+              <img src={XRPLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
+              <span className="ml-2">${parseFloat(xrpPrice).toFixed(4)}</span>
+            </div>
+            <div className="flex items-center ml-4">
+              <img src={NEXULogo.src} className="rounded-md" width="25px" height="25px" alt="NEXU Logo" />
+              <span className="ml-2">${parseFloat(nexuPrice).toFixed(4)}</span>
+            </div>
+          </div>
+
+
         </nav>
       </header>
       <div style={{ height: HEADER_HEIGHT, minHeight: HEADER_HEIGHT }} />

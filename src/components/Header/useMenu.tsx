@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SUSHI_ADDRESS } from '@sushiswap/core-sdk'
-import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon  } from 'app/components/Icon'
+import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon  } from 'app/components/Icon'
 import { Feature } from 'app/enums'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -136,12 +136,20 @@ const useMenu: UseMenu = () => {
     //   icon: <CurrencyDollarIcon width={20} />,
     // }
 
-    let nftMenu: MenuItem = {
+    let mintMenu: MenuItem = {
       key: 'nft',
       title: i18n._(t`Mint`),
       link: 'https://exrp.minter.thenexusportal.io/',
       external: true,
       icon: <MintIcon width={20} />,
+    }
+
+    let bridgeMenu: MenuItem = {
+      key: 'nft',
+      title: i18n._(t`Bridge`),
+      link: 'https://bridge.wanchain.org/',
+      external: true,
+      icon: <BridgeIcon width={20} />,
     }
 
     // let analyticsMenu: MenuItem = {
@@ -236,7 +244,11 @@ const useMenu: UseMenu = () => {
     }
     
     mainItems.push(stakeMenu);
-    mainItems.push(nftMenu)
+    mainItems.push(mintMenu)
+    mainItems.push(bridgeMenu)
+
+    
+
     // mainItems.push(analyticsMenu)
     // mainItems.push(earnMenu)
     // if (featureEnabled(Feature.KASHI, chainId)) {
