@@ -12,10 +12,14 @@ import ModalHeader, { ModalHeaderProps } from 'app/components/Modal/Header'
 import SubmittedModalContent, { SubmittedModalContentProps } from 'app/components/Modal/SubmittedModalContent'
 import { classNames } from 'app/functions'
 import { cloneElement, FC, isValidElement, ReactNode, useCallback, useMemo, useState } from 'react'
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
+
+const audioFile = '/sounds/assemble.mp3';
+
+
 const MAX_WIDTH_CLASS_MAPPING = {
   sm: 'lg:max-w-sm',
   md: 'lg:max-w-md',
@@ -50,6 +54,7 @@ type HeadlessUiModalType<P> = FC<P> & {
 }
 
 const HeadlessUiModal: HeadlessUiModalType<Props> = ({ children: childrenProp, trigger: triggerProp }) => {
+
   const [open, setOpen] = useState(false)
 
   const onClick = useCallback(() => {
@@ -75,6 +80,7 @@ const HeadlessUiModal: HeadlessUiModalType<Props> = ({ children: childrenProp, t
     () => (typeof childrenProp === 'function' ? childrenProp({ onClick, open, setOpen }) : children),
     [onClick, open, childrenProp]
   )
+  
 
   return (
     <>
@@ -106,6 +112,21 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
   unmount,
 }) => {
   const isDesktop = useDesktopMediaQuery()
+
+  useEffect(() => {
+    const audio = new Audio(audioFile);
+    audio.volume = 0.5; // Set the volume to 0.5 (50% of the maximum volume)
+    audio.play();
+  
+    // Cleanup function
+    return () => {
+      // Stop the sound if the component is unmounted before it finishes playing
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+  
+
   return (
     <Transition appear show={isOpen} as={Fragment} afterLeave={afterLeave} unmount={unmount}>
       <Dialog as="div" className="fixed z-50 inset-0" onClose={onDismiss} unmount={unmount}>
@@ -152,7 +173,7 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
             >
               <div style={{ height: '100%', width: '100%', margin: '0 auto' }}>
                 <Frame animate={true} level={3} corners={3} layer="primary">
-                <div style={{ padding: '15px' }}>{children}</div>
+                  <div style={{ padding: '15px' }}>{children}</div>
                 </Frame>
               </div>
             </div>

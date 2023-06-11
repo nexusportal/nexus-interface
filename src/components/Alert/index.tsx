@@ -1,12 +1,14 @@
 import { ExclamationCircleIcon } from '@heroicons/react/outline'
 import { XIcon } from '@heroicons/react/solid'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import { classNames } from '../../functions'
 import Typography from '../Typography'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Words, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
+
+
 const TYPE = {
   information: {
     text: 'text-high-emphesis',
@@ -61,6 +63,9 @@ export interface AlertProps {
   dismissable?: boolean
 }
 
+const audioFile = '/sounds/assemble.mp3';
+
+
 export default function Alert({
   title,
   message,
@@ -73,33 +78,47 @@ export default function Alert({
   const [show, setShow] = useState(true)
   const { color, icon, text } = TYPE[type]
 
+  useEffect(() => {
+    const audio = new Audio(audioFile);
+    audio.play();
+
+    // Cleanup function
+    return () => {
+      // Stop the sound if the component is unmounted before it finishes playing
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+
+
   return message && show ? (
     <Frame animate={true}
-    level={3}
-    corners={2}
-    className="w-100"
-    layer='primary'>
-    <div className={classNames('flex flex-row rounded p-4 gap-3', className)}>
-      {showIcon && <div>{icon}</div>}
-      <div className="flex flex-col gap-1.5 justify-center">
-        {title && (
-                  <h3><Words animate>{title}</Words></h3>
+      level={3}
+      corners={2}
+      className="w-100"
+      layer='primary'>
+      <div className={classNames('flex flex-row rounded p-4 gap-3', className)}>
+        {showIcon && <div>{icon}</div>}
+        <div className="flex flex-col gap-1.5 justify-center">
+          {title && (
+            <h3><Words animate>{title}</Words></h3>
+          )}
+          <Typography variant="sm" weight={700} className={classNames(text, 'text-left')}>
+            {message}
+          </Typography>
+        </div>
+        {dismissable && (
+          <button
+            type="button"
+            onClick={() => setShow(!show)}
+            className="inline-flex opacity-80 hover:opacity-100 focused:opacity-100 rounded text-primary hover:text-high-emphesis focus:text-high-emphesis focus:outline-none focus:ring focus:ring-offset focus:ring-offset-purple focus:ring-purple"
+          >
+            <span className="sr-only">Dismiss</span>
+            <XIcon className="w-5 h-5" aria-hidden="true" />
+          </button>
         )}
-        <Typography variant="sm" weight={700} className={classNames(text, 'text-left')}>
-          {message}
-        </Typography>
       </div>
-      {dismissable && (
-        <button
-          type="button"
-          onClick={() => setShow(!show)}
-          className="inline-flex opacity-80 hover:opacity-100 focused:opacity-100 rounded text-primary hover:text-high-emphesis focus:text-high-emphesis focus:outline-none focus:ring focus:ring-offset focus:ring-offset-purple focus:ring-purple"
-        >
-          <span className="sr-only">Dismiss</span>
-          <XIcon className="w-5 h-5" aria-hidden="true" />
-        </button>
-      )}
-    </div>
     </Frame>
   ) : null
 }

@@ -22,15 +22,16 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
   const touchDevice = useTouchDeviceMediaQuery()
   const showUseDexWarning = useDexWarningOpen()
   // @ts-ignore
+
   const Player = withSounds()(props => (
     <span
-
-      onClick={() => props.sounds[props.id].play()}
-      onMouseOver={() => props.sounds[props.id].play()}
+      onClick={() => props.sounds[props.sfx1].play()}
+      onMouseOver={() => props.sounds[props.sfx2].play()}
     >
       {props.content}
     </span>
   ));
+
   const sounds = {
     shared: { volume: 1 },
     players: {
@@ -48,6 +49,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
 
     },
   };
+  
   const handleToggle = useCallback((open, type) => {
     if (!open && type === 'enter') {
       buttonRef?.current?.click()
@@ -59,8 +61,8 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
   if (node && node.hasOwnProperty('link')) {
     const { link, external } = node as MenuItemLeaf
     if (external) {
-      
-      {/* Mint Button */}
+
+      {/* Mint & Bridge Button */ }
       return (
         <div className='mt-3 mr-5 lg:mr-0 lg:mt-0'>
           <SoundsProvider sounds={createSounds(sounds)}>
@@ -79,7 +81,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                 <a href={link} target="_blank" rel="noreferrer">
                   <div className="flex flex-row">
                     {node.icon}
-                    <div className={classNames('ml-2')}><Player id="ask" content={node.title} /></div>
+                    <div className={classNames('ml-2')}><Player sfx1="click" sfx2="ask" content={node.title} /></div>
                   </div>
                 </a>
               </Typography>
@@ -90,7 +92,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
       )
     }
 
-    {/* Swap Button */}
+    {/* Swap & Stake Button */ }
     return (
       <div className='mt-3 mr-5 lg:mr-0 lg:mt-0'>
         <SoundsProvider sounds={createSounds(sounds)}>
@@ -109,16 +111,16 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                 'hover:text-white font-bold py-2 px-2 rounded flex gap-3'
               )}
             >
-                {node.icon}
-              <Player id="ask" content={node.title} />
+              {node.icon}
+              <Player sfx1="click" sfx2="ask" content={node.title} />
             </Typography>
           </Frame>
         </SoundsProvider>
       </div>
     )
   }
- 
-  {/* Pool Button */}
+
+  {/* Pool Button */ }
   return (
     <Popover key={node.key} className="relative flex">
       {({ open }) => (
@@ -141,13 +143,13 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                   className={classNames(open ? 'text-white' : '', 'font-bold py-2 px-2 rounded flex gap-3 items-center')}
                 >
                   {node.icon}
-                  <Player id="ask" content={node.title} />
+                  <Player sfx1="click" sfx2="ask" content={node.title} />
                   <ChevronDownIcon strokeWidth={5} width={12} />
                 </Typography>
               </Popover.Button>
             </Frame>
           </SoundsProvider>
-    
+
           {/* Pool and Farm Button */}
           {node.hasOwnProperty('items') && (
             <Transition
@@ -158,7 +160,8 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
               leave="transition ease-in duration-75"
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
-            >
+            >          
+
               <Popover.Panel className="z-10 w-full absolute w-40 translate-y-[-8px] translate-x-[-8px] ">
                 <Frame animate={true}
                   level={3}
@@ -184,6 +187,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
                         className="relative px-3 py-2 m-1 rounded-lg hover:cursor-pointer hover:text-white hover:bg-white/10"
                       >
                         {leaf.title}
+
                       </Typography>
                     ))}
                   </div>
