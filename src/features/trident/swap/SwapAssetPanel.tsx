@@ -54,9 +54,9 @@ const SwapAssetPanel = ({
   return (
 
     <div className="rounded-[14px] mt-1  p-3 flex flex-col gap-4">
-      <Frame animate={true}
+      <Frame
         level={3}
-        corners={4}
+        corners={0}
         layer='primary'>
         <div className="p-3">
           {header({

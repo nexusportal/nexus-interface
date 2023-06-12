@@ -218,7 +218,7 @@ const AssetInputPanel = ({
 
   if (currency) {
     content = (
-      <Frame animate
+      <Frame
         >
         <div
           className={classNames(

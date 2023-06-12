@@ -132,7 +132,7 @@ const Desktop: FC = () => {
               </div>
             )} */}
 
-            <div className="flex items-center justify-between gap-4 px-6 py-2">
+            <div className="flex items-center justify-between gap-4 px-6 py-2 lg:mt-1">
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
                   <ExternalLink href="https://www.thenexusportal.io">
@@ -155,7 +155,7 @@ const Desktop: FC = () => {
                   </div>
 
                 )}
-                <Frame animate={true}
+                <Frame
                   level={3}
                   corners={3}
                   className="w-100"

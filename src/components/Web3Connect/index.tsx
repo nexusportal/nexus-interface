@@ -62,11 +62,13 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
         size={size}
         {...rest}
       >
+
         <div className="px-3 py-2">
           <Player sfx1="click" sfx2="ask" content={i18n._(t`Connect`)}>
             {i18n._(t`Connect`)}
           </Player>
         </div>
+
       </Frame>
     </SoundsProvider>
   )

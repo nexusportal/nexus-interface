@@ -38,7 +38,7 @@ export default function LangSwitcher() {
       <div>
         <Menu.Button className="w-full px-4 py-2 text-sm font-bold bg-transparent rounded shadow-sm text-primary ">
           <div className="flex flex-row items-center justify-between">
-            <Frame animate={true}
+            <Frame
               level={3}
               corners={3}
               className="w-100"

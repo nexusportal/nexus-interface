@@ -36,17 +36,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
     shared: { volume: 1 },
     players: {
       click: { sound: { src: ['/sounds/click.mp3'] } },
-      information: { sound: { src: ['/sounds/information.mp3'] } },
       ask: { sound: { src: ['/sounds/object.mp3'] } },
-      warning: { sound: { src: ['/sounds/warning.mp3'] } },
-      error: { sound: { src: ['/sounds/error.mp3'] } },
-      assemble: { sound: { src: ['/sounds/assemble.mp3'] } },
-      object: { sound: { src: ['/sounds/object.mp3'] } },
-      readout: { sound: { src: ['/sounds/readout.mp3'] } },
-      toggle: { sound: { src: ['/sounds/toggle.mp3'] } },
-      type: { sound: { src: ['/sounds/type.mp3'] } },
-
-
     },
   };
   
@@ -64,9 +54,9 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
 
       {/* Mint & Bridge Button */ }
       return (
-        <div className='mt-3 mr-5 lg:mr-0 lg:mt-0'>
+        <div className='mt-3 mr-5 lg:mr-0 lg:mt-1'>
           <SoundsProvider sounds={createSounds(sounds)}>
-            <Frame animate={true}
+            <Frame
               level={3}
               corners={2}
               layer='primary'>
@@ -94,9 +84,9 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
 
     {/* Swap & Stake Button */ }
     return (
-      <div className='mt-3 mr-5 lg:mr-0 lg:mt-0'>
+      <div className='mt-3 mr-5 lg:mr-0 lg:mt-1'>
         <SoundsProvider sounds={createSounds(sounds)}>
-          <Frame animate={true}
+          <Frame
             level={3}
             corners={2}
             layer='primary'
@@ -124,14 +114,14 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
   return (
     <Popover key={node.key} className="relative flex">
       {({ open }) => (
-        <div className="w-full mt-3 mr-5 lg:mr-0 lg:mt-0"
+        <div className="w-full mt-3 mr-5 lg:mr-0 lg:mt-1"
           {...(!touchDevice && {
             onMouseEnter: () => handleToggle(open, 'enter'),
             onMouseLeave: () => handleToggle(open, 'leave'),
           })}
         >
           <SoundsProvider sounds={createSounds(sounds)} className="w-full ">
-            <Frame animate={true}
+            <Frame
               level={3}
               corners={2}
               className="w-full "
@@ -163,7 +153,7 @@ export const NavigationItem: FC<NavigationItem> = ({ node }) => {
             >          
 
               <Popover.Panel className="z-10 w-full absolute w-40 translate-y-[-8px] translate-x-[-8px] ">
-                <Frame animate={true}
+                <Frame
                   level={3}
                   corners={2}
                   layer='primary'>

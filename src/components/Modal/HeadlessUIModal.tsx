@@ -115,7 +115,7 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
 
   useEffect(() => {
     const audio = new Audio(audioFile);
-    audio.volume = 0.5; // Set the volume to 0.5 (50% of the maximum volume)
+    audio.volume = 0.4; // Set the volume to 0.5 (50% of the maximum volume)
     audio.play();
   
     // Cleanup function
