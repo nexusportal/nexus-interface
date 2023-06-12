@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { ChainId, Currency, JSBI, NATIVE, Token } from '@sushiswap/core-sdk'
-import { ARBITRUM_TOKENS, MATIC_TOKENS, NEXUS,XDAI_TOKENS, XORACLE } from 'app/config/tokens'
+import { ARBITRUM_TOKENS, MATIC_TOKENS, NEXUS, XDAI_TOKENS, XORACLE } from 'app/config/tokens'
 import { MASTERCHEF_ADDRESS } from 'app/constants'
 import { Chef, PairType } from 'app/features/onsen/enum'
 import { useProphetPoolInfos, useUserInfo } from 'app/features/onsen/hooks'
@@ -79,6 +79,7 @@ export default function useFarmRewards() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const farms = [
+    //NEXU/XRP
     {
       accSushiPerShare: '',
       allocPoint: 160,
@@ -94,6 +95,7 @@ export default function useFarmRewards() {
       slpBalance: 0,
       userCount: '0',
     },
+    //XVM/XRP
     {
       accSushiPerShare: '',
       allocPoint: 160,
@@ -108,7 +110,87 @@ export default function useFarmRewards() {
       pair: '0x9dF9Df8f533D25869fb2BB8bcbe0a127de901B9b',
       slpBalance: 0,
       userCount: '0',
-    }
+    },
+    //NEXU/BTC
+    {
+      accSushiPerShare: '',
+      allocPoint: 160,
+      balance: 0,
+      chef: 0,
+      id: '2',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 1000,
+      },
+      pair: '0x8C51E442e0639c38160Bf62C10bDEF277f2aF58E',
+      slpBalance: 0,
+      userCount: '0',
+    },
+    //NEXU/ETH
+    {
+      accSushiPerShare: '',
+      allocPoint: 160,
+      balance: 0,
+      chef: 0,
+      id: '3',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 1000,
+      },
+      pair: '0x3b46be7c2e97644e50d4dCc9866e4A56e085714E',
+      slpBalance: 0,
+      userCount: '0',
+    },
+    //NEXU/USDT
+    {
+      accSushiPerShare: '',
+      allocPoint: 160,
+      balance: 0,
+      chef: 0,
+      id: '7',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 1000,
+      },
+      pair: '0x58acf65B85477e58B15E2b56FBF8a427B1672A42',
+      slpBalance: 0,
+      userCount: '0',
+    },
+    //NEXU/USDC
+    {
+      accSushiPerShare: '',
+      allocPoint: 160,
+      balance: 0,
+      chef: 0,
+      id: '8',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 1000,
+      },
+      pair: '0xa0A7DA1E6d9EC005A2A229AB777008Aa6DE4C150',
+      slpBalance: 0,
+      userCount: '0',
+    },
+    //NEXU/WAN
+    {
+      accSushiPerShare: '',
+      allocPoint: 160,
+      balance: 0,
+      chef: 0,
+      id: '9',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 1000,
+      },
+      pair: '0xDad019Ef28450BFf20b8B27dB29d39c058bad8Ad',
+      slpBalance: 0,
+      userCount: '0',
+    },
   ]
 
 
@@ -165,9 +247,9 @@ export default function useFarmRewards() {
     reserveETH: number;
     reserveUSD: number;
     timestamp: number;
-    token0: {derivedETH: number, id: string, name: string, symbol: string, totalSupply: number};
+    token0: { derivedETH: number, id: string, name: string, symbol: string, totalSupply: number };
     token0Price: number;
-    token1: {derivedETH: number, id: string, name: string, symbol: string, totalSupply: number};
+    token1: { derivedETH: number, id: string, name: string, symbol: string, totalSupply: number };
     token1Price: number;
     totalSupply: number;
     trackedReserveETH: number;
@@ -176,69 +258,231 @@ export default function useFarmRewards() {
     volumeUSD: number;
     type?: number;
   }[] = [
-    {
-      decimals: 18,
-      id: '0x4Ac328392c8fE1fE410C344DA8481DF42AAa39Ab',
-      reserve0: 9990.04,
-      reserve1: 1.001,
-      reserveETH: 2,
-      reserveUSD: 10,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x3965c4716091A1008db59D85a684DbA075950145',
-        name: 'NEXUS',
-        symbol: 'NEXU',
-        totalSupply: 1680,
-      },
-      token0Price: 0.00048,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4',
-        name: 'Wrapped XRP',
-        symbol: 'WXRP',
-        totalSupply: 1680,
-      },
+      //NEXU/XRP
+      {
+        decimals: 18,
+        id: '0x4Ac328392c8fE1fE410C344DA8481DF42AAa39Ab',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x3965c4716091A1008db59D85a684DbA075950145',
+          name: 'NEXUS',
+          symbol: 'NEXU',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4',
+          name: 'Wrapped XRP',
+          symbol: 'WXRP',
+          totalSupply: 1680,
+        },
 
-      token1Price: 0.2,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-    {
-      decimals: 18,
-      id: '0x9dF9Df8f533D25869fb2BB8bcbe0a127de901B9b',
-      reserve0: 9990.04,
-      reserve1: 1.001,
-      reserveETH: 2,
-      reserveUSD: 10,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x087EFA983A85CaA80271740397a27494A02913B6',
-        name: 'XVM',
-        symbol: 'XVM',
-        totalSupply: 1680,
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
       },
-      token0Price: 0.00048,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4',
-        name: 'Wrapped XRP',
-        symbol: 'WXRP',
-        totalSupply: 1680,
-      },
+      //XVM/XRP
+      {
+        decimals: 18,
+        id: '0x9dF9Df8f533D25869fb2BB8bcbe0a127de901B9b',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x087EFA983A85CaA80271740397a27494A02913B6',
+          name: 'XVM',
+          symbol: 'XVM',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4',
+          name: 'Wrapped XRP',
+          symbol: 'WXRP',
+          totalSupply: 1680,
+        },
 
-      token1Price: 0.2,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    }
-  ]
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
+      },
+      //NEXU/BTC
+      {
+        decimals: 18,
+        id: '0x8C51E442e0639c38160Bf62C10bDEF277f2aF58E',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x3965c4716091A1008db59D85a684DbA075950145',
+          name: 'Nexus',
+          symbol: 'NEXU',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x8051c6F6C2E003c6Fb385314573346b2B7f35929',
+          name: 'Wrapped Bitcoin',
+          symbol: 'wBTC',
+          totalSupply: 1680,
+        },
+
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
+      },
+      //NEXU/ETH
+      {
+        decimals: 18,
+        id: '0x3b46be7c2e97644e50d4dCc9866e4A56e085714E',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x3965c4716091A1008db59D85a684DbA075950145',
+          name: 'Nexus',
+          symbol: 'NEXU',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x8C2555330c46b14E12F07eE903F25269a92389F4',
+          name: 'Wrapped Ethereum',
+          symbol: 'wETH',
+          totalSupply: 1680,
+        },
+
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
+      },
+      //NEXU/USDT
+      {
+        decimals: 18,
+        id: '0x58acf65B85477e58B15E2b56FBF8a427B1672A42',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x3965c4716091A1008db59D85a684DbA075950145',
+          name: 'Nexus',
+          symbol: 'NEXU',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0xEDBAc021C5A175f4567Eb860f5125A2759f5127e',
+          name: 'USDT',
+          symbol: 'wUSDT',
+          totalSupply: 1680,
+        },
+
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
+      },
+      //NEXU/USDC
+      {
+        decimals: 18,
+        id: '0xa0A7DA1E6d9EC005A2A229AB777008Aa6DE4C150',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x3965c4716091A1008db59D85a684DbA075950145',
+          name: 'Nexus',
+          symbol: 'NEXU',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0xC94752eCA57Da918B274FD51F75b5FC00B0Afce7',
+          name: 'USDC',
+          symbol: 'wUSDC',
+          totalSupply: 1680,
+        },
+
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
+      },
+      //NEXU/WAN
+      {
+        decimals: 18,
+        id: '0xDad019Ef28450BFf20b8B27dB29d39c058bad8Ad',
+        reserve0: 9990.04,
+        reserve1: 1.001,
+        reserveETH: 2,
+        reserveUSD: 10,
+        timestamp: 1621898381,
+        token0: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x3965c4716091A1008db59D85a684DbA075950145',
+          name: 'Nexus',
+          symbol: 'NEXU',
+          totalSupply: 1680,
+        },
+        token0Price: 0.00048,
+        token1: {
+          derivedETH: 0.0003068283960261003490764609134664169,
+          id: '0x227517F1f1f27927d1a2Af64Ad5ed4D264a21493',
+          name: 'WAN',
+          symbol: 'wWAN',
+          totalSupply: 1680,
+        },
+
+        token1Price: 0.2,
+        totalSupply: 0.316227765016,
+        trackedReserveETH: 1183.351142427706157233201110976883,
+        txCount: 81365,
+        untrackedVolumeUSD: 46853.79482616671033425777223395,
+        volumeUSD: 4684.23711596607606598865310647,
+      },
+    ]
 
   const averageBlockTime = useAverageBlockTime({ chainId })
 
@@ -259,19 +503,19 @@ export default function useFarmRewards() {
     fusePrice,
     magicPrice,
   ] = [
-    useSushiPrice(),
-    useEthPrice(),
-    useMaticPrice(),
-    useGnoPrice(),
-    useOnePrice(),
-    useSpellPrice(),
-    useCeloPrice(),
-    useFantomPrice(),
-    useMovrPrice(),
-    useOhmPrice(),
-    useFusePrice(),
-    useMagicPrice(),
-  ]
+      useSushiPrice(),
+      useEthPrice(),
+      useMaticPrice(),
+      useGnoPrice(),
+      useOnePrice(),
+      useSpellPrice(),
+      useCeloPrice(),
+      useFantomPrice(),
+      useMovrPrice(),
+      useOhmPrice(),
+      useFusePrice(),
+      useMagicPrice(),
+    ]
 
   const prolPrice = 0
 
@@ -367,15 +611,15 @@ export default function useFarmRewards() {
             pool.rewardToken.symbol === 'ALCX'
               ? pool.rewarder.rewardPerSecond / decimals
               : pool.rewardToken.symbol === 'LDO'
-              ? (77160493827160493 / decimals) * averageBlockTime
-              : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime
+                ? (77160493827160493 / decimals) * averageBlockTime
+                : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime
 
           const rewardPerDay =
             pool.rewardToken.symbol === 'ALCX'
               ? (pool.rewarder.rewardPerSecond / decimals) * blocksPerDay
               : pool.rewardToken.symbol === 'LDO'
-              ? (77160493827160493 / decimals) * averageBlockTime * blocksPerDay
-              : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime * blocksPerDay
+                ? (77160493827160493 / decimals) * averageBlockTime * blocksPerDay
+                : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime * blocksPerDay
 
           const rewardPrice = pool.rewardToken.derivedETH * ethPrice
 

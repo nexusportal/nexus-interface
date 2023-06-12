@@ -6,6 +6,12 @@ import React, { FunctionComponent, useMemo } from 'react'
 import NEXUS from '../../../public/NEXUS.png'
 import WXRP from '../../../public/WXRP.png'
 import XVM from '../../../public/XVM.png'
+import BTC from '../../../public/BTC.png'
+import ETH from '../../../public/ETH.png'
+import WAN from '../../../public/WAN.png'
+import USDT from '../../../public/USDT.png'
+import USDC from '../../../public/USDC.png'
+
 import XRP from '../../../public/XRP.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
@@ -169,6 +175,13 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
   }
 
   if (currency?.chainId === ChainId.XRPL) {
+    if (currency.symbol === 'XRP') {
+      return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+    }
+    
+    if (currency.symbol === 'WXRP') {
+      return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+    }
     if (currency.symbol === 'NEXU') {
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
@@ -181,12 +194,24 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img alt="img" src={XVM.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'XRP') {
-      return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+    if (currency.symbol === 'wBTC') {
+      return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
     }
-    
-    if (currency.symbol === 'WXRP') {
-      return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+
+    if (currency.symbol === 'wETH') {
+      return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'wWAN') {
+      return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'wUSDT') {
+      return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'wUSDC') {
+      return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
     }
 
   }
@@ -204,6 +229,34 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.symbol === 'XRP') {
         return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
       }
+      if (currency.symbol === 'WXRP') {
+        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'wBTC') {
+        return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+      }
+  
+      if (currency.symbol === 'wETH') {
+        return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+      }
+  
+      if (currency.symbol === 'wWAN') {
+        return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+      }
+  
+      if (currency.symbol === 'wUSDT') {
+        return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+      }
+  
+      if (currency.symbol === 'wUSDC') {
+        return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+      }
+  
+      if (currency.symbol === 'XRP') {
+        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+      }
+      
       if (currency.symbol === 'WXRP') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
