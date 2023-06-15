@@ -229,6 +229,7 @@ export const SelectedOracles = () => {
         return
       }
 
+      setSelectedIDs([]);
       setPendingTx(false)
     }
   }
@@ -261,6 +262,7 @@ export const SelectedOracles = () => {
           return
         }
 
+        setSelectedStakedIDs([]);
         setPendingTx(false)
       } else {
         setShowConfirmation(true)
