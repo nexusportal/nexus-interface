@@ -28,9 +28,9 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
   ));
 
   const sounds = {
-    shared: { volume: 1 },
+    shared: { volume: .5 },
     players: {
-      click: { sound: { src: ['/sounds/click.mp3'] } },
+      click: { sound: { src: ['/sounds/toggle.mp3'] } },
       ask: { sound: { src: ['/sounds/object.mp3'] } },
       warning: { sound: { src: ['/sounds/warning.mp3'] } },
       error: { sound: { src: ['/sounds/error.mp3'] } },
