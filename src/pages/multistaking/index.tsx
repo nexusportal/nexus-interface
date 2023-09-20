@@ -72,16 +72,16 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
   return success
 }
 
-function ProStaking() {
+ const ProStaking = () => {
   const { totalProAmount, totalxOracleAmount, totalPoolSize, totalNFTCount } = useProStakingInfo()
 
   const distributedReward = useTotalDistributedReward()
 
   const showUseDexWarning = useDexWarningOpen()
 
-  const showWarning = useProStakingWarningOpen()
+  // const showWarning = useProStakingWarningOpen()
 
-  const toggleWarning = useToggleProStakingWarning()
+  // const toggleWarning = useToggleProStakingWarning()
 
   const { distribute } = useProStakingDistributeAction()
 

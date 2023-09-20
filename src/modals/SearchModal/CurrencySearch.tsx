@@ -53,7 +53,6 @@ export function CurrencySearch({
       return obj
     }, {})
   }
-
   if (currencyList) {
     allTokens = Object.keys(allTokens).reduce((obj, key) => {
       // @ts-ignore TYPE NEEDS FIXING

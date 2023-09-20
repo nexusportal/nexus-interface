@@ -50,6 +50,12 @@ export function useAllLists(): AppState['lists']['byUrl'] {
   return useAppSelector((state) => state.lists.byUrl)
 }
 
+export function getTokenInfo(address:string) {
+  const tokenList  = DEFAULT_TOKEN_LIST.tokens;
+  const token = tokenList.find(ele=> ele.address === address);
+  return token;
+}
+
 function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddressMap {
   return {
     1: { ...map1[1], ...map2[1] }, // mainnet
@@ -81,7 +87,7 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
     1285: { ...map1[1285], ...map2[1285] }, // moonriver
     122: { ...map1[122], ...map2[122] }, // fuse
     40: { ...map1[40], ...map2[40] }, // telos,
-    1440001: { ...map1[1440001], ...map2[1440001] }, // sgb
+    1440002: { ...map1[1440002], ...map2[1440002] }, // sgb
   }
 }
 

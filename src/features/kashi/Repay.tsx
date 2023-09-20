@@ -57,7 +57,7 @@ export default function Repay({ pair }: RepayProps) {
   // @ts-ignore TYPE NEEDS FIXING
   const ethBalance = useETHBalances(assetNative ? [account] : [])
 
-  console.log({ pair })
+  // console.log({ pair })
 
   const balance = useBentoRepay
     ? toAmount(pair.asset, pair.asset.bentoBalance)
@@ -244,15 +244,15 @@ export default function Repay({ pair }: RepayProps) {
 
       const path = trade.route.path.map((token) => token.address) || []
 
-      console.log('debug', [
-        pair.collateral.address,
-        pair.asset.address,
-        maxAmountIn,
-        path.length > 2 ? path[1] : AddressZero,
-        path.length > 3 ? path[2] : AddressZero,
-        account,
-        pair.userCollateralShare,
-      ])
+      // console.log('debug', [
+      //   pair.collateral.address,
+      //   pair.asset.address,
+      //   maxAmountIn,
+      //   path.length > 2 ? path[1] : AddressZero,
+      //   path.length > 3 ? path[2] : AddressZero,
+      //   account,
+      //   pair.userCollateralShare,
+      // ])
 
       const data = defaultAbiCoder.encode(
         ['address', 'address', 'uint256', 'address', 'address', 'address', 'uint256'],

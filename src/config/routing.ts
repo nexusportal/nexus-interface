@@ -16,6 +16,7 @@ import * as OKEX from './tokens/okex'
 import * as PALM from './tokens/palm'
 import * as TELOS from './tokens/telos'
 import * as XDAI from './tokens/xdai'
+import * as XRPL_TOKENS from './tokens/xrpl'
 
 type ChainTokenList = {
   readonly [chainId: number]: Token[]
@@ -627,7 +628,7 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   [ChainId.PALM]: [...WRAPPED_NATIVE_ONLY[ChainId.PALM], PALM.WETH, PALM.DAI],
   [ChainId.FUSE]: [...WRAPPED_NATIVE_ONLY[ChainId.FUSE], FUSE.USDC, FUSE.USDT, FUSE.WBTC, FUSE.WETH, FUSE.DAI],
   [ChainId.TELOS]: [...WRAPPED_NATIVE_ONLY[ChainId.TELOS], TELOS.USDC, TELOS.USDT, TELOS.WETH, TELOS.WBTC],
-  [ChainId.XRPL]: [...WRAPPED_NATIVE_ONLY[ChainId.XRPL]],
+  [ChainId.XRPL]: [...WRAPPED_NATIVE_ONLY[ChainId.XRPL], XRPL_TOKENS.TOKENONE, XRPL_TOKENS.TOKENTWO, XRPL_TOKENS.TOKENTHREE, XRPL_TOKENS.NEXUS],
 }
 
 export const PINNED_PAIRS: {

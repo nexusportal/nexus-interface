@@ -26,7 +26,7 @@ const Footer = () => {
 
   return (
     <div className="z-10 w-full  mt-10">
-        <Frame animation>
+      <Frame animation={true}>
         <Container maxWidth="7xl" className="px-6 mx-auto">
           <div className="grid grid-cols-2 gap-2 pt-8 xs:px-6 sm:gap-3">
             <div className="flex flex-col col-span-2 gap-3 sm:col-span-1">
@@ -240,8 +240,8 @@ const Footer = () => {
             </div>
           </div>
         </Container>
-    </Frame>
-      </div>
+      </Frame>
+    </div>
   )
 }
 

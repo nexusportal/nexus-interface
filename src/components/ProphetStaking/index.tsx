@@ -93,7 +93,6 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
   const balance = useTokenBalance(account ?? undefined, liquidityToken)
 
-
   const [lockMode, setLockMode] = useState(0)
 
 
@@ -316,9 +315,6 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   }, [totalPoolSize, userTotalWeight])
 
 
-
-
-
   // const timeLock = useMemo(() => {
   //   if (!unlockTime) {
   //     return null
@@ -356,6 +352,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
 
   const [showConfirmation, setShowConfirmation] = useState(false)
+
 
   return (
     <>

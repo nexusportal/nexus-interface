@@ -25,6 +25,8 @@ import React, { useState } from 'react'
 import { Chef, PairType } from './enum'
 import { useUserInfo } from './hooks'
 import useMasterChef from './useMasterChef'
+import {ethers} from "ethers";
+import { parseEther } from '@ethersproject/units'
 
 const APPROVAL_ADDRESSES = {
   [Chef.MASTERCHEF]: {

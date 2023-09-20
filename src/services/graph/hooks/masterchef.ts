@@ -44,8 +44,9 @@ interface useFarmsProps {
 }
 
 export function useMasterChefV1Farms({ chainId, swrConfig = undefined }: useFarmsProps) {
-  const shouldFetch = chainId && chainId === ChainId.ETHEREUM
+  const shouldFetch = chainId && chainId === ChainId.XRPL
   const { data } = useSWR(shouldFetch ? ['masterChefV1Farms'] : null, () => getMasterChefV1Farms(undefined), swrConfig)
+  console.log(data)
   return useMemo(() => {
     if (!data) return []
     // @ts-ignore TYPE NEEDS FIXING
@@ -92,6 +93,7 @@ export function useMiniChefFarms({ chainId, swrConfig = undefined }: useFarmsPro
       ChainId.MOONRIVER,
       ChainId.FUSE,
       ChainId.FANTOM,
+      ChainId.XRPL
     ].includes(chainId)
   const { data } = useSWR(
     shouldFetch ? ['miniChefFarms', chainId] : null,

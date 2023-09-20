@@ -49,10 +49,11 @@ export const masterChefV2 = async (query, chainId = ChainId.ETHEREUM, variables 
 
 export const MASTERCHEF_V1 = {
   [ChainId.ETHEREUM]: 'sushiswap/master-chef',
+  [ChainId.XRPL]: 'xrpl-evm/master-chef',
 }
 
 // @ts-ignore TYPE NEEDS FIXING
-export const masterChefV1 = async (query, chainId = ChainId.ETHEREUM, variables = undefined) =>
+export const masterChefV1 = async (query, chainId = ChainId.XRPL, variables = undefined) =>
   // @ts-ignore TYPE NEEDS FIXING
   request(`${GRAPH_HOST[chainId]}/subgraphs/name/${MASTERCHEF_V1[chainId]}`, query, variables)
 

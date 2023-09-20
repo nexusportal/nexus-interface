@@ -95,7 +95,7 @@ const InvestmentDetails = ({ farm }) => {
 
   const rewardValue = !secondaryRewardOnly
     ? (farm?.rewards?.[0]?.rewardPrice ?? 0) * Number(pendingSushi?.toExact() ?? 0) +
-      (farm?.rewards?.[1]?.rewardPrice ?? 0) * Number(pendingReward ?? 0)
+    (farm?.rewards?.[1]?.rewardPrice ?? 0) * Number(pendingReward ?? 0)
     : (farm?.rewards?.[0]?.rewardPrice ?? 0) * Number(pendingReward ?? 0)
 
   async function onHarvest() {
@@ -186,28 +186,20 @@ const InvestmentDetails = ({ farm }) => {
             {/* {formatNumber(rewardValue, true)} */}
           </Typography>
         </div>
-
-        {/* @ts-ignore TYPE NEEDS FIXING */}
-        {farm?.rewards?.map((reward, i) => {
-          return (
-            <div className="flex items-center gap-2" key={i}>
-              <CurrencyLogo currency={reward.currency} size={30} />
-              {!secondaryRewardOnly ? (
-                <>
-                  {i === 0 && (
-                    <RewardRow
-                      value={formatNumber(pendingSushi?.toSignificant(6) ?? 0)}
-                      symbol={reward.currency.symbol}
-                    />
-                  )}
-                  {i === 1 && <RewardRow value={formatNumber(pendingReward)} symbol={reward.currency.symbol} />}
-                </>
-              ) : (
-                <RewardRow value={formatNumber(pendingReward)} symbol={reward.currency.symbol} />
-              )}
-            </div>
-          )
-        })}
+        <div className='flex justify-start gap-4 flex-wrap'>
+          {/* @ts-ignore TYPE NEEDS FIXING */}
+          {farm?.rewards?.map((reward, i) => {
+            return (
+              <div className="flex items-center gap-1" key={i}>
+                <CurrencyLogo currency={reward.currency} size={30} />
+                <RewardRow
+                  value={formatNumber(reward.pendingReward)}
+                  symbol={reward.currency.symbol}
+                />
+              </div>
+            )
+          })}
+        </div>
       </HeadlessUiModal.BorderedContent>
       {farm.pair.type === PairType.KASHI && (
         <Button

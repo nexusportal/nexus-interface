@@ -26,7 +26,7 @@ export const ConfirmationPendingContent: FC<ConfirmationPendingContentProps> = (
       <HeadlessUiModal.Header header={i18n._(t`Confirm transaction`)} onClose={onDismiss} />
       <HeadlessUiModal.BorderedContent className="flex flex-col items-center justify-center gap-1">
         <div className="w-16 py-8 m-auto">
-          <Loading animation />
+          <Loading animation={true}/>
         </div>
         <Typography variant="lg" weight={700} className="text-white">
           {pendingText}

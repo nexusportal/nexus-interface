@@ -151,6 +151,7 @@ export default function Add() {
       method: (...args: any) => Promise<TransactionResponse>,
       args: Array<string | string[] | number>,
       value: BigNumber | null
+
     if (currencyA.isNative || currencyB.isNative) {
       const tokenBIsETH = currencyB.isNative
       estimate = routerContract.estimateGas.addLiquidityETH
@@ -188,7 +189,7 @@ export default function Add() {
           gasLimit: calculateGasMargin(estimatedGasLimit),
         }).then((response) => {
           setAttemptingTxn(false)
-
+console.log("hey")
           addTransaction(response, {
             summary:
               i18n._(t`Add `) +

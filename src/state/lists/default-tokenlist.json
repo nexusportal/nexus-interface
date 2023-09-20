@@ -15,67 +15,43 @@
   "tokens": [
     {
       "name": "Wrapped XRP",
-      "address": "0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4",
+      "address": "0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948",
       "symbol": "WXRP",
       "decimals": 18,
-      "chainId": 1440001,
+      "chainId": 1440002,
+      "logoURI": "/WXRP.png"
+    },
+    {
+      "name": "Token One",
+      "address": "0x77926DA2d20D32f6F1F5f65621296290d589caA9",
+      "symbol": "ONE",
+      "decimals": 18,
+      "chainId": 1440002,
+      "logoURI": "/WXRP.png"
+    },
+    {
+      "name": "Token Two",
+      "address": "0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060",
+      "symbol": "TWO",
+      "decimals": 18,
+      "chainId": 1440002,
+      "logoURI": "/WXRP.png"
+    },
+    {
+      "name": "Token Three",
+      "address": "0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109",
+      "symbol": "THREE",
+      "decimals": 18,
+      "chainId": 1440002,
       "logoURI": "/WXRP.png"
     },
     {
       "name": "Nexus",
-      "address": "0x3965c4716091A1008db59D85a684DbA075950145",
+      "address": "0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e",
       "symbol": "NEXU",
       "decimals": 18,
-      "chainId": 1440001,
+      "chainId": 1440002,
       "logoURI": "/NEXUS.png"
-    },
-    {
-      "name": "XVM",
-      "address": "0x087EFA983A85CaA80271740397a27494A02913B6",
-      "symbol": "XVM",
-      "decimals": 18,
-      "chainId": 1440001,
-      "logoURI": "/XVM.png"
-    },
-    {
-      "name": "Wrapped Bitcoin WAN",
-      "address": "0x8051c6F6C2E003c6Fb385314573346b2B7f35929",
-      "symbol": "wBTC",
-      "decimals": 18,
-      "chainId": 1440001,
-      "logoURI": "/BTC.png"
-    },
-    {
-      "name": "Wrapped Ethereum WAN",
-      "address": "0x8C2555330c46b14E12F07eE903F25269a92389F4",
-      "symbol": "wETH",
-      "decimals": 18,
-      "chainId": 1440001,
-      "logoURI": "/ETH.png"
-    },
-    {
-      "name": "Wrapped USD Coin WAN",
-      "address": "0xC94752eCA57Da918B274FD51F75b5FC00B0Afce7",
-      "symbol": "wUSDC",
-      "decimals": 18,
-      "chainId": 1440001,
-      "logoURI": "/USDC.png"
-    },
-    {
-      "name": "Wrapped Tether USD WAN",
-      "address": "0xEDBAc021C5A175f4567Eb860f5125A2759f5127e",
-      "symbol": "wUSDT",
-      "decimals": 18,
-      "chainId": 1440001,
-      "logoURI": "/USDT.png"
-    },
-    {
-      "name": "Wrapped WAN",
-      "address": "0x227517F1f1f27927d1a2Af64Ad5ed4D264a21493",
-      "symbol": "wWAN",
-      "decimals": 18,
-      "chainId": 1440001,
-      "logoURI": "/USDT.png"
     }
   ]
 }

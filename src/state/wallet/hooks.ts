@@ -71,7 +71,6 @@ export function useTokenBalancesWithLoadingIndicator(
     undefined,
     100_000
   )
-
   const anyLoading: boolean = useMemo(() => balances.some((callState) => callState.loading), [balances])
 
   return useMemo(
@@ -105,8 +104,8 @@ export function useTokenBalances(address?: string, tokens?: (Token | undefined)[
 
 // get the balance for a single token/account combo
 export function useTokenBalance(account?: string, token?: Token): CurrencyAmount<Token> | undefined {
+  if(!account || !token) return undefined;
   const tokenBalances = useTokenBalances(account, [token])
-  if (!token) return undefined
   return tokenBalances[token.address]
 }
 

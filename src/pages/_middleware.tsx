@@ -22,10 +22,10 @@ const SUBDOMAIN_CHAIN_ID: { [subdomain: string]: string } = {
   [ChainSubdomain.MOONRIVER]: '1285',
   [ChainSubdomain.FUSE]: '122',
   [ChainSubdomain.TELOS]: '40',
-  [ChainSubdomain.XRP]: '1440001',
+  [ChainSubdomain.XRP]: '1440002',
 }
 
-const DEFAULT_CHAIN_ID = '1440001'
+const DEFAULT_CHAIN_ID = '1440002'
 
 export function middleware(req: NextRequest) {
   // const response = NextResponse.next()

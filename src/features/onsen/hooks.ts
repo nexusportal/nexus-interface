@@ -1,6 +1,6 @@
 import { Zero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
-import { ChainId, CurrencyAmount, JSBI, MASTERCHEF_V2_ADDRESS, MINICHEF_ADDRESS, SUSHI } from '@sushiswap/core-sdk'
+import { ChainId, CurrencyAmount, JSBI, MASTERCHEF_V2_ADDRESS, MINICHEF_ADDRESS, SUSHI, Currency, Token } from '@sushiswap/core-sdk'
 import { OLD_FARMS } from 'app/config/farms'
 import { MASTERCHEF_ADDRESS } from 'app/constants'
 import {
@@ -14,6 +14,8 @@ import { NEVER_RELOAD, useSingleCallResult, useSingleContractMultipleData } from
 import concat from 'lodash/concat'
 import zip from 'lodash/zip'
 import { useCallback, useMemo } from 'react'
+import { ethers } from "ethers"
+import { getTokenInfo } from 'app/state/lists/hooks'
 
 import { Chef } from './enum'
 
@@ -73,6 +75,28 @@ export function useUserInfo(farm, token) {
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   return amount ? CurrencyAmount.fromRawAmount(token, amount) : undefined
+}
+
+// @ts-ignore TYPE NEEDS FIXING
+export function useRewardTokens(farm) {
+  const contract = useChefContract(farm.chef)
+  const args = [String(farm.id)];
+  const result = useSingleCallResult(args ? contract : null, 'getRewardTokenInfo', args)?.result;
+  const value = result?.[0];
+  // @ts-ignore TYPE NEEDS FIXING
+  let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number }[] = value?.map((item, ind) => {
+    let re = parseFloat(ethers.utils.formatEther(item.distRate));
+    let token = getTokenInfo(item.rewardToken);
+    return {
+      rewardPerBlock: re,
+      rewardPerDay: 24 * 60 * 60 * re,
+      rewardPrice: 0,
+      currency: new Token(ChainId.XRPL, item.rewardToken, token?.decimals ?? 18, token?.symbol ?? "Unknown", token?.name ?? "Unknown Token"),
+      token: token?.symbol ?? "Unknown",
+      icon: token?.logoURI ?? "Unknown.png",
+    }
+  }) ?? []
+  return rewards;
 }
 
 // @ts-ignore TYPE NEEDS FIXING

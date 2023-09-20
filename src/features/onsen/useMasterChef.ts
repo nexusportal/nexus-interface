@@ -20,9 +20,11 @@ export default function useMasterChef(chef: Chef) {
         let tx
 
         if (chef === Chef.MASTERCHEF) {
-          tx = await contract?.deposit(pid, amount)
+          console.log(contract)
+
+          tx = await contract?.depositLP(pid, amount)
         } else {
-          tx = await contract?.deposit(pid, amount, account)
+          tx = await contract?.depositLP(pid, amount, account)
         }
 
         return tx

@@ -30,9 +30,9 @@ const rpcUrl = RPC[ChainId.XRPL]; // Change the ChainId value according to your 
 const web3 = new Web3(rpcUrl);
 
 // Contracts for calculating NEXU ERC-20 token price
-const nexuTokenAddress = '0x3965c4716091A1008db59D85a684DbA075950145';
-const wXRPAddress = '0xe4f5C213dD18F732547bb16bB1A3e8BB0bc01dD4';
-const routerAddress = '0x7AdE46144F5B14f72BF6918e8434356112a07C39';
+const nexuTokenAddress = '0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e';
+const wXRPAddress = '0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948';
+const routerAddress = '0x7174515087DE0b1dE50fADC076124284De5E17B3';
 
 const HEADER_HEIGHT = 70
 
@@ -101,7 +101,7 @@ const Desktop: FC = () => {
 
     const interval = setInterval(() => {
       fetchNexuPrice();
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 600000); // 10000 milliseconds = 10 seconds
     return () => clearInterval(interval);
 
   }, []);

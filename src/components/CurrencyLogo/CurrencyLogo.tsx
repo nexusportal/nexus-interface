@@ -38,7 +38,7 @@ const BLOCKCHAIN = {
   [ChainId.XDAI]: 'xdai',
   [ChainId.ARBITRUM]: 'arbitrum',
   [ChainId.AVALANCHE]: 'avalanche',
-  [ChainId.XRPL]: 'songbird',
+  [ChainId.XRPL]: 'xrpl',
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -131,7 +131,7 @@ const LOGO: Record<ChainId, string> = {
   [ChainId.FUSE]: FuseLogo,
   [ChainId.TELOS]: TelosLogo,
   [ChainId.XRPL]: XRPLLogo,
-  [ChainId.HARDHAT]: ""
+  // [ChainId.HARDHAT]: ""
 }
 
 export interface CurrencyLogoProps {
@@ -190,19 +190,19 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'XVM') {
+    if (currency.symbol === 'THREE') {
       return <img alt="img" src={XVM.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'wBTC') {
+    if (currency.symbol === 'TWO') {
       return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'wETH') {
+    if (currency.symbol === 'ONE') {
       return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'wWAN') {
+    if (currency.symbol === 'WETH') {
       return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
     }
 
@@ -283,8 +283,6 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       // )
     }
   }
-
-  console.log(currency, srcs);
 
   return <Logo srcs={srcs} width={size} height={size} alt={currency?.symbol} className={className} style={style} />
 }

@@ -145,7 +145,7 @@ const useMenu: UseMenu = () => {
     }
 
     let bridgeMenu: MenuItem = {
-      key: 'nft',
+      key: 'bridge',
       title: i18n._(t`Bridge`),
       link: 'https://bridge.wanchain.org/',
       external: true,
