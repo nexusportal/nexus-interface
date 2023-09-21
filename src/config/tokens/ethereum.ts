@@ -119,21 +119,21 @@ export const TOKENONE = new Token(
   '0x77926DA2d20D32f6F1F5f65621296290d589caA9',
   18,
   'ONE',
-  'Token One'
+  'TOKENONE'
 )
 export const TOKENTWO = new Token(
   ChainId.XRPL,
   '0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060',
   18,
   'TWO',
-  'Token Two'
+  'TOKENTWO'
 )
 export const TOKENTHREE = new Token(
   ChainId.XRPL,
   '0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109',
   18,
   'THREE',
-  'Token Three'
+  'TOKENTHREE'
 )
 
 

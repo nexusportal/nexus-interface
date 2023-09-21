@@ -226,7 +226,7 @@ export default function useFarmRewards() {
         token0: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060',
-          name: 'Token Two',
+          name: 'TOKENTWO',
           symbol: 'TWO',
           totalSupply: 1680,
         },
@@ -234,7 +234,7 @@ export default function useFarmRewards() {
         token1: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109',
-          name: 'Token Three',
+          name: 'TOKENTHREE',
           symbol: 'THREE',
           totalSupply: 1680,
         },
@@ -258,7 +258,7 @@ export default function useFarmRewards() {
         token0: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0x77926DA2d20D32f6F1F5f65621296290d589caA9',
-          name: 'Token One',
+          name: 'TOKENONE',
           symbol: 'ONE',
           totalSupply: 1680,
         },
@@ -266,7 +266,7 @@ export default function useFarmRewards() {
         token1: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109',
-          name: 'Token Three',
+          name: 'TOKENTHREE',
           symbol: 'THREE',
           totalSupply: 1680,
         },
@@ -290,7 +290,7 @@ export default function useFarmRewards() {
         token0: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0x77926DA2d20D32f6F1F5f65621296290d589caA9',
-          name: 'Token One',
+          name: 'TOKENONE',
           symbol: 'ONE',
           totalSupply: 1680,
         },
@@ -298,7 +298,7 @@ export default function useFarmRewards() {
         token1: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060',
-          name: 'Token Two',
+          name: 'TOKENTWO',
           symbol: 'TWO',
           totalSupply: 1680,
         },
@@ -330,7 +330,7 @@ export default function useFarmRewards() {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948',
           name: 'Wrapped XRP',
-          symbol: 'WETH',
+          symbol: 'WXRP',
           totalSupply: 1680,
         },
 

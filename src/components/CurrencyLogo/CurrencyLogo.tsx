@@ -11,6 +11,9 @@ import ETH from '../../../public/ETH.png'
 import WAN from '../../../public/WAN.png'
 import USDT from '../../../public/USDT.png'
 import USDC from '../../../public/USDC.png'
+import ONE  from '../../../public/ONE.png'
+import TWO  from '../../../public/TWO.png'
+import THREE  from '../../../public/THREE.png'
 
 import XRP from '../../../public/XRP.png'
 // import Image from '../../components/Image'
@@ -191,19 +194,19 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     }
 
     if (currency.symbol === 'THREE') {
-      return <img alt="img" src={XVM.src} width={size} height={size} className={className} />
+      return <img alt="img" src={THREE.src} width={size} height={size} className={className} />
     }
 
     if (currency.symbol === 'TWO') {
-      return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+      return <img alt="img" src={TWO.src} width={size} height={size} className={className} />
     }
 
     if (currency.symbol === 'ONE') {
-      return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+      return <img alt="img" src={ONE.src} width={size} height={size} className={className} />
     }
 
-    if (currency.symbol === 'WETH') {
-      return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+    if (currency.symbol === 'WXRP') {
+      return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
     }
 
     if (currency.symbol === 'wUSDT') {
@@ -237,8 +240,8 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
         return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
       }
   
-      if (currency.symbol === 'wETH') {
-        return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+      if (currency.symbol === 'WETH') {
+        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
   
       if (currency.symbol === 'wWAN') {
@@ -276,6 +279,8 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.tokenInfo.symbol === 'WXRP') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
+
+      console.log(currency)
 
 
       // return (

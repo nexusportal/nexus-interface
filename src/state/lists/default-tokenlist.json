@@ -22,28 +22,28 @@
       "logoURI": "/WXRP.png"
     },
     {
-      "name": "Token One",
+      "name": "TOKENONE",
       "address": "0x77926DA2d20D32f6F1F5f65621296290d589caA9",
       "symbol": "ONE",
       "decimals": 18,
       "chainId": 1440002,
-      "logoURI": "/WXRP.png"
+      "logoURI": "/ONE.png"
     },
     {
-      "name": "Token Two",
+      "name": "TOKENTWO",
       "address": "0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060",
       "symbol": "TWO",
       "decimals": 18,
       "chainId": 1440002,
-      "logoURI": "/WXRP.png"
+      "logoURI": "/TWO.png"
     },
     {
-      "name": "Token Three",
+      "name": "TOKENTHREE",
       "address": "0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109",
       "symbol": "THREE",
       "decimals": 18,
       "chainId": 1440002,
-      "logoURI": "/WXRP.png"
+      "logoURI": "/THREE.png"
     },
     {
       "name": "Nexus",
