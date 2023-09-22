@@ -112,12 +112,12 @@ export function usePendingSushi(farm) {
     return [String(farm.id), String(account)]
   }, [farm, account])
 
-  const result = useSingleCallResult(args ? contract : null, 'pendingNexus', args)?.result
+  const result = useSingleCallResult(args ? contract : null, 'pendingNexusByUser', args)?.result
 
   const value = result?.[0]
 
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
-
+console.log(result)
   // @ts-ignore TYPE NEEDS FIXING
   return amount ? CurrencyAmount.fromRawAmount(SUSHI[chainId], amount) : undefined
 }
@@ -188,7 +188,8 @@ export function useChefPositions(contract?: Contract | null, rewarder?: Contract
   }, [numberOfPools, account])
 
   // @ts-ignore TYPE NEEDS FIXING
-  const pendingSushi = useSingleContractMultipleData(args ? contract : null, 'pendingNexus', args)
+  const pendingSushi = useSingleContractMultipleData(args ? contract : null, 'pendingNexusByUser', args)
+  // console.log("Pending Sushi: ", pendingSushi)
 
   // @ts-ignore TYPE NEEDS FIXING
   const userInfo = useSingleContractMultipleData(args ? contract : null, 'userInfo', args)

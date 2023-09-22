@@ -87,7 +87,7 @@ export default function useFarmRewards() {
       allocPoint: 10,
       balance: 0,
       chef: 0,
-      id: '0',
+      id: '1',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
@@ -103,7 +103,7 @@ export default function useFarmRewards() {
       allocPoint: 10,
       balance: 0,
       chef: 0,
-      id: '1',
+      id: '2',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
@@ -119,7 +119,7 @@ export default function useFarmRewards() {
       allocPoint: 10,
       balance: 0,
       chef: 0,
-      id: '2',
+      id: '0',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',

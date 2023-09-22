@@ -3208,7 +3208,7 @@
 
 "@sushiswap/core-sdk@https://github.com/nexusportal/nexus-core-sdk.git":
   version "1.0.0-canary.63"
-  resolved "https://github.com/nexusportal/nexus-core-sdk.git#238d731c8823dbe767838e3beac44653de50dffa"
+  resolved "https://github.com/nexusportal/nexus-core-sdk.git#f3c760888943e77b119750ab79503ab560a94afe"
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bignumber" "^5.4.0"

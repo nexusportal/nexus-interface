@@ -573,6 +573,25 @@
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
+      }
+    ],
+    "name": "pendingNexusByPool",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
       },
       {
         "internalType": "address",
@@ -580,7 +599,7 @@
         "type": "address"
       }
     ],
-    "name": "pendingNexus",
+    "name": "pendingNexusByUser",
     "outputs": [
       {
         "internalType": "uint256",
@@ -657,6 +676,19 @@
   {
     "inputs": [],
     "name": "poolLength",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "reductionNumber",
     "outputs": [
       {
         "internalType": "uint256",

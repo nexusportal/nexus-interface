@@ -20,8 +20,6 @@ export default function useMasterChef(chef: Chef) {
         let tx
 
         if (chef === Chef.MASTERCHEF) {
-          console.log(contract)
-
           tx = await contract?.depositLP(pid, amount)
         } else {
           tx = await contract?.depositLP(pid, amount, account)
@@ -66,9 +64,9 @@ export default function useMasterChef(chef: Chef) {
 
         if (chef === Chef.MASTERCHEF) {
           // console.log('farmharvest:', chef, pid)
-          tx = await contract?.deposit(pid, Zero)
+          tx = await contract?.depositLP(pid, Zero)
         } else if (chef === Chef.MASTERCHEF_V2) {
-          const pendingSushi = await contract?.pendingNexus(pid, account)
+          const pendingSushi = await contract?.pendingNexusByUser(pid, account)
 
           const balanceOf = await sushi?.balanceOf(contract?.address)
 
