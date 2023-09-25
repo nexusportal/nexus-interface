@@ -42,7 +42,6 @@ export default function Pool() {
   // })
   // @ts-ignore TYPE NEEDS FIXING
   const migrationSupported = chainId in MigrationSupported
-  console.log(pairs);
   return (
     <Container id="pool-page" className="py-4 space-y-6 md:py-8 lg:py-12" maxWidth="2xl">
       <Head>
