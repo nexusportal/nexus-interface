@@ -256,8 +256,8 @@ export default function useFarmRewards() {
         token0: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948',
-          name: 'XRP EVM',
-          symbol: 'XRPL',
+          name: 'Wrapped XRP',
+          symbol: 'WXRP',
           totalSupply: 1680,
         },
         token0Price: 0.00048,
@@ -296,8 +296,8 @@ export default function useFarmRewards() {
         token1: {
           derivedETH: 0.0003068283960261003490764609134664169,
           id: '0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948',
-          name: 'XRP EVM',
-          symbol: 'XRPL',
+          name: 'Wrapped XRP',
+          symbol: 'WXRP',
           totalSupply: 1680,
         },
 
