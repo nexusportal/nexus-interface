@@ -31,7 +31,7 @@ const web3 = new Web3(rpcUrl);
 // Contracts for calculating NEXU ERC-20 token price
 const nexuTokenAddress = '0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e';
 const wXRPAddress = '0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948';
-const routerAddress = '0x7174515087DE0b1dE50fADC076124284De5E17B3';
+const routerAddress = '0x08a60abEc3D61321e9f41D0c108FC8d5e5a2FA61';
 
 const Mobile: FC = () => {
   const menu = useMenu()

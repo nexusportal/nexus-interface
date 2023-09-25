@@ -113,6 +113,8 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
         deadline.toHexString(),
       ]
       value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).quotient.toString())
+
+      console.log(args, value);
     } else {
       estimate = routerContract.estimateGas.addLiquidity
       method = routerContract.addLiquidity
@@ -130,6 +132,7 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
     }
 
     setAttemptingTxn(true)
+    console.log("args : ", args)
     await estimate(...args, value ? { value } : {})
       .then((estimatedGasLimit) =>
         method(...args, {

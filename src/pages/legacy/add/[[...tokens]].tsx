@@ -136,8 +136,6 @@ export default function Add() {
 
     const { [Field.CURRENCY_A]: parsedAmountA, [Field.CURRENCY_B]: parsedAmountB } = parsedAmounts
 
-    // console.log({ parsedAmountA, parsedAmountB, currencyA, currencyB, deadline })
-
     if (!parsedAmountA || !parsedAmountB || !currencyA || !currencyB || !deadline) {
       return
     }
@@ -165,6 +163,7 @@ export default function Add() {
         deadline.toHexString(),
       ]
       value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).quotient.toString())
+      
     } else {
       estimate = routerContract.estimateGas.addLiquidity
       method = routerContract.addLiquidity
@@ -189,7 +188,6 @@ export default function Add() {
           gasLimit: calculateGasMargin(estimatedGasLimit),
         }).then((response) => {
           setAttemptingTxn(false)
-console.log("hey")
           addTransaction(response, {
             summary:
               i18n._(t`Add `) +
@@ -302,11 +300,6 @@ console.log("hey")
   }, [onFieldAInput, txHash])
 
   const addIsUnsupported = useIsSwapUnsupported(currencies?.CURRENCY_A, currencies?.CURRENCY_B)
-
-  // console.log(
-  //   { addIsUnsupported, isValid, approvalA, approvalB },
-  //   approvalA === ApprovalState.APPROVED && approvalB === ApprovalState.APPROVED
-  // )
 
   return (
     <>
