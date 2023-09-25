@@ -319,7 +319,7 @@ export default function useFarmRewards() {
         timestamp: 1621898381,
         token0: {
           derivedETH: 0.0003068283960261003490764609134664169,
-          id: '0x77926DA2d20D32f6F1F5f65621296290d589caA9',
+          id: '0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e',
           name: 'Nexu Token',
           symbol: 'Nexu',
           totalSupply: 1680,
