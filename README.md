@@ -1,6 +1,5 @@
 # 🌌 Welcome To The Nexus Interface 
-
-![alt text](https://drive.google.com/file/d/165dQfPyCaO8fOBfpp6Q6IB_CYpcmRDsY/preview)
+![My Remote Image](https://drive.google.com/file/d/165dQfPyCaO8fOBfpp6Q6IB_CYpcmRDsY/preview)
 
 ### 🧶 **Yarn Commands**
 
