@@ -560,7 +560,7 @@ export function useProPendingReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUS LP Token')
       let tokenInfo = alltokens[item.token] || OLPToken
 
       if(item.token == '0x0000000000000000000000000000000000000000'){
@@ -609,7 +609,7 @@ export function useProUserTotalReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUS LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
@@ -707,7 +707,7 @@ export function useTotalDistributedReward() {
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUSSwap LP Token')
+      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUS LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 

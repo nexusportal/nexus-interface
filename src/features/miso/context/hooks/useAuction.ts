@@ -156,7 +156,7 @@ export const useAuction = (address?: string, owner?: string) => {
           auctionInfo.tokenInfo.name
         ),
         liquidityToken: lpTokenAddress
-          ? new Token(chainId, lpTokenAddress, 18, 'NLP', 'NEXUSSwap LP Token')
+          ? new Token(chainId, lpTokenAddress, 18, 'NLP', 'NEXUS LP Token')
           : undefined,
         paymentToken,
         auctionInfo,
