@@ -35,11 +35,11 @@ export function useOracleDistributorEnableCheck() {
 export function useOracleDistributorCovertAmount() {
   const contract = useOracleDistributorContract()
 
-  const result = useSingleCallResult(contract, 'nexusDiffuserTotalAmount')?.result
+  // const result = useSingleCallResult(contract, 'nexusMultiStakingTotalAmount')?.result
 
-  const value = result?.[0]
+  // const value = result?.[0]
 
-  const amount = value ? JSBI.BigInt(value.toString()) : undefined
+  const amount = undefined
 
   const result1 = useSingleCallResult(contract, 'nexusTreasuryTotalAmount')?.result
 
@@ -53,13 +53,13 @@ export function useOracleDistributorCovertAmount() {
 
   const amount2 = value2 ? JSBI.BigInt(value2.toString()) : undefined
 
-  const result3 = useSingleCallResult(contract, 'nexusTotalAmount')?.result
+  const result3 = useSingleCallResult(contract, 'nexusMultiStakingTotalAmount')?.result
 
   const value3 = result3?.[0]
 
   const amount3 = value3 ? JSBI.BigInt(value3.toString()) : undefined
 
-  const result4 = useSingleCallResult(contract, 'nexusBurnerTotalAmount')?.result
+  const result4 = useSingleCallResult(contract, 'nexusTotalAmount')?.result
 
   const value4 = result4?.[0]
 
