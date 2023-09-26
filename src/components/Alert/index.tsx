@@ -63,9 +63,6 @@ export interface AlertProps {
   dismissable?: boolean
 }
 
-const audioFile = '/sounds/assemble.mp3';
-
-
 export default function Alert({
   title,
   message,
@@ -77,20 +74,6 @@ export default function Alert({
   // TODO: Persist this...
   const [show, setShow] = useState(true)
   const { color, icon, text } = TYPE[type]
-
-  useEffect(() => {
-    const audio = new Audio(audioFile);
-    audio.play();
-
-    // Cleanup function
-    return () => {
-      // Stop the sound if the component is unmounted before it finishes playing
-      audio.pause();
-      audio.currentTime = 0;
-    };
-  }, []);
-
-
 
   return message && show ? (
     <Frame animate={true}

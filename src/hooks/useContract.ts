@@ -35,6 +35,7 @@ import BORING_HELPER_ABI from 'app/constants/abis/boring-helper.json'
 import CHAINLINK_ORACLE_ABI from 'app/constants/abis/chainlink-oracle.json'
 import CLONE_REWARDER_ABI from 'app/constants/abis/clone-rewarder.json'
 import COMPLEX_REWARDER_ABI from 'app/constants/abis/complex-rewarder.json'
+import NexusGenerator_ABI from 'app/constants/abis/nexus-generator.json'
 import DASHBOARD_ABI from 'app/constants/abis/dashboard.json'
 import EIP_2612_ABI from 'app/constants/abis/eip-2612.json'
 import ENS_PUBLIC_RESOLVER_ABI from 'app/constants/abis/ens-public-resolver.json'
@@ -254,6 +255,11 @@ export function useUniV2FactoryContract(): Contract | null {
 // @ts-ignore TYPE NEEDS FIXING
 export function useComplexRewarderContract(address, withSignerIfPossible?: boolean): Contract | null {
   return useContract(address, COMPLEX_REWARDER_ABI, withSignerIfPossible)
+}
+
+// @ts-ignore TYPE NEEDS FIXING
+export function useNexusGeneratorContract( withSignerIfPossible?: boolean): Contract | null {
+  return useContract('0x6F8B1Cbc84da880c9b5D443f8EF70f6161017300', NexusGenerator_ABI, withSignerIfPossible)
 }
 
 // @ts-ignore TYPE NEEDS FIXING

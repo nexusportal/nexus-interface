@@ -17,11 +17,12 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 import { PairType } from './enum'
-import { usePendingSushi, useUserInfo } from './hooks'
+import { useUserInfo } from './hooks'
 import useMasterChef from './useMasterChef'
 import usePendingReward from './usePendingReward'
 import { useTotalSupply } from 'app/hooks/useTotalSupply'
 import { useV2Pair } from 'app/hooks/useV2Pairs'
+import usePending from './usePendingReward'
 
 // @ts-ignore TYPE NEEDS FIXING
 const RewardRow = ({ value, symbol }) => {
@@ -72,8 +73,7 @@ const InvestmentDetails = ({ farm }) => {
   //     kashiPair.asset
   //   )
 
-  const pendingSushi = usePendingSushi(farm)
-  const pendingReward = usePendingReward(farm)
+  const pending = usePending(farm)
 
   // const positionFiatValue = CurrencyAmount.fromRawAmount(
   //   // @ts-ignore TYPE NEEDS FIXING
@@ -92,11 +92,6 @@ const InvestmentDetails = ({ farm }) => {
 
   // @ts-ignore TYPE NEEDS FIXING
   const secondaryRewardOnly = [ChainId.FUSE].includes(chainId)
-
-  const rewardValue = !secondaryRewardOnly
-    ? (farm?.rewards?.[0]?.rewardPrice ?? 0) * Number(pendingSushi?.toExact() ?? 0) +
-    (farm?.rewards?.[1]?.rewardPrice ?? 0) * Number(pendingReward ?? 0)
-    : (farm?.rewards?.[0]?.rewardPrice ?? 0) * Number(pendingReward ?? 0)
 
   async function onHarvest() {
     setPendingTx(true)
@@ -193,7 +188,7 @@ const InvestmentDetails = ({ farm }) => {
               <div className="flex items-center gap-1" key={i}>
                 <CurrencyLogo currency={reward.currency} size={30} />
                 <RewardRow
-                  value={formatNumber(reward.pendingReward)}
+                  value={pending[reward.currency.address]}
                   symbol={reward.currency.symbol}
                 />
               </div>
@@ -217,10 +212,7 @@ const InvestmentDetails = ({ farm }) => {
         loading={pendingTx}
         fullWidth
         color="gradient"
-        disabled={
-          pendingTx ||
-          !((pendingSushi && pendingSushi.greaterThan(ZERO)) || (pendingReward && Number(pendingReward) > 0))
-        }
+        disabled={pendingTx}
         onClick={onHarvest}
       >
         {i18n._(t`HARNESS REWARDS`)}

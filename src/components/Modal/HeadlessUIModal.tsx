@@ -15,10 +15,7 @@ import { cloneElement, FC, isValidElement, ReactNode, useCallback, useMemo, useS
 import React, { Fragment, useEffect } from 'react'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
-import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
-
-const audioFile = '/sounds/assemble.mp3';
-
+import {Frame } from 'arwes';
 
 const MAX_WIDTH_CLASS_MAPPING = {
   sm: 'lg:max-w-sm',
@@ -112,20 +109,6 @@ const HeadlessUiModalControlled: FC<ControlledModalProps> = ({
   unmount,
 }) => {
   const isDesktop = useDesktopMediaQuery()
-
-  useEffect(() => {
-    const audio = new Audio(audioFile);
-    audio.volume = 0.4; // Set the volume to 0.5 (50% of the maximum volume)
-    audio.play();
-  
-    // Cleanup function
-    return () => {
-      // Stop the sound if the component is unmounted before it finishes playing
-      audio.pause();
-      audio.currentTime = 0;
-    };
-  }, []);
-  
 
   return (
     <Transition appear show={isOpen} as={Fragment} afterLeave={afterLeave} unmount={unmount}>

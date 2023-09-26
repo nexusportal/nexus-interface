@@ -21,6 +21,7 @@ import XRPLogo from '../../../public/XRP.png'
 import NEXULogo from '../../../public/NEXUS.png'
 import axios from 'axios';
 import routerABI from 'app/constants/abis/router.json';
+import { nexuTokenAddress, routerAddress, wXRPAddress } from 'app/constants'
 import Web3 from 'web3';
 import { ChainId } from '@sushiswap/core-sdk';
 import RPC from '../../config/rpc';
@@ -29,9 +30,6 @@ const rpcUrl = RPC[ChainId.XRPL]; // Change the ChainId value according to your 
 const web3 = new Web3(rpcUrl);
 
 // Contracts for calculating NEXU ERC-20 token price
-const nexuTokenAddress = '0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e';
-const wXRPAddress = '0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948';
-const routerAddress = '0xd1aEb8a6B0C5453A303903F4BDE11a75D351c3bf';
 
 const Mobile: FC = () => {
   const menu = useMenu()

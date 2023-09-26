@@ -16,6 +16,7 @@ import zip from 'lodash/zip'
 import { useCallback, useMemo } from 'react'
 import { ethers } from "ethers"
 import { getTokenInfo } from 'app/state/lists/hooks'
+import { NEXUS } from 'app/config/tokens'
 
 import { Chef } from './enum'
 
@@ -117,9 +118,36 @@ export function usePendingSushi(farm) {
   const value = result?.[0]
 
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
-console.log(result)
+
   // @ts-ignore TYPE NEEDS FIXING
-  return amount ? CurrencyAmount.fromRawAmount(SUSHI[chainId], amount) : undefined
+  return amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
+}
+
+// @ts-ignore TYPE NEEDS FIXING
+export function usePendingRewards(farm) {
+  const { account, chainId } = useActiveWeb3React()
+
+  const contract = useChefContract(farm.chef)
+
+  const args = useMemo(() => {
+    if (!account) {
+      return
+    }
+    // @ts-ignore TYPE NEEDS FIXING
+    return farm.rewards.map((item, i) => [parseInt(farm.id), i, account])
+  }, [farm, account])
+
+  // @ts-ignore TYPE NEEDS FIXING
+  const result = useSingleContractMultipleData(args ? contract : null, 'pendingRewardToken', args)?.result
+
+  const value = result?.[0]
+
+  console.log("value:", result, args)
+
+  const amount = value ? JSBI.BigInt(value.toString()) : undefined
+
+  // @ts-ignore TYPE NEEDS FIXING
+  return amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
 }
 
 // @ts-ignore TYPE NEEDS FIXING

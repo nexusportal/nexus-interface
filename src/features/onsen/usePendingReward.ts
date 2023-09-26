@@ -1,54 +1,60 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { ChainId } from '@sushiswap/core-sdk'
 import { Fraction } from 'app/entities/bignumber'
-import { useCloneRewarderContract, useComplexRewarderContract } from 'app/hooks/useContract'
+import { useCloneRewarderContract, useComplexRewarderContract, useNexusGeneratorContract } from 'app/hooks/useContract'
 import { useActiveWeb3React } from 'app/services/web3/hooks/useActiveWeb3React'
 import { useBlockNumber } from 'app/state/application/hooks'
 import { useEffect, useMemo, useState } from 'react'
 
 import { Chef } from './enum'
+import { formatEther, parseUnits } from '@ethersproject/units'
+import { nexuTokenAddress } from 'app/constants'
 
 // @ts-ignore TYPE NEEDS FIXING
 const usePending = (farm) => {
-  const [balance, setBalance] = useState<string>('0')
+  const [balance, setBalance] = useState<Record<string, string>>({})
 
   const { chainId, account, library } = useActiveWeb3React()
   const currentBlockNumber = useBlockNumber()
 
-  const cloneRewarder = useCloneRewarderContract(farm?.rewarder?.id)
+  // const cloneRewarder = useCloneRewarderContract(farm?.rewarder?.id)
 
-  const complexRewarder = useComplexRewarderContract(farm?.rewarder?.id)
+  // const complexRewarder = useComplexRewarderContract(farm?.rewarder?.id)
 
+  const nexusGenRewarder = useNexusGeneratorContract()
   const contract = useMemo(
     () => ({
-      [ChainId.ETHEREUM]: cloneRewarder,
-      [ChainId.MATIC]: complexRewarder,
-      [ChainId.XDAI]: complexRewarder,
-      [ChainId.HARMONY]: complexRewarder,
-      [ChainId.ARBITRUM]: cloneRewarder,
-      [ChainId.CELO]: complexRewarder,
-      [ChainId.MOONRIVER]: complexRewarder,
-      [ChainId.FUSE]: complexRewarder,
-      [ChainId.FANTOM]: complexRewarder,
-      [ChainId.XRPL]: complexRewarder,
+      // [ChainId.ETHEREUM]: cloneRewarder,
+      // [ChainId.MATIC]: complexRewarder,
+      // [ChainId.XDAI]: complexRewarder,
+      // [ChainId.HARMONY]: complexRewarder,
+      // [ChainId.ARBITRUM]: cloneRewarder,
+      // [ChainId.CELO]: complexRewarder,
+      // [ChainId.MOONRIVER]: complexRewarder,
+      // [ChainId.FUSE]: complexRewarder,
+      // [ChainId.FANTOM]: complexRewarder,
+      [ChainId.XRPL]: nexusGenRewarder,
     }),
-    [complexRewarder, cloneRewarder]
+    [nexusGenRewarder]
   )
 
   useEffect(() => {
     async function fetchPendingReward() {
       try {
+        let bal: Record<string, string> = {};
         // @ts-ignore TYPE NEEDS FIXING
-        const pending = await contract[chainId]?.pendingTokens(farm.id, account, '0')
-        // console.log({ farm })
-        // todo: do not assume [0] or that rewardToken has 18 decimals (only works w/ mastechefv2 currently)
-        const formatted = farm.rewardToken
-          ? Fraction.from(
-              BigNumber.from(pending?.rewardAmounts[0]),
-              BigNumber.from(10).pow(farm.rewardToken.decimals || 18)
-            ).toString(farm.rewardToken.decimals || 18)
-          : Fraction.from(BigNumber.from(pending?.rewardAmounts[0]), BigNumber.from(10).pow(18)).toString(18)
-        setBalance(formatted)
+        const pending = await contract[chainId]?.pendingNexusByUser(farm.id, account)
+        const format = parseFloat(formatEther(pending)).toFixed(2);
+        bal[nexuTokenAddress] = format;
+        // @ts-ignore TYPE NEEDS FIXING
+        const rewardTokens = farm.rewards.filter((item, i)=> item.currency.symbol !== "NEXU");
+        for(let i=0; i< rewardTokens.length; i++) {
+          // @ts-ignore TYPE NEEDS FIXING
+          const pendingR = await contract[chainId]?.pendingRewardToken(farm.id, i, account);
+          const formatR = parseFloat(formatEther(pendingR)).toFixed(2);
+          bal[rewardTokens[i].currency.address] = formatR;
+        }
+        setBalance(bal); 
       } catch (error) {
         console.error(error)
       }
@@ -56,14 +62,14 @@ const usePending = (farm) => {
     // id = 0 is evaluated as false
     if (
       account &&
-      cloneRewarder &&
+      nexusGenRewarder &&
       farm &&
       library &&
-      (farm.chef === Chef.MASTERCHEF_V2 || farm.chef === Chef.MINICHEF || farm.chef === Chef.OLD_FARMS)
+      chainId
     ) {
       fetchPendingReward()
     }
-  }, [account, currentBlockNumber, cloneRewarder, complexRewarder, farm, library, contract, chainId])
+  }, [account, currentBlockNumber, nexusGenRewarder, farm, library, contract, chainId])
 
   return balance
 }
