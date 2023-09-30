@@ -176,9 +176,8 @@ USE AT YOUR OWN RISK!`}
                     <br />
                     <p>
                     10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
-                    This equates to approximately 21,600 NEXU that is distributed to the Nexus Core Multi-Staking System each day!
                     </p>
-                    <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
+                    <Link href="https://docs.xrp.thenexusportal.io/guide/nexus-core-multi-staking" target="_blank" rel="noreferrer">
                       <span className="text-lg font-bold md:text-xl text-green">
                         LEARN MORE
                       </span>
