@@ -1,6 +1,6 @@
 # 🌌 Welcome To The Nexus Interface
 
-# The Nexus Interface & Smart Contracts that bring the Nexus Portal To Life!
+## The Nexus Interface & Smart Contracts that bring the Nexus Portal To Life!
 
 ## GitHub Repositories
 - [Nexus Interface](https://github.com/nexusportal/nexus-interface)
