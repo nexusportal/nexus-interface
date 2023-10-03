@@ -36,9 +36,11 @@ import React, { useState } from 'react'
 
 import NexusDiff from '../../../public/NEXUS2.png'
 import OracleDistributor from './OracleDistributor'
+import { swapPairs } from 'app/constants/farmlist'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, List, Link, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds, Project, Words } from 'arwes';
+import { lowerCase } from 'lodash'
 
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
@@ -72,10 +74,11 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
   return success
 }
 
- const ProStaking = () => {
+const ProStaking = () => {
   const { totalProAmount, totalxOracleAmount, totalPoolSize, totalNFTCount } = useProStakingInfo()
 
   const distributedReward = useTotalDistributedReward()
+  console.log(distributedReward)
 
   const showUseDexWarning = useDexWarningOpen()
 
@@ -130,6 +133,8 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
     }
   }
 
+  const getTokensOfPair = (nlpAddress: string) => swapPairs.find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
+
   return (
     <Container id="staking-page" className="py-4 md:py-8 lg:py-12" maxWidth="5xl">
       <Head>
@@ -175,8 +180,8 @@ USE AT YOUR OWN RISK!`}
                     </p>
                     <br />
                     <p>
-                    10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
-                    This equates to approximately 21,600 NEXU that is distributed to the Nexus Core Multi-Staking System each day!
+                      10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
+                      This equates to approximately 21,600 NEXU that is distributed to the Nexus Core Multi-Staking System each day!
                     </p>
                     <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
                       <span className="text-lg font-bold md:text-xl text-green">
@@ -229,7 +234,7 @@ USE AT YOUR OWN RISK!`}
                         <div className="flex flex-col items-center mb-4">
                           <div className="relative">
                             <img src={NexusDiff.src}
-                              alt="Nexus sign" className="w-[180px] h-[180px] relative z-10"/>
+                              alt="Nexus sign" className="w-[180px] h-[180px] relative z-10" />
                             <div className="absolute bottom-4 right-4 transform translate-x-0 translate-y-0">
                               <Logo animate size={150} />
                             </div>
@@ -319,10 +324,10 @@ USE AT YOUR OWN RISK!`}
                     {`Distribute`}
                   </Button>
                   {/* <OracleDistributor /> */}
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                 </div>
 
                 <div className="w-full mt-5 sm:w-1/2 sm:mt-0 md:pt-10">
@@ -330,10 +335,16 @@ USE AT YOUR OWN RISK!`}
                     {i18n._(t`Distributed`)}
                   </div>
 
-                  {distributedReward.map((item, index) => (
-                    <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                  {distributedReward.map((item, index) => {
+                    if (item.token.symbol === "NLP") {
+                      const pair = getTokensOfPair(item.token.address);
+                      console.log(pair)
+                      return <p key={`rewardinfo-${index}`}>{`${pair?.token0.symbol}/${pair?.token1.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                        }`}</p>;
+                    }
+                    return <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
                       }`}</p>
-                  ))}
+                  })}
                 </div>
               </div>
             </Frame>
