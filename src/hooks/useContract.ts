@@ -259,7 +259,7 @@ export function useComplexRewarderContract(address, withSignerIfPossible?: boole
 
 // @ts-ignore TYPE NEEDS FIXING
 export function useNexusGeneratorContract( withSignerIfPossible?: boolean): Contract | null {
-  return useContract('0x6F8B1Cbc84da880c9b5D443f8EF70f6161017300', NexusGenerator_ABI, withSignerIfPossible)
+  return useContract('0x42704Eec2B9CE8e1a18d6686365AFB7AE3CFc6E4', NexusGenerator_ABI, withSignerIfPossible)
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -268,7 +268,7 @@ export function useCloneRewarderContract(address, withSignerIfPossibe?: boolean)
 }
 
 export function useMeowshiContract(withSignerIfPossible?: boolean): Contract | null {
-  return useContract('0x650F44eD6F1FE0E1417cb4b3115d52494B4D9b6D', MEOWSHI_ABI, withSignerIfPossible)
+  return useContract('  ', MEOWSHI_ABI, withSignerIfPossible)
 }
 
 export function useLimitOrderContract(withSignerIfPossibe?: boolean): Contract | null {
