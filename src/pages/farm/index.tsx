@@ -212,15 +212,14 @@ export default function Farm(): JSX.Element {
                 <AnimatedContent show={anim.entered}>
                   <div className="mb-4 text-sm font-normal content md:text-base">
                     <p>
-                    5 NEXU is generated every block and is distributed proportionally to Liquidity Providers that Stake their NLP Tokens into the Nexus Generator. 
-                    10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
+                    The Nexus Generator initiates with a generation of 5 NEXU per block as rewards. However, this quantity experiences a daily exponential decrease until the maximum supply is attained. The generated NEXU is proportionally allocated to Liquidity Providers who stake their NLP Tokens in the Nexus Generator. Additionally, 10% of the block rewards are automatically channeled to the Nexus Core Multi-Staking System whenever an interaction occurs within the Nexus Generator system.
                     </p>
                     <br/>
                     <p>
-                      The Rewards value shown for the Pairs below is the amount of NEXU that is proportionally distributed to NLP Stakers of that pair each day! 
+                      The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day! 
                       The more NLPs you stake the more of the daily NEXU reward you will get!
                     </p>
-                    <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
+                    <Link href="https://docs.xrp.thenexusportal.io/" target="_blank" rel="noreferrer">
                       <span className="text-lg font-bold md:text-xl text-green">
                         LEARN MORE
                       </span>

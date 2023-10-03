@@ -609,7 +609,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
                 <QuestionHelper
                   className="!bg-dark-800 !shadow-xl p-2"
-                  text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXDC, NEXU/WBTC & NEXU/WUSDT. Go to Pool > Browse to visualize it.`}
+                  text={`You may notice some tokens called NLP. Each NLP is different and represents a pair. For example: NEXU/WXRP, NEXU/WBTC & NEXU/WUSDT. Go to Pool > Browse to visualize it.`}
                 />
               </div>
 

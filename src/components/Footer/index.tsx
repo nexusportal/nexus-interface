@@ -94,11 +94,11 @@ const Footer = () => {
                   </div>
                 )}
 
-                <a href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
+                <a href="https://docs.xrp.thenexusportal.io/" target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
                 </a>
 
-                <a href="https://docs.thenexusportal.io/about-nexus/privacy" target="_blank" rel="noreferrer">
+                <a href="https://docs.xrp.thenexusportal.io/about-nexus/privacy" target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Privacy`)}</span>
                 </a>
               </div>
