@@ -35,11 +35,11 @@ export function useOracleDistributorEnableCheck() {
 export function useOracleDistributorCovertAmount() {
   const contract = useOracleDistributorContract()
 
-  // const result = useSingleCallResult(contract, 'nexusMultiStakingTotalAmount')?.result
+  const result = useSingleCallResult(contract, 'nexusTreasuryTotalAmount')?.result
 
-  // const value = result?.[0]
+  const value = result?.[0]
 
-  const amount = undefined
+  const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   const result1 = useSingleCallResult(contract, 'nexusTreasuryTotalAmount')?.result
 
@@ -70,9 +70,9 @@ export function useOracleDistributorCovertAmount() {
       const foundry = CurrencyAmount.fromRawAmount(NEXUS, amount)
       const treasury = CurrencyAmount.fromRawAmount(NEXUS, amount1)
       const burned = CurrencyAmount.fromRawAmount(NEXUS, amount2)
-      const total = CurrencyAmount.fromRawAmount(NEXUS, amount3)
-      const prophet = CurrencyAmount.fromRawAmount(NEXUS, amount4)
-      return [foundry, treasury, burned, prophet, total]
+      const multiStaking = CurrencyAmount.fromRawAmount(NEXUS, amount3)
+      const total = CurrencyAmount.fromRawAmount(NEXUS, amount4)
+      return [foundry, treasury, burned, multiStaking, total]
     }
     return [undefined, undefined, undefined, undefined, undefined]
   }, [amount, amount1, amount2, amount3, amount4])

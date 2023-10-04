@@ -112,7 +112,7 @@ const ProStaking = () => {
 
   const oracleBalance = useTokenBalance(account ?? undefined, NEXUS)
   const enabled = useOracleDistributorEnableCheck()
-  const [foundry, treasury, burned, prophet, total] = useOracleDistributorCovertAmount()
+  const [foundry, treasury, burned, multiStaking, total] = useOracleDistributorCovertAmount()
 
   const walletConnected = !!account
   const toggleWalletModal = useWalletModalToggle()
@@ -260,14 +260,11 @@ USE AT YOUR OWN RISK!`}
                           </span>
                         </p>
                         <p>
-                          <span>&#128293; </span> NEXU Burned: <span>{foundry?.toSignificant(6)}</span>
+                          <span>&#128293; </span> NEXU Burned: <span>{burned?.toSignificant(6)}</span>
                           {/* &#127835; */}
                         </p>
                         <p>
-                          <span>&#128293;</span> NEXU Burned: <span>{burned?.toSignificant(6)}</span>
-                        </p>
-                        <p>
-                          <span>&#127789;</span> NEXU MultiStaking: <span>{prophet?.toSignificant(6)}</span>
+                          <span>&#127789;</span> NEXU MultiStaking: <span>{multiStaking?.toSignificant(6)}</span>
                         </p>
                         <p>
                           <span>&#127974;</span> NEXU Treasury: <span>{treasury?.toSignificant(6)}</span>
