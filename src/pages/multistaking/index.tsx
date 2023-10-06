@@ -198,10 +198,10 @@ USE AT YOUR OWN RISK!`}
                   <div className="mb-4 text-sm font-normal content md:text-base">
                     <List node="ul" bullet="•">
                       <li>
-                        Stake just NEXU with or without a timelock. The timelock multiplies your NEXU Power giving you a larger share of the pool.
+                        Stake just NEXU with or without a time-lock. The timelock multiplies your NEXU Power giving you a larger share of the pool.
                       </li>
                       <li>
-                        To add NEXU NFTs, you must stake the minimum amount of NEXU one time and you must also stake the minimum NEXU amount per NFT.
+                        Stake just NEXUS NFTs, without a time-lock. In order for the NFT weight to receive the power of the time-lock multiplier you must stake the minimum amount of NEXU one time and you must also stake the minimum NEXU amount per NFT.
                       </li>
                       <li>
                         Consequences for breaking the spacetime barrier: Forfeit 50% of your locked NEXU. Half of this NEXU gets sent to the void.

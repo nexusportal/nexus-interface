@@ -565,7 +565,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               <div className="flex items-center pb-1 balance1">
                 {/* // eslint-disable-next-line @next/next/no-img-element */}
                 <img src={NEXUSLogo.src} width={30} height={30} alt="Logo" />
-                <p className="ml-2">{`NEXUS: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
+                <p className="ml-2">{`NEXU: ${stakedAmount ? stakedAmount.toSignificant(6) : ''}`}</p>
               </div>
               <div className="flex items-center pb-1 balance2">
                 <img src={NEXUSNFT.src} width={30} height={30} alt="Logo" />
@@ -573,7 +573,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               </div>
               <div className="flex items-center pb-1 balance3">
                 <img src={NEXUSLogo2.src} height={30} width={30} alt="true" />
-                <p className="ml-2">{`NEXUS Collatoral: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
+                <p className="ml-2">{`NEXU NFT Collateral: ${lockXOracle ? lockXOracle.toSignificant(6) : ''}`}</p>
               </div>
               <p>
                 YOUR TOTAL POOL SHARE:
