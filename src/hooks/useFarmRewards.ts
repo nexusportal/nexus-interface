@@ -206,7 +206,7 @@ export default function useFarmRewards() {
 
       pool.owner.totalAllocPoint = masterChefV1TotalAllocPoint
 
-      const allocPoint = poolInfos?.find((poolInfo) => poolInfo.id === pool.id)?.allocPoint
+      const allocPoint = poolInfos?.find((poolInfo) => poolInfo.id === pool.id)?.allocPoint??0;
 
       // @ts-ignore TYPE NEEDS FIXING
       const rewardPerBlock = (allocPoint / pool.owner.totalAllocPoint) * sushiPerBlock

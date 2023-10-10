@@ -185,12 +185,17 @@ const InvestmentDetails = ({ farm }) => {
           {/* @ts-ignore TYPE NEEDS FIXING */}
           {farm?.rewards?.map((reward, i) => {
             return (
-              <div className="flex items-center gap-1" key={i}>
-                <CurrencyLogo currency={reward.currency} size={30} />
-                <RewardRow
-                  value={pending[reward.currency.address]}
-                  symbol={reward.currency.symbol}
-                />
+              <div>
+                <div className="flex items-center gap-1" key={i}>
+                  <CurrencyLogo currency={reward.currency} size={30} />
+                  <RewardRow
+                    value={pending[reward.currency.address]}
+                    symbol={reward.currency.symbol}
+                  />
+                </div>
+                <div className="text-right">
+                  Rate: {reward.rewardPerBlock.toFixed(4)}
+                </div>
               </div>
             )
           })}

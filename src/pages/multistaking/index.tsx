@@ -78,7 +78,6 @@ const ProStaking = () => {
   const { totalProAmount, totalxOracleAmount, totalPoolSize, totalNFTCount } = useProStakingInfo()
 
   const distributedReward = useTotalDistributedReward()
-  console.log(distributedReward)
 
   const showUseDexWarning = useDexWarningOpen()
 
@@ -334,7 +333,6 @@ USE AT YOUR OWN RISK!`}
                   {distributedReward.map((item, index) => {
                     if (item.token.symbol === "NLP") {
                       const pair = getTokensOfPair(item.token.address);
-                      console.log(pair)
                       return <p key={`rewardinfo-${index}`}>{`${pair?.token0.symbol}/${pair?.token1.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
                         }`}</p>;
                     }

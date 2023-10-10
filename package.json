@@ -217,7 +217,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.11",
-    "@sushiswap/core-sdk": "https://github.com/nexusportal/nexus-core-sdk.git#a84f8813aa7c19fd85872fc917d088a6ecde356d",
+    "@sushiswap/core-sdk": "https://github.com/nexusportal/nexus-core-sdk.git#cd801b256834c91c0932c4b1d1cc46d78d818013",
     "arwes": "1.0.0-alpha.5",
     "motion": "^10.16.2",
     "patch-package": "^8.0.0",

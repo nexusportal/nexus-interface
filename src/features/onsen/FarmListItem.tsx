@@ -22,8 +22,8 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
   const token1 = useCurrency(farm.pair.token1?.id) ?? undefined
 
   return (
-    <div className={classNames(TABLE_TBODY_TR_CLASSNAME, 'grid grid-cols-4')} onClick={onClick}>
-      <div className={classNames('flex gap-2', TABLE_TBODY_TD_CLASSNAME(0, 4))}>
+    <div className={classNames(TABLE_TBODY_TR_CLASSNAME, 'grid grid-cols-5')} onClick={onClick}>
+      <div className={classNames('flex gap-2', TABLE_TBODY_TD_CLASSNAME(0, 5))}>
         {token0 && token1 && <CurrencyLogoArray currencies={[token0, token1]} dense size={32} />}
 
         {token0 && !token1 && <CurrencyLogo currency={token0} size={32} />}
@@ -46,12 +46,12 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
           )}
         </div>
       </div>
-      <div className={TABLE_TBODY_TD_CLASSNAME(1, 4)}>
+      <div className={TABLE_TBODY_TD_CLASSNAME(1, 5)}>
         <Typography weight={700} className="text-high-emphesis">
           {formatNumber(farm.tvl, false)}
         </Typography>
       </div>
-      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(2, 4))}>
+      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(2, 5))}>
         {/* @ts-ignore TYPE NEEDS FIXING */}
         {farm?.rewards?.map((reward, i) => (
           <Typography
@@ -66,7 +66,27 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
           </Typography>
         ))}
       </div>
-      <div className={classNames('flex flex-col !items-end', TABLE_TBODY_TD_CLASSNAME(3, 4))}>
+      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(3, 5))}>
+        {/* @ts-ignore TYPE NEEDS FIXING */}
+        {farm?.rewards?.map((reward, i) => {
+          if (reward.currency.symbol !== "NEXU") return null;
+          return <Typography
+            variant="sm"
+            weight={700}
+            key={i}
+            className="flex gap-1.5 text-high-emphesis justify-center items-center"
+            component="span"
+          >
+            {formatNumber(reward.rewardPerDay)}
+          </Typography>
+        })}
+      </div>
+      <div className={TABLE_TBODY_TD_CLASSNAME(4, 5)}>
+        <Typography weight={700} className="text-high-emphesis  gap-0.5 items-center pr-4">
+          {formatNumber(farm.rewards[farm.rewards.length - 1].rewardPerBlock.toFixed(4), false)}
+        </Typography>
+      </div>
+      {/* <div className={classNames('flex flex-col !items-end', TABLE_TBODY_TD_CLASSNAME(3, 4))}>
         <Typography weight={700} className="flex gap-0.5 items-center text-high-emphesis">
           {farm?.tvl !== 0
             ? farm?.roiPerYear > 10000
@@ -96,7 +116,7 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
         <Typography variant="xs" className="text-low-emphesis">
           {i18n._(t`annualized`)}
         </Typography>
-      </div>
+      </div> */}
     </div>
   )
 }

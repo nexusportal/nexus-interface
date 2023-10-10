@@ -34,6 +34,7 @@ import { HeadlessUiModal } from '../Modal'
 import Switch from '../Switch'
 import Typography from '../Typography'
 import Web3Connect from '../Web3Connect'
+import { swapPairs } from 'app/constants/farmlist'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
@@ -353,6 +354,8 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
   const [showConfirmation, setShowConfirmation] = useState(false)
 
+  const getTokensOfPair = (nlpAddress: string) => swapPairs.find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
+
 
   return (
     <>
@@ -637,10 +640,19 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                   </div>
 
                   <div className="flex flex-col">
-                    {userReward.map((item, index) => (
+                    {/* {userReward.map((item, index) => (
                       <p key={`user-rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(3) : ''
                         }`}</p>
-                    ))}
+                    ))} */}
+                    {userReward.map((item, index) => {
+                    if (item.token.symbol === "NLP") {
+                      const pair = getTokensOfPair(item.token.address);
+                      return <p key={`user-rewardinfo-${index}`}>{`${pair?.token0.symbol}/${pair?.token1.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                        }`}</p>;
+                    }
+                    return <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                      }`}</p>
+                  })}
                   </div>
                 </div>
               </div>

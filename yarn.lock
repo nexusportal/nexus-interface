@@ -3206,9 +3206,9 @@
     tiny-warning "^1.0.0"
     toformat "^2.0.0"
 
-"@sushiswap/core-sdk@https://github.com/nexusportal/nexus-core-sdk.git#a84f8813aa7c19fd85872fc917d088a6ecde356d":
+"@sushiswap/core-sdk@https://github.com/nexusportal/nexus-core-sdk.git#cd801b256834c91c0932c4b1d1cc46d78d818013":
   version "1.0.0-canary.63"
-  resolved "https://github.com/nexusportal/nexus-core-sdk.git#a84f8813aa7c19fd85872fc917d088a6ecde356d"
+  resolved "https://github.com/nexusportal/nexus-core-sdk.git#cd801b256834c91c0932c4b1d1cc46d78d818013"
   dependencies:
     "@ethersproject/address" "^5.4.0"
     "@ethersproject/bignumber" "^5.4.0"

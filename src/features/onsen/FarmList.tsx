@@ -60,9 +60,9 @@ const FarmList = ({ farms, term }) => {
         corners={3}
         className="width__set"
         layer='primary'>
-          <div className="grid grid-cols-4 min-w-[768px]">
+          <div className="grid grid-cols-5 min-w-[768px]">
             <div
-              className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 4))}
+              className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 5))}
               onClick={() => requestSort('pair.token0.symbol')}
             >
               <Typography variant="sm" weight={700}>
@@ -71,7 +71,7 @@ const FarmList = ({ farms, term }) => {
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'symbol'} />
             </div>
             <div
-              className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(1, 4))}
+              className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(1, 5))}
               onClick={() => requestSort('tvl')}
             >
               <Typography variant="sm" weight={700}>
@@ -79,19 +79,23 @@ const FarmList = ({ farms, term }) => {
               </Typography>
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'tvl'} />
             </div>
-            <div className={classNames(TABLE_TR_TH_CLASSNAME(2, 4))}>
+            <div className={classNames(TABLE_TR_TH_CLASSNAME(2, 5))}>
               <Typography variant="sm" weight={700}>
                 {i18n._(t`Rewards`)}
               </Typography>
             </div>
+            <div className={classNames(TABLE_TR_TH_CLASSNAME(3, 5))}>
+              <Typography variant="sm" weight={700}>
+                {i18n._(t`NexuPerDay`)}
+              </Typography>
+            </div>
             <div
-              className={classNames('flex gap-1 items-center cursor-pointer justify-end', TABLE_TR_TH_CLASSNAME(3, 4))}
-              onClick={() => requestSort('roiPerYear')}
+              className={classNames('flex gap-0.5 items-center cursor-pointer justify-end pr-4', TABLE_TR_TH_CLASSNAME(4, 5))}
             >
               <Typography variant="sm" weight={700}>
-                {i18n._(t`APR`)}
+                {i18n._(t`NexuPerBlock`)}
               </Typography>
-              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'roiPerYear'} />
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'nexuPerBlock'} />
             </div>
           </div>
         </Frame>
