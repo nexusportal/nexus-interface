@@ -118,7 +118,7 @@ export const SelectedOracles = () => {
     : balance?.lessThan(minXOracleAmount?.multiply(selectedIDs.length)) && lockMode > 0
       ? 'Insufficient Nexus balance'
       : lowProAmount
-        ? 'Low Prophet Staked'
+        ? 'Low NEXU Staked'
         : undefined
 
   const isDepositValid = !depositError
