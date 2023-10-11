@@ -49,6 +49,48 @@ export function useMasterChefRewardPerBlock() {
   }, [amount])
 }
 
+export function useMasterChefRewardReduction() {
+  const contract = useMasterChefContract(false)
+
+  const info = useSingleCallResult(contract, 'nextReductionBlock')?.result
+  const reductionRateInfo = useSingleCallResult(contract, 'REDUCTION_RATE')?.result
+  const periodInfo = useSingleCallResult(contract, 'REDUCTION_PERIOD')?.result
+
+  const value = info?.[0]
+  const reducitonRateValue = reductionRateInfo?.[0];
+  const periodInfoValue = periodInfo?.[0];
+
+  const amount1 = value ? JSBI.BigInt(value.toString()) : undefined
+  const amount2 = reducitonRateValue ? JSBI.BigInt(reducitonRateValue.toString()) : undefined
+  const amount3 = periodInfoValue ? JSBI.BigInt(periodInfoValue.toString()) : undefined
+
+  const nextReductionBlock = useMemo(() => {
+    if (amount1) {
+      return JSBI.toNumber(amount1)
+    }
+    return 0
+  }, [amount1])
+
+  const reducitonRate = useMemo(() => {
+    if (amount2) {
+      return JSBI.toNumber(amount2) / 1e4
+    }
+    return 0
+  }, [amount2])
+  const period = useMemo(() => {
+    if (amount3) {
+      return JSBI.toNumber(amount3)
+    }
+    return 0
+  }, [amount3])
+
+  return {
+    nextReductionBlock,
+    reducitonRate,
+    period
+  }
+}
+
 export function useMasterChefTotalAllocPoint() {
   const contract = useMasterChefContract(false)
 
@@ -81,19 +123,13 @@ export default function useFarmRewards() {
   // const farms = useFarms({ chainId })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
- 
+
 
   const liquidityTokens = useMemo(
     () =>
       farms.map((farm: any) => {
         const token = new Token(ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
         return token;
-        // if (farm.pair === '0x3965c4716091A1008db59D85a684DbA075950145') {
-        //   return XORACLE
-        // } else {
-        //   const token = new Token(ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
-        //   return token
-        // }
       }),
     [farms]
   )
@@ -206,7 +242,9 @@ export default function useFarmRewards() {
 
       pool.owner.totalAllocPoint = masterChefV1TotalAllocPoint
 
-      const allocPoint = poolInfos?.find((poolInfo) => poolInfo.id === pool.id)?.allocPoint??0;
+      const allocPoint = poolInfos?.find((poolInfo) => poolInfo.id === pool.id)?.allocPoint ?? 0;
+
+      pool.allocPoint = allocPoint;
 
       // @ts-ignore TYPE NEEDS FIXING
       const rewardPerBlock = (allocPoint / pool.owner.totalAllocPoint) * sushiPerBlock
@@ -227,10 +265,11 @@ export default function useFarmRewards() {
         currency: NEXUS,
         rewardPerDay: rewardPerBlock * blocksPerDay,
         rewardPrice: prolPrice,
-        remainAmount:0,
+        remainAmount: 0,
       }
 
-      let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number }[] = rewardTokensOfPool.concat([defaultReward])
+      let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number }[] = [...[defaultReward], ...rewardTokensOfPool]
+      // rewardTokensOfPool.concat()
       if (pool.chef === Chef.MASTERCHEF_V2) {
         // override for mcv2...
         pool.owner.totalAllocPoint = masterChefV1TotalAllocPoint

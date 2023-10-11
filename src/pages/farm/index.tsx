@@ -22,8 +22,9 @@ import { useDexWarningOpen, useWalletModalToggle } from 'app/state/application/h
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useMasterChefRewardPerBlock, useMasterChefRewardReduction } from 'app/hooks/useFarmRewards'
 import React, { useState } from 'react'
-import { Arwes, ThemeProvider, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
+import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
   return show ? <>{children}</> : null;
@@ -69,6 +70,10 @@ export default function Farm(): JSX.Element {
   }
 
   const rewards = useFarmRewards()
+
+  const masterChefV1SushiPerBlock = useMasterChefRewardPerBlock()
+
+  const { reducitonRate, period, nextReductionBlock } = useMasterChefRewardReduction();
 
   const data = rewards.filter((farm) => {
     // @ts-ignore TYPE NEEDS FIXING
@@ -208,26 +213,52 @@ export default function Farm(): JSX.Element {
           </div> */}
 
           <Project animate header="🌟The Nexus Generator⚡">
-              {(anim: { entered: boolean }) => (
-                <AnimatedContent show={anim.entered}>
-                  <div className="mb-4 text-sm font-normal content md:text-base">
-                    <p>
+            {(anim: { entered: boolean }) => (
+              <AnimatedContent show={anim.entered}>
+                <div className="mb-4 text-sm font-normal content md:text-base">
+                  <p>
                     The Nexus Generator initiates with a generation of 5 NEXU per block as rewards. However, this quantity experiences a daily exponential decrease until the maximum supply is attained. The generated NEXU is proportionally allocated to Liquidity Providers who stake their NLP Tokens in the Nexus Generator. Additionally, 10% of the block rewards are automatically channeled to the Nexus Core Multi-Staking System whenever an interaction occurs within the Nexus Generator system.
-                    </p>
-                    <br/>
-                    <p>
-                      The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day! 
-                      The more NLPs you stake the more of the daily NEXU reward you will get!
-                    </p>
-                    <Link href="https://docs.xrp.thenexusportal.io/" target="_blank" rel="noreferrer">
-                      <span className="text-lg font-bold md:text-xl text-green">
-                        LEARN MORE
-                      </span>
-                    </Link>
-                  </div>
-                </AnimatedContent>
-              )}
-            </Project>
+                  </p>
+                  <br />
+                  <p>
+                    The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day!
+                    The more NLPs you stake the more of the daily NEXU reward you will get!
+                  </p>
+                  <Link href="https://docs.xrp.thenexusportal.io/" target="_blank" rel="noreferrer">
+                    <span className="text-lg font-bold md:text-xl text-green">
+                      LEARN MORE
+                    </span>
+                  </Link>
+                </div>
+              </AnimatedContent>
+            )}
+          </Project>
+
+          <Frame animate={true}
+            level={3}
+            corners={3}
+            className="w-full"
+            layer='primary'>
+            <div className='flex items-center justify-start gap-10 px-10'>
+              <Loading animate />
+              <div className='text-[24px] font-bold'>
+                NEXUS CYCLES
+              </div>
+            </div>
+            <div className="bg-transparent py-2 px-4 w-full sm:w-auto">
+              <div className="mb-4 text-sm font-normal content md:text-base">
+                <p>
+                  The supply generation of NEXU  decreases every day by a small percentage of about 0.0081%.
+                </p>
+              </div>
+              <div className="mb-4 text-sm font-normal content md:text-base">
+                <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate}%</span></p>
+                <p>Reduction Period: <span  className='font-bold text-green'>{period}</span></p>
+                <p>Current Nexu Per Block: <span  className='font-bold text-green'>{masterChefV1SushiPerBlock.toFixed(4)}</span></p>
+                <p>Next Reduction Supply Generation: <span  className='font-bold text-green'>{nextReductionBlock}</span></p>
+              </div>
+            </div>
+          </Frame>
 
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Search search={search} term={term} />

@@ -14,8 +14,9 @@ import { useCurrency } from 'app/hooks/Tokens'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-
+import React, { useCallback, useState } from 'react'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
+import { useExpertModeManager } from 'app/state/user/hooks'
 import { PairType } from './enum'
 import { useUserInfo } from './hooks'
 import useMasterChef from './useMasterChef'
@@ -45,6 +46,8 @@ const InvestmentDetails = ({ farm }) => {
   const addTransaction = useTransactionAdder()
   // const kashiPair = useKashiPair(farm.pair.id)
   const [pendingTx, setPendingTx] = useState(false)
+  const [txHash, setTxHash] = useState<string>('')
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const token0 = useCurrency(farm.pair.token0?.id)
   const token1 = useCurrency(farm.pair.token1?.id)
 
@@ -93,17 +96,21 @@ const InvestmentDetails = ({ farm }) => {
   // @ts-ignore TYPE NEEDS FIXING
   const secondaryRewardOnly = [ChainId.FUSE].includes(chainId)
 
+  const [isExpertMode] = useExpertModeManager()
+
   async function onHarvest() {
     setPendingTx(true)
+    setShowConfirm(true);
     try {
       const tx = await harvest(farm.id)
+      setTxHash(tx.hash);
       addTransaction(tx, {
         summary: i18n._(t`Harvest ${farm.pair.token0.name}/${farm.pair.token1?.name}`),
       })
     } catch (error) {
+      setPendingTx(false)
       console.error(error)
     }
-    setPendingTx(false)
   }
 
   const [, pair] = useV2Pair(token0 ?? undefined, token1 ?? undefined)
@@ -115,8 +122,48 @@ const InvestmentDetails = ({ farm }) => {
 
   const reserve1 = pair?.token1?.address === token1?.wrapped?.address ? pair?.reserve1 : pair?.reserve0
 
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+    setTxHash("")
+  }, [txHash])
+
   return (
     <>
+    <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={pendingTx}
+        hash={txHash}
+        content={
+          <ConfirmationModalContent
+            title={i18n._(t`You will receive`)}
+            onDismiss={handleDismissConfirmation}
+            topContent={null}
+            bottomContent={
+              <>
+                <div className='flex justify-start gap-4 flex-wrap text-left'>
+                  {/* @ts-ignore TYPE NEEDS FIXING */}
+                  {farm?.rewards?.map((reward, i) => {
+                    return (
+                      <div key={i} className="flex items-center gap-1">
+                          <CurrencyLogo currency={reward.currency} size={40} />
+                          <RewardRow
+                            value={pending[reward.currency.address]}
+                            symbol={reward.currency.symbol}
+                          />
+                      </div>
+                    )
+                  })}
+                </div>
+                <Button color="gradient" fullWidth onClick={()=>onHarvest()}>
+                  {i18n._(t`Havesting...`)}
+                </Button>
+              </>
+              }
+          />
+        }
+        pendingText={"Havesting..."}
+      />
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-2 bg-dark-1000/40">
         <div className="flex justify-between">
           <Typography variant="xs" weight={700} className="text-secondary">
@@ -185,7 +232,7 @@ const InvestmentDetails = ({ farm }) => {
           {/* @ts-ignore TYPE NEEDS FIXING */}
           {farm?.rewards?.map((reward, i) => {
             return (
-              <div  key={i} className="flex items-center gap-1">
+              <div key={i} className="flex items-center gap-1">
                 <div>
                   <CurrencyLogo currency={reward.currency} size={40} />
                 </div>
@@ -227,7 +274,7 @@ const InvestmentDetails = ({ farm }) => {
         fullWidth
         color="gradient"
         disabled={pendingTx}
-        onClick={onHarvest}
+        onClick={() => { isExpertMode ? onHarvest() : setShowConfirm(true) }}
       >
         {i18n._(t`HARNESS REWARDS`)}
       </Button>

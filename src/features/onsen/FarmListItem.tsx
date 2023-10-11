@@ -22,8 +22,8 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
   const token1 = useCurrency(farm.pair.token1?.id) ?? undefined
 
   return (
-    <div className={classNames(TABLE_TBODY_TR_CLASSNAME, 'grid grid-cols-5')} onClick={onClick}>
-      <div className={classNames('flex gap-2', TABLE_TBODY_TD_CLASSNAME(0, 5))}>
+    <div className={classNames(TABLE_TBODY_TR_CLASSNAME, 'grid grid-cols-6')} onClick={onClick}>
+      <div className={classNames('flex gap-2', TABLE_TBODY_TD_CLASSNAME(0, 6))}>
         {token0 && token1 && <CurrencyLogoArray currencies={[token0, token1]} dense size={32} />}
 
         {token0 && !token1 && <CurrencyLogo currency={token0} size={32} />}
@@ -46,12 +46,12 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
           )}
         </div>
       </div>
-      <div className={TABLE_TBODY_TD_CLASSNAME(1, 5)}>
-        <Typography weight={700} className="text-high-emphesis">
+      <div className={TABLE_TBODY_TD_CLASSNAME(1, 6)}>
+        <Typography weight={700} variant="sm" className="text-high-emphesis" component="span">
           {formatNumber(farm.tvl, false)}
         </Typography>
       </div>
-      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(2, 5))}>
+      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(2, 6))}>
         {/* @ts-ignore TYPE NEEDS FIXING */}
         {farm?.rewards?.map((reward, i) => (
           <Typography
@@ -66,9 +66,9 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
           </Typography>
         ))}
       </div>
-      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(3, 5))}>
+      <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(3, 6))}>
         {/* @ts-ignore TYPE NEEDS FIXING */}
-        {farm?.rewards?.map((reward, i) => {
+        {farm?.rewards.reverse()?.map((reward, i) => {
           if (reward.currency.symbol !== "NEXU") return null;
           return <Typography
             variant="sm"
@@ -81,9 +81,14 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
           </Typography>
         })}
       </div>
-      <div className={TABLE_TBODY_TD_CLASSNAME(4, 5)}>
-        <Typography weight={700} className="text-high-emphesis  gap-0.5 items-center pr-4">
-          {formatNumber(farm.rewards[farm.rewards.length - 1].rewardPerBlock.toFixed(4), false)}
+      <div className={TABLE_TBODY_TD_CLASSNAME(4, 6)}>
+        <Typography weight={700} variant="sm" className="text-high-emphesis  gap-0.5 items-center pr-4" component="span">
+          {formatNumber(farm.rewards[0].rewardPerBlock.toFixed(4), false)}
+        </Typography>
+      </div>
+      <div className={TABLE_TBODY_TD_CLASSNAME(5, 6)}>
+        <Typography weight={700} variant="sm" className="text-high-emphesis  gap-0.5 items-center pr-1" component="span">
+          {(farm.allocPoint * 100/farm.owner.totalAllocPoint).toFixed(1)}%
         </Typography>
       </div>
       {/* <div className={classNames('flex flex-col !items-end', TABLE_TBODY_TD_CLASSNAME(3, 4))}>

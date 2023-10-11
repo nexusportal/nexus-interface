@@ -60,9 +60,9 @@ const FarmList = ({ farms, term }) => {
         corners={3}
         className="width__set"
         layer='primary'>
-          <div className="grid grid-cols-5 min-w-[768px]">
+          <div className="grid grid-cols-6 min-w-[768px]">
             <div
-              className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 5))}
+              className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 6))}
               onClick={() => requestSort('pair.token0.symbol')}
             >
               <Typography variant="sm" weight={700}>
@@ -79,23 +79,34 @@ const FarmList = ({ farms, term }) => {
               </Typography>
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'tvl'} />
             </div>
-            <div className={classNames(TABLE_TR_TH_CLASSNAME(2, 5))}>
+            <div className={classNames(TABLE_TR_TH_CLASSNAME(2, 6))}
+            >
               <Typography variant="sm" weight={700}>
                 {i18n._(t`Rewards`)}
               </Typography>
             </div>
-            <div className={classNames(TABLE_TR_TH_CLASSNAME(3, 5))}>
+            <div className={classNames('flex gap-1 items-center cursor-pointer justify-end',TABLE_TR_TH_CLASSNAME(3, 6))}
+             onClick={() => requestSort('rewards[0].rewardPerDay')}
+            >
               <Typography variant="sm" weight={700}>
                 {i18n._(t`NexuPerDay`)}
               </Typography>
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'rewards[0].rewardPerDay'} />
             </div>
             <div
-              className={classNames('flex gap-0.5 items-center cursor-pointer justify-end pr-4', TABLE_TR_TH_CLASSNAME(4, 5))}
+              className={classNames('flex gap-0.5 items-center cursor-pointer justify-end pr-4', TABLE_TR_TH_CLASSNAME(4, 6))}
+              onClick={() => requestSort('rewards[0].rewardPerBlock')}
             >
               <Typography variant="sm" weight={700}>
                 {i18n._(t`NexuPerBlock`)}
               </Typography>
-              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'nexuPerBlock'} />
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'rewards[0].rewardPerBlock'} />
+            </div>
+            <div
+              className={classNames('flex gap-0.5 items-center cursor-pointer justify-end pr-4', TABLE_TR_TH_CLASSNAME(5, 6))}
+              onClick={() => requestSort('rewards[0].rewardPerBlock')}
+            >
+              <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'rewards[0].rewardPerBlock'} />
             </div>
           </div>
         </Frame>
