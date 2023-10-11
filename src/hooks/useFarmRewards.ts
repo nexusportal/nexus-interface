@@ -227,6 +227,7 @@ export default function useFarmRewards() {
         currency: NEXUS,
         rewardPerDay: rewardPerBlock * blocksPerDay,
         rewardPrice: prolPrice,
+        remainAmount:0,
       }
 
       let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number }[] = rewardTokensOfPool.concat([defaultReward])

@@ -181,20 +181,29 @@ const InvestmentDetails = ({ farm }) => {
             {/* {formatNumber(rewardValue, true)} */}
           </Typography>
         </div>
-        <div className='flex justify-start gap-4 flex-wrap'>
+        <div className='flex justify-start gap-4 flex-wrap text-left'>
           {/* @ts-ignore TYPE NEEDS FIXING */}
           {farm?.rewards?.map((reward, i) => {
             return (
-              <div>
-                <div className="flex items-center gap-1" key={i}>
-                  <CurrencyLogo currency={reward.currency} size={30} />
+              <div  key={i} className="flex items-center gap-1">
+                <div>
+                  <CurrencyLogo currency={reward.currency} size={40} />
+                </div>
+                <div>
                   <RewardRow
                     value={pending[reward.currency.address]}
                     symbol={reward.currency.symbol}
                   />
-                </div>
-                <div className="text-right">
-                  Rate: {reward.rewardPerBlock.toFixed(4)}
+                  <div className="text-[11px]">
+                    Your Rate: <span className='font-bold'>{(reward.rewardPerBlock * parseFloat(formatNumber(stakedAmount?.toSignificant(6))) / parseFloat(farm.tvl)).toFixed(4)}
+                      ={(parseFloat(formatNumber(stakedAmount?.toSignificant(6))) * 100 / parseFloat(farm.tvl)).toFixed(2)}%</span>
+                  </div>
+                  <div className="text-[11px]">
+                    Rate:<span className='font-bold'> {reward.rewardPerBlock.toFixed(4)}</span>
+                  </div>
+                  <div className="text-[11px]">
+                    Max: <span className='font-bold'>{reward.currency.symbol !== "NEXU" ? reward.remainAmount.toFixed(0) : "1,100,000,000"}</span>
+                  </div>
                 </div>
               </div>
             )

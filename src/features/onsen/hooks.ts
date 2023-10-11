@@ -85,13 +85,15 @@ export function useRewardTokens(farm) {
   const result = useSingleCallResult(args ? contract : null, 'getRewardTokenInfo', args)?.result;
   const value = result?.[0];
   // @ts-ignore TYPE NEEDS FIXING
-  let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number }[] = value?.map((item, ind) => {
+  let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number, remainAmount: number }[] = value?.map((item, ind) => {
     let re = parseFloat(ethers.utils.formatEther(item.distRate));
+    let remainAmount = parseFloat(ethers.utils.formatEther(item.remainAmount));
     let token = getTokenInfo(item.rewardToken);
     return {
       rewardPerBlock: re,
       rewardPerDay: 24 * 60 * 60 * re,
       rewardPrice: 0,
+      remainAmount:remainAmount,
       currency: new Token(ChainId.XRPL, item.rewardToken, token?.decimals ?? 18, token?.symbol ?? "Unknown", token?.name ?? "Unknown Token"),
       token: token?.symbol ?? "Unknown",
       icon: token?.logoURI ?? "Unknown.png",
