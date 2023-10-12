@@ -53,7 +53,7 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
       </div>
       <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(2, 6))}>
         {/* @ts-ignore TYPE NEEDS FIXING */}
-        {farm?.rewards?.map((reward, i) => (
+        {farm?.rewards.toReversed()?.map((reward, i) => (
           <Typography
             variant="sm"
             weight={700}
