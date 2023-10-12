@@ -68,7 +68,7 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
       </div>
       <div className={classNames('flex !items-end justify-end -space-x-1', TABLE_TBODY_TD_CLASSNAME(3, 6))}>
         {/* @ts-ignore TYPE NEEDS FIXING */}
-        {farm?.rewards.reverse()?.map((reward, i) => {
+        {farm?.rewards.toReversed()?.map((reward, i) => {
           if (reward.currency.symbol !== "NEXU") return null;
           return <Typography
             variant="sm"
