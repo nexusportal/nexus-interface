@@ -234,31 +234,39 @@ export default function Farm(): JSX.Element {
             )}
           </Project>
 
+          {/* <Project animate header={"NEXUS CYCLES"}>
+            {(anim: { entered: boolean }) => (
+              <AnimatedContent show={anim.entered}> */}
           <Frame animate={true}
             level={3}
             corners={3}
             className="w-full"
             layer='primary'>
-            <div className='flex items-center justify-start gap-10 px-10'>
-              <Loading animate />
-              <div className='text-[24px] font-bold'>
-                NEXUS CYCLES
+            <div className='py-2 w-full sm:w-auto bg-transparent'>
+              <div className='flex items-center border-none border-b justify-start gap-10 px-10'>
+                <Loading animate />
+                <div className='text-[24px] font-bold'>
+                  NEXUS CYCLES
+                </div>
               </div>
-            </div>
-            <div className="bg-transparent py-2 px-4 w-full sm:w-auto">
-              <div className="mb-4 text-sm font-normal content md:text-base">
-                <p>
-                  The supply generation of NEXU  decreases every day by a small percentage of about 0.0081%.
-                </p>
-              </div>
-              <div className="mb-4 text-sm font-normal content md:text-base">
-                <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate}%</span></p>
-                <p>Reduction Period: <span  className='font-bold text-green'>{period}</span></p>
-                <p>Current Nexu Per Block: <span  className='font-bold text-green'>{masterChefV1SushiPerBlock.toFixed(4)}</span></p>
-                <p>Next Reduction Supply Generation: <span  className='font-bold text-green'>{nextReductionBlock}</span></p>
+              <div className="bg-transparent py-4 px-4 w-full sm:w-auto">
+                <div className="mb-4 text-sm font-normal content md:text-base">
+                  <p>
+                    The supply generation of NEXU  decreases every day by a small percentage of about 0.0081%.
+                  </p>
+                </div>
+                <div className="mb-4 text-sm font-normal content md:text-base">
+                  <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate}%</span></p>
+                  <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
+                  <p>Current Nexu Per Block: <span className='font-bold text-green'>{masterChefV1SushiPerBlock.toFixed(4)}</span></p>
+                  <p>Next Reduction NEXU Block: <span className='font-bold text-green'>{nextReductionBlock}</span></p>
+                </div>
               </div>
             </div>
           </Frame>
+          {/* </AnimatedContent>
+            )}
+          </Project> */}
 
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Search search={search} term={term} />

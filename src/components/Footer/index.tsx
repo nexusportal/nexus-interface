@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro'
+ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { DiscordIcon, GithubIcon, TwitterIcon } from 'app/components/Icon'
 import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
@@ -28,7 +28,7 @@ const Footer = () => {
     <div className="z-10 w-full  mt-10">
       <Frame animation={true}>
         <Container maxWidth="7xl" className="px-6 mx-auto">
-          <div className="grid grid-cols-2 gap-2 pt-8 xs:px-6 sm:gap-3">
+          <div className="gap-3 pt-8 xs:px-6 sm:gap-4 flex justify-center">
             <div className="flex flex-col col-span-2 gap-3 sm:col-span-1">
               {/* <div className="flex items-center justify-start gap-2">
               <div className="">
@@ -42,9 +42,9 @@ const Footer = () => {
               {i18n._(t`Our community is building a comprehensive decentralized trading platform for the future of finance. Join
               us!`)}
             </Typography> */}
-              <div className="flex items-center gap-4">
-                <a href="https://twitter.com/PoweredByNEXUS" target="_blank" rel="noreferrer">
-                  <TwitterIcon width={16} className="text-low-emphesis" />
+              <div className="flex flex-wrap justify-between items-center gap-4">
+                <a href="https://twitter.com/PoweredByNEXUS" className='' target="_blank" rel="noreferrer">
+                  <TwitterIcon width={24} className="text-low-emphesis max-w-none" />
                 </a>
 
                 {/* <a href="https://t.me/NexusOffical" target="_blank" rel="noreferrer">
@@ -55,11 +55,11 @@ const Footer = () => {
               </a> */}
 
                 <a href="https://discord.com/invite/nexusportal" target="_blank" rel="noreferrer">
-                  <DiscordIcon width={16} className="text-low-emphesis" />
+                  <DiscordIcon width={24} className="text-low-emphesis" />
                 </a>
 
                 <a href="https://github.com/nexusportal" target="_blank" rel="noreferrer">
-                  <GithubIcon width={16} className="text-low-emphesis" />
+                  <GithubIcon width={24} className="text-low-emphesis" />
                 </a>
 
                 <Link href="/portfolio" passHref={true}>
@@ -204,10 +204,10 @@ const Footer = () => {
             </a>
           </div> */}
 
-            <div className="flex flex-row justify-start gap-1 text-right sm:justify-end">
+            <div className="flex flex-row justify-center gap-1 text-right sm:justify-end">
               <div className="flex items-center ">
                 <a href="https://xrpl.org/" target="_blank" rel="noreferrer">
-                  <img src={LogoImage.src} className={'h-[50px]'} alt="Logo" />
+                  <img src={LogoImage.src} className={'h-[50px] max-w-none'} alt="Logo" />
                 </a>
               </div>
               {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">
