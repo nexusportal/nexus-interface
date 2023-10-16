@@ -25,6 +25,7 @@ import { useRouter } from 'next/router'
 import { useMasterChefRewardPerBlock, useMasterChefRewardReduction } from 'app/hooks/useFarmRewards'
 import React, { useState } from 'react'
 import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
+import useCurrentBlock from "app/hooks/useCurrentBlock"
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
   return show ? <>{children}</> : null;
@@ -47,6 +48,8 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
 export default function Farm(): JSX.Element {
   const { i18n } = useLingui()
   const { chainId } = useActiveWeb3React()
+
+  const currentBlock = useCurrentBlock();
 
   const router = useRouter()
   const type = router.query.filter === null ? 'all' : (router.query.filter as string)
@@ -241,14 +244,17 @@ export default function Farm(): JSX.Element {
             level={3}
             corners={3}
             className="w-full"
-            layer='primary'>
-            <div className='py-2 w-full sm:w-auto bg-transparent'>
-              <div className='flex items-center border-none border-b justify-start gap-10 px-10'>
-                <Loading animate />
-                <div className='text-[24px] font-bold'>
-                  NEXUS CYCLES
+            layer='primary'
+          >
+            <div className='w-full sm:w-auto bg-transparent'>
+              <Frame className='!p-0 !pb-1'>
+                <div className="flex items-center justify-start gap-10 px-10">
+                  <Loading animate />
+                  <div className='text-[24px] font-bold'>
+                    NEXUS CYCLES
+                  </div>
                 </div>
-              </div>
+              </Frame>
               <div className="bg-transparent py-4 px-4 w-full sm:w-auto">
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
@@ -259,7 +265,16 @@ export default function Farm(): JSX.Element {
                   <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate}%</span></p>
                   <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
                   <p>Current Nexu Per Block: <span className='font-bold text-green'>{masterChefV1SushiPerBlock.toFixed(4)}</span></p>
-                  <p>Next Reduction NEXU Block: <span className='font-bold text-green'>{nextReductionBlock}</span></p>
+                  <p>Next Reduction NEXU Block: <span className='font-bold text-green'>{nextReductionBlock + Math.floor((period + currentBlock - nextReductionBlock) / period) * period}</span></p>
+                </div>
+                <div className="w-full h-5 bg-gray-400">
+                  <div className="bg-green h-5 max-w-[100%]"
+                    style={{
+                      width: `${(
+                        ((currentBlock - nextReductionBlock - Math.floor((currentBlock - nextReductionBlock) / period) * period) * 100) / period
+                      ).toFixed(0)}%`,
+                    }}>
+                  </div>
                 </div>
               </div>
             </div>

@@ -96,11 +96,10 @@ const Desktop: FC = () => {
     };
 
     fetchNexuPrice();
-
-    const interval = setInterval(() => {
-      fetchNexuPrice();
-    }, 600000); // 10000 milliseconds = 10 seconds
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   fetchNexuPrice();
+    // }, 600000); // 10000 milliseconds = 10 seconds
+    // return () => clearInterval(interval);
 
   }, []);
 

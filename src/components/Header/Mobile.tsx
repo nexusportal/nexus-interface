@@ -56,11 +56,11 @@ const Mobile: FC = () => {
       }
     };
 
-    fetchXrpPrice();
-    const interval = setInterval(() => {
-      fetchXrpPrice();
-    }, 10000); // 10000 milliseconds = 10 seconds
-    return () => clearInterval(interval);
+    // fetchXrpPrice();
+    // const interval = setInterval(() => {
+    //   fetchXrpPrice();
+    // }, 10000); // 10000 milliseconds = 10 seconds
+    // return () => clearInterval(interval);
 
   }, []);
 

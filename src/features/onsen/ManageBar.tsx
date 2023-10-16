@@ -20,12 +20,13 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useAppDispatch } from 'app/state/hooks'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useCurrencyBalance } from 'app/state/wallet/hooks'
-import React, { useState } from 'react'
-
+import React, { useState, useEffect, useCallback } from 'react'
+import { useExpertModeManager } from 'app/state/user/hooks'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
 import { Chef, PairType } from './enum'
 import { useUserInfo } from './hooks'
 import useMasterChef from './useMasterChef'
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 import { parseEther } from '@ethersproject/units'
 
 const APPROVAL_ADDRESSES = {
@@ -56,9 +57,14 @@ const ManageBar = ({ farm }) => {
   const { setContent } = useFarmListItemDetailsModal()
   const [toggle, setToggle] = useState(true)
   const [depositValue, setDepositValue] = useState<string>()
+  const [pendingTx, setPendingTx] = useState(false)
+  const [txHash, setTxHash] = useState<string>('')
+  const [showConfirm, setShowConfirm] = useState(false)
   const [withdrawValue, setWithdrawValue] = useState<string>()
   const { deposit, withdraw } = useMasterChef(farm.chef)
   const addTransaction = useTransactionAdder()
+  const [isExpertMode] = useExpertModeManager()
+  const [isWithdraw, setIsWithdraw]  = useState(false);
   const liquidityToken = new Token(
     // @ts-ignore TYPE NEEDS FIXING
     chainId || 1,
@@ -78,18 +84,118 @@ const ManageBar = ({ farm }) => {
   const depositError = !parsedDepositValue
     ? 'Enter an amount'
     : balance?.lessThan(parsedDepositValue)
-    ? 'Insufficient balance'
-    : undefined
+      ? 'Insufficient balance'
+      : undefined
   const isDepositValid = !depositError
   const withdrawError = !parsedWithdrawValue
     ? 'Enter an amount'
     : // @ts-ignore TYPE NEEDS FIXING
     stakedAmount?.lessThan(parsedWithdrawValue)
-    ? 'Insufficient balance'
-    : undefined
+      ? 'Insufficient balance'
+      : undefined
   const isWithdrawValid = !withdrawError
 
-  return (
+  const onSubmit = async (isWithdraw: boolean) => {
+    console.log(isWithdraw)
+    if (isWithdraw) await onWithdraw();
+    else await onDeposit();
+  }
+
+  const onWithdraw = async () => {
+    try {
+      // KMP decimals depend on asset, NLP is always 18
+      // @ts-ignore TYPE NEEDS FIXING
+      setPendingTx(true)
+      setShowConfirm(true);
+      const tx = await withdraw(farm.id, BigNumber.from(parsedWithdrawValue?.quotient.toString()))
+      setTxHash(tx.hash);
+      if (tx?.hash) {
+        setContent(
+          <HeadlessUiModal.SubmittedModalContent
+            txHash={tx?.hash}
+            header={i18n._(t`Success!`)}
+            subheader={i18n._(t`Success! Transaction successfully submitted`)}
+            onDismiss={() => dispatch(setOnsenModalOpen(false))}
+          />
+        )
+        addTransaction(tx, {
+          summary: `Withdraw ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
+        })
+      }
+    } catch (error) {
+      setPendingTx(false)
+      console.error(error)
+    }
+  }
+
+  const onDeposit = async () => {
+    try {
+      // KMP decimals depend on asset, NLP is always 18
+      // @ts-ignore TYPE NEEDS FIXING
+      setPendingTx(true)
+      setShowConfirm(true);
+
+      const tx = await deposit(farm.id, BigNumber.from(parsedDepositValue?.quotient.toString()))
+      setTxHash(tx.hash);
+      if (tx?.hash) {
+        setContent(
+          <HeadlessUiModal.SubmittedModalContent
+            txHash={tx?.hash}
+            header={i18n._(t`Success!`)}
+            subheader={i18n._(t`Success! Transaction successfully submitted`)}
+            onDismiss={() => dispatch(setOnsenModalOpen(false))}
+          />
+        )
+        addTransaction(tx, {
+          summary: `Deposit ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
+        })
+      }
+    } catch (error) {
+      setPendingTx(false)
+      console.error(error)
+    }
+  }
+
+  const setShowConfirmModal = (val:boolean) => {
+    setShowConfirm(true);
+    setIsWithdraw(val);
+  }
+
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+  }, [txHash])
+
+  useEffect(() => {
+    if (!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+
+  if (showConfirm) return (
+    <>
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={pendingTx}
+        hash={txHash}
+        content={
+          <ConfirmationModalContent
+            title={i18n._(t`Processing`)}
+            onDismiss={handleDismissConfirmation}
+            topContent={null}
+            bottomContent={
+              <>
+                <Button color="gradient" fullWidth onClick={() => onSubmit(isWithdraw)}>
+                  {i18n._(t`Submit Request`)}
+                </Button>
+              </>
+            }
+          />
+        }
+        pendingText={"Sumbiting Request..."}
+      />
+    </>
+  )
+  else return (
     <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-1000/40">
         <div className="flex flex-col gap-2">
@@ -122,12 +228,12 @@ const ManageBar = ({ farm }) => {
                 toggle
                   ? balance
                     ? // @ts-ignore TYPE NEEDS FIXING
-                      setDepositValue(balance.multiply(multiplier).divide(100).toExact())
+                    setDepositValue(balance.multiply(multiplier).divide(100).toExact())
                     : undefined
                   : stakedAmount
-                  ? // @ts-ignore TYPE NEEDS FIXING
+                    ? // @ts-ignore TYPE NEEDS FIXING
                     setWithdrawValue(stakedAmount.multiply(multiplier).divide(100).toExact())
-                  : undefined
+                    : undefined
               }}
               className={classNames(
                 'text-md border border-opacity-50',
@@ -165,30 +271,7 @@ const ManageBar = ({ farm }) => {
           <Button
             fullWidth
             color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
-            onClick={async () => {
-              try {
-                // KMP decimals depend on asset, NLP is always 18
-                // @ts-ignore TYPE NEEDS FIXING
-
-
-                const tx = await deposit(farm.id, BigNumber.from(parsedDepositValue?.quotient.toString()))
-                if (tx?.hash) {
-                  setContent(
-                    <HeadlessUiModal.SubmittedModalContent
-                      txHash={tx?.hash}
-                      header={i18n._(t`Success!`)}
-                      subheader={i18n._(t`Success! Transaction successfully submitted`)}
-                      onDismiss={() => dispatch(setOnsenModalOpen(false))}
-                    />
-                  )
-                  addTransaction(tx, {
-                    summary: `Deposit ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
-                  })
-                }
-              } catch (error) {
-                console.error(error)
-              }
-            }}
+            onClick={() => { isExpertMode ? onSubmit(false) : setShowConfirmModal(false) }}
             disabled={!isDepositValid}
           >
             {depositError || i18n._(t`Confirm Deposit`)}
@@ -200,28 +283,7 @@ const ManageBar = ({ farm }) => {
         <Button
           fullWidth
           color={!isWithdrawValid && !!parsedWithdrawValue ? 'red' : 'blue'}
-          onClick={async () => {
-            try {
-              // KMP decimals depend on asset, NLP is always 18
-              // @ts-ignore TYPE NEEDS FIXING
-              const tx = await withdraw(farm.id, BigNumber.from(parsedWithdrawValue?.quotient.toString()))
-              if (tx?.hash) {
-                setContent(
-                  <HeadlessUiModal.SubmittedModalContent
-                    txHash={tx?.hash}
-                    header={i18n._(t`Success!`)}
-                    subheader={i18n._(t`Success! Transaction successfully submitted`)}
-                    onDismiss={() => dispatch(setOnsenModalOpen(false))}
-                  />
-                )
-                addTransaction(tx, {
-                  summary: `Withdraw ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
-                })
-              }
-            } catch (error) {
-              console.error(error)
-            }
-          }}
+          onClick={() => { isExpertMode ? onSubmit(true) : setShowConfirmModal(true) }}
           disabled={!isWithdrawValid}
         >
           {withdrawError || i18n._(t`Confirm Withdraw`)}

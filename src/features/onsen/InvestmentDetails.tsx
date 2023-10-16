@@ -14,7 +14,7 @@ import { useCurrency } from 'app/hooks/Tokens'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useRouter } from 'next/router'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
 import { useExpertModeManager } from 'app/state/user/hooks'
 import { PairType } from './enum'
@@ -124,12 +124,16 @@ const InvestmentDetails = ({ farm }) => {
 
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)
-    setTxHash("")
   }, [txHash])
 
-  return (
+  useEffect(()=>{
+    if(!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+
+  if (showConfirm) return (
     <>
-    <TransactionConfirmationModal
+      <TransactionConfirmationModal
         isOpen={showConfirm}
         onDismiss={handleDismissConfirmation}
         attemptingTxn={pendingTx}
@@ -146,11 +150,11 @@ const InvestmentDetails = ({ farm }) => {
                   {farm?.rewards?.map((reward, i) => {
                     return (
                       <div key={i} className="flex items-center gap-1">
-                          <CurrencyLogo currency={reward.currency} size={40} />
-                          <RewardRow
-                            value={pending[reward.currency.address]}
-                            symbol={reward.currency.symbol}
-                          />
+                        <CurrencyLogo currency={reward.currency} size={40} />
+                        <RewardRow
+                          value={pending[reward.currency.address]}
+                          symbol={reward.currency.symbol}
+                        />
                       </div>
                     )
                   })}
@@ -159,11 +163,16 @@ const InvestmentDetails = ({ farm }) => {
                   {i18n._(t`Havesting...`)}
                 </Button>
               </>
-              }
+            }
           />
         }
         pendingText={"Havesting..."}
       />
+    </>
+  )
+
+  else return (
+    <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-2 bg-dark-1000/40">
         <div className="flex justify-between">
           <Typography variant="xs" weight={700} className="text-secondary">

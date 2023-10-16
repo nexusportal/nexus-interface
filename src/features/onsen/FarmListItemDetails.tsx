@@ -36,6 +36,10 @@ const FarmListItemDetails = ({ farm, onDismiss }) => {
     }
   }, [])
 
+  const handleOpenModalView = (index:number) => {
+    dispatch(setOnsenModalView())
+  }
+
   // console.log('FarmListItemDetails', farm, PairType.SINGLE)
 
   return (
