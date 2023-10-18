@@ -237,11 +237,7 @@ export default function Farm(): JSX.Element {
             )}
           </Project>
 
-          {/* <Project animate header={"NEXUS CYCLES"}>
-            {(anim: { entered: boolean }) => (
-              <AnimatedContent show={anim.entered}> */}
           <Frame animate={true}
-            level={3}
             corners={3}
             className="w-full"
             layer='primary'
@@ -250,10 +246,11 @@ export default function Farm(): JSX.Element {
               <Frame className='!p-0 !pb-1'>
                 <div className="flex items-center justify-start gap-10 px-10">
                   <Loading animate />
-                  <div className='text-[24px] font-bold'>
+                  <Heading className="!m-0">
                     NEXUS CYCLES
-                  </div>
+                  </Heading>
                 </div>
+
               </Frame>
               <div className="bg-transparent py-4 px-4 w-full sm:w-auto">
                 <div className="mb-4 text-sm font-normal content md:text-base">
@@ -262,12 +259,12 @@ export default function Farm(): JSX.Element {
                   </p>
                 </div>
                 <div className="mb-4 text-sm font-normal content md:text-base">
-                  <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate}%</span></p>
+                  <p>Reduction Rate: <span className='font-bold text-green'>{(100-reducitonRate).toFixed(4)}%</span></p>
                   <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
                   <p>Current Nexu Per Block: <span className='font-bold text-green'>{masterChefV1SushiPerBlock.toFixed(4)}</span></p>
                   <p>Next Reduction NEXU Block: <span className='font-bold text-green'>{nextReductionBlock + Math.floor((period + currentBlock - nextReductionBlock) / period) * period}</span></p>
                 </div>
-                <div className="w-full h-5 bg-gray-400">
+                <div className="w-full h-5 bg-gray-400 opacity-50">
                   <div className="bg-green h-5 max-w-[100%]"
                     style={{
                       width: `${(

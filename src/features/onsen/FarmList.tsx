@@ -55,11 +55,11 @@ const FarmList = ({ farms, term }) => {
       <div
         className={classNames(TABLE_WRAPPER_DIV_CLASSNAME)}
         style={{ overflow: "scroll", padding: "10px" }} // Add your desired padding value here
-      >        <Frame animate={true}
-        level={3}
-        corners={3}
-        className="width__set"
-        layer='primary'>
+      >
+        <Frame animate={true}
+          corners={3}
+          className="width__set"
+          layer='primary'>
           <div className="grid grid-cols-6 min-w-[768px]">
             <div
               className={classNames('flex gap-1 items-center cursor-pointer', TABLE_TR_TH_CLASSNAME(0, 6))}
@@ -111,7 +111,6 @@ const FarmList = ({ farms, term }) => {
           </div>
         </Frame>
         <Frame animate={true}
-          level={3}
           corners={3}
 
           className="mt-3 width__set"
