@@ -29,8 +29,7 @@ export const useProStakingDistributeAction = () => {
     async () => {
       try {
         const tx = await distributor?.distribute()
-
-        return addTransaction(tx, { summary: 'Distribute To MultiStaking' })
+        return tx;
       } catch (e) {
         return e
       }
@@ -61,8 +60,7 @@ export const useProStakingActions = () => {
     async (amount: BigNumber, lockMode: number) => {
       try {
         const tx = await prostakingContract?.deposit(amount, lockMode)
-
-        return addTransaction(tx, { summary: 'Deposit In MultiStaking' })
+        return tx;
       } catch (e) {
         return e
       }
@@ -73,8 +71,7 @@ export const useProStakingActions = () => {
   const harvest = useCallback(async () => {
     try {
       const tx = await prostakingContract?.harvest()
-
-      return addTransaction(tx, { summary: 'Harvest From MultiStaking' })
+      return tx
     } catch (e) {
       return e
     }
@@ -84,8 +81,7 @@ export const useProStakingActions = () => {
     async (amount: BigNumber) => {
       try {
         const tx = await prostakingContract?.withdraw(amount)
-
-        return addTransaction(tx, { summary: 'Withdraw From MultiStaking' })
+        return tx
       } catch (e) {
         return e
       }
@@ -97,8 +93,7 @@ export const useProStakingActions = () => {
     async (amount: BigNumber) => {
       try {
         const tx = await prostakingContract?.increaseLockAmount(amount)
-
-        return addTransaction(tx, { summary: 'Increase Lock Amount' })
+        return tx
       } catch (e) {
         return e
       }
@@ -124,7 +119,7 @@ export const useProStakingActions = () => {
       try {
         const tx = await prostakingContract?.NFTWithdraw(tokenId)
 
-        return addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
+        return tx
       } catch (e) {
         return e
       }
@@ -136,8 +131,7 @@ export const useProStakingActions = () => {
     async (tokenIds: number[]) => {
       try {
         const tx = await prostakingContract?.batchNFTStake(tokenIds)
-
-        return addTransaction(tx, { summary: 'Stake Nexus NFT' })
+        return tx;
       } catch (e) {
         return e
       }
@@ -149,8 +143,7 @@ export const useProStakingActions = () => {
     async (tokenIds: number[]) => {
       try {
         const tx = await prostakingContract?.batchNFTWithdraw(tokenIds)
-
-        return addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
+        return tx
       } catch (e) {
         return e
       }
@@ -162,8 +155,7 @@ export const useProStakingActions = () => {
     async (lockMode: number) => {
       try {
         const tx = await prostakingContract?.extendLockTime(lockMode)
-
-        return addTransaction(tx, { summary: 'Extend Lock Time' })
+        return tx
       } catch (e) {
         return e
       }
@@ -175,8 +167,7 @@ export const useProStakingActions = () => {
     async (lockMode: number) => {
       try {
         const tx = await prostakingContract?.shortenLockTime(lockMode)
-
-        return addTransaction(tx, { summary: 'Shorten Lock Time' })
+        return tx
       } catch (e) {
         return e
       }
@@ -515,7 +506,7 @@ export function useOracleNFTApprove() {
   const approveAll = useCallback(async () => {
     try {
       const tx = await contract?.setApprovalForAll(NEXUS_NFT_MULTISTAKING_ADDRESS, true)
-      return addTransaction(tx, { summary: 'Approve All Nexus NFTs For Multistaking' })
+      return tx;
     } catch (e) {
       return e
     }

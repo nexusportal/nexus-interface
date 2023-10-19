@@ -19,11 +19,13 @@ import {
   useProStakingUserNFTCount,
   useProUserTotalReward,
 } from 'app/hooks/useProstaking'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
+import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import { isArray } from 'lodash'
 import CountDown from 'pages/multistaking/CountDown'
-import React, { FC, useEffect, useMemo, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState, useCallback } from 'react'
 
 import NEXUSLogo from '../../../public/NEXUS.png';
 import NEXUSLogo2 from '../../../public/NEXUSCOL.png';
@@ -62,6 +64,9 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   const [toggle, setToggle] = useState(true)
   const [depositValue, setDepositValue] = useState<string>()
   const [withdrawValue, setWithdrawValue] = useState<string>()
+  const [pendingTx, setPendingTx] = useState(false)
+  const [txHash, setTxHash] = useState<string>('')
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
 
   const marks = [
     {
@@ -121,6 +126,8 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
   const nftCount = useProStakingUserNFTCount()
 
+  const addTransaction = useTransactionAdder()
+
   const parsedDepositValue = tryParseAmount(depositValue, liquidityToken)
   const parsedWithdrawValue = tryParseAmount(withdrawValue, liquidityToken)
   // @ts-ignore TYPE NEEDS FIXING
@@ -154,22 +161,18 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
   const { deposit, withdraw, harvest, increaseLockAmount, extendLockMode, shortenLockMode } = useProStakingActions()
 
-  const [pendingTx, setPendingTx] = useState(false)
-
   const proHarvest = async () => {
-    if (!account) {
-      return
-    } else {
-      setPendingTx(true)
-
-      const success = await sendTx(() => harvest())
-      if (!success) {
-        setPendingTx(false)
-        return
-      }
-
-      setPendingTx(false)
+    setPendingTx(true)
+    setShowConfirm(true);
+    try {
+      const tx = await harvest()
+      setTxHash(tx.hash);
+      addTransaction(tx, { summary: 'Harvest From MultiStaking' })
+    } catch (error) {
+      console.log(error)
+      setShowConfirm(false)
     }
+    setPendingTx(false)
   }
 
   const isLockAmount = useMemo(() => {
@@ -186,21 +189,22 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
       return
     } else {
       setPendingTx(true)
+      setShowConfirm(true);
+      try {
+        const amount = BigNumber.from(parsedDepositValue?.quotient.toString())
 
-      const amount = BigNumber.from(parsedDepositValue?.quotient.toString())
-
-      if (stakedAmount && stakedAmount.greaterThan(ZERO)) {
-        const success = await sendTx(() => increaseLockAmount(amount))
-        if (!success) {
-          setPendingTx(false)
-          return
+        if (stakedAmount && stakedAmount.greaterThan(ZERO)) {
+          const tx = await increaseLockAmount(amount)
+          setTxHash(tx.hash);
+          addTransaction(tx, { summary: 'Increase Lock Amount' })
+        } else {
+          const tx = await deposit(amount, lockMode)
+          setTxHash(tx.hash);
+          addTransaction(tx, { summary: 'Deposit In MultiStaking' })
         }
-      } else {
-        const success = await sendTx(() => deposit(amount, lockMode))
-        if (!success) {
-          setPendingTx(false)
-          return
-        }
+      } catch (error) {
+        console.log(error)
+        setShowConfirm(false)
       }
       setPendingTx(false)
     }
@@ -227,21 +231,23 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
       return
     } else {
 
-      if (freeLockTime) {
+      try {
         setPendingTx(true)
+        setShowConfirm(true);
+        if (freeLockTime) {
+          const amount = BigNumber.from(parsedWithdrawValue?.quotient.toString())
 
-        const amount = BigNumber.from(parsedWithdrawValue?.quotient.toString())
-
-        const success = await sendTx(() => withdraw(amount))
-        if (!success) {
-          setPendingTx(false)
-          return
+          const tx = await withdraw(amount)
+          setTxHash(tx.hash);
+          addTransaction(tx, { summary: 'Withdraw From MultiStaking' })
+        } else {
+          setShowConfirmation(true);
         }
-
-        setPendingTx(false)
-      } else {
-        setShowConfirmation(true);
+      } catch (error) {
+        console.log(error)
+        setShowConfirm(false)
       }
+      setPendingTx(false)
     }
   }
 
@@ -252,16 +258,17 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
       return
     } else {
       setPendingTx(true)
+      setShowConfirm(true);
+      try {
+        const amount = BigNumber.from(parsedWithdrawValue?.quotient.toString())
 
-      const amount = BigNumber.from(parsedWithdrawValue?.quotient.toString())
-
-      const success = await sendTx(() => withdraw(amount))
-
-      if (!success) {
-        setPendingTx(false)
-        return
+        const tx = await withdraw(amount)
+        setTxHash(tx.hash);
+        addTransaction(tx, { summary: 'Withdraw From MultiStaking' })
+      } catch (error) {
+        setShowConfirm(false)
+        console.error(error)
       }
-
       setPendingTx(false)
       setShowConfirmation(false)
     }
@@ -278,25 +285,35 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
       return
     } else {
       if (lockMode > userLockMode) {
+
         setPendingTx(true)
-        const success = await sendTx(() => extendLockMode(lockMode))
-        if (!success) {
-          setPendingTx(false)
-          return
+        setShowConfirm(true);
+        try {
+          const tx = await extendLockMode(lockMode)
+          setTxHash(tx.hash);
+          addTransaction(tx, { summary: 'Extend Lock Time' })
+        } catch (error) {
+          setShowConfirm(false)
+          console.error(error)
         }
+        setPendingTx(false)
       } else {
         if (!freeLockTime) {
           return
         }
         setPendingTx(true)
-        const success = await sendTx(() => shortenLockMode(lockMode))
-        if (!success) {
-          setPendingTx(false)
-          return
+        setShowConfirm(true);
+        try {
+          const tx = await shortenLockMode(lockMode)
+          setTxHash(tx.hash);
+          addTransaction(tx, { summary: 'Shorten Lock Time' })
+        } catch (error) {
+          setShowConfirm(false)
+          console.error(error)
         }
-      }
+        setPendingTx(false)
 
-      setPendingTx(false)
+      }
     }
   }
 
@@ -356,8 +373,35 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
   const getTokensOfPair = (nlpAddress: string) => swapPairs.find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
 
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+  }, [txHash])
 
-  return (
+  useEffect(() => {
+    if (!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+
+  if (showConfirm) return (
+    <>
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={pendingTx}
+        hash={txHash}
+        content={
+          <ConfirmationModalContent
+            title={i18n._(t`You will receive`)}
+            onDismiss={handleDismissConfirmation}
+            topContent={null}
+            bottomContent={null}
+          />
+        }
+        pendingText={"Submitting..."}
+      />
+    </>
+  )
+  else return (
     <>
       <div className="flex flex-wrap mt-4 prophet-staking-wrapper">
 
@@ -501,7 +545,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                   <Button
                     fullWidth
                     color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
-                    onClick={proDeposit}
+                    onClick={() => proDeposit()}
                     disabled={!isDepositValid || pendingTx}
                   >
                     {depositError || depositButtonString}
@@ -513,7 +557,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                 <Button
                   fullWidth
                   color={!isWithdrawValid && !!parsedWithdrawValue ? 'red' : 'gradient'}
-                  onClick={proWithdraw}
+                  onClick={() => proWithdraw()}
                   disabled={!isWithdrawValid || pendingTx}
                 >
                   {withdrawError || i18n._(t`Confirm Withdraw`)}
@@ -540,7 +584,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               <Button
                 fullWidth
                 color={'blue'}
-                onClick={updateLockTime}
+                onClick={() => updateLockTime()}
                 disabled={
                   pendingTx ||
                   !account ||
@@ -645,14 +689,14 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                         }`}</p>
                     ))} */}
                     {userReward.map((item, index) => {
-                    if (item.token.symbol === "NLP") {
-                      const pair = getTokensOfPair(item.token.address);
-                      return <p key={`user-rewardinfo-${index}`}>{`${pair?.token0.symbol}/${pair?.token1.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
-                        }`}</p>;
-                    }
-                    return <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
-                      }`}</p>
-                  })}
+                      if (item.token.symbol === "NLP") {
+                        const pair = getTokensOfPair(item.token.address);
+                        return <p key={`user-rewardinfo-${index}`}>{`${pair?.token0.symbol}/${pair?.token1.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                          }`}</p>;
+                      }
+                      return <p key={`rewardinfo-${index}`}>{`${item.token.symbol}: ${item.amount ? item.amount.toSignificant(6) : ''
+                        }`}</p>
+                    })}
                   </div>
                 </div>
               </div>
@@ -660,7 +704,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                 className="mt-1"
                 fullWidth
                 color={'gradient'}
-                onClick={proHarvest}
+                onClick={() => proHarvest()}
                 disabled={!userReward || userReward?.length === 0}
               >
                 {i18n._(t`HARNESS`)}
@@ -686,9 +730,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
             id="confirm-expert-mode"
             color="red"
             variant="filled"
-            onClick={() => {
-              proWithdrawAction()
-            }}
+            onClick={() => proWithdrawAction()}
           >
             {i18n._(t`BREAK LOCK`)}
           </Button>

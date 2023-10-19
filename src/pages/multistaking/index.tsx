@@ -30,13 +30,15 @@ import {
   useToggleProStakingWarning,
   useWalletModalToggle,
 } from 'app/state/application/hooks'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import NexusDiff from '../../../public/NEXUS2.png'
 import OracleDistributor from './OracleDistributor'
 import { swapPairs } from 'app/constants/farmlist'
+import { useTransactionAdder } from 'app/state/transactions/hooks'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, List, Link, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds, Project, Words } from 'arwes';
@@ -86,27 +88,32 @@ const ProStaking = () => {
   // const toggleWarning = useToggleProStakingWarning()
 
   const { distribute } = useProStakingDistributeAction()
+  const addTransaction = useTransactionAdder()
 
   const possibleDistribute = useCheckPossibleDistribute()
 
   const [pendingTx, setPendingTx] = useState(false)
-
+  const [txHash, setTxHash] = useState<string>('')
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
+const [selectPro, setSelectPro] = useState(false);
+const [selectCon, setSelectCon] = useState(false);
   const { account, chainId } = useActiveWeb3React()
 
-  const proDistribute = async () => {
-    if (!account) {
-      return
-    } else {
-      setPendingTx(true)
 
-      const success = await sendTx(() => distribute())
-      if (!success) {
-        setPendingTx(false)
-        return
-      }
-
-      setPendingTx(false)
+  const onProDistribute = async () => {
+    setPendingTx(true)
+    setShowConfirm(true);
+    setSelectPro(true);
+    try {
+      const tx = await distribute()
+      setTxHash(tx.hash);
+      addTransaction(tx, { summary: 'Distribute To MultiStaking' })
+    } catch (error) {
+      setShowConfirm(false)
+      console.log(error)
     }
+    setPendingTx(false)
+    setSelectPro(false);
   }
 
   const oracleBalance = useTokenBalance(account ?? undefined, NEXUS)
@@ -116,25 +123,57 @@ const ProStaking = () => {
   const walletConnected = !!account
   const toggleWalletModal = useWalletModalToggle()
   const { convert } = useOracleDistributor()
+
   const lpConvertClick = async () => {
     if (!walletConnected) {
       toggleWalletModal()
     } else {
       setPendingTx(true)
-
-      const success = await sendTx(() => convert())
-      if (!success) {
-        setPendingTx(false)
-        return
+      setShowConfirm(true);
+      setSelectCon(true);
+      try {
+        const tx = await convert();
+        setTxHash(tx.hash);
+        addTransaction(tx, { summary: 'Convert LPs To NEXUS' })
+      } catch (error) {
+        setShowConfirm(false)
+        console.log(error)
       }
-
       setPendingTx(false)
+      setSelectCon(false);
     }
   }
 
   const getTokensOfPair = (nlpAddress: string) => swapPairs.find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
 
-  return (
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+  }, [txHash])
+
+  useEffect(() => {
+    if (!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+  if (showConfirm) return (
+    <>
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={pendingTx}
+        hash={txHash}
+        content={
+          <ConfirmationModalContent
+            title={i18n._(t`You will receive`)}
+            onDismiss={handleDismissConfirmation}
+            topContent={null}
+            bottomContent={null}
+          />
+        }
+        pendingText={"Harnessing..."}
+      />
+    </>
+  )
+  else return (
     <Container id="staking-page" className="py-4 md:py-8 lg:py-12" maxWidth="5xl">
       <Head>
         <title key="title">NEXUS Swap | Staking</title>
@@ -179,7 +218,7 @@ USE AT YOUR OWN RISK!`}
                     </p>
                     <br />
                     <p>
-                    10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
+                      10% of the rewards per block are automatically distributed to the Nexus Core Multi-Staking System anytime someone interacts with the Nexus Generator system.
                     </p>
                     <Link href="https://docs.xrp.thenexusportal.io/guide/nexus-core-multi-staking" target="_blank" rel="noreferrer">
                       <span className="text-lg font-bold md:text-xl text-green">
@@ -278,8 +317,9 @@ USE AT YOUR OWN RISK!`}
                             color={'gradient'}
                             size={'sm'}
                             variant={'filled'}
-                            disabled={pendingTx || !account || !enabled || oracleBalance?.equalTo(ZERO)}
-                            onClick={lpConvertClick}
+                            loading={pendingTx && selectCon}
+                            disabled={(pendingTx || !account || !enabled || oracleBalance?.equalTo(ZERO)) && selectCon }
+                            onClick={() => lpConvertClick()}
                             className="inline-flex items-center px-8 font-bold text-white rounded-full cursor-pointer bg-gradient-to-r from-blue to-green"
                           >
                             {`DIFFUSE`}
@@ -313,8 +353,9 @@ USE AT YOUR OWN RISK!`}
                     size="sm"
                     className="mt-3"
                     color={'gradient'}
-                    onClick={proDistribute}
-                    disabled={pendingTx || !possibleDistribute}
+                    loading={pendingTx && selectPro}
+                    onClick={() => onProDistribute()}
+                    disabled={(pendingTx || !possibleDistribute) && selectPro}
                   >
                     {`Distribute`}
                   </Button>

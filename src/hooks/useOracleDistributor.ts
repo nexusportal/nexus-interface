@@ -13,7 +13,7 @@ const useOracleDistributor = () => {
   const convert = useCallback(async () => {
     try {
       const tx = await distributorContract?.LPConvert()
-      return addTransaction(tx, { summary: 'Convert LPs To NEXUS' })
+      return tx
     } catch (e) {
       return e
     }

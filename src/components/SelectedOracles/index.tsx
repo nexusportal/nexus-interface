@@ -21,9 +21,11 @@ import {
   useProStakingNFTWeightInfo,
   useProStakingUserInfo,
 } from 'app/hooks/useProstaking'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
+import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect, useCallback } from 'react'
 
 // import Button from '../Button'
 // import { WalletIcon } from '../Icon'
@@ -92,6 +94,9 @@ export const SelectedOracles = () => {
 
   const [updater, setUpdater] = useState(0)
 
+  const [txHash, setTxHash] = useState<string>('')
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
+
   const [selectedStakedIDs, setSelectedStakedIDs] = useState<Array<number>>([])
 
   // const [selectedStakedOracles, setSelectedStakedOracles] = useState<Array<any>>(stakedNFT)
@@ -124,6 +129,7 @@ export const SelectedOracles = () => {
   const isDepositValid = !depositError
 
   const { oracleNFTStake, oracleNFTWithdraw, oracleMultiNFTStake, oracleMultiNFTWithdraw } = useProStakingActions()
+  const addTransaction = useTransactionAdder()
 
   const handleSelectOracles = (id: number) => {
     let ids = [...selectedIDs]
@@ -222,13 +228,15 @@ export const SelectedOracles = () => {
       return
     } else {
       setPendingTx(true)
-
-      const success = await sendTx(() => oracleMultiNFTStake(selectedIDs))
-      if (!success) {
-        setPendingTx(false)
-        return
+      setShowConfirm(true);
+      try {
+        const tx = await oracleMultiNFTStake(selectedIDs)
+        setTxHash(tx.hash);
+        addTransaction(tx, { summary: 'Stake Nexus NFT' })
+      } catch (error) {
+        console.log(error)
+        setShowConfirm(false)
       }
-
       setSelectedIDs([]);
       setPendingTx(false)
     }
@@ -239,11 +247,16 @@ export const SelectedOracles = () => {
   //     return
   //   } else {
   //     setPendingTx(true)
-  //     const success = await sendTx(() => oracleNFTWithdraw(stakedSelected))
-  //     if (!success) {
-  //       setPendingTx(false)
-  //       return
+  //     setShowConfirm(true);
+  //     try {
+  //       const tx = await oracleNFTWithdraw(stakedSelected)
+  //       setTxHash(tx.hash)
+  //       addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
+  //     } catch (error) {
+  //       setShowConfirm(false)
+  //       console.error(error)
   //     }
+  //     //    
   //     setPendingTx(false)
   //   }
   // }
@@ -255,11 +268,14 @@ export const SelectedOracles = () => {
 
       if (freeLockTime) {
         setPendingTx(true)
-
-        const success = await sendTx(() => oracleMultiNFTWithdraw(selectedStakedIDs))
-        if (!success) {
-          setPendingTx(false)
-          return
+        setShowConfirm(true);
+        try {
+          const tx = await oracleMultiNFTWithdraw(selectedStakedIDs)
+          setTxHash(tx.hash);
+          addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
+        } catch (error) {
+          setShowConfirm(false)
+          console.error(error)
         }
 
         setSelectedStakedIDs([]);
@@ -288,13 +304,15 @@ export const SelectedOracles = () => {
     } else {
 
       setPendingTx(true)
-
-      const success = await sendTx(() => oracleMultiNFTWithdraw(selectedStakedIDs))
-      if (!success) {
-        setPendingTx(false)
-        return
+      setShowConfirm(true);
+      try {
+        const tx = await oracleMultiNFTWithdraw(selectedStakedIDs)
+        setTxHash(tx.hash);
+        addTransaction(tx, { summary: 'Withdraw Nexus NFT' })
+      } catch (error) {
+        setShowConfirm(false)
+        console.error(error)
       }
-
       setPendingTx(false)
       setShowConfirmation(false)
     }
@@ -311,14 +329,15 @@ export const SelectedOracles = () => {
       return
     } else {
       setPendingTx(true)
-
-      // const success = await sendTx(() => approveStaker(selected))
-      const success = await sendTx(() => approveAll())
-      if (!success) {
-        setPendingTx(false)
-        return
+      setShowConfirm(true);
+      try {
+        const tx = await approveAll()
+        setTxHash(tx.hash);
+        addTransaction(tx, { summary: 'Approve All Nexus NFTs For Multistaking' })
+      } catch (error) {
+        setShowConfirm(false)
+        console.error(error)
       }
-
       setPendingTx(false)
     }
   }
@@ -340,7 +359,35 @@ export const SelectedOracles = () => {
 
   const [showConfirmation, setShowConfirmation] = useState(false)
 
-  return (
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+  }, [txHash])
+
+  useEffect(() => {
+    if (!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+
+  if (showConfirm) return (
+    <>
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={pendingTx}
+        hash={txHash}
+        content={
+          <ConfirmationModalContent
+            title={i18n._(t``)}
+            onDismiss={handleDismissConfirmation}
+            topContent={null}
+            bottomContent={null}
+          />
+        }
+        pendingText={"Submitting..."}
+      />
+    </>
+  )
+  else return (
     <div className="mt-5 select-oracles">
 
       <div className="self-end text-2xl md:text-2xl text-high-emphesis md:mb-1">
