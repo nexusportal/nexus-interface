@@ -96,8 +96,6 @@ const InvestmentDetails = ({ farm }) => {
   // @ts-ignore TYPE NEEDS FIXING
   const secondaryRewardOnly = [ChainId.FUSE].includes(chainId)
 
-  const [isExpertMode] = useExpertModeManager()
-
   async function onHarvest() {
     setPendingTx(true)
     setShowConfirm(true);
@@ -108,9 +106,11 @@ const InvestmentDetails = ({ farm }) => {
         summary: i18n._(t`Harvest ${farm.pair.token0.name}/${farm.pair.token1?.name}`),
       })
     } catch (error) {
-      setPendingTx(false)
+      setShowConfirm(false)
       console.error(error)
     }
+    setPendingTx(false)
+
   }
 
   const [, pair] = useV2Pair(token0 ?? undefined, token1 ?? undefined)
@@ -126,8 +126,8 @@ const InvestmentDetails = ({ farm }) => {
     setShowConfirm(false)
   }, [txHash])
 
-  useEffect(()=>{
-    if(!txHash) return;
+  useEffect(() => {
+    if (!txHash) return;
     setPendingTx(false);
   }, [txHash])
 
@@ -143,34 +143,13 @@ const InvestmentDetails = ({ farm }) => {
             title={i18n._(t`You will receive`)}
             onDismiss={handleDismissConfirmation}
             topContent={null}
-            bottomContent={
-              <>
-                <div className='flex justify-start gap-4 flex-wrap text-left'>
-                  {/* @ts-ignore TYPE NEEDS FIXING */}
-                  {farm?.rewards?.map((reward, i) => {
-                    return (
-                      <div key={i} className="flex items-center gap-1">
-                        <CurrencyLogo currency={reward.currency} size={40} />
-                        <RewardRow
-                          value={pending[reward.currency.address]}
-                          symbol={reward.currency.symbol}
-                        />
-                      </div>
-                    )
-                  })}
-                </div>
-                <Button color="gradient" fullWidth onClick={()=>onHarvest()}>
-                  {i18n._(t`Havesting...`)}
-                </Button>
-              </>
-            }
+            bottomContent={null}
           />
         }
-        pendingText={"Havesting..."}
+        pendingText={"Harnessing..."}
       />
     </>
   )
-
   else return (
     <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-2 bg-dark-1000/40">
@@ -283,7 +262,7 @@ const InvestmentDetails = ({ farm }) => {
         fullWidth
         color="gradient"
         disabled={pendingTx}
-        onClick={() => { isExpertMode ? onHarvest() : setShowConfirm(true) }}
+        onClick={() => onHarvest()}
       >
         {i18n._(t`HARNESS REWARDS`)}
       </Button>

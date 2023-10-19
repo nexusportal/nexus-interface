@@ -34,6 +34,8 @@ const PoolWithdraw = ({ currencyA, currencyB, header }) => {
   const { account, chainId, library } = useActiveWeb3React()
   const { setContent } = useFarmListItemDetailsModal()
   const [attemptingTxn, setAttemptingTxn] = useState(false)
+  const [txHash, setTxHash] = useState<string>('')
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [useETH, setUseETH] = useState(false)
   // @ts-ignore TYPE NEEDS FIXING
   useETH && currencyA && currencyEquals(currencyA, WNATIVE[chainId]) && (currencyA = NATIVE[chainId])
@@ -103,27 +105,27 @@ const PoolWithdraw = ({ currencyA, currencyB, header }) => {
   const amountsMin =
     parsedAmountA && parsedAmountB
       ? {
-          [Field.CURRENCY_A]: calculateSlippageAmount(parsedAmountA, allowedSlippage)[0],
-          [Field.CURRENCY_B]: calculateSlippageAmount(parsedAmountB, allowedSlippage)[0],
-        }
+        [Field.CURRENCY_A]: calculateSlippageAmount(parsedAmountA, allowedSlippage)[0],
+        [Field.CURRENCY_B]: calculateSlippageAmount(parsedAmountB, allowedSlippage)[0],
+      }
       : undefined
 
   const amountsMinCurrencyAmount = {
     [Field.CURRENCY_A]:
       amountsMin?.[Field.CURRENCY_A] && parsedAmountA
         ? CurrencyAmount.fromRawAmount(
-            // @ts-ignore TYPE NEEDS FIXING
-            currencyA.isNative ? NATIVE[chainId || 1] : parsedAmountA.currency,
-            amountsMin[Field.CURRENCY_A]
-          )
+          // @ts-ignore TYPE NEEDS FIXING
+          currencyA.isNative ? NATIVE[chainId || 1] : parsedAmountA.currency,
+          amountsMin[Field.CURRENCY_A]
+        )
         : undefined,
     [Field.CURRENCY_B]:
       amountsMin?.[Field.CURRENCY_B] && parsedAmountB
         ? CurrencyAmount.fromRawAmount(
-            // @ts-ignore TYPE NEEDS FIXING
-            currencyB.isNative ? NATIVE[chainId || 1] : parsedAmountB.currency,
-            amountsMin[Field.CURRENCY_B]
-          )
+          // @ts-ignore TYPE NEEDS FIXING
+          currencyB.isNative ? NATIVE[chainId || 1] : parsedAmountB.currency,
+          amountsMin[Field.CURRENCY_B]
+        )
         : undefined,
   }
 
@@ -245,26 +247,17 @@ const PoolWithdraw = ({ currencyA, currencyB, header }) => {
       const safeGasEstimate = safeGasEstimates[indexOfSuccessfulEstimation]
 
       setAttemptingTxn(true)
+      setShowConfirm(true);
       await routerContract[methodName](...args, {
         gasLimit: safeGasEstimate,
       })
         .then((response: TransactionResponse) => {
           setAttemptingTxn(false)
-
+          setTxHash(response.hash);
           addTransaction(response, {
-            summary: t`Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-              currencyA?.symbol
-            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}`,
+            summary: t`Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencyA?.symbol
+              } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}`,
           })
-
-          setContent(
-            <PoolRemoveLiquidityReviewContent
-              liquidityAmount={parsedAmounts[Field.LIQUIDITY]}
-              parsedAmounts={[parsedAmounts[Field.CURRENCY_A], parsedAmounts[Field.CURRENCY_B]]}
-              execute={onRemove}
-              txHash={response.hash}
-            />
-          )
 
           ReactGA.event({
             category: 'Liquidity',
@@ -274,6 +267,7 @@ const PoolWithdraw = ({ currencyA, currencyB, header }) => {
         })
         .catch((error: Error) => {
           setAttemptingTxn(false)
+          setShowConfirm(false)
           // we only care if the error is something _other_ than the user rejected the tx
           console.error(error)
         })
@@ -286,7 +280,17 @@ const PoolWithdraw = ({ currencyA, currencyB, header }) => {
     chainId && WNATIVE[chainId] && (currencyA?.equals(WNATIVE[chainId]) || currencyB?.equals(WNATIVE[chainId]))
   )
 
-  return (
+  if (showConfirm) return (
+    <>
+      <PoolRemoveLiquidityReviewContent
+        liquidityAmount={parsedAmounts[Field.LIQUIDITY]}
+        parsedAmounts={Object.values(amountsMinCurrencyAmount)}
+        txHash={txHash}
+        execute={onRemove}
+      />
+    </>
+  )
+  else return (
     <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-1000/40">
         {header}
@@ -336,15 +340,7 @@ const PoolWithdraw = ({ currencyA, currencyB, header }) => {
           fullWidth
           loading={attemptingTxn}
           color={!isValid && !!parsedAmounts[Field.CURRENCY_A] && !!parsedAmounts[Field.CURRENCY_B] ? 'red' : 'blue'}
-          onClick={() => {
-            setContent(
-              <PoolRemoveLiquidityReviewContent
-                liquidityAmount={parsedAmounts[Field.LIQUIDITY]}
-                parsedAmounts={Object.values(amountsMinCurrencyAmount)}
-                execute={onRemove}
-              />
-            )
-          }}
+          onClick={() => setShowConfirm(true)}
           disabled={!isValid || (signatureData === null && approval !== ApprovalState.APPROVED)}
         >
           {error || i18n._(t`Confirm Withdrawal`)}

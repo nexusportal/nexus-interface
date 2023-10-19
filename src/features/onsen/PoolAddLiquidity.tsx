@@ -35,8 +35,10 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
   const { account, chainId, library } = useActiveWeb3React()
   const [useETH, setUseETH] = useState(chainId !== ChainId.CELO)
   const [isExpertMode] = useExpertModeManager()
+  const [txHash, setTxHash] = useState<string>('')
   const deadline = useTransactionDeadline() // custom from users settings
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const allowedSlippage = useAppSelector(selectSlippage)
   const routerContract = useRouterContract()
   const addTransaction = useTransactionAdder()
@@ -95,7 +97,6 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
       [Field.CURRENCY_A]: calculateSlippageAmount(parsedAmountA, noLiquidity ? ZERO_PERCENT : allowedSlippage)[0],
       [Field.CURRENCY_B]: calculateSlippageAmount(parsedAmountB, noLiquidity ? ZERO_PERCENT : allowedSlippage)[0],
     }
-
     let estimate,
       method: (...args: any) => Promise<TransactionResponse>,
       args: Array<string | string[] | number>,
@@ -113,8 +114,6 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
         deadline.toHexString(),
       ]
       value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).quotient.toString())
-
-      console.log(args, value);
     } else {
       estimate = routerContract.estimateGas.addLiquidity
       method = routerContract.addLiquidity
@@ -132,7 +131,7 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
     }
 
     setAttemptingTxn(true)
-    console.log("args : ", args)
+    setShowConfirm(true);
     await estimate(...args, value ? { value } : {})
       .then((estimatedGasLimit) =>
         method(...args, {
@@ -140,18 +139,7 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
           gasLimit: calculateGasMargin(estimatedGasLimit),
         }).then((response) => {
           setAttemptingTxn(false)
-
-          setContent(
-            <PoolAddLiquidityReviewContent
-              noLiquidity={noLiquidity}
-              liquidityMinted={liquidityMinted}
-              poolShare={poolTokenPercentage}
-              parsedAmounts={parsedAmounts}
-              execute={onAdd}
-              txHash={response.hash}
-            />
-          )
-
+          setTxHash(response.hash);
           addTransaction(response, {
             summary: i18n._(
               t`Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencies[Field.CURRENCY_A]?.symbol
@@ -168,6 +156,7 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
       )
       .catch((error) => {
         setAttemptingTxn(false)
+        setShowConfirm(false)
         // we only care if the error is something _other_ than the user rejected the tx
         if (error?.code !== USER_REJECTED_TX) {
           console.error(error)
@@ -175,7 +164,19 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
       })
   }
 
-  return (
+  if (showConfirm) return (
+    <>
+      <PoolAddLiquidityReviewContent
+        noLiquidity={noLiquidity}
+        liquidityMinted={minLiquidityCurrencyAmount}
+        poolShare={poolTokenPercentage}
+        parsedAmounts={parsedAmounts}
+        txHash={txHash}
+        execute={()=>onAdd()}
+      />
+    </>
+  )
+  else return (
     <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-1000/40">
         {header}
@@ -254,19 +255,7 @@ const PoolDeposit = ({ currencyA, currencyB, header }) => {
       ) : (
         <Button
           color={!isValid && !!parsedAmounts[Field.CURRENCY_A] && !!parsedAmounts[Field.CURRENCY_B] ? 'red' : 'blue'}
-          onClick={() => {
-            isExpertMode
-              ? onAdd()
-              : setContent(
-                <PoolAddLiquidityReviewContent
-                  noLiquidity={noLiquidity}
-                  liquidityMinted={minLiquidityCurrencyAmount}
-                  poolShare={poolTokenPercentage}
-                  parsedAmounts={parsedAmounts}
-                  execute={onAdd}
-                />
-              )
-          }}
+          onClick={() => setShowConfirm(true)}
           disabled={!isValid || attemptingTxn}
           fullWidth
         >

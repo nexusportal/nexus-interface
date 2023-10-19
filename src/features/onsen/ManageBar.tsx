@@ -64,7 +64,7 @@ const ManageBar = ({ farm }) => {
   const { deposit, withdraw } = useMasterChef(farm.chef)
   const addTransaction = useTransactionAdder()
   const [isExpertMode] = useExpertModeManager()
-  const [isWithdraw, setIsWithdraw]  = useState(false);
+  const [isWithdraw, setIsWithdraw] = useState(false);
   const liquidityToken = new Token(
     // @ts-ignore TYPE NEEDS FIXING
     chainId || 1,
@@ -95,70 +95,40 @@ const ManageBar = ({ farm }) => {
       : undefined
   const isWithdrawValid = !withdrawError
 
-  const onSubmit = async (isWithdraw: boolean) => {
-    console.log(isWithdraw)
-    if (isWithdraw) await onWithdraw();
-    else await onDeposit();
-  }
-
-  const onWithdraw = async () => {
+  async function onWithdraw() {
+    setPendingTx(true)
+    setShowConfirm(true);
     try {
       // KMP decimals depend on asset, NLP is always 18
-      // @ts-ignore TYPE NEEDS FIXING
-      setPendingTx(true)
-      setShowConfirm(true);
+      // @ts-ignore TYPE NEEDS FIXING      
       const tx = await withdraw(farm.id, BigNumber.from(parsedWithdrawValue?.quotient.toString()))
       setTxHash(tx.hash);
-      if (tx?.hash) {
-        setContent(
-          <HeadlessUiModal.SubmittedModalContent
-            txHash={tx?.hash}
-            header={i18n._(t`Success!`)}
-            subheader={i18n._(t`Success! Transaction successfully submitted`)}
-            onDismiss={() => dispatch(setOnsenModalOpen(false))}
-          />
-        )
-        addTransaction(tx, {
-          summary: `Withdraw ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
-        })
-      }
+      addTransaction(tx, {
+        summary: `Withdraw ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
+      })
     } catch (error) {
-      setPendingTx(false)
+      setShowConfirm(false)
       console.error(error)
     }
+    setPendingTx(false)
   }
 
-  const onDeposit = async () => {
+  async function onDeposit() {
+    setPendingTx(true)
+    setShowConfirm(true);
     try {
       // KMP decimals depend on asset, NLP is always 18
       // @ts-ignore TYPE NEEDS FIXING
-      setPendingTx(true)
-      setShowConfirm(true);
-
       const tx = await deposit(farm.id, BigNumber.from(parsedDepositValue?.quotient.toString()))
       setTxHash(tx.hash);
-      if (tx?.hash) {
-        setContent(
-          <HeadlessUiModal.SubmittedModalContent
-            txHash={tx?.hash}
-            header={i18n._(t`Success!`)}
-            subheader={i18n._(t`Success! Transaction successfully submitted`)}
-            onDismiss={() => dispatch(setOnsenModalOpen(false))}
-          />
-        )
-        addTransaction(tx, {
-          summary: `Deposit ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
-        })
-      }
+      addTransaction(tx, {
+        summary: `Deposit ${farm.pair.token0.name}/${farm.pair.token1?.name}`,
+      })
     } catch (error) {
-      setPendingTx(false)
-      console.error(error)
+      setShowConfirm(false)
+      console.error(error, "ddd")
     }
-  }
-
-  const setShowConfirmModal = (val:boolean) => {
-    setShowConfirm(true);
-    setIsWithdraw(val);
+    setPendingTx(false)
   }
 
   const handleDismissConfirmation = useCallback(() => {
@@ -169,6 +139,7 @@ const ManageBar = ({ farm }) => {
     if (!txHash) return;
     setPendingTx(false);
   }, [txHash])
+  console.log(showConfirm)
 
   if (showConfirm) return (
     <>
@@ -182,19 +153,14 @@ const ManageBar = ({ farm }) => {
             title={i18n._(t`Processing`)}
             onDismiss={handleDismissConfirmation}
             topContent={null}
-            bottomContent={
-              <>
-                <Button color="gradient" fullWidth onClick={() => onSubmit(isWithdraw)}>
-                  {i18n._(t`Submit Request`)}
-                </Button>
-              </>
-            }
+            bottomContent={null}
           />
         }
-        pendingText={"Sumbiting Request..."}
+        pendingText={"Submiting Request..."}
       />
     </>
   )
+
   else return (
     <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-4 bg-dark-1000/40">
@@ -270,9 +236,10 @@ const ManageBar = ({ farm }) => {
         ) : (
           <Button
             fullWidth
+            loading={pendingTx}
             color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
-            onClick={() => { isExpertMode ? onSubmit(false) : setShowConfirmModal(false) }}
-            disabled={!isDepositValid}
+            onClick={() => onDeposit()}
+            disabled={!isDepositValid || pendingTx}
           >
             {depositError || i18n._(t`Confirm Deposit`)}
           </Button>
@@ -282,9 +249,10 @@ const ManageBar = ({ farm }) => {
       ) : (
         <Button
           fullWidth
+          loading={pendingTx}
           color={!isWithdrawValid && !!parsedWithdrawValue ? 'red' : 'blue'}
-          onClick={() => { isExpertMode ? onSubmit(true) : setShowConfirmModal(true) }}
-          disabled={!isWithdrawValid}
+          onClick={() => onWithdraw()}
+          disabled={!isWithdrawValid || pendingTx}
         >
           {withdrawError || i18n._(t`Confirm Withdraw`)}
         </Button>

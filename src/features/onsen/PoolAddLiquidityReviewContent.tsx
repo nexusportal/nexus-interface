@@ -7,10 +7,11 @@ import { HeadlessUiModal } from 'app/components/Modal'
 import HeadlessUIModal from 'app/components/Modal/HeadlessUIModal'
 import Typography from 'app/components/Typography'
 import { useFarmListItemDetailsModal } from 'app/features/onsen/FarmListItemDetails'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'app/modals/TransactionConfirmationModal'
 import { setOnsenModalOpen } from 'app/features/onsen/onsenSlice'
 import { useAppDispatch } from 'app/state/hooks'
 import { Field } from 'app/state/mint/actions'
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect, useCallback } from 'react'
 
 interface PoolAddLiquidityReviewContentProps {
   noLiquidity?: boolean
@@ -32,12 +33,52 @@ const PoolAddLiquidityReviewContent: FC<PoolAddLiquidityReviewContentProps> = ({
   const { i18n } = useLingui()
   const dispatch = useAppDispatch()
   const { setContent } = useFarmListItemDetailsModal()
+  const [pendingTx, setPendingTx] = useState(false)
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
 
-  return !txHash ? (
+  const onExecute = async () => {
+    setPendingTx(true)
+    setShowConfirm(true);
+    try {
+      await execute()
+    } catch (error) {
+      setShowConfirm(false)
+      console.error(error)
+    }
+    setPendingTx(false)
+  }
+
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+  }, [txHash])
+
+  useEffect(() => {
+    if (!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+  
+  if (showConfirm) return (
+    <>
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={pendingTx}
+        hash={txHash}
+        content={ <ConfirmationModalContent
+          title={i18n._(t`You will receive`)}
+          onDismiss={handleDismissConfirmation}
+          topContent={null}
+          bottomContent={null}
+        />}
+        pendingText={"Submitting..."}
+      />
+    </>
+  )
+  else return !txHash ? (
     <div className="flex flex-col gap-4">
       <HeadlessUIModal.Header
         header={noLiquidity ? i18n._(t`Confirm create pool`) : i18n._(t`Confirm add liquidity`)}
-        onBack={() => setContent(undefined)}
+        // onBack={() => setContent(undefined)}
         onClose={() => dispatch(setOnsenModalOpen(false))}
       />
       <Typography variant="sm">
@@ -70,7 +111,12 @@ const PoolAddLiquidityReviewContent: FC<PoolAddLiquidityReviewContentProps> = ({
         </Typography>
       </div>
       <div className="flex flex-grow" />
-      <Button id={`btn-modal-confirm-deposit`} color="blue" onClick={execute}>
+      <Button id={`btn-modal-confirm-deposit`} 
+      color="blue" 
+      loading={pendingTx}
+      disabled={pendingTx}
+      onClick={()=>onExecute()}      
+      >
         {i18n._(t`Confirm Deposit`)}
       </Button>
     </div>
