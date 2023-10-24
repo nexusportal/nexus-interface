@@ -1,5 +1,6 @@
 import { defaultAbiCoder } from '@ethersproject/abi'
-import { getCreate2Address } from '@ethersproject/address'
+// import { getCreate2Address } from '@ethersproject/address'
+import { getCreate2Address } from 'app/functions'
 import { AddressZero } from '@ethersproject/constants'
 import { keccak256 } from '@ethersproject/solidity'
 import {

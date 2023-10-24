@@ -1,4 +1,3 @@
-import { getAddress, isAddress } from '@ethersproject/address'
 import { TransactionResponse } from '@ethersproject/providers'
 import { ChainId, Currency, CurrencyAmount, JSBI, SUSHI } from '@sushiswap/core-sdk'
 import { PROTOCOL_MERKLE_ROOT as MERKLE_ROOT } from 'app/constants'
@@ -8,6 +7,7 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult } from 'app/state/multicall/hooks'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useEffect, useState } from 'react'
+import { getAddress, isAddress } from 'app/functions'
 
 interface UserClaimData {
   index: number

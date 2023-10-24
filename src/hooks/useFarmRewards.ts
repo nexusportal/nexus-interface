@@ -1,4 +1,3 @@
-import { getAddress } from '@ethersproject/address'
 import { ChainId, Currency, JSBI, NATIVE, Token } from '@sushiswap/core-sdk'
 import { ARBITRUM_TOKENS, MATIC_TOKENS, NEXUS, XDAI_TOKENS, USDT, USDC, DAI } from 'app/config/tokens'
 import { MASTERCHEF_ADDRESS } from 'app/constants'
@@ -28,6 +27,7 @@ import { useSingleCallResult } from 'app/state/multicall/hooks'
 import { useTokenBalances } from 'app/state/wallet/hooks'
 import { useMemo } from 'react'
 import { farms, swapPairs } from 'app/constants/farmlist'
+import { getAddress } from 'app/functions'
 
 import { useMasterChefContract } from '.'
 
@@ -128,15 +128,15 @@ export default function useFarmRewards() {
   const liquidityTokens = useMemo(
     () =>
       farms.map((farm: any) => {
-        const token = new Token(ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
+        const token = new Token(chainId?chainId:ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
         return token;
       }),
-    [farms]
+    [farms, chainId]
   )
 
   const farmAddresses = useMemo(() => farms.map((farm: any) => farm.pair), [farms])
 
-  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[ChainId.XRPL], liquidityTokens)
+  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[chainId?chainId:ChainId.XRPL], liquidityTokens)
 
   // const swapPairs = useSushiPairs({
   //   chainId,
@@ -210,7 +210,7 @@ export default function useFarmRewards() {
     pool.owner = pool?.owner || pool?.masterChef || pool?.miniChef
     pool.balance = pool?.balance || pool?.slpBalance
 
-    const liquidityToken = new Token(ChainId.XRPL, getAddress(pool.pair), 18, 'NLP')
+    const liquidityToken = new Token(chainId?chainId:ChainId.XRPL, getAddress(pool.pair), 18, 'NLP')
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const stakedAmount = useUserInfo(pool, liquidityToken);

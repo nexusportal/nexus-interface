@@ -11,11 +11,17 @@ import ETH from '../../../public/ETH.png'
 import WAN from '../../../public/WAN.png'
 import USDT from '../../../public/USDT.png'
 import USDC from '../../../public/USDC.png'
-import ONE  from '../../../public/ONE.png'
-import TWO  from '../../../public/TWO.png'
-import THREE  from '../../../public/THREE.png'
+import ONE from '../../../public/ONE.png'
+import TWO from '../../../public/TWO.png'
+import THREE from '../../../public/THREE.png'
+import AIR from '../../../public/images/token/apothem/AIR.png'
+import FIRE from '../../../public/images/token/apothem/FIRE.png'
+import EARTH from '../../../public/images/token/apothem/EARTH.png'
+import SPACE from '../../../public/images/token/apothem/SPACE.png'
+import WATER from '../../../public/images/token/apothem/WATER.png'
 
 import XRP from '../../../public/XRP.png'
+import XDC from '../../../public/xdcpay.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
 
@@ -42,6 +48,8 @@ const BLOCKCHAIN = {
   [ChainId.ARBITRUM]: 'arbitrum',
   [ChainId.AVALANCHE]: 'avalanche',
   [ChainId.XRPL]: 'xrpl',
+  [ChainId.XDC]: 'xdc',
+  [ChainId.APOTHEM]: 'txdc',
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -51,24 +59,21 @@ export const getCurrencyLogoUrls = (currency): string[] => {
   if (currency.chainId in BLOCKCHAIN) {
     urls.push(
       // @ts-ignore TYPE NEEDS FIXING
-      `https://raw.githubusercontent.com/sushiswap/logos/main/network/${BLOCKCHAIN[currency.chainId]}/${
-        currency.address
+      `https://raw.githubusercontent.com/sushiswap/logos/main/network/${BLOCKCHAIN[currency.chainId]}/${currency.address
       }.jpg`
     )
     urls.push(
       // @ts-ignore TYPE NEEDS FIXING
-      `https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${
-        currency.address
+      `https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${currency.address
       }/logo.png`
     )
     urls.push(
       // @ts-ignore TYPE NEEDS FIXING
-      `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${
-        currency.address
+      `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${currency.address
       }/logo.png`
     )
 
-    if (currency.chainId === ChainId.XRPL) {
+    if (currency.chainId === ChainId.XRPL || currency.chainId === ChainId.XDC || currency.chainId === ChainId.APOTHEM) {
       // const hostname = window.location.hostname
       // const protocal = window.location.protocol
       // console.log('window.origin', window.origin)
@@ -102,6 +107,7 @@ const MovrLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/m
 const FuseLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/fuse.jpg'
 const TelosLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/telos.jpg'
 const XRPLLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/52.png'
+const XDCLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/2634.png'
 
 const LOGO: Record<ChainId, string> = {
   [ChainId.ETHEREUM]: EthereumLogo,
@@ -134,6 +140,8 @@ const LOGO: Record<ChainId, string> = {
   [ChainId.FUSE]: FuseLogo,
   [ChainId.TELOS]: TelosLogo,
   [ChainId.XRPL]: XRPLLogo,
+  [ChainId.XDC]: XDCLogo,
+  [ChainId.APOTHEM]: XDCLogo,
   // [ChainId.HARDHAT]: ""
 }
 
@@ -145,7 +153,7 @@ export interface CurrencyLogoProps {
 }
 
 const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '24px', className, style }) => {
-  
+
   const uriLocations = useHttpLocations(
     currency instanceof WrappedTokenInfo ? currency.logoURI || currency.tokenInfo.logoURI : undefined
   )
@@ -176,12 +184,19 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
   if (currency?.isNative && currency?.chainId === ChainId.XRPL) {
     return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
   }
+  if (currency?.equals(WNATIVE[currency.chainId]) && (currency?.chainId === ChainId.APOTHEM || currency?.chainId === ChainId.XDC)) {
+    return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+  }
+
+  if (currency?.isNative && (currency?.chainId === ChainId.APOTHEM || currency?.chainId === ChainId.XDC)) {
+    return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+  }
 
   if (currency?.chainId === ChainId.XRPL) {
     if (currency.symbol === 'XRP') {
       return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
     }
-    
+
     if (currency.symbol === 'WXRP') {
       return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
     }
@@ -218,6 +233,49 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     }
 
   }
+  if (currency?.chainId === ChainId.APOTHEM) {
+    if (currency.symbol === 'XDC') {
+      return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'WXDC') {
+      return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'NEXU') {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'NEXUS') {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'AIR') {
+      return <img alt="img" src={AIR.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'WATER') {
+      return <img alt="img" src={WATER.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'FIRE') {
+      return <img alt="img" src={FIRE.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'EARTH') {
+      return <img alt="img" src={EARTH.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'SPACE') {
+      return <img alt="img" src={SPACE.src} width={size} height={size} className={className} />
+    }
+  }
+  if (currency?.chainId === ChainId.XDC) {
+    return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+  }
+
+
+
+
 
   if (currency instanceof Token) {
     if (currency.chainId === ChainId.XRPL) {
@@ -239,31 +297,71 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.symbol === 'wBTC') {
         return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
       }
-  
+
       if (currency.symbol === 'WETH') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
-  
+
       if (currency.symbol === 'wWAN') {
         return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
       }
-  
+
       if (currency.symbol === 'wUSDT') {
         return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
       }
-  
+
       if (currency.symbol === 'wUSDC') {
         return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
       }
-  
+
       if (currency.symbol === 'XRP') {
         return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
       }
-      
+
       if (currency.symbol === 'WXRP') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
-   
+
+    }
+
+    if (currency?.chainId === ChainId.APOTHEM) {
+      if (currency.symbol === 'XDC') {
+        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'WXDC') {
+        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'NEXU') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'AIR') {
+        return <img alt="img" src={AIR.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'WATER') {
+        return <img alt="img" src={WATER.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'FIRE') {
+        return <img alt="img" src={FIRE.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'EARTH') {
+        return <img alt="img" src={EARTH.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'SPACE') {
+        return <img alt="img" src={SPACE.src} width={size} height={size} className={className} />
+      }
+    }
+    if (currency?.chainId === ChainId.XDC) {
+      return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
     }
   }
 
@@ -279,13 +377,21 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       if (currency.tokenInfo.symbol === 'WXRP') {
         return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
       }
+    }
+    if (currency.tokenInfo.chainId === ChainId.APOTHEM) {
 
-      console.log(currency)
-
-
-      // return (
-      //   <img alt="img" src={CAND.src} width={size} height={size} className={className} />
-      // )
+      if (currency.tokenInfo.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      }
+      if (currency.tokenInfo.symbol === 'XDC') {
+        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      }
+      if (currency.tokenInfo.symbol === 'WXDC') {
+        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      }
+    }
+    if (currency.tokenInfo.chainId === ChainId.XDC) {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
   }
 

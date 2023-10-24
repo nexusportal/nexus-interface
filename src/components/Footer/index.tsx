@@ -1,4 +1,4 @@
- import { t } from '@lingui/macro'
+import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { DiscordIcon, GithubIcon, TwitterIcon } from 'app/components/Icon'
 import useIsCoinbaseWallet from 'app/hooks/useIsCoinbaseWallet'
@@ -13,13 +13,21 @@ import React from 'react'
 import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 import LogoImage from '../../../public/XRP.png'
+import XDCLOGO from '../../../public/xdcpay.png'
 import Container from '../Container'
+import { XDC } from '@sushiswap/core-sdk'
 // import Image from 'next/image'
 // import { ChainId } from '@sushiswap/core-sdk'
 // import { NETWORK_ICON } from 'app/config/networks'
+
+const docUrls = {
+  1440002: "https://docs.xrp.thenexusportal.io/",
+  50: "",
+  51: ""
+}
 const Footer = () => {
   const { i18n } = useLingui()
-  const { library } = useActiveWeb3React()
+  const { library, chainId } = useActiveWeb3React()
   const isCoinbaseWallet = useIsCoinbaseWallet()
 
   const toggleNetworkModal = useNetworkModalToggle()
@@ -94,11 +102,12 @@ const Footer = () => {
                   </div>
                 )}
 
-                <a href="https://docs.xrp.thenexusportal.io/" target="_blank" rel="noreferrer">
+
+                <a href={(chainId == 50 || chainId == 51) ? docUrls[chainId] : docUrls[1440002]} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
                 </a>
 
-                <a href="https://docs.xrp.thenexusportal.io/about-nexus/privacy" target="_blank" rel="noreferrer">
+                <a href={(chainId == 50 || chainId == 51) ? docUrls[chainId] : docUrls[1440002] + "/about-nexus/privacy"} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Privacy`)}</span>
                 </a>
               </div>
@@ -206,8 +215,8 @@ const Footer = () => {
 
             <div className="flex flex-row justify-center gap-1 text-right sm:justify-end">
               <div className="flex items-center ">
-                <a href="https://xrpl.org/" target="_blank" rel="noreferrer">
-                  <img src={LogoImage.src} className={'h-[50px] max-w-none'} alt="Logo" />
+                <a href={chainId == 1440002 ? "https://xrpl.org/" : ""} target="_blank" rel="noreferrer">
+                  <img src={chainId == 1440002 ?LogoImage.src : XDCLOGO.src} className={'h-[50px] max-w-none'} alt="Logo" />
                 </a>
               </div>
               {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">

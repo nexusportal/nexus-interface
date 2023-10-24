@@ -9,6 +9,8 @@ const analytics = {
   [ChainId.HARMONY]: 'https://analytics-harmony.sushi.com',
   [ChainId.ARBITRUM]: 'https://analytics-arbitrum.sushi.com',
   [ChainId.XRPL]: 'https://analytics-xrpl.sushi.com',
+  [ChainId.XDC]: 'https://analytics-xdc.sushi.com',
+  [ChainId.APOTHEM]: 'https://analytics-txdc.sushi.com',
 }
 
 export default analytics

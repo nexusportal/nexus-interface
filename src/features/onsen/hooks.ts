@@ -80,6 +80,7 @@ export function useUserInfo(farm, token) {
 
 // @ts-ignore TYPE NEEDS FIXING
 export function useRewardTokens(farm) {
+  const { chainId } = useActiveWeb3React()
   const contract = useChefContract(farm.chef)
   const args = [String(farm.id)];
   const result = useSingleCallResult(args ? contract : null, 'getRewardTokenInfo', args)?.result;
@@ -93,8 +94,8 @@ export function useRewardTokens(farm) {
       rewardPerBlock: re,
       rewardPerDay: 24 * 60 * 60 * re,
       rewardPrice: 0,
-      remainAmount:remainAmount,
-      currency: new Token(ChainId.XRPL, item.rewardToken, token?.decimals ?? 18, token?.symbol ?? "Unknown", token?.name ?? "Unknown Token"),
+      remainAmount: remainAmount,
+      currency: new Token(chainId ? chainId : 1440002, item.rewardToken, token?.decimals ?? 18, token?.symbol ?? "Unknown", token?.name ?? "Unknown Token"),
       token: token?.symbol ?? "Unknown",
       icon: token?.logoURI ?? "Unknown.png",
     }

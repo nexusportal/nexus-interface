@@ -19,4 +19,6 @@ export enum ChainSubdomain {
   FUSE = 'fuse',
   TELOS = 'telos',
   XRP = 'ripple',
+  XDC = 'xdc',
+  APOTHEM = 'txdc',
 }

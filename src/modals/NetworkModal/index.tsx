@@ -12,6 +12,8 @@ import { useModalOpen, useNetworkModalToggle } from 'app/state/application/hooks
 import Image from 'next/image'
 import React, { FC } from 'react'
 import XRP from '../../../public/XRP.png'
+import XDC from '../../../public/xdcpay.png'
+
 
 export const SUPPORTED_NETWORKS: {
   [key: number]: {
@@ -26,176 +28,176 @@ export const SUPPORTED_NETWORKS: {
     blockExplorerUrls: string[]
   }
 } = {
-  [ChainId.ETHEREUM]: {
-    chainId: '0x1',
-    chainName: 'Ethereum',
-    nativeCurrency: {
-      name: 'Ethereum',
-      symbol: 'ETH',
-      decimals: 18,
-    },
-    rpcUrls: ['https://mainnet.infura.io/v3'],
-    blockExplorerUrls: ['https://etherscan.com'],
-  },
-  [ChainId.FANTOM]: {
-    chainId: '0xfa',
-    chainName: 'Fantom',
-    nativeCurrency: {
-      name: 'Fantom',
-      symbol: 'FTM',
-      decimals: 18,
-    },
-    rpcUrls: ['https://rpcapi.fantom.network'],
-    blockExplorerUrls: ['https://ftmscan.com'],
-  },
-  [ChainId.BSC]: {
-    chainId: '0x38',
-    chainName: 'Binance Smart Chain',
-    nativeCurrency: {
-      name: 'Binance Coin',
-      symbol: 'BNB',
-      decimals: 18,
-    },
-    rpcUrls: ['https://bsc-dataseed.binance.org'],
-    blockExplorerUrls: ['https://bscscan.com'],
-  },
-  [ChainId.MATIC]: {
-    chainId: '0x89',
-    chainName: 'Matic',
-    nativeCurrency: {
-      name: 'Matic',
-      symbol: 'MATIC',
-      decimals: 18,
-    },
-    rpcUrls: ['https://polygon-rpc.com'], // ['https://matic-mainnet.chainstacklabs.com/'],
-    blockExplorerUrls: ['https://polygonscan.com'],
-  },
-  [ChainId.HECO]: {
-    chainId: '0x80',
-    chainName: 'Heco',
-    nativeCurrency: {
-      name: 'Heco Token',
-      symbol: 'HT',
-      decimals: 18,
-    },
-    rpcUrls: ['https://http-mainnet.hecochain.com'],
-    blockExplorerUrls: ['https://hecoinfo.com'],
-  },
-  [ChainId.XDAI]: {
-    chainId: '0x64',
-    chainName: 'xDai',
-    nativeCurrency: {
-      name: 'xDai Token',
-      symbol: 'xDai',
-      decimals: 18,
-    },
-    rpcUrls: ['https://rpc.xdaichain.com'],
-    blockExplorerUrls: ['https://blockscout.com/poa/xdai'],
-  },
-  [ChainId.HARMONY]: {
-    chainId: '0x63564C40',
-    chainName: 'Harmony',
-    nativeCurrency: {
-      name: 'One Token',
-      symbol: 'ONE',
-      decimals: 18,
-    },
-    rpcUrls: [
-      'https://api.harmony.one',
-      'https://s1.api.harmony.one',
-      'https://s2.api.harmony.one',
-      'https://s3.api.harmony.one',
-    ],
-    blockExplorerUrls: ['https://explorer.harmony.one/'],
-  },
-  [ChainId.AVALANCHE]: {
-    chainId: '0xA86A',
-    chainName: 'Avalanche Mainnet C-Chain',
-    nativeCurrency: {
-      name: 'Avalanche Token',
-      symbol: 'AVAX',
-      decimals: 18,
-    },
-    rpcUrls: ['https://api.avax.network/ext/bc/C/rpc'],
-    blockExplorerUrls: ['https://snowtrace.io'],
-  },
-  [ChainId.OKEX]: {
-    chainId: '0x42',
-    chainName: 'OKEx',
-    nativeCurrency: {
-      name: 'OKEx Token',
-      symbol: 'OKT',
-      decimals: 18,
-    },
-    rpcUrls: ['https://exchainrpc.okex.org'],
-    blockExplorerUrls: ['https://www.oklink.com/okexchain'],
-  },
-  [ChainId.ARBITRUM]: {
-    chainId: '0xA4B1',
-    chainName: 'Arbitrum',
-    nativeCurrency: {
-      name: 'Ethereum',
-      symbol: 'ETH',
-      decimals: 18,
-    },
-    rpcUrls: ['https://arb1.arbitrum.io/rpc'],
-    blockExplorerUrls: ['https://arbiscan.io'],
-  },
-  [ChainId.CELO]: {
-    chainId: '0xA4EC',
-    chainName: 'Celo',
-    nativeCurrency: {
-      name: 'Celo',
-      symbol: 'CELO',
-      decimals: 18,
-    },
-    rpcUrls: ['https://forno.celo.org'],
-    blockExplorerUrls: ['https://explorer.celo.org'],
-  },
-  [ChainId.MOONRIVER]: {
-    chainId: '0x505',
-    chainName: 'Moonriver',
-    nativeCurrency: {
-      name: 'Moonriver',
-      symbol: 'MOVR',
-      decimals: 18,
-    },
-    rpcUrls: ['https://rpc.moonriver.moonbeam.network'],
-    blockExplorerUrls: ['https://moonriver.moonscan.io'],
-  },
-  [ChainId.FUSE]: {
-    chainId: '0x7A',
-    chainName: 'Fuse',
-    nativeCurrency: {
-      name: 'Fuse',
-      symbol: 'FUSE',
-      decimals: 18,
-    },
-    rpcUrls: ['https://rpc.fuse.io'],
-    blockExplorerUrls: ['https://explorer.fuse.io'],
-  },
-  [ChainId.TELOS]: {
-    chainId: '0x28',
-    chainName: 'Telos',
-    nativeCurrency: {
-      name: 'Telos',
-      symbol: 'TLOS',
-      decimals: 18,
-    },
-    rpcUrls: ['https://mainnet.telos.net/evm'],
-    blockExplorerUrls: ['https://rpc1.us.telos.net/v2/explore'],
-  },
-  [ChainId.PALM]: {
-    chainId: '0x2A15C308D',
-    chainName: 'Palm',
-    nativeCurrency: {
-      name: 'Palm',
-      symbol: 'PALM',
-      decimals: 18,
-    },
-    rpcUrls: ['https://palm-mainnet.infura.io/v3/da5fbfafcca14b109e2665290681e267'],
-    blockExplorerUrls: ['https://explorer.palm.io'],
-  },
+  // [ChainId.ETHEREUM]: {
+  //   chainId: '0x1',
+  //   chainName: 'Ethereum',
+  //   nativeCurrency: {
+  //     name: 'Ethereum',
+  //     symbol: 'ETH',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://mainnet.infura.io/v3'],
+  //   blockExplorerUrls: ['https://etherscan.com'],
+  // },
+  // [ChainId.FANTOM]: {
+  //   chainId: '0xfa',
+  //   chainName: 'Fantom',
+  //   nativeCurrency: {
+  //     name: 'Fantom',
+  //     symbol: 'FTM',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://rpcapi.fantom.network'],
+  //   blockExplorerUrls: ['https://ftmscan.com'],
+  // },
+  // [ChainId.BSC]: {
+  //   chainId: '0x38',
+  //   chainName: 'Binance Smart Chain',
+  //   nativeCurrency: {
+  //     name: 'Binance Coin',
+  //     symbol: 'BNB',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://bsc-dataseed.binance.org'],
+  //   blockExplorerUrls: ['https://bscscan.com'],
+  // },
+  // [ChainId.MATIC]: {
+  //   chainId: '0x89',
+  //   chainName: 'Matic',
+  //   nativeCurrency: {
+  //     name: 'Matic',
+  //     symbol: 'MATIC',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://polygon-rpc.com'], // ['https://matic-mainnet.chainstacklabs.com/'],
+  //   blockExplorerUrls: ['https://polygonscan.com'],
+  // },
+  // [ChainId.HECO]: {
+  //   chainId: '0x80',
+  //   chainName: 'Heco',
+  //   nativeCurrency: {
+  //     name: 'Heco Token',
+  //     symbol: 'HT',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://http-mainnet.hecochain.com'],
+  //   blockExplorerUrls: ['https://hecoinfo.com'],
+  // },
+  // [ChainId.XDAI]: {
+  //   chainId: '0x64',
+  //   chainName: 'xDai',
+  //   nativeCurrency: {
+  //     name: 'xDai Token',
+  //     symbol: 'xDai',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://rpc.xdaichain.com'],
+  //   blockExplorerUrls: ['https://blockscout.com/poa/xdai'],
+  // },
+  // [ChainId.HARMONY]: {
+  //   chainId: '0x63564C40',
+  //   chainName: 'Harmony',
+  //   nativeCurrency: {
+  //     name: 'One Token',
+  //     symbol: 'ONE',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: [
+  //     'https://api.harmony.one',
+  //     'https://s1.api.harmony.one',
+  //     'https://s2.api.harmony.one',
+  //     'https://s3.api.harmony.one',
+  //   ],
+  //   blockExplorerUrls: ['https://explorer.harmony.one/'],
+  // },
+  // [ChainId.AVALANCHE]: {
+  //   chainId: '0xA86A',
+  //   chainName: 'Avalanche Mainnet C-Chain',
+  //   nativeCurrency: {
+  //     name: 'Avalanche Token',
+  //     symbol: 'AVAX',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://api.avax.network/ext/bc/C/rpc'],
+  //   blockExplorerUrls: ['https://snowtrace.io'],
+  // },
+  // [ChainId.OKEX]: {
+  //   chainId: '0x42',
+  //   chainName: 'OKEx',
+  //   nativeCurrency: {
+  //     name: 'OKEx Token',
+  //     symbol: 'OKT',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://exchainrpc.okex.org'],
+  //   blockExplorerUrls: ['https://www.oklink.com/okexchain'],
+  // },
+  // [ChainId.ARBITRUM]: {
+  //   chainId: '0xA4B1',
+  //   chainName: 'Arbitrum',
+  //   nativeCurrency: {
+  //     name: 'Ethereum',
+  //     symbol: 'ETH',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+  //   blockExplorerUrls: ['https://arbiscan.io'],
+  // },
+  // [ChainId.CELO]: {
+  //   chainId: '0xA4EC',
+  //   chainName: 'Celo',
+  //   nativeCurrency: {
+  //     name: 'Celo',
+  //     symbol: 'CELO',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://forno.celo.org'],
+  //   blockExplorerUrls: ['https://explorer.celo.org'],
+  // },
+  // [ChainId.MOONRIVER]: {
+  //   chainId: '0x505',
+  //   chainName: 'Moonriver',
+  //   nativeCurrency: {
+  //     name: 'Moonriver',
+  //     symbol: 'MOVR',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://rpc.moonriver.moonbeam.network'],
+  //   blockExplorerUrls: ['https://moonriver.moonscan.io'],
+  // },
+  // [ChainId.FUSE]: {
+  //   chainId: '0x7A',
+  //   chainName: 'Fuse',
+  //   nativeCurrency: {
+  //     name: 'Fuse',
+  //     symbol: 'FUSE',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://rpc.fuse.io'],
+  //   blockExplorerUrls: ['https://explorer.fuse.io'],
+  // },
+  // [ChainId.TELOS]: {
+  //   chainId: '0x28',
+  //   chainName: 'Telos',
+  //   nativeCurrency: {
+  //     name: 'Telos',
+  //     symbol: 'TLOS',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://mainnet.telos.net/evm'],
+  //   blockExplorerUrls: ['https://rpc1.us.telos.net/v2/explore'],
+  // },
+  // [ChainId.PALM]: {
+  //   chainId: '0x2A15C308D',
+  //   chainName: 'Palm',
+  //   nativeCurrency: {
+  //     name: 'Palm',
+  //     symbol: 'PALM',
+  //     decimals: 18,
+  //   },
+  //   rpcUrls: ['https://palm-mainnet.infura.io/v3/da5fbfafcca14b109e2665290681e267'],
+  //   blockExplorerUrls: ['https://explorer.palm.io'],
+  // },
   [ChainId.XRPL]: {
     chainId: '0x15f901',
     chainName: 'Ripple XRPL',
@@ -206,6 +208,28 @@ export const SUPPORTED_NETWORKS: {
     },
     rpcUrls: ['https://rpc-evm-sidechain.xrpl.org'],
     blockExplorerUrls: ['https://evm-sidechain.xrpl.org/'],
+  },
+  [ChainId.APOTHEM]: {
+    chainId: '0x33',
+    chainName: 'Apothem Testnet',
+    nativeCurrency: {
+      name: 'Test XDC',
+      symbol: 'TXDC',
+      decimals: 18,
+    },
+    rpcUrls: ['https://rpc.apothem.network'],
+    blockExplorerUrls: ['hhttps://explorer.apothem.network/'],
+  },
+  [ChainId.XDC]: {
+    chainId: '0x32',
+    chainName: 'XDC',
+    nativeCurrency: {
+      name: 'XDC',
+      symbol: 'XDC',
+      decimals: 18,
+    },
+    rpcUrls: ['https://rpc.xdcrpc.com'],
+    blockExplorerUrls: ['https://xdcscan.io'],
   },
 }
 
@@ -239,6 +263,8 @@ const NetworkModal: FC = () => {
             // ChainId.HECO,
             // ChainId.PALM,
             ChainId.XRPL,
+            ChainId.APOTHEM,
+            ChainId.XDC,
           ].map((key: ChainId, i: number) => {
             if (chainId === key) {
               return (
@@ -248,6 +274,8 @@ const NetworkModal: FC = () => {
                 >
                   {key === ChainId.XRPL ? (
                     <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
+                  ) : (key === ChainId.XDC || key === ChainId.APOTHEM) ? (
+                    <img src={XDC.src} className="rounded-md" width="32px" height="32px" />
                   ) : (
                     <Image
                       // @ts-ignore TYPE NEEDS FIXING
@@ -294,18 +322,21 @@ const NetworkModal: FC = () => {
                 )}
               >
                 {/*@ts-ignore TYPE NEEDS FIXING*/}
-                {key === ChainId.XRPL ? (
-                  <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
-                ) : (
-                  <Image
-                    // @ts-ignore TYPE NEEDS FIXING
-                    src={NETWORK_ICON[key]}
-                    alt="Switch Network"
-                    className="rounded-md"
-                    width="32px"
-                    height="32px"
-                  />
-                )}
+                {
+                  key === ChainId.XRPL ? (
+                    <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
+                  ) : (key === ChainId.XDC || key === ChainId.APOTHEM) ? (
+                    <img src={XDC.src} className="rounded-md" width="32px" height="32px" />
+                  ) : (
+                    <Image
+                      // @ts-ignore TYPE NEEDS FIXING
+                      src={NETWORK_ICON[key]}
+                      alt="Switch Network"
+                      className="rounded-md"
+                      width="32px"
+                      height="32px"
+                    />
+                  )}
 
                 {/* <Image src={NETWORK_ICON[key]} alt="Switch Network" className="rounded-md" width="32px" height="32px" /> */}
                 <Typography weight={700} className="text-high-emphesis">

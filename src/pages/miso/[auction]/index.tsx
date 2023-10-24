@@ -1,4 +1,3 @@
-import { isAddress } from '@ethersproject/address'
 import { AddressZero } from '@ethersproject/constants'
 import Error from 'app/components/Error'
 import { Feature } from 'app/enums'
@@ -19,6 +18,7 @@ import MisoLayout, { MisoBody, MisoHeader } from 'app/layouts/Miso'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { isAddress } from 'app/functions'
 
 const MisoAuction = () => {
   const { account } = useActiveWeb3React()

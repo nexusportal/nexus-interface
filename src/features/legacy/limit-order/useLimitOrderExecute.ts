@@ -1,4 +1,3 @@
-import { getAddress } from '@ethersproject/address'
 import { Signature } from '@ethersproject/bytes'
 import { AddressZero } from '@ethersproject/constants'
 import { TransactionResponse } from '@ethersproject/providers'
@@ -14,6 +13,7 @@ import { clear, setLimitOrderAttemptingTxn, setLimitOrderBentoPermit } from 'app
 import { OrderExpiration } from 'app/state/limit-order/reducer'
 import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useCallback } from 'react'
+import { getAddress } from 'app/functions'
 
 const getEndTime = (orderExpiration: OrderExpiration | string): number => {
   switch (orderExpiration) {

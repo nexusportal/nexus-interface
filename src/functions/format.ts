@@ -1,6 +1,5 @@
 // CONVENTION formatFoo -> string
-
-import { getAddress } from '@ethersproject/address'
+import { getAddress } from './validate'
 import { BigNumberish } from '@ethersproject/bignumber'
 import { formatUnits } from '@ethersproject/units'
 import { Currency, CurrencyAmount, Fraction, JSBI, Price } from '@sushiswap/core-sdk'

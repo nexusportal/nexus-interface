@@ -1,4 +1,3 @@
-import { getAddress } from '@ethersproject/address'
 import { BigNumber } from '@ethersproject/bignumber'
 import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
 import { i18n } from '@lingui/core'
@@ -28,11 +27,14 @@ import { useUserInfo } from './hooks'
 import useMasterChef from './useMasterChef'
 import { ethers } from "ethers";
 import { parseEther } from '@ethersproject/units'
+import { getAddress } from 'app/functions'
 
 const APPROVAL_ADDRESSES = {
   [Chef.MASTERCHEF]: {
     [ChainId.ETHEREUM]: MASTERCHEF_ADDRESS[ChainId.ETHEREUM],
     [ChainId.XRPL]: MASTERCHEF_ADDRESS[ChainId.XRPL],
+    [ChainId.XDC]: MASTERCHEF_ADDRESS[ChainId.XDC],
+    [ChainId.APOTHEM]: MASTERCHEF_ADDRESS[ChainId.APOTHEM],
   },
   [Chef.MASTERCHEF_V2]: { [ChainId.ETHEREUM]: MASTERCHEF_V2_ADDRESS[ChainId.ETHEREUM] },
   [Chef.MINICHEF]: {

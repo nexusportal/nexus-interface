@@ -1,4 +1,3 @@
-import { getAddress } from '@ethersproject/address'
 import { DocumentAddIcon, DocumentDownloadIcon, ExclamationIcon } from '@heroicons/react/outline'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
@@ -8,6 +7,7 @@ import { WhitelistEntry } from 'app/features/miso/context/types'
 import { classNames } from 'app/functions'
 import React, { FC, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { getAddress } from 'app/functions'
 
 interface WhitelistUploadProps {
   value: WhitelistEntry[]

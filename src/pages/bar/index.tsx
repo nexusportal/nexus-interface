@@ -63,8 +63,8 @@ const buttonStyleConnectWallet = `${buttonStyle} text-high-emphesis bg-blue hove
 
 function Stake() {
   const { i18n } = useLingui()
-  const { account } = useActiveWeb3React()
-  const sushiBalance = useTokenBalance(account ?? undefined, SUSHI[ChainId.XRPL])
+  const { account,chainId } = useActiveWeb3React()
+  const sushiBalance = useTokenBalance(account ?? undefined, SUSHI[chainId === ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM])
   const xSushiBalance = useTokenBalance(account ?? undefined, XORACLE)
 
   const { enter, leave } = useSushiBar()
@@ -91,7 +91,7 @@ function Stake() {
 
   const parsedAmount = usingBalance ? balance : tryParseAmount(input, balance?.currency)
 
-  const [approvalState, approve] = useApproveCallback(parsedAmount, BAR_ADDRESS[ChainId.XRPL])
+  const [approvalState, approve] = useApproveCallback(parsedAmount, BAR_ADDRESS[chainId === ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM])
 
   const handleInput = (v: string) => {
     if (v.length <= INPUT_CHAR_LIMIT) {

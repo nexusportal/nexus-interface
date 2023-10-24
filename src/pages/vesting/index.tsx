@@ -1,4 +1,3 @@
-import { isAddress } from '@ethersproject/address'
 import { BigNumber } from '@ethersproject/bignumber'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import { t } from '@lingui/macro'
@@ -34,6 +33,7 @@ import { useUserHasSubmittedClaim } from 'app/state/transactions/hooks'
 import Head from 'next/head'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { isAddress } from 'app/functions'
 
 import { useActiveWeb3React } from '../../services/web3'
 

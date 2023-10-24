@@ -1,12 +1,11 @@
 // NOTE: Try not to add anything to thie file, it's almost entirely refactored out.
-
+import { isAddress } from 'app/functions'
 import { AddressZero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { ChainId, ROUTER_ADDRESS } from '@sushiswap/core-sdk'
 import IUniswapV2Router02ABI from 'app/constants/abis/uniswap-v2-router-02.json'
 import IUniswapV2Router02NoETHABI from 'app/constants/abis/uniswap-v2-router-02-no-eth.json'
-import { isAddress } from 'app/functions/validate'
 
 // account is not optional
 export function getSigner(library: Web3Provider, account: string): JsonRpcSigner {

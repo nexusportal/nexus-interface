@@ -195,6 +195,14 @@ const chains: ChainObject = {
     link: 'https://evm-sidechain.xrpl.org',
     builder: explorers.blockscout,
   },
+  [ChainId.XDC]: {
+    link: 'https://rpc.xdc.org',
+    builder: explorers.blockscout,
+  },
+  [ChainId.APOTHEM]: {
+    link: 'https://rpc.apothem.network',
+    builder: explorers.blockscout,
+  },
 }
 
 export function getExplorerLink(

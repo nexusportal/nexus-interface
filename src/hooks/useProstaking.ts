@@ -44,11 +44,11 @@ export function useCheckPossibleDistribute() {
   const contract = useProStakingDistributorContract()
 
 
-  const possibleDistribute = useSingleCallResult(contract , 'possibleDistribute')?.result
+  const possibleDistribute = useSingleCallResult(contract, 'possibleDistribute')?.result
 
   const check = possibleDistribute?.[0]
 
-  return check 
+  return check
 }
 
 export const useProStakingActions = () => {
@@ -175,7 +175,7 @@ export const useProStakingActions = () => {
     [addTransaction, prostakingContract]
   )
 
-  return { deposit, withdraw, harvest, oracleNFTStake, oracleNFTWithdraw, extendLockMode, increaseLockAmount,oracleMultiNFTStake,oracleMultiNFTWithdraw,shortenLockMode }
+  return { deposit, withdraw, harvest, oracleNFTStake, oracleNFTWithdraw, extendLockMode, increaseLockAmount, oracleMultiNFTStake, oracleMultiNFTWithdraw, shortenLockMode }
 }
 
 export function useProStakingRewardHistory() {
@@ -250,7 +250,7 @@ export function useProStakingUserInfo() {
   return { lockMode, unlockTime, lockedProAmount, userNFTWeight, userTotalWeight, lockXOracle }
 }
 
-export function useProStakingNFTWeightInfo() : { [address: string]: number } {
+export function useProStakingNFTWeightInfo(): { [address: string]: number } {
 
   const { account } = useActiveWeb3React()
 
@@ -277,8 +277,8 @@ export function useProStakingNFTWeightInfo() : { [address: string]: number } {
     if (!userStakedNFT || !userWalletNFT) {
       return
     }
-    return [...userStakedNFT,...userWalletNFT].map((tokenId) => [String(tokenId.toNumber())])
-  }, [userStakedNFT,userWalletNFT])
+    return [...userStakedNFT, ...userWalletNFT].map((tokenId) => [String(tokenId.toNumber())])
+  }, [userStakedNFT, userWalletNFT])
 
   // @ts-ignore TYPE NEEDS FIXING
   const nftWeightInfo = useSingleContractMultipleData(weightArgs ? weightContract : null, 'nexusNFTWeight', weightArgs)
@@ -406,8 +406,8 @@ export function useProStakingNFTInfo() {
   useEffect(() => {
     if (userWalletNFT && userWalletNFT.length > 0) {
       walletNFTFetch()
-    }else{
-      if(userWalletNFT?.length === 0){
+    } else {
+      if (userWalletNFT?.length === 0) {
         setWalletNFT([])
       }
     }
@@ -416,8 +416,8 @@ export function useProStakingNFTInfo() {
   useEffect(() => {
     if (userStakedNFT && userStakedNFT.length > 0) {
       stakedNFTFetch()
-    }else{
-      if(userStakedNFT?.length === 0){
+    } else {
+      if (userStakedNFT?.length === 0) {
         setStakedNFT([])
       }
     }
@@ -451,11 +451,11 @@ export function useOracleNFTAllApproved() {
   const contract = useOracleNFTContract()
 
   const args = useMemo(() => {
-    if (!account) {
+    if (!account || !chainId) {
       return
     }
-    return [String(account), NEXUS_NFT_MULTISTAKING_ADDRESS]
-  }, [account])
+    return [String(account), NEXUS_NFT_MULTISTAKING_ADDRESS[chainId]]
+  }, [account, chainId])
 
   const approvedInfo = useSingleCallResult(args ? contract : null, 'isApprovedForAll', args)?.result
 
@@ -483,6 +483,7 @@ export function useOracleNFTWeight(tokenId: number) {
 
 export function useOracleNFTApproved(tokenId: number) {
   const contract = useOracleNFTContract()
+  const { chainId } = useActiveWeb3React()
 
   const args = useMemo(() => {
     if (!tokenId) {
@@ -495,33 +496,35 @@ export function useOracleNFTApproved(tokenId: number) {
 
   const operator = approvedInfo?.[0]
 
-  return operator && operator.toLowerCase() === NEXUS_NFT_MULTISTAKING_ADDRESS.toLowerCase()
+  return operator && operator.toLowerCase() === NEXUS_NFT_MULTISTAKING_ADDRESS[chainId?chainId:ChainId.XRPL].toLowerCase()
 }
 
 export function useOracleNFTApprove() {
   const contract = useOracleNFTContract()
-
+  const { chainId } = useActiveWeb3React()
   const addTransaction = useTransactionAdder()
 
   const approveAll = useCallback(async () => {
+    if (!chainId) return;
     try {
-      const tx = await contract?.setApprovalForAll(NEXUS_NFT_MULTISTAKING_ADDRESS, true)
+      const tx = await contract?.setApprovalForAll(NEXUS_NFT_MULTISTAKING_ADDRESS[chainId], true)
       return tx;
     } catch (e) {
       return e
     }
-  }, [addTransaction, contract])
+  }, [addTransaction, contract, chainId])
 
   const approveStaker = useCallback(
     async (tokenId: number) => {
+      if (!chainId) return;
       try {
-        const tx = await contract?.approve(NEXUS_NFT_MULTISTAKING_ADDRESS, tokenId)
+        const tx = await contract?.approve(NEXUS_NFT_MULTISTAKING_ADDRESS[chainId], tokenId)
         return addTransaction(tx, { summary: 'Approve Nexus NFT For Multistaking' })
       } catch (e) {
         return e
       }
     },
-    [addTransaction, contract]
+    [addTransaction, contract, chainId]
   )
 
   return { approveAll, approveStaker }
@@ -546,16 +549,23 @@ export function useProPendingReward() {
   const alltokens = useAllTokens()
 
   const rewards = useMemo(() => {
-    if (!rewardsInfo) {
+    if (!rewardsInfo || !chainId) {
       return []
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUS LP Token')
+      const OLPToken = new Token(chainId, item.token, 18, 'NLP', 'NEXUS LP Token')
       let tokenInfo = alltokens[item.token] || OLPToken
 
-      if(item.token == '0x0000000000000000000000000000000000000000'){
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XRPL) {
         tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
+      }
+
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.APOTHEM) {
+        tokenInfo = new Token(ChainId.APOTHEM, item.token, 18, 'XDC', 'XDC');
+      }
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XDC) {
+        tokenInfo = new Token(ChainId.XDC, item.token, 18, 'XDC', 'XDC');
       }
 
 
@@ -572,7 +582,7 @@ export function useProPendingReward() {
       }
     })
     return infos
-  }, [rewardsInfo, alltokens])
+  }, [rewardsInfo, alltokens, chainId])
   return rewards
 }
 
@@ -595,17 +605,24 @@ export function useProUserTotalReward() {
   const alltokens = useAllTokens()
 
   const rewards = useMemo(() => {
-    if (!rewardsInfo) {
+    if (!rewardsInfo || !chainId) {
       return []
     }
     let infos: any[] = []
     rewardsInfo.map((item: { token: string; amount: BigNumber }) => {
-      const OLPToken = new Token(ChainId.XRPL, item.token, 18, 'NLP', 'NEXUS LP Token')
+      const OLPToken = new Token(chainId, item.token, 18, 'NLP', 'NEXUS LP Token')
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
-      if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XRPL) {
+        tokenInfo = new Token(chainId, item.token, 18, 'XRP', 'XRP');
+      }
+
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.APOTHEM) {
+        tokenInfo = new Token(ChainId.APOTHEM, item.token, 18, 'XDC', 'XDC');
+      }
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XDC) {
+        tokenInfo = new Token(ChainId.XDC, item.token, 18, 'XDC', 'XDC');
       }
 
       const amountInfo = item.amount ? JSBI.BigInt(item.amount.toString()) : undefined
@@ -685,6 +702,7 @@ export function useProStakingInfo() {
 
 export function useTotalDistributedReward() {
   const contract = useProStakingContract()
+  const { chainId } = useActiveWeb3React()
 
   const results = useSingleCallResult(contract, 'distributedTotalReward')?.result
 
@@ -702,8 +720,15 @@ export function useTotalDistributedReward() {
 
       let tokenInfo = alltokens[item.token] || OLPToken
 
-      if(item.token == '0x0000000000000000000000000000000000000000'){
-        tokenInfo = new Token(ChainId.XRPL, item.token, 18, 'XRP', 'XRP');
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XRPL) {
+        tokenInfo = new Token(chainId, item.token, 18, 'XRP', 'XRP');
+      }
+
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.APOTHEM) {
+        tokenInfo = new Token(ChainId.APOTHEM, item.token, 18, 'XDC', 'XDC');
+      }
+      if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XDC) {
+        tokenInfo = new Token(ChainId.XDC, item.token, 18, 'XDC', 'XDC');
       }
 
       const amountInfo = item.amount ? JSBI.BigInt(item.amount.toString()) : undefined

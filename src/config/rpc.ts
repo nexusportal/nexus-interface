@@ -26,6 +26,8 @@ const RPC = {
   [ChainId.MOONRIVER]: 'https://rpc.moonriver.moonbeam.network',
   [ChainId.TELOS]: 'https://mainnet.telos.net/evm',
   [ChainId.XRPL]: 'https://rpc-evm-sidechain.xrpl.org',
+  [ChainId.XDC]: 'https://rpc.xdc.network',
+  [ChainId.APOTHEM]: 'https://rpc.apothem.network',
 }
 
 export default RPC

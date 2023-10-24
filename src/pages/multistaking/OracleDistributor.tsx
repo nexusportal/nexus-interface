@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ZERO } from '@sushiswap/core-sdk'
+import { ZERO, ChainId } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import { NEXUS  } from 'app/config/tokens'
 import {  PRO_ORALCE_DISTRIBUTOR_ADDRESS } from 'app/constants'
@@ -99,7 +99,7 @@ const OracleDistributor = () => {
     }
   }
 
-  const balance = useTokenBalance(PRO_ORALCE_DISTRIBUTOR_ADDRESS, NEXUS)
+  const balance = useTokenBalance(PRO_ORALCE_DISTRIBUTOR_ADDRESS[chainId ===ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM ], NEXUS)
 
   return (
     <div className="flex flex-row items-center mt-3 space-x-2 text-lg font-normal text-left text-primary">

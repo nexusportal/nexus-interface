@@ -11,6 +11,8 @@ const DEFAULT_NETWORK = {
   [ChainId.BSC]: 'bsc',
   [ChainId.MATIC]: 'matic',
   [ChainId.XRPL]: 'ripple xrpl',
+  [ChainId.XDC]: 'xdc',
+  [ChainId.APOTHEM]: 'txdc',
 }
 
 const DEFAULT_CRYPTO_CURRENCY = {
@@ -18,6 +20,8 @@ const DEFAULT_CRYPTO_CURRENCY = {
   [ChainId.BSC]: 'BNB',
   [ChainId.MATIC]: 'MATIC',
   [ChainId.XRPL]: 'XRP',
+  [ChainId.XDC]: 'XDC',
+  [ChainId.APOTHEM]: 'TXDC',
 }
 
 export default function Buy() {

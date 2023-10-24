@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { ZERO } from '@sushiswap/core-sdk'
+import { ZERO, ChainId } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import { WalletIcon } from 'app/components/Icon'
 import { HeadlessUiModal } from 'app/components/Modal'
@@ -46,7 +46,7 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
   return success
 }
 export const SelectedOracles = () => {
-  const { account } = useActiveWeb3React()
+  const { account,chainId } = useActiveWeb3React()
 
   const maxSelectAmount = 40
 
@@ -115,7 +115,7 @@ export const SelectedOracles = () => {
   // @ts-ignore TYPE NEEDS FIXING
   const [approvalState, approve] = useApproveCallback(
     minXOracleAmount?.multiply(selectedIDs.length),
-    NEXUS_NFT_MULTISTAKING_ADDRESS
+    NEXUS_NFT_MULTISTAKING_ADDRESS[chainId?chainId:ChainId.XRPL]
   )
 
   const depositError = !minXOracleAmount

@@ -22,6 +22,8 @@ const Moonriver = 'https://raw.githubusercontent.com/sushiswap/icons/master/netw
 const Fuse = 'https://raw.githubusercontent.com/sushiswap/icons/master/network/fuse.jpg'
 const Telos = 'https://raw.githubusercontent.com/sushiswap/icons/master/network/telos.jpg'
 const Ripple = 'https://s2.coinmarketcap.com/static/img/coins/64x64/52.png'
+const XDC = 'https://s2.coinmarketcap.com/static/img/coins/64x64/2634.png'
+const APOTHEM = 'https://s2.coinmarketcap.com/static/img/coins/64x64/2634.png'
 
 export const NETWORK_ICON = {
   [ChainId.ETHEREUM]: Mainnet,
@@ -53,6 +55,8 @@ export const NETWORK_ICON = {
   [ChainId.FUSE]: Fuse,
   [ChainId.TELOS]: Telos,
   [ChainId.XRPL]: Ripple,
+  [ChainId.XDC]: XDC,
+  [ChainId.APOTHEM]: APOTHEM,
 }
 
 export const NETWORK_LABEL: { [chainId in ChainId]?: string } = {
@@ -85,4 +89,6 @@ export const NETWORK_LABEL: { [chainId in ChainId]?: string } = {
   [ChainId.FUSE]: 'Fuse',
   [ChainId.TELOS]: 'Telos EVM',
   [ChainId.XRPL]: 'XRP EVM',
+  [ChainId.XDC]: 'XDC',
+  [ChainId.APOTHEM]: 'XDC Testnet',
 }

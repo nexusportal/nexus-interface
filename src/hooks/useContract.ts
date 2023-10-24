@@ -24,7 +24,7 @@ import MISO from '@sushiswap/miso/exports/all.json'
 import TRIDENT from '@sushiswap/trident/exports/all.json'
 import { OLD_FARMS } from 'app/config/farms'
 import { tridentMigrationContracts } from 'app/config/tridentMigration'
-import { MASTERCHEF_ADDRESS, NEXUS_NFT_MULTISTAKING_ADDRESS, NEXU_DISTRIBUTOR_ADDRESS, NEXUS_NFT_ADDRESS, NEXUS_NFT_WEIGHT_ADDRESS, PRO_ORALCE_DISTRIBUTOR_ADDRESS,PROPHET_SACRIFICE_ADDRESS,MULTISTAKING_DISTRIBUTOR_ADDRESS } from 'app/constants'
+import { MASTERCHEF_ADDRESS, NEXUS_NFT_MULTISTAKING_ADDRESS, NEXU_DISTRIBUTOR_ADDRESS, NEXUS_NFT_ADDRESS, NEXUS_NFT_WEIGHT_ADDRESS, PRO_ORALCE_DISTRIBUTOR_ADDRESS, PROPHET_SACRIFICE_ADDRESS, MULTISTAKING_DISTRIBUTOR_ADDRESS } from 'app/constants'
 import {
   ARGENT_WALLET_DETECTOR_ABI,
   ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS,
@@ -55,12 +55,12 @@ import MINICHEF_ABI from 'app/constants/abis/minichef-v2.json'
 import MISO_HELPER_ABI from 'app/constants/abis/miso-helper.json'
 import MULTICALL2_ABI from 'app/constants/abis/multicall2.json'
 import ORACLE_DISTRIBUTOR_ABI from 'app/constants/abis/oracledistributor.json'
-import ORACLE_NFT_ABI  from 'app/constants/abis/oraclenft.json'
-import PRO_DISTRIBUTOR_ABI  from 'app/constants/abis/pro-distributor.json'
+import ORACLE_NFT_ABI from 'app/constants/abis/oraclenft.json'
+import PRO_DISTRIBUTOR_ABI from 'app/constants/abis/pro-distributor.json'
 import PROPHET_SACRIFICE_ABI from 'app/constants/abis/prophet-sacrifice.json'
-import PROSTAKING_ABI  from 'app/constants/abis/prostaking.json'
-import PROSTAKING_ORACLE_WEIGHT_ABI  from 'app/constants/abis/prostaking-oracle-weight.json'
-import PROSTAKING_DISTRIBUTOR_ABI  from 'app/constants/abis/prostakingdistributor.json'
+import PROSTAKING_ABI from 'app/constants/abis/prostaking.json'
+import PROSTAKING_ORACLE_WEIGHT_ABI from 'app/constants/abis/prostaking-oracle-weight.json'
+import PROSTAKING_DISTRIBUTOR_ABI from 'app/constants/abis/prostakingdistributor.json'
 import ROUTER_ABI from 'app/constants/abis/router.json'
 import SUSHI_ABI from 'app/constants/abis/sushi.json'
 import SUSHIROLL_ABI from 'app/constants/abis/sushi-roll.json'
@@ -195,37 +195,37 @@ export function useSushiBarContract(withSignerIfPossible?: boolean): Contract | 
 
 export function useProStakingOracleWeightContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? NEXUS_NFT_WEIGHT_ADDRESS : undefined, PROSTAKING_ORACLE_WEIGHT_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_NFT_WEIGHT_ADDRESS[chainId] : undefined, PROSTAKING_ORACLE_WEIGHT_ABI, withSignerIfPossible)
 }
 
 export function useProOracleDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? PRO_ORALCE_DISTRIBUTOR_ADDRESS : undefined, PRO_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? PRO_ORALCE_DISTRIBUTOR_ADDRESS[chainId] : undefined, PRO_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProStakingDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? MULTISTAKING_DISTRIBUTOR_ADDRESS : undefined, PROSTAKING_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? MULTISTAKING_DISTRIBUTOR_ADDRESS[chainId] : undefined, PROSTAKING_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProStakingContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? NEXUS_NFT_MULTISTAKING_ADDRESS : undefined, PROSTAKING_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_NFT_MULTISTAKING_ADDRESS[chainId] : undefined, PROSTAKING_ABI, withSignerIfPossible)
 }
 
 export function useOracleNFTContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? NEXUS_NFT_ADDRESS : undefined, ORACLE_NFT_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_NFT_ADDRESS[chainId] : undefined, ORACLE_NFT_ABI, withSignerIfPossible)
 }
 
 export function useOracleDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? NEXU_DISTRIBUTOR_ADDRESS : undefined, ORACLE_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXU_DISTRIBUTOR_ADDRESS[chainId] : undefined, ORACLE_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProphetSacrificeContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? PROPHET_SACRIFICE_ADDRESS : undefined, PROPHET_SACRIFICE_ABI, withSignerIfPossible)
+  return useContract(chainId ? PROPHET_SACRIFICE_ADDRESS[chainId] : undefined, PROPHET_SACRIFICE_ABI, withSignerIfPossible)
 }
 
 export function useMakerContract(): Contract | null {
@@ -258,8 +258,9 @@ export function useComplexRewarderContract(address, withSignerIfPossible?: boole
 }
 
 // @ts-ignore TYPE NEEDS FIXING
-export function useNexusGeneratorContract( withSignerIfPossible?: boolean): Contract | null {
-  return useContract('0x42704Eec2B9CE8e1a18d6686365AFB7AE3CFc6E4', NexusGenerator_ABI, withSignerIfPossible)
+export function useNexusGeneratorContract(withSignerIfPossible?: boolean): Contract | null {
+  const { chainId } = useActiveWeb3React()
+  return useContract(MASTERCHEF_ADDRESS[chainId ? chainId : ChainId.XRPL], NexusGenerator_ABI, withSignerIfPossible)
 }
 
 // @ts-ignore TYPE NEEDS FIXING

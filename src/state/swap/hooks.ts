@@ -147,7 +147,6 @@ export function useDerivedSwapInfo(): {
   const bestTradeExactIn = useTradeExactIn(isExactIn ? parsedAmount : undefined, outputCurrency ?? undefined, {
     maxHops: singleHopOnly ? 1 : undefined,
   })
-
   const bestTradeExactOut = useTradeExactOut(inputCurrency ?? undefined, !isExactIn ? parsedAmount : undefined, {
     maxHops: singleHopOnly ? 1 : undefined,
   })

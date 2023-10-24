@@ -79,7 +79,6 @@ export function useV2TradeExactOut(
   { maxHops = MAX_HOPS } = {}
 ): Trade<Currency, Currency, TradeType.EXACT_OUTPUT> | null {
   const allowedPairs = useAllCommonPairs(currencyIn, currencyAmountOut?.currency)
-
   return useMemo(() => {
     if (currencyIn && currencyAmountOut && allowedPairs.length > 0) {
       if (maxHops === 1) {

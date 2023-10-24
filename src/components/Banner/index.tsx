@@ -39,7 +39,7 @@ const Banner: FC<BannerProps> = ({ banners }) => {
     setSlideIndex((prevState) => (prevState - 1 + banners.length) % banners.length)
   }, [banners.length])
 
-  if (chainId !== ChainId.XRPL || banners.length === 0) return <></>
+  if ((chainId !== ChainId.XRPL && chainId !== ChainId.APOTHEM && chainId !== ChainId.XDC) || banners.length === 0) return <></>
 
   const filteredSlides = banners.filter(({ attributes: { startDate, endDate } }) => {
     const now = new Date().getTime()

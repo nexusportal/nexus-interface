@@ -1,10 +1,10 @@
-import { getAddress } from '@ethersproject/address'
 import { BigNumber } from '@ethersproject/bignumber'
 import ERC20_ABI from 'app/constants/abis/erc20.json'
 import { Fraction } from 'app/entities/bignumber'
 import { useBentoBoxContract, useContract } from 'app/hooks/useContract'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useCallback, useEffect, useState } from 'react'
+import { getAddress } from 'app/functions'
 
 const useAllowance = (tokenAddress: string) => {
   const { account } = useActiveWeb3React()

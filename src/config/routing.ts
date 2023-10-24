@@ -17,6 +17,8 @@ import * as PALM from './tokens/palm'
 import * as TELOS from './tokens/telos'
 import * as XDAI from './tokens/xdai'
 import * as XRPL_TOKENS from './tokens/xrpl'
+import * as XDC_TOKENS from './tokens/xdc'
+import * as APOTHEM_TOKENS from './tokens/apothem'
 
 type ChainTokenList = {
   readonly [chainId: number]: Token[]
@@ -73,6 +75,8 @@ const WRAPPED_NATIVE_ONLY: ChainTokenList = {
   [ChainId.FUSE]: [WNATIVE[ChainId.FUSE]],
   [ChainId.TELOS]: [WNATIVE[ChainId.TELOS]],
   [ChainId.XRPL]: [WNATIVE[ChainId.XRPL]],
+  [ChainId.XDC]: [WNATIVE[ChainId.XDC]],
+  [ChainId.APOTHEM]: [WNATIVE[ChainId.APOTHEM]],
 }
 
 // used to construct intermediary pairs for trading
@@ -196,6 +200,8 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.FUSE]: [...WRAPPED_NATIVE_ONLY[ChainId.FUSE], FUSE.USDC, FUSE.USDT, FUSE.WBTC, FUSE.WETH, FUSE.DAI],
   [ChainId.TELOS]: [...WRAPPED_NATIVE_ONLY[ChainId.TELOS], TELOS.USDC, TELOS.USDT, TELOS.WETH, TELOS.WBTC],
   [ChainId.XRPL]: [...WRAPPED_NATIVE_ONLY[ChainId.XRPL]],
+  [ChainId.XDC]: [...WRAPPED_NATIVE_ONLY[ChainId.XDC]],
+  [ChainId.APOTHEM]: [...WRAPPED_NATIVE_ONLY[ChainId.APOTHEM]],
 }
 
 export const ADDITIONAL_BASES: {
@@ -523,6 +529,14 @@ export const COMMON_BASES: ChainTokenList = {
     // @ts-ignore TYPE NEEDS FIXING
     ...WRAPPED_NATIVE_ONLY[ChainId.XRPL],
   ],
+  [ChainId.XDC]: [
+    // @ts-ignore TYPE NEEDS FIXING
+    ...WRAPPED_NATIVE_ONLY[ChainId.XDC],
+  ],
+  [ChainId.APOTHEM]: [
+    // @ts-ignore TYPE NEEDS FIXING
+    ...WRAPPED_NATIVE_ONLY[ChainId.APOTHEM],
+  ],
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
@@ -629,6 +643,8 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   [ChainId.FUSE]: [...WRAPPED_NATIVE_ONLY[ChainId.FUSE], FUSE.USDC, FUSE.USDT, FUSE.WBTC, FUSE.WETH, FUSE.DAI],
   [ChainId.TELOS]: [...WRAPPED_NATIVE_ONLY[ChainId.TELOS], TELOS.USDC, TELOS.USDT, TELOS.WETH, TELOS.WBTC],
   [ChainId.XRPL]: [...WRAPPED_NATIVE_ONLY[ChainId.XRPL], XRPL_TOKENS.TOKENONE, XRPL_TOKENS.TOKENTWO, XRPL_TOKENS.TOKENTHREE, XRPL_TOKENS.NEXUS],
+  [ChainId.APOTHEM]: [...WRAPPED_NATIVE_ONLY[ChainId.XRPL], APOTHEM_TOKENS.AIR, APOTHEM_TOKENS.EARTH, APOTHEM_TOKENS.FIRE, APOTHEM_TOKENS.SPACE, APOTHEM_TOKENS.WATER, APOTHEM_TOKENS.NEXUS],
+  [ChainId.XDC]: [...WRAPPED_NATIVE_ONLY[ChainId.XRPL], XDC_TOKENS.NEXUS],
 }
 
 export const PINNED_PAIRS: {

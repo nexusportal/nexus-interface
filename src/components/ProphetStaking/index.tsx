@@ -4,7 +4,7 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/solid'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Slider from '@mui/material/Slider'
-import { Currency, CurrencyAmount, ZERO } from '@sushiswap/core-sdk'
+import { Currency, CurrencyAmount, ZERO, ChainId } from '@sushiswap/core-sdk'
 import QuestionHelper from 'app/components/QuestionHelper'
 import { NEXUS } from 'app/config/tokens'
 import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
@@ -131,7 +131,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   const parsedDepositValue = tryParseAmount(depositValue, liquidityToken)
   const parsedWithdrawValue = tryParseAmount(withdrawValue, liquidityToken)
   // @ts-ignore TYPE NEEDS FIXING
-  const [approvalState, approve] = useApproveCallback(parsedDepositValue, NEXUS_NFT_MULTISTAKING_ADDRESS)
+  const [approvalState, approve] = useApproveCallback(parsedDepositValue, NEXUS_NFT_MULTISTAKING_ADDRESS[chainId?chainId:ChainId.XRPL])
 
   const depositLowProAmount = useMemo(() => {
     if (minNexusAmount && parsedDepositValue && stakedAmount) {
@@ -356,7 +356,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   // @ts-ignore TYPE NEEDS FIXING
   const [xOracleApprovalState, xOralceApprove] = useApproveCallback(
     minXOracleAmount?.multiply(nftCount),
-    NEXUS_NFT_MULTISTAKING_ADDRESS
+    NEXUS_NFT_MULTISTAKING_ADDRESS[chainId?chainId:ChainId.XRPL ]
   )
 
   const extendError = stakedAmount?.equalTo(ZERO)

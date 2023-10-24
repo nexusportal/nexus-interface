@@ -33,9 +33,9 @@ const usePending = (farm) => {
       // [ChainId.MOONRIVER]: complexRewarder,
       // [ChainId.FUSE]: complexRewarder,
       // [ChainId.FANTOM]: complexRewarder,
-      [ChainId.XRPL]: nexusGenRewarder,
+      [chainId?chainId: ChainId.XRPL]: nexusGenRewarder,
     }),
-    [nexusGenRewarder]
+    [nexusGenRewarder, chainId]
   )
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const usePending = (farm) => {
         // @ts-ignore TYPE NEEDS FIXING
         const pending = await contract[chainId]?.pendingNexusByUser(farm.id, account)
         const format = parseFloat(formatEther(pending)).toFixed(2);
-        bal[nexuTokenAddress] = format;
+        bal[nexuTokenAddress[chainId?chainId:ChainId.XRPL]] = format;
         // @ts-ignore TYPE NEEDS FIXING
         const rewardTokens = farm.rewards.filter((item, i)=> item.currency.symbol !== "NEXU");
         for(let i=0; i< rewardTokens.length; i++) {

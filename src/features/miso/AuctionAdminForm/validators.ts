@@ -1,5 +1,4 @@
-import { getAddress } from '@ethersproject/address'
-
+import { getAddress } from "app/functions"
 interface ValidatorData {
   value: string
   imageSizeThreshold?: number

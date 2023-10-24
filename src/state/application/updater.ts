@@ -97,12 +97,13 @@ export default function Updater(): null {
       .getBlock('latest')
       .then(blockCallback)
       .catch((error) => console.error(`Failed to get block for chainId: ${chainId}`, error))
-
-    library.on('block', onBlock)
+    if (chainId !== ChainId.XDC && chainId !== ChainId.APOTHEM) {
+      library.on('block', onBlock)
+    }
     return () => {
       library.removeListener('block', onBlock)
     }
-  }, [dispatch, chainId, library, windowVisible, blockCallback, onBlock])
+  }, [dispatch, chainId, library, windowVisible])
 
   const debouncedState = useDebounce(state, 100)
 
