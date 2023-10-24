@@ -27,7 +27,7 @@ const RPC = {
   [ChainId.TELOS]: 'https://mainnet.telos.net/evm',
   [ChainId.XRPL]: 'https://rpc-evm-sidechain.xrpl.org',
   [ChainId.XDC]: 'https://rpc.xdc.network',
-  [ChainId.APOTHEM]: 'https://rpc.apothem.network',
+  [ChainId.APOTHEM]: 'https://erpc.apothem.network',
 }
 
 export default RPC

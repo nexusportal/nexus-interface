@@ -217,7 +217,7 @@ export const SUPPORTED_NETWORKS: {
       symbol: 'TXDC',
       decimals: 18,
     },
-    rpcUrls: ['https://rpc.apothem.network'],
+    rpcUrls: ['https://erpc.apothem.network'],
     blockExplorerUrls: ['hhttps://explorer.apothem.network/'],
   },
   [ChainId.XDC]: {
