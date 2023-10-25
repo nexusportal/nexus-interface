@@ -1,57 +1,181 @@
 {
-  "name": "SushiSwap Menu",
-  "timestamp": "2022-07-06T14:17:34.899Z",
-  "version": {
-    "major": 23,
-    "minor": 14,
-    "patch": 0
+  "1440002": {
+    "name": "SushiSwap Menu",
+    "timestamp": "2022-07-06T14:17:34.899Z",
+    "version": {
+      "major": 23,
+      "minor": 14,
+      "patch": 0
+    },
+    "tags": {},
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
+    "keywords": [
+      "sushiswap",
+      "default"
+    ],
+    "tokens": [
+      {
+        "name": "Wrapped XRP",
+        "address": "0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948",
+        "symbol": "WXRP",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/WXRP.png"
+      },
+      {
+        "name": "TOKENONE",
+        "address": "0x77926DA2d20D32f6F1F5f65621296290d589caA9",
+        "symbol": "ONE",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/ONE.png"
+      },
+      {
+        "name": "TOKENTWO",
+        "address": "0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060",
+        "symbol": "TWO",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/TWO.png"
+      },
+      {
+        "name": "TOKENTHREE",
+        "address": "0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109",
+        "symbol": "THREE",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/THREE.png"
+      },
+      {
+        "name": "Nexus",
+        "address": "0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e",
+        "symbol": "NEXU",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/NEXUS.png"
+      }
+    ]
   },
-  "tags": {},
-  "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
-  "keywords": [
-    "sushiswap",
-    "default"
-  ],
-  "tokens": [
-    {
-      "name": "Wrapped XRP",
-      "address": "0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948",
-      "symbol": "WXRP",
-      "decimals": 18,
-      "chainId": 1440002,
-      "logoURI": "/WXRP.png"
+  "51": {
+    "name": "SushiSwap Menu",
+    "timestamp": "2022-07-06T14:17:34.899Z",
+    "version": {
+      "major": 23,
+      "minor": 14,
+      "patch": 0
     },
-    {
-      "name": "TOKENONE",
-      "address": "0x77926DA2d20D32f6F1F5f65621296290d589caA9",
-      "symbol": "ONE",
-      "decimals": 18,
-      "chainId": 1440002,
-      "logoURI": "/ONE.png"
+    "tags": {},
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
+    "keywords": [
+      "sushiswap",
+      "default"
+    ],
+    "tokens": [
+      {
+        "name": "Wrapped XDC",
+        "address": "0xF686c5A86d3AE6182E0E015b411BD01cD8b06662",
+        "symbol": "WXDC",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/WXRP.png"
+      },
+      {
+        "name": "Fire Token",
+        "address": "0xC730A5E1d9E152547263aE3626af1A92A0d96ce7",
+        "symbol": "FIRE",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/ONE.png"
+      },
+      {
+        "name": "WATER",
+        "address": "0x3223e3DCb19bcd4cda1d86D0abc7Cef148AA5c11",
+        "symbol": "WATER",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/TWO.png"
+      },
+      {
+        "name": "SPACE",
+        "address": "0xa99AeFf48fb806F9bB0ea098d4300B63FFfAD7a7",
+        "symbol": "SPACE",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/THREE.png"
+      },
+      {
+        "name": "EARTH",
+        "address": "0xF4E61c16df8D83D3B9Cd71651D3a6276bd3fdb86",
+        "symbol": "EARTH",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      },
+      {
+        "name": "AIR",
+        "address": "0xD4ce3514625F29CDBb8958A25E025883639036C9",
+        "symbol": "AIR",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      }
+    ]
+  },
+  "50": {
+    "name": "SushiSwap Menu",
+    "timestamp": "2022-07-06T14:17:34.899Z",
+    "version": {
+      "major": 23,
+      "minor": 14,
+      "patch": 0
     },
-    {
-      "name": "TOKENTWO",
-      "address": "0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060",
-      "symbol": "TWO",
-      "decimals": 18,
-      "chainId": 1440002,
-      "logoURI": "/TWO.png"
-    },
-    {
-      "name": "TOKENTHREE",
-      "address": "0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109",
-      "symbol": "THREE",
-      "decimals": 18,
-      "chainId": 1440002,
-      "logoURI": "/THREE.png"
-    },
-    {
-      "name": "Nexus",
-      "address": "0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e",
-      "symbol": "NEXU",
-      "decimals": 18,
-      "chainId": 1440002,
-      "logoURI": "/NEXUS.png"
-    }
-  ]
+    "tags": {},
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
+    "keywords": [
+      "sushiswap",
+      "default"
+    ],
+    "tokens": [
+      {
+        "name": "Wrapped XRP",
+        "address": "0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948",
+        "symbol": "WXRP",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/WXRP.png"
+      },
+      {
+        "name": "TOKENONE",
+        "address": "0x77926DA2d20D32f6F1F5f65621296290d589caA9",
+        "symbol": "ONE",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/ONE.png"
+      },
+      {
+        "name": "TOKENTWO",
+        "address": "0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060",
+        "symbol": "TWO",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/TWO.png"
+      },
+      {
+        "name": "TOKENTHREE",
+        "address": "0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109",
+        "symbol": "THREE",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/THREE.png"
+      },
+      {
+        "name": "Nexus",
+        "address": "0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e",
+        "symbol": "NEXU",
+        "decimals": 18,
+        "chainId": 1440002,
+        "logoURI": "/NEXUS.png"
+      }
+    ]
+  }
 }

@@ -196,11 +196,11 @@ const chains: ChainObject = {
     builder: explorers.blockscout,
   },
   [ChainId.XDC]: {
-    link: 'https://rpc.xdc.org',
+    link: 'https://xdcscan.io',
     builder: explorers.blockscout,
   },
   [ChainId.APOTHEM]: {
-    link: 'https://erpc.apothem.network',
+    link: 'hhttps://explorer.apothem.network',
     builder: explorers.blockscout,
   },
 }

@@ -7,3 +7,5 @@ export const EARTH = new Token(ChainId.APOTHEM, '0xF4E61c16df8D83D3B9Cd71651D3a6
 export const AIR = new Token(ChainId.APOTHEM, '0xD4ce3514625F29CDBb8958A25E025883639036C9', 18, 'AIR', 'Air Token')
 
 export const NEXUS = new Token(ChainId.APOTHEM, '0x997B6116f9Ec280E39C196D797b42eFA3E76B0F4', 18, 'NEXU', 'Nexus')
+
+export const WXDC = new Token(ChainId.APOTHEM, '0xF686c5A86d3AE6182E0E015b411BD01cD8b06662', 18, 'WXDC', 'Wrapped TXDC')

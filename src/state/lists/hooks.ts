@@ -9,6 +9,7 @@ import { useAppSelector } from 'app/state/hooks'
 import { useMemo } from 'react'
 
 import { WrappedTokenInfo } from './wrappedTokenInfo'
+import { useActiveWeb3React } from 'app/services/web3'
 
 export type TokenAddressMap = Readonly<{
   [chainId: number]: Readonly<{
@@ -44,15 +45,21 @@ export function listToTokenMap(list: TokenList): TokenAddressMap {
   return map
 }
 
-const TRANSFORMED_DEFAULT_TOKEN_LIST = listToTokenMap(DEFAULT_TOKEN_LIST)
+export function useTransformedTokenList(chain: "51" | "50" | "1440002") {
+  const TRANSFORMED_DEFAULT_TOKEN_LIST = listToTokenMap(DEFAULT_TOKEN_LIST[chain]);
+  return { TRANSFORMED_DEFAULT_TOKEN_LIST }
+}
+// const TRANSFORMED_DEFAULT_TOKEN_LIST = listToTokenMap(DEFAULT_TOKEN_LIST[])
 
 export function useAllLists(): AppState['lists']['byUrl'] {
   return useAppSelector((state) => state.lists.byUrl)
 }
 
-export function getTokenInfo(address:string) {
-  const tokenList  = DEFAULT_TOKEN_LIST.tokens;
-  const token = tokenList.find(ele=> ele.address === address);
+export function getTokenInfo(address: string) {
+  const { chainId } = useActiveWeb3React();
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const tokenList = DEFAULT_TOKEN_LIST[chain].tokens;
+  const token = tokenList.find(ele => ele.address === address);
   return token;
 }
 
@@ -89,7 +96,7 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
     40: { ...map1[40], ...map2[40] }, // telos,
     1440002: { ...map1[1440002], ...map2[1440002] }, // sgb
     50: { ...map1[50], ...map2[50] },
-    51: { ...map1[51], ...map2[51] }, 
+    51: { ...map1[51], ...map2[51] },
   }
 }
 
@@ -131,8 +138,11 @@ export function useInactiveListUrls(): string[] {
 
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {
+  const { chainId } = useActiveWeb3React();
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
   const activeListUrls = useActiveListUrls()
   const activeTokens = useCombinedTokenMapFromUrls(activeListUrls)
+  const { TRANSFORMED_DEFAULT_TOKEN_LIST } = useTransformedTokenList(chain);
   return useMemo(() => combineMaps(activeTokens, TRANSFORMED_DEFAULT_TOKEN_LIST), [activeTokens])
 }
 

@@ -213,12 +213,12 @@ export const SUPPORTED_NETWORKS: {
     chainId: '0x33',
     chainName: 'Apothem Testnet',
     nativeCurrency: {
-      name: 'Test XDC',
+      name: 'XDC',
       symbol: 'TXDC',
       decimals: 18,
     },
     rpcUrls: ['https://erpc.apothem.network'],
-    blockExplorerUrls: ['hhttps://explorer.apothem.network/'],
+    blockExplorerUrls: ['https://explorer.apothem.network'],
   },
   [ChainId.XDC]: {
     chainId: '0x32',
@@ -228,7 +228,7 @@ export const SUPPORTED_NETWORKS: {
       symbol: 'XDC',
       decimals: 18,
     },
-    rpcUrls: ['https://rpc.xdcrpc.com'],
+    rpcUrls: ['https://erpc.xdcrpc.com'],
     blockExplorerUrls: ['https://xdcscan.io'],
   },
 }
