@@ -106,7 +106,7 @@ export function useRewardTokens(farm) {
 // @ts-ignore TYPE NEEDS FIXING
 export function usePendingSushi(farm) {
   const { account, chainId } = useActiveWeb3React()
-
+  const chain = chainId==50?"50": chainId==51?"51":"1440002"
   const contract = useChefContract(farm.chef)
 
   const args = useMemo(() => {
@@ -123,7 +123,7 @@ export function usePendingSushi(farm) {
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  return amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
+  return amount ? CurrencyAmount.fromRawAmount(NEXUS[chain], amount) : undefined
 }
 
 // @ts-ignore TYPE NEEDS FIXING
@@ -150,7 +150,7 @@ export function usePendingRewards(farm) {
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  return amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
+  return amount ? CurrencyAmount.fromRawAmount(NEXUS[chain], amount) : undefined
 }
 
 // @ts-ignore TYPE NEEDS FIXING

@@ -95,7 +95,9 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
   }
   const { account, chainId } = useActiveWeb3React()
 
-  const liquidityToken = NEXUS
+  const chain = chainId==50?"50": chainId==51?"51":"1440002"
+
+  const liquidityToken = NEXUS[chain];
 
   const balance = useTokenBalance(account ?? undefined, liquidityToken)
 
@@ -371,7 +373,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
 
   const [showConfirmation, setShowConfirmation] = useState(false)
 
-  const getTokensOfPair = (nlpAddress: string) => swapPairs.find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
+  const getTokensOfPair = (nlpAddress: string) => swapPairs[chain].find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
 
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)

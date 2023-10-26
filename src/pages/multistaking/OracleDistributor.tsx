@@ -80,6 +80,7 @@ const OracleDistributor = () => {
   const [pendingTx, setPendingTx] = useState(false)
 
   const { account, chainId } = useActiveWeb3React()
+  const chain = chainId==50?"50": chainId==51?"51":"1440002"
 
   const { distribute } = useProOracleDistributeAction()
 
@@ -99,7 +100,7 @@ const OracleDistributor = () => {
     }
   }
 
-  const balance = useTokenBalance(PRO_ORALCE_DISTRIBUTOR_ADDRESS[chainId ===ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM ], NEXUS)
+  const balance = useTokenBalance(PRO_ORALCE_DISTRIBUTOR_ADDRESS[chainId ===ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM ], NEXUS[chain])
 
   return (
     <div className="flex flex-row items-center mt-3 space-x-2 text-lg font-normal text-left text-primary">

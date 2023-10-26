@@ -228,7 +228,7 @@ export const SUPPORTED_NETWORKS: {
       symbol: 'XDC',
       decimals: 18,
     },
-    rpcUrls: ['https://erpc.xdcrpc.com'],
+    rpcUrls: ['https://erpc.xinfin.network/'],
     blockExplorerUrls: ['https://xdcscan.io'],
   },
 }

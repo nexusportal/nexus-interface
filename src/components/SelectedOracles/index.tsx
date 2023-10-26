@@ -47,7 +47,7 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
 }
 export const SelectedOracles = () => {
   const { account,chainId } = useActiveWeb3React()
-
+  const chain = chainId==50?"50": chainId==51?"51":"1440002"
   const maxSelectAmount = 40
 
   ///ipfs://QmV3yAjc2WXQNZycGq3G8B6KGfNZutJFcQM3UuCRiXYgBH/61.json
@@ -56,7 +56,7 @@ export const SelectedOracles = () => {
   /// ipfs://QmfZhkQgWgG98JmaoaiUR5qNYPJh6ZS6HVFk5U6gRPaf1W/61.jpeg
   /// https://ipfs.io/ipfs/QmfZhkQgWgG98JmaoaiUR5qNYPJh6ZS6HVFk5U6gRPaf1W/61.jpeg
 
-  const liquidityToken = NEXUS
+  const liquidityToken = NEXUS[chain]
 
   const balance = useTokenBalance(account ?? undefined, liquidityToken)
 

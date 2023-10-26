@@ -95,10 +95,10 @@ const ProStaking = () => {
   const [pendingTx, setPendingTx] = useState(false)
   const [txHash, setTxHash] = useState<string>('')
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
-const [selectPro, setSelectPro] = useState(false);
-const [selectCon, setSelectCon] = useState(false);
+  const [selectPro, setSelectPro] = useState(false);
+  const [selectCon, setSelectCon] = useState(false);
   const { account, chainId } = useActiveWeb3React()
-
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
 
   const onProDistribute = async () => {
     setPendingTx(true)
@@ -116,7 +116,7 @@ const [selectCon, setSelectCon] = useState(false);
     setSelectPro(false);
   }
 
-  const oracleBalance = useTokenBalance(account ?? undefined, NEXUS)
+  const oracleBalance = useTokenBalance(account ?? undefined, NEXUS[chain])
   const enabled = useOracleDistributorEnableCheck()
   const [foundry, treasury, burned, multiStaking, total] = useOracleDistributorCovertAmount()
 
@@ -144,7 +144,7 @@ const [selectCon, setSelectCon] = useState(false);
     }
   }
 
-  const getTokensOfPair = (nlpAddress: string) => swapPairs.find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
+  const getTokensOfPair = (nlpAddress: string) => swapPairs[chain].find(item => item.id.toLocaleLowerCase() === nlpAddress.toLocaleLowerCase())
 
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)

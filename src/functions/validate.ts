@@ -49,6 +49,21 @@ export function getAddress(value: string | undefined): string {
   }
 }
 
+export function prefixXDCAddr(etherAddr: string | undefined): string {
+  try {
+    if (!etherAddr) return "";
+    let addr = "";
+    if (etherAddr.startsWith("0x")) {
+      addr = "xdc" + getAddressOrigin(etherAddr).substring(2);
+    } else {
+      addr = getAddressOrigin(etherAddr);
+    }
+    return addr;
+  } catch {
+    return ""
+  }
+}
+
 export function isTokenOnList(tokenAddressMap: TokenAddressMap, token?: Token): boolean {
   return Boolean(token?.isToken && tokenAddressMap[token.chainId]?.[token.address])
 }

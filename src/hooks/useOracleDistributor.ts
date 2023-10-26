@@ -5,6 +5,7 @@ import { useTransactionAdder } from 'app/state/transactions/hooks'
 import { useCallback, useMemo } from 'react'
 
 import { useOracleDistributorContract } from './useContract'
+import { useActiveWeb3React } from 'app/services/web3'
 
 const useOracleDistributor = () => {
   const addTransaction = useTransactionAdder()
@@ -33,6 +34,8 @@ export function useOracleDistributorEnableCheck() {
 }
 
 export function useOracleDistributorCovertAmount() {
+  const {chainId} = useActiveWeb3React(); 
+  const chain = chainId==50?"50": chainId==51?"51":"1440002"
   const contract = useOracleDistributorContract()
 
   const result = useSingleCallResult(contract, 'nexusTreasuryTotalAmount')?.result
@@ -67,11 +70,11 @@ export function useOracleDistributorCovertAmount() {
 
   return useMemo(() => {
     if (amount && amount1 && amount2 && amount3 && amount4) {
-      const foundry = CurrencyAmount.fromRawAmount(NEXUS, amount)
-      const treasury = CurrencyAmount.fromRawAmount(NEXUS, amount1)
-      const burned = CurrencyAmount.fromRawAmount(NEXUS, amount2)
-      const multiStaking = CurrencyAmount.fromRawAmount(NEXUS, amount3)
-      const total = CurrencyAmount.fromRawAmount(NEXUS, amount4)
+      const foundry = CurrencyAmount.fromRawAmount(NEXUS[chain], amount)
+      const treasury = CurrencyAmount.fromRawAmount(NEXUS[chain], amount1)
+      const burned = CurrencyAmount.fromRawAmount(NEXUS[chain], amount2)
+      const multiStaking = CurrencyAmount.fromRawAmount(NEXUS[chain], amount3)
+      const total = CurrencyAmount.fromRawAmount(NEXUS[chain], amount4)
       return [foundry, treasury, burned, multiStaking, total]
     }
     return [undefined, undefined, undefined, undefined, undefined]

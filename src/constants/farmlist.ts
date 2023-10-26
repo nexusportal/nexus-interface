@@ -1,100 +1,105 @@
-export const farms = [
-  //TWO / THREE
-  {
-    accSushiPerShare: '',
-    allocPoint: 10,
-    balance: 0,
-    chef: 0,
-    id: '0',
-    lastRewardTime: 12505142,
-    owner: {
-      id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-      totalAllocPoint: 100,
+export const farms = {
+  "1440002": [
+    //TWO / THREE
+    {
+      accSushiPerShare: '',
+      allocPoint: 10,
+      balance: 0,
+      chef: 0,
+      id: '0',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0x23c2cfd4028bca4a79e0238716000fb0a2f4a1f9',
+      slpBalance: 0,
+      userCount: '1',
     },
-    pair: '0x23c2cfd4028bca4a79e0238716000fb0a2f4a1f9',
-    slpBalance: 0,
-    userCount: '1',
-  },
-  // ONE / THREE
-  {
-    accSushiPerShare: '',
-    allocPoint: 10,
-    balance: 0,
-    chef: 0,
-    id: '1',
-    lastRewardTime: 12505142,
-    owner: {
-      id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-      totalAllocPoint: 100,
+    // ONE / THREE
+    {
+      accSushiPerShare: '',
+      allocPoint: 10,
+      balance: 0,
+      chef: 0,
+      id: '1',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0x3c22786e84f66151e23672bdcdf5daffe6c54982',
+      slpBalance: 0,
+      userCount: '0',
     },
-    pair: '0x3c22786e84f66151e23672bdcdf5daffe6c54982',
-    slpBalance: 0,
-    userCount: '0',
-  },
-  //ONE/TWO
-  {
-    accSushiPerShare: '',
-    allocPoint: 10,
-    balance: 0,
-    chef: 0,
-    id: '2',
-    lastRewardTime: 12505142,
-    owner: {
-      id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-      totalAllocPoint: 100,
+    //ONE/TWO
+    {
+      accSushiPerShare: '',
+      allocPoint: 10,
+      balance: 0,
+      chef: 0,
+      id: '2',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0x61cd5d62f23acd3620377279b943aaa8ecf612f7',
+      slpBalance: 0,
+      userCount: '0',
     },
-    pair: '0x61cd5d62f23acd3620377279b943aaa8ecf612f7',
-    slpBalance: 0,
-    userCount: '0',
-  },
-  {
-    accSushiPerShare: '',
-    allocPoint: 10,
-    balance: 0,
-    chef: 0,
-    id: '4',
-    lastRewardTime: 12505142,
-    owner: {
-      id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-      totalAllocPoint: 100,
+    {
+      accSushiPerShare: '',
+      allocPoint: 10,
+      balance: 0,
+      chef: 0,
+      id: '4',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0xa84f27d52eb96d8a5caf03350472c077f5c970ea',
+      slpBalance: 0,
+      userCount: '0',
     },
-    pair: '0xa84f27d52eb96d8a5caf03350472c077f5c970ea',
-    slpBalance: 0,
-    userCount: '0',
-  },
-  // //NEXU/WETH
-  {
-    accSushiPerShare: '',
-    allocPoint: 10,
-    balance: 0,
-    chef: 0,
-    id: '5',
-    lastRewardTime: 12505142,
-    owner: {
-      id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-      totalAllocPoint: 100,
+    // //NEXU/WETH
+    {
+      accSushiPerShare: '',
+      allocPoint: 10,
+      balance: 0,
+      chef: 0,
+      id: '5',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0xb0a0021675fba794bbd530f575e71211e7947ae2',
+      slpBalance: 0,
+      userCount: '0',
     },
-    pair: '0xb0a0021675fba794bbd530f575e71211e7947ae2',
-    slpBalance: 0,
-    userCount: '0',
-  },
-  {
-    accSushiPerShare: '',
-    allocPoint: 10,
-    balance: 0,
-    chef: 0,
-    id: '3',
-    lastRewardTime: 12505142,
-    owner: {
-      id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-      totalAllocPoint: 100,
+    {
+      accSushiPerShare: '',
+      allocPoint: 10,
+      balance: 0,
+      chef: 0,
+      id: '3',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0x4cb3ba9e8fb8074a267bee119dc9bd0c793c36ea',
+      slpBalance: 0,
+      userCount: '0',
     },
-    pair: '0x4cb3ba9e8fb8074a267bee119dc9bd0c793c36ea',
-    slpBalance: 0,
-    userCount: '0',
-  },
-]
-export const swapPairs: {
+  ],
+  "51": [],
+  "50": []
+}
+
+export const swapPairs: Record<string, {
   decimals: number;
   id: string;
   reserve0: number;
@@ -112,7 +117,8 @@ export const swapPairs: {
   untrackedVolumeUSD: number;
   volumeUSD: number;
   type?: number;
-}[] = [
+}[]> = {
+  "1440002": [
     //NEXU/XRP
     {
       decimals: 18,
@@ -333,4 +339,7 @@ export const swapPairs: {
       untrackedVolumeUSD: 46853.79482616671033425777223395,
       volumeUSD: 4684.23711596607606598865310647,
     },
-  ]
+  ],
+  "51": [],
+  "50": []
+}

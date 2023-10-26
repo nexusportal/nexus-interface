@@ -123,20 +123,20 @@ export default function useFarmRewards() {
   // const farms = useFarms({ chainId })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-
+  const chain = chainId === 50 ? "50" : chainId === 51 ? "51" : "1440002";
 
   const liquidityTokens = useMemo(
     () =>
-      farms.map((farm: any) => {
-        const token = new Token(chainId?chainId:ChainId.XRPL, getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
+      farms[chain].map((farm: any) => {
+        const token = new Token(parseInt(chain), getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
         return token;
       }),
     [farms, chainId]
   )
 
-  const farmAddresses = useMemo(() => farms.map((farm: any) => farm.pair), [farms])
+  const farmAddresses = useMemo(() => farms[chain].map((farm: any) => farm.pair), [farms])
 
-  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[chainId?chainId:ChainId.XRPL], liquidityTokens)
+  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[chainId ? chainId : ChainId.XRPL], liquidityTokens)
 
   // const swapPairs = useSushiPairs({
   //   chainId,
@@ -209,8 +209,7 @@ export default function useFarmRewards() {
     // TODO: Deal with inconsistencies between properties on subgraph
     pool.owner = pool?.owner || pool?.masterChef || pool?.miniChef
     pool.balance = pool?.balance || pool?.slpBalance
-
-    const liquidityToken = new Token(chainId?chainId:ChainId.XRPL, getAddress(pool.pair), 18, 'NLP')
+    const liquidityToken = new Token(parseInt(chain), getAddress(pool.pair), 18, 'NLP')
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const stakedAmount = useUserInfo(pool, liquidityToken);
@@ -221,7 +220,7 @@ export default function useFarmRewards() {
     const amount = parseFloat(stakedAmount ? stakedAmount?.toSignificant(10) : '0')
 
     // // @ts-ignore TYPE NEEDS FIXING
-    const swapPair = swapPairs?.find((pair: any) => pair.id === pool.pair)
+    const swapPair = swapPairs[chain]?.find((pair: any) => pair.id === pool.pair)
     // // @ts-ignore TYPE NEEDS FIXING
     // const swapPair1d = swapPairs1d?.find((pair) => pair.id === pool.pair)
     // // @ts-ignore TYPE NEEDS FIXING
@@ -262,7 +261,7 @@ export default function useFarmRewards() {
         token: 'NEXU',
         icon: '/NEXUS.png',
         rewardPerBlock,
-        currency: NEXUS,
+        currency: NEXUS[chain],
         rewardPerDay: rewardPerBlock * blocksPerDay,
         rewardPrice: prolPrice,
         remainAmount: 0,
@@ -550,9 +549,8 @@ export default function useFarmRewards() {
       amount,
     }
   }
-
   return (
-    farms
+    farms[chain]
       // .filter((farm) => {
       //   return (
       //     // @ts-ignore TYPE NEEDS FIXING

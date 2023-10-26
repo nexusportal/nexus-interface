@@ -63,7 +63,8 @@ const buttonStyleConnectWallet = `${buttonStyle} text-high-emphesis bg-blue hove
 
 function Stake() {
   const { i18n } = useLingui()
-  const { account,chainId } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
+  const chain = chainId==50?"50": chainId==51?"51":"1440002"
   const sushiBalance = useTokenBalance(account ?? undefined, SUSHI[chainId === ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM])
   const xSushiBalance = useTokenBalance(account ?? undefined, XORACLE)
 
@@ -80,7 +81,7 @@ function Stake() {
   const [activeTab, setActiveTab] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
 
-  const oracleBalance = useTokenBalance(account ?? undefined, NEXUS)
+  const oracleBalance = useTokenBalance(account ?? undefined, NEXUS[chain])
 
   const [input, setInput] = useState<string>('')
   const [usingBalance, setUsingBalance] = useState(false)

@@ -50,6 +50,8 @@ export const masterChefV2 = async (query, chainId = ChainId.ETHEREUM, variables 
 export const MASTERCHEF_V1 = {
   [ChainId.ETHEREUM]: 'sushiswap/master-chef',
   [ChainId.XRPL]: 'xrpl-evm/master-chef',
+  [ChainId.XDC]: 'xdc/master-chef',
+  [ChainId.APOTHEM]: 'apothem/master-chef',
 }
 
 // @ts-ignore TYPE NEEDS FIXING

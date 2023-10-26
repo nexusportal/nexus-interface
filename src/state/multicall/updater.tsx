@@ -43,8 +43,7 @@ async function fetchChunk(
           gasUsed.gte(Math.floor((chunk[i].gasRequired ?? DEFAULT_GAS_REQUIRED) * 0.95))
         ) {
           console.warn(
-            `A call failed due to requiring ${gasUsed.toString()} vs. allowed ${
-              chunk[i].gasRequired ?? DEFAULT_GAS_REQUIRED
+            `A call failed due to requiring ${gasUsed.toString()} vs. allowed ${chunk[i].gasRequired ?? DEFAULT_GAS_REQUIRED
             }`,
             chunk[i]
           )

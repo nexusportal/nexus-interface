@@ -202,8 +202,8 @@ export function useProStakingRewardHistory() {
 }
 
 export function useProStakingUserInfo() {
-  const { account } = useActiveWeb3React()
-
+  const { account, chainId } = useActiveWeb3React()
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
   const contract = useProStakingContract()
 
   const args = useMemo(() => {
@@ -233,19 +233,19 @@ export function useProStakingUserInfo() {
 
   const lockedAmount = lockedAmountInfo ? JSBI.BigInt(lockedAmountInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const lockedProAmount = lockedAmount ? CurrencyAmount.fromRawAmount(NEXUS, lockedAmount) : undefined
+  const lockedProAmount = lockedAmount ? CurrencyAmount.fromRawAmount(NEXUS[chain], lockedAmount) : undefined
 
   const nftWeight = nftWeightInfo ? JSBI.BigInt(nftWeightInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const userNFTWeight = nftWeight ? CurrencyAmount.fromRawAmount(NEXUS, nftWeight) : undefined
+  const userNFTWeight = nftWeight ? CurrencyAmount.fromRawAmount(NEXUS[chain], nftWeight) : undefined
 
   const totalWeight = totalWeightInfo ? JSBI.BigInt(totalWeightInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const userTotalWeight = totalWeight ? CurrencyAmount.fromRawAmount(NEXUS, totalWeight) : undefined
+  const userTotalWeight = totalWeight ? CurrencyAmount.fromRawAmount(NEXUS[chain], totalWeight) : undefined
 
   const xOracleLock = xOracleLockInfo ? JSBI.BigInt(xOracleLockInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const lockXOracle = xOracleLock ? CurrencyAmount.fromRawAmount(NEXUS, xOracleLock) : undefined
+  const lockXOracle = xOracleLock ? CurrencyAmount.fromRawAmount(NEXUS[chain], xOracleLock) : undefined
 
   return { lockMode, unlockTime, lockedProAmount, userNFTWeight, userTotalWeight, lockXOracle }
 }
@@ -496,7 +496,7 @@ export function useOracleNFTApproved(tokenId: number) {
 
   const operator = approvedInfo?.[0]
 
-  return operator && operator.toLowerCase() === NEXUS_NFT_MULTISTAKING_ADDRESS[chainId?chainId:ChainId.XRPL].toLowerCase()
+  return operator && operator.toLowerCase() === NEXUS_NFT_MULTISTAKING_ADDRESS[chainId ? chainId : ChainId.XRPL].toLowerCase()
 }
 
 export function useOracleNFTApprove() {
@@ -643,6 +643,8 @@ export function useProUserTotalReward() {
 }
 
 export function useMinProAmount() {
+  const { chainId } = useActiveWeb3React()
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
   const contract = useProStakingContract()
 
   const results = useSingleCallResult(contract, 'minNexusAmount')?.result
@@ -651,12 +653,14 @@ export function useMinProAmount() {
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  const minPro = amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
+  const minPro = amount ? CurrencyAmount.fromRawAmount(NEXUS[chain], amount) : undefined
 
   return minPro
 }
 
 export function useMinXOracleAmount() {
+  const { chainId } = useActiveWeb3React()
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
   const contract = useProStakingContract()
   const results = useSingleCallResult(contract, 'minNexusCollateralAmount')?.result
 
@@ -664,12 +668,14 @@ export function useMinXOracleAmount() {
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
-  const minXOracle = amount ? CurrencyAmount.fromRawAmount(NEXUS, amount) : undefined
+  const minXOracle = amount ? CurrencyAmount.fromRawAmount(NEXUS[chain], amount) : undefined
 
   return minXOracle
 }
 
 export function useProStakingInfo() {
+  const { chainId } = useActiveWeb3React()
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
   const contract = useProStakingContract()
 
   const results = useSingleCallResult(contract, 'getGlobalStatus')?.result
@@ -686,11 +692,11 @@ export function useProStakingInfo() {
 
   const totalPool = totalPoolInfo ? JSBI.BigInt(totalPoolInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const totalPoolSize = totalPool ? CurrencyAmount.fromRawAmount(NEXUS, totalPool) : undefined
+  const totalPoolSize = totalPool ? CurrencyAmount.fromRawAmount(NEXUS[chain], totalPool) : undefined
 
   const proAmount = proAmountInfo ? JSBI.BigInt(proAmountInfo.toString()) : undefined
   // @ts-ignore TYPE NEEDS FIXING
-  const totalProAmount = proAmount ? CurrencyAmount.fromRawAmount(NEXUS, proAmount) : undefined
+  const totalProAmount = proAmount ? CurrencyAmount.fromRawAmount(NEXUS[chain], proAmount) : undefined
 
   const xOracleAmount = xOracleAmountInfo ? JSBI.BigInt(xOracleAmountInfo.toString()) : undefined
 
@@ -725,7 +731,7 @@ export function useTotalDistributedReward() {
       }
 
       if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.APOTHEM) {
-        tokenInfo = new Token(ChainId.APOTHEM, item.token, 18, 'XDC', 'XDC');
+        tokenInfo = new Token(ChainId.APOTHEM, item.token, 18, 'XDC', 'Test XDC');
       }
       if (item.token == '0x0000000000000000000000000000000000000000' && chainId === ChainId.XDC) {
         tokenInfo = new Token(ChainId.XDC, item.token, 18, 'XDC', 'XDC');
