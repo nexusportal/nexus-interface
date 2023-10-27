@@ -200,7 +200,7 @@ const chains: ChainObject = {
     builder: explorers.blockscout,
   },
   [ChainId.APOTHEM]: {
-    link: 'hhttps://explorer.apothem.network',
+    link: 'https://explorer.apothem.network',
     builder: explorers.blockscout,
   },
 }
