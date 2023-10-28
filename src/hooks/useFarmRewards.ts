@@ -136,7 +136,7 @@ export default function useFarmRewards() {
 
   const farmAddresses = useMemo(() => farms[chain].map((farm: any) => farm.pair), [farms])
 
-  const stakedBalaces = useTokenBalances(MASTERCHEF_ADDRESS[chainId ? chainId : ChainId.XRPL], liquidityTokens)
+  const stakedBalaces = useTokenBalances(chainId ? MASTERCHEF_ADDRESS[chainId] : undefined, liquidityTokens)
 
   // const swapPairs = useSushiPairs({
   //   chainId,
@@ -549,6 +549,7 @@ export default function useFarmRewards() {
       amount,
     }
   }
+
   return (
     farms[chain]
       // .filter((farm) => {

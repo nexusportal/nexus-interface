@@ -118,6 +118,54 @@
         "decimals": 18,
         "chainId": 51,
         "logoURI": "/NEXUS.png"
+      },
+      {
+        "name": "xBTC",
+        "address": "0xB2aAC0b50c42ee8a7309DCE4092749b98E2a9052",
+        "symbol": "xBTC",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/BTC.png"
+      },
+      {
+        "name": "xETH",
+        "address": "0x5a3D18D2f52f9f424c9A5B0dBAfeb327cDA01F10",
+        "symbol": "xETH",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      },
+      {
+        "name": "xXRP",
+        "address": "0xef24e7461e3C06B0E0c94ABd869e7Af520783826",
+        "symbol": "xXRP",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      },
+      {
+        "name": "xUSDC",
+        "address": "0x70C7Dac54666ACF89FACe22203B2c9ffE72fCC43",
+        "symbol": "xUSDC",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      },
+      {
+        "name": "xUSDT",
+        "address": "0xC6b2806AA5d1a83117C8332413e239dab469357D",
+        "symbol": "xUSDT",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      },
+      {
+        "name": "WAN",
+        "address": "0xE84569d385f7642ccAb3439d7d314549333AA81d",
+        "symbol": "WAN",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
       }
     ]
   },

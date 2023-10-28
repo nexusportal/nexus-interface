@@ -53,7 +53,7 @@ const Desktop: FC = () => {
     const fetchXrpPrice = async () => {
       try {
         const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${nativeTokenId}&vs_currencies=usd`);
-        const price = response.data.ripple.usd; // Access the price using response.data.ripple.usd
+        const price = response.data[nativeTokenId].usd; // Access the price using response.data.ripple.usd
         setXrpPrice(price);
       } catch (error) {
         console.error('Failed to fetch XRP price:', error);
@@ -72,7 +72,8 @@ const Desktop: FC = () => {
     const fetchNexuPrice = async () => {
       try {
         const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${nativeTokenId}&vs_currencies=usd`);
-        const xrpPrice = response.data.ripple.usd;
+        console.log(response.data)
+        const xrpPrice = response.data[nativeTokenId].usd;
 
         const tokenDecimals = 18; // Assuming the token has 18 decimal places
         const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));

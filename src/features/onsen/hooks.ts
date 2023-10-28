@@ -69,9 +69,9 @@ export function useUserInfo(farm, token) {
     return [String(farm.id), String(account)]
   }, [farm, account])
 
-  const result = useSingleCallResult(args ? contract : null, 'userInfo', args)?.result
-
-  const value = result?.[0]
+  const res = useSingleCallResult(args ? contract : null, 'userInfo', args)
+  const result = res?.result
+  const value = result?.[0]??0;
 
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 

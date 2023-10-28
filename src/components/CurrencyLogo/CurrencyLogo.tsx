@@ -268,6 +268,24 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     if (currency.symbol === 'SPACE') {
       return <img alt="img" src={SPACE.src} width={size} height={size} className={className} />
     }
+    if (currency.symbol === 'xBTC') {
+      return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'xETH') {
+      return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'xXRP') {
+      return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'xUSDT') {
+      return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'xUSDC') {
+      return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+    }
+    if (currency.symbol === 'WAN') {
+      return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+    }
   }
   if (currency?.chainId === ChainId.XDC) {
     return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
@@ -358,6 +376,24 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
       if (currency.symbol === 'SPACE') {
         return <img alt="img" src={SPACE.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'xBTC') {
+        return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'xETH') {
+        return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'xXRP') {
+        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'xUSDT') {
+        return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'xUSDC') {
+        return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'WAN') {
+        return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
       }
     }
     if (currency?.chainId === ChainId.XDC) {
