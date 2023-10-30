@@ -131,7 +131,7 @@ export const farms = {
       allocPoint: 10,
       balance: 0,
       chef: 0,
-      id: '2',
+      id: '3',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
@@ -146,7 +146,7 @@ export const farms = {
       allocPoint: 15,
       balance: 0,
       chef: 0,
-      id: '3',
+      id: '4',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
@@ -161,7 +161,7 @@ export const farms = {
       allocPoint: 15,
       balance: 0,
       chef: 0,
-      id: '4',
+      id: '5',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
@@ -176,7 +176,7 @@ export const farms = {
       allocPoint: 30,
       balance: 0,
       chef: 0,
-      id: '5',
+      id: '6',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
@@ -188,10 +188,10 @@ export const farms = {
     },
     {
       accSushiPerShare: '',
-      allocPoint: 5,
+      allocPoint: 10,
       balance: 0,
       chef: 0,
-      id: '6',
+      id: '7',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
