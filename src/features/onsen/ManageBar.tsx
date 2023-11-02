@@ -141,7 +141,6 @@ const ManageBar = ({ farm }) => {
     if (!txHash) return;
     setPendingTx(false);
   }, [txHash])
-  console.log(showConfirm)
 
   if (showConfirm) return (
     <>

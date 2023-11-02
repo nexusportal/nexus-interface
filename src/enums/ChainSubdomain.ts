@@ -20,5 +20,5 @@ export enum ChainSubdomain {
   TELOS = 'telos',
   XRP = 'ripple',
   XDC = 'xdc',
-  APOTHEM = 'txdc',
+  APOTHEM = 'xdc',
 }

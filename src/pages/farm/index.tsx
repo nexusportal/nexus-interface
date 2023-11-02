@@ -22,7 +22,7 @@ import { useDexWarningOpen, useWalletModalToggle } from 'app/state/application/h
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useMasterChefRewardPerBlock, useMasterChefRewardReduction } from 'app/hooks/useFarmRewards'
+import { useMasterChefRewardReduction } from 'app/hooks/useFarmRewards'
 import React, { useState } from 'react'
 import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
 import useCurrentBlock from "app/hooks/useCurrentBlock"
@@ -73,10 +73,9 @@ export default function Farm(): JSX.Element {
   }
 
   const rewards = useFarmRewards()
+  // const rewards: any[] = [];
 
-  const masterChefV1SushiPerBlock = useMasterChefRewardPerBlock()
-
-  const { reducitonRate, period, nextReductionBlock } = useMasterChefRewardReduction();
+  const { reducitonRate, period, nextReductionBlock, rewardPerblock } = useMasterChefRewardReduction();
 
   const data = rewards.filter((farm) => {
     // @ts-ignore TYPE NEEDS FIXING
@@ -259,9 +258,9 @@ export default function Farm(): JSX.Element {
                   </p>
                 </div>
                 <div className="mb-4 text-sm font-normal content md:text-base">
-                  <p>Reduction Rate: <span className='font-bold text-green'>{(100-reducitonRate).toFixed(4)}%</span></p>
+                  <p>Reduction Rate: <span className='font-bold text-green'>{(100 - reducitonRate).toFixed(4)}%</span></p>
                   <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
-                  <p>Current Nexu Per Block: <span className='font-bold text-green'>{masterChefV1SushiPerBlock.toFixed(4)}</span></p>
+                  <p>Current Nexu Per Block: <span className='font-bold text-green'>{rewardPerblock.toFixed(4)}</span></p>
                   <p>Next Reduction NEXU Block: <span className='font-bold text-green'>{nextReductionBlock + Math.floor((period + currentBlock - nextReductionBlock) / period) * period}</span></p>
                 </div>
                 <div className="w-full h-5 bg-gray-400 opacity-50">

@@ -131,7 +131,7 @@ const nextConfig = {
   },
   network: {
     chainIds: [ChainId.XRPL, ChainId.ARBITRUM, ChainId.APOTHEM, ChainId.XDC],
-    defaultChainId: ChainId.XRPL,
+    defaultChainId: ChainId.APOTHEM,
     domains: [
       // {
       //   domain: 'sushi.com',

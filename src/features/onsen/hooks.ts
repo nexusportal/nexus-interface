@@ -67,11 +67,10 @@ export function useUserInfo(farm, token) {
       return
     }
     return [String(farm.id), String(account)]
-  }, [farm, account])
+  }, [account])
 
-  const res = useSingleCallResult(args ? contract : null, 'userInfo', args)
-  const result = res?.result
-  const value = result?.[0]??0;
+  const result = useSingleCallResult(args ? contract : null, 'userInfo', args)?.result
+  const value = result?.[0] ?? undefined;
 
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
@@ -85,17 +84,18 @@ export function useRewardTokens(farm) {
   const args = [String(farm.id)];
   const result = useSingleCallResult(args ? contract : null, 'getRewardTokenInfo', args)?.result;
   const value = result?.[0];
+  const chain = chainId === ChainId.XDC ? "50" : chainId === ChainId.XRPL ? "1440002" : "51";
   // @ts-ignore TYPE NEEDS FIXING
   let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number, remainAmount: number }[] = value?.map((item, ind) => {
     let re = parseFloat(ethers.utils.formatEther(item.distRate));
     let remainAmount = parseFloat(ethers.utils.formatEther(item.remainAmount));
-    let token = getTokenInfo(item.rewardToken);
+    let token = getTokenInfo(item.rewardToken, chain);
     return {
       rewardPerBlock: re,
       rewardPerDay: 24 * 60 * 60 * re,
       rewardPrice: 0,
       remainAmount: remainAmount,
-      currency: new Token(chainId ? chainId : 1440002, item.rewardToken, token?.decimals ?? 18, token?.symbol ?? "Unknown", token?.name ?? "Unknown Token"),
+      currency: new Token(parseInt(chain), item.rewardToken, token?.decimals ?? 18, token?.symbol ?? "Unknown", token?.name ?? "Unknown Token"),
       token: token?.symbol ?? "Unknown",
       icon: token?.logoURI ?? "Unknown.png",
     }
@@ -106,7 +106,7 @@ export function useRewardTokens(farm) {
 // @ts-ignore TYPE NEEDS FIXING
 export function usePendingSushi(farm) {
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId==50?"50": chainId==51?"51":"1440002"
+  const chain = chainId ? chainId : ChainId.APOTHEM;
   const contract = useChefContract(farm.chef)
 
   const args = useMemo(() => {

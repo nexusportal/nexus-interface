@@ -260,7 +260,7 @@ export function useComplexRewarderContract(address, withSignerIfPossible?: boole
 // @ts-ignore TYPE NEEDS FIXING
 export function useNexusGeneratorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(MASTERCHEF_ADDRESS[chainId ? chainId : ChainId.XRPL], NexusGenerator_ABI, withSignerIfPossible)
+  return useContract(chainId ? MASTERCHEF_ADDRESS[chainId] : undefined, NexusGenerator_ABI, withSignerIfPossible)
 }
 
 // @ts-ignore TYPE NEEDS FIXING

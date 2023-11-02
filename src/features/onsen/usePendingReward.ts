@@ -44,14 +44,14 @@ const usePending = (farm) => {
         let bal: Record<string, string> = {};
         // @ts-ignore TYPE NEEDS FIXING
         const pending = await contract[chainId]?.pendingNexusByUser(farm.id, account)
-        const format = parseFloat(formatEther(pending)).toFixed(2);
+        const format = parseFloat(formatEther(pending)).toFixed(4);
         bal[nexuTokenAddress[chainId?chainId:ChainId.XRPL]] = format;
         // @ts-ignore TYPE NEEDS FIXING
         const rewardTokens = farm.rewards.filter((item, i)=> item.currency.symbol !== "NEXU");
         for(let i=0; i< rewardTokens.length; i++) {
           // @ts-ignore TYPE NEEDS FIXING
           const pendingR = await contract[chainId]?.pendingRewardToken(farm.id, i, account);
-          const formatR = parseFloat(formatEther(pendingR)).toFixed(2);
+          const formatR = parseFloat(formatEther(pendingR)).toFixed(4);
           bal[rewardTokens[i].currency.address] = formatR;
         }
         setBalance(bal); 

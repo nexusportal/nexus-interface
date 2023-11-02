@@ -55,9 +55,7 @@ export function useAllLists(): AppState['lists']['byUrl'] {
   return useAppSelector((state) => state.lists.byUrl)
 }
 
-export function getTokenInfo(address: string) {
-  const { chainId } = useActiveWeb3React();
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+export function getTokenInfo(address: string, chain: "50" | "51" | "1440002") {
   const tokenList = DEFAULT_TOKEN_LIST[chain].tokens;
   const token = tokenList.find(ele => ele.address === address);
   return token;

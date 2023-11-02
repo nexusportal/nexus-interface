@@ -54,7 +54,8 @@ export const getMassBlocks = async (chainId = ChainId.ETHEREUM, timestamps) => {
 // Grabs the last 1000 (a sample statistical) blocks and averages
 // the time difference between them
 export const getAverageBlockTime = async (chainId = ChainId.ETHEREUM) => {
-  if(chainId == ChainId.XRPL) return 5
+  if (chainId == ChainId.XRPL) return 5
+  if (chainId == ChainId.APOTHEM || chainId == ChainId.XDC) return 2;
   // console.log('getAverageBlockTime')
   const now = startOfHour(Date.now())
   const blocks = await getBlocks(chainId, {

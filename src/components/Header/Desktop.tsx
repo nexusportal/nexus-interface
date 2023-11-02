@@ -45,9 +45,9 @@ const Desktop: FC = () => {
   const [xrpPrice, setXrpPrice] = useState('');
   const [nexuPrice, setNexuPrice] = useState('');
 
-  const rpcUrl = chainId == 1440002? RPC[ChainId.XRPL]:RPC[ChainId.APOTHEM]; // Change the ChainId value according to your requirement
+  const rpcUrl = chainId == 1440002 ? RPC[ChainId.XRPL] : RPC[ChainId.APOTHEM]; // Change the ChainId value according to your requirement
   const web3 = new Web3(rpcUrl);
-  const nativeTokenId = chainId == 1440002? "ripple": "xdce-crowd-sale"
+  const nativeTokenId = chainId == 1440002 ? "ripple" : "xdce-crowd-sale"
 
   useEffect(() => {
     const fetchXrpPrice = async () => {
@@ -72,18 +72,17 @@ const Desktop: FC = () => {
     const fetchNexuPrice = async () => {
       try {
         const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${nativeTokenId}&vs_currencies=usd`);
-        console.log(response.data)
-        const xrpPrice = response.data[nativeTokenId].usd;
+        const xrpPrice = response.data[nativeTokenId]?.usd;
 
         const tokenDecimals = 18; // Assuming the token has 18 decimal places
         const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));
 
         // Create the contract instance for the router
-        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress[chainId?chainId:ChainId.XRPL]);
+        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress[chainId ? chainId : ChainId.XRPL]);
 
 
         // Get the output amounts
-        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress[chainId?chainId:ChainId.XRPL], wXRPAddress[chainId?chainId:ChainId.XRPL]]).call();
+        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress[chainId ? chainId : ChainId.XRPL], wXRPAddress[chainId ? chainId : ChainId.XRPL]]).call();
 
         // Get the output amount for the token
         const outputAmount = amounts[1];
@@ -180,7 +179,7 @@ const Desktop: FC = () => {
 
           <div className="flex items-center justify-center">
             <div className="flex items-center">
-              <img src={chainId == 1440002?XRPLogo.src:XDCLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
+              <img src={chainId == 1440002 ? XRPLogo.src : XDCLogo.src} className="rounded-md" width="30px" height="30px" alt="XRP Logo" />
               <span className="ml-2">${parseFloat(xrpPrice).toFixed(4)}</span>
             </div>
             <div className="flex items-center ml-4">

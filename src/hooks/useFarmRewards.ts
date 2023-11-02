@@ -31,38 +31,24 @@ import { getAddress } from 'app/functions'
 
 import { useMasterChefContract } from '.'
 
-export function useMasterChefRewardPerBlock() {
-  const contract = useMasterChefContract(false)
-
-  const info = useSingleCallResult(contract, 'nexusPerBlock')?.result
-
-  const value = info?.[0]
-
-  const amount = value ? JSBI.BigInt(value.toString()) : undefined
-
-  return useMemo(() => {
-    if (amount) {
-      const rewardPerblock = JSBI.toNumber(amount) / 1e18
-      return rewardPerblock
-    }
-    return 0
-  }, [amount])
-}
-
 export function useMasterChefRewardReduction() {
   const contract = useMasterChefContract(false)
 
   const info = useSingleCallResult(contract, 'nextReductionBlock')?.result
   const reductionRateInfo = useSingleCallResult(contract, 'REDUCTION_RATE')?.result
   const periodInfo = useSingleCallResult(contract, 'REDUCTION_PERIOD')?.result
+  const nexusPerBlockInfo = useSingleCallResult(contract, 'nexusPerBlock')?.result
 
   const value = info?.[0]
   const reducitonRateValue = reductionRateInfo?.[0];
   const periodInfoValue = periodInfo?.[0];
+  const nexusPerBlockValue = nexusPerBlockInfo?.[0]
 
   const amount1 = value ? JSBI.BigInt(value.toString()) : undefined
   const amount2 = reducitonRateValue ? JSBI.BigInt(reducitonRateValue.toString()) : undefined
   const amount3 = periodInfoValue ? JSBI.BigInt(periodInfoValue.toString()) : undefined
+  const amount4 = nexusPerBlockValue ? JSBI.BigInt(nexusPerBlockValue.toString()) : undefined
+  
 
   const nextReductionBlock = useMemo(() => {
     if (amount1) {
@@ -84,10 +70,19 @@ export function useMasterChefRewardReduction() {
     return 0
   }, [amount3])
 
+  const rewardPerblock =  useMemo(() => {
+    if (amount4) {
+      const rewardPerblock = JSBI.toNumber(amount4) / 1e18
+      return rewardPerblock
+    }
+    return 0
+  }, [amount4])
+
   return {
     nextReductionBlock,
     reducitonRate,
-    period
+    period,
+    rewardPerblock
   }
 }
 
@@ -125,15 +120,10 @@ export default function useFarmRewards() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const chain = chainId === 50 ? "50" : chainId === 51 ? "51" : "1440002";
 
-  const liquidityTokens = useMemo(
-    () =>
-      farms[chain].map((farm: any) => {
-        const token = new Token(parseInt(chain), getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
-        return token;
-      }),
-    [farms, chainId]
-  )
-
+  const liquidityTokens = farms[chain].map((farm: any) => {
+    const token = new Token(parseInt(chain), getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
+    return token;
+  })
   const farmAddresses = useMemo(() => farms[chain].map((farm: any) => farm.pair), [farms])
 
   const stakedBalaces = useTokenBalances(chainId ? MASTERCHEF_ADDRESS[chainId] : undefined, liquidityTokens)
@@ -168,7 +158,7 @@ export default function useFarmRewards() {
   const averageBlockTime = useAverageBlockTime({ chainId })
 
   const masterChefV1TotalAllocPoint = useMasterChefTotalAllocPoint() //useMasterChefV1TotalAllocPoint()
-  const masterChefV1SushiPerBlock = useMasterChefRewardPerBlock() // useMasterChefV1SushiPerBlock()
+  const {rewardPerblock: masterChefV1SushiPerBlock} = useMasterChefRewardReduction() // useMasterChefV1SushiPerBlock()
 
   const [
     sushiPrice,
@@ -205,12 +195,12 @@ export default function useFarmRewards() {
   const poolInfos = useProphetPoolInfos()
 
   // @ts-ignore TYPE NEEDS FIXING
+
   const map = (pool) => {
     // TODO: Deal with inconsistencies between properties on subgraph
     pool.owner = pool?.owner || pool?.masterChef || pool?.miniChef
     pool.balance = pool?.balance || pool?.slpBalance
-    const liquidityToken = new Token(parseInt(chain), getAddress(pool.pair), 18, 'NLP')
-
+    const liquidityToken = new Token(parseInt(chain), getAddress(pool.pair), 18, 'NLP', "NEXUS LP Token")
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const stakedAmount = useUserInfo(pool, liquidityToken);
 
@@ -247,7 +237,6 @@ export default function useFarmRewards() {
 
       // @ts-ignore TYPE NEEDS FIXING
       const rewardPerBlock = (allocPoint / pool.owner.totalAllocPoint) * sushiPerBlock
-
       // const defaultReward = {
       //   currency: SUSHI[ChainId.ETHEREUM],
       //   rewardPerBlock,
@@ -551,15 +540,15 @@ export default function useFarmRewards() {
   }
 
   return (
-    farms[chain]
-      // .filter((farm) => {
-      //   return (
-      //     // @ts-ignore TYPE NEEDS FIXING
-      //     (swapPairs && swapPairs.find((pair) => pair.id === farm.pair)) ||
-      //     // @ts-ignore TYPE NEEDS FIXING
-      //     (kashiPairs && kashiPairs.find((pair) => pair.id === farm.pair))
-      //   )
-      // })
-      .map(map)
+    farms[chain].map(map)
+    // .filter((farm) => {
+    //   return (
+    //     // @ts-ignore TYPE NEEDS FIXING
+    //     (swapPairs && swapPairs.find((pair) => pair.id === farm.pair)) ||
+    //     // @ts-ignore TYPE NEEDS FIXING
+    //     (kashiPairs && kashiPairs.find((pair) => pair.id === farm.pair))
+    //   )
+    // })
+    // .map(map)
   )
 }
