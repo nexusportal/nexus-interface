@@ -226,7 +226,7 @@ export default function Farm(): JSX.Element {
                     The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day!
                     The more NLPs you stake the more of the daily NEXU reward you will get!
                   </p>
-                  <Link href="https://docs.xrp.thenexusportal.io/" target="_blank" rel="noreferrer">
+                  <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
                     <span className="text-lg font-bold md:text-xl text-green">
                       LEARN MORE
                     </span>
