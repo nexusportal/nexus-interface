@@ -98,7 +98,7 @@ const ProStaking = () => {
   const [selectPro, setSelectPro] = useState(false);
   const [selectCon, setSelectCon] = useState(false);
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
 
   const onProDistribute = async () => {
     setPendingTx(true)

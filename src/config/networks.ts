@@ -90,5 +90,5 @@ export const NETWORK_LABEL: { [chainId in ChainId]?: string } = {
   [ChainId.TELOS]: 'Telos EVM',
   [ChainId.XRPL]: 'XRP EVM',
   [ChainId.XDC]: 'XDC',
-  [ChainId.APOTHEM]: 'XDC Testnet',
+  [ChainId.APOTHEM]: 'XDC Apothem',
 }

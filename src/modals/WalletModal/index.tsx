@@ -3,6 +3,7 @@ import { useLingui } from '@lingui/react'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { ChainId } from '@sushiswap/core-sdk'
 import AccountDetails from 'app/components/AccountDetails'
 import Button from 'app/components/Button'
 import ExternalLink from 'app/components/ExternalLink'
@@ -11,14 +12,20 @@ import Typography from 'app/components/Typography'
 import { injected, SUPPORTED_WALLETS } from 'app/config/wallets'
 import { OVERLAY_READY } from 'app/entities/connectors/FortmaticConnector'
 import usePrevious from 'app/hooks/usePrevious'
+import { classNames } from 'app/functions'
 import { ApplicationModal } from 'app/state/application/actions'
-import { useModalOpen, useWalletModalToggle } from 'app/state/application/hooks'
+import { useModalOpen, useWalletModalToggle, useNetworkModalToggle } from 'app/state/application/hooks'
+import Image from 'next/image'
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import ReactGA from 'react-ga'
-
+import { SUPPORTED_NETWORKS } from '../NetworkModal'
+import { NETWORK_ICON } from 'app/config/networks'
 import Option from './Option'
 import PendingView from './PendingView'
+import { NETWORK_LABEL } from 'app/config/networks'
+import XRP from '../../../public/XRP.png'
+import XDC from '../../../public/xdcpay.png'
 
 enum WALLET_VIEWS {
   OPTIONS,
@@ -216,52 +223,101 @@ const WalletModal: FC<WalletModal> = ({ pendingTransactions, confirmedTransactio
                 ? i18n._(t`Please connect to the appropriate Ethereum network.`)
                 : i18n._(t`Error connecting. Try refreshing the page.`)}
             </Typography>
+            <div className="grid grid-flow-row-dense grid-cols-1 mt-4 gap-4 overflow-y-auto md:grid-cols-2">
+              {[
+                ChainId.XRPL,
+                ChainId.APOTHEM,
+                // ChainId.XDC,
+              ].map((key: ChainId, i: number) => {
+                return (
+                  <button
+                    key={i}
+                    onClick={async () => {
+                      console.debug(`Switching to chain ${key}`, SUPPORTED_NETWORKS[key])
+                      const params = SUPPORTED_NETWORKS[key]
+                      if (!window.ethereum) throw new Error("No crypto wallet found");
+                      // @ts-ignore TYPE NEEDS FIXING
+                      await window.ethereum.request({
+                        method: "wallet_addEthereumChain",
+                        params: [params]
+                      });
+                    }}
+                    className={classNames(
+                      'bg-[rgba(0,0,0,0.2)] focus:outline-none flex items-center gap-4 w-full px-4 py-3 rounded border border-dark-700 hover:border-blue'
+                    )}
+                  >
+                    {/*@ts-ignore TYPE NEEDS FIXING*/}
+                    {
+                      key === ChainId.XRPL ? (
+                        <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
+                      ) : (key === ChainId.XDC || key === ChainId.APOTHEM) ? (
+                        <img src={XDC.src} className="rounded-md" width="32px" height="32px" />
+                      ) : (
+                        <Image
+                          // @ts-ignore TYPE NEEDS FIXING
+                          src={NETWORK_ICON[key]}
+                          alt="Switch Network"
+                          className="rounded-md"
+                          width="32px"
+                          height="32px"
+                        />
+                      )}
+
+                    {/* <Image src={NETWORK_ICON[key]} alt="Switch Network" className="rounded-md" width="32px" height="32px" /> */}
+                    <Typography weight={700} className="text-high-emphesis">
+                      {NETWORK_LABEL[key]}
+                    </Typography>
+                  </button>
+                )
+              })}
+            </div>
           </HeadlessUiModal.BorderedContent>
           <Button color="red" onClick={handleDeactivate}>
             {i18n._(t`Disconnect`)}
           </Button>
         </div>
-      ) : account && walletView === WALLET_VIEWS.ACCOUNT ? (
-        <AccountDetails
-          toggleWalletModal={toggleWalletModal}
-          pendingTransactions={pendingTransactions}
-          confirmedTransactions={confirmedTransactions}
-          ENSName={ENSName}
-          openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
+  ) : account && walletView === WALLET_VIEWS.ACCOUNT ? (
+    <AccountDetails
+      toggleWalletModal={toggleWalletModal}
+      pendingTransactions={pendingTransactions}
+      confirmedTransactions={confirmedTransactions}
+      ENSName={ENSName}
+      openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
+    />
+  ) : (
+    <div className="flex flex-col w-full space-y-4">
+      <HeadlessUiModal.Header
+        header={i18n._(t`Select a wallet`)}
+        onClose={toggleWalletModal}
+        {...(walletView !== WALLET_VIEWS.ACCOUNT && { onBack: handleBack })}
+      />
+      {walletView === WALLET_VIEWS.PENDING ? (
+        <PendingView
+          // @ts-ignore TYPE NEEDS FIXING
+          id={pendingWallet.id}
+          // @ts-ignore TYPE NEEDS FIXING
+          connector={pendingWallet.connector}
+          error={pendingError}
+          setPendingError={setPendingError}
+          tryActivation={tryActivation}
         />
       ) : (
-        <div className="flex flex-col w-full space-y-4">
-          <HeadlessUiModal.Header
-            header={i18n._(t`Select a wallet`)}
-            onClose={toggleWalletModal}
-            {...(walletView !== WALLET_VIEWS.ACCOUNT && { onBack: handleBack })}
-          />
-          {walletView === WALLET_VIEWS.PENDING ? (
-            <PendingView
-              // @ts-ignore TYPE NEEDS FIXING
-              id={pendingWallet.id}
-              // @ts-ignore TYPE NEEDS FIXING
-              connector={pendingWallet.connector}
-              error={pendingError}
-              setPendingError={setPendingError}
-              tryActivation={tryActivation}
-            />
-          ) : (
-            <div className="grid grid-cols-1 gap-4 overflow-y-auto md:grid-cols-2">{options}</div>
-          )}
-          <div className="flex justify-center">
-            <Typography variant="xs" className="text-secondary" component="span">
-              {i18n._(t`New to Ethereum?`)}{' '}
-              <Typography variant="xs" className="text-blue" component="span">
-                <ExternalLink href="https://ethereum.org/wallets/" color="blue">
-                  {i18n._(t`Learn more about wallets`)}
-                </ExternalLink>
-              </Typography>
-            </Typography>
-          </div>
-        </div>
+        <div className="grid grid-cols-1 gap-4 overflow-y-auto md:grid-cols-2">{options}</div>
       )}
-    </HeadlessUiModal.Controlled>
+      <div className="flex justify-center">
+        <Typography variant="xs" className="text-secondary" component="span">
+          {i18n._(t`New to Ethereum?`)}{' '}
+          <Typography variant="xs" className="text-blue" component="span">
+            <ExternalLink href="https://ethereum.org/wallets/" color="blue">
+              {i18n._(t`Learn more about wallets`)}
+            </ExternalLink>
+          </Typography>
+        </Typography>
+      </div>
+    </div>
+  )
+}
+    </HeadlessUiModal.Controlled >
   )
 }
 

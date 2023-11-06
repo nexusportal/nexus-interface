@@ -258,9 +258,9 @@ export default function Add() {
   )
 
   const pendingText =
-    i18n._(t`Supplying `) +
-    `${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${currencies[Field.CURRENCY_A]?.symbol}` +
-    i18n._(t` and `) +
+    i18n._(t`Supplying`) + " " +
+    `${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${currencies[Field.CURRENCY_A]?.symbol} ` +
+    i18n._(t`and`) + " " +
     `${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencies[Field.CURRENCY_B]?.symbol}`
 
   const handleCurrencyASelect = useCallback(

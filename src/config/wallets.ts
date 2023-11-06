@@ -5,7 +5,8 @@ import { NetworkConnector } from 'app/entities/connectors'
 
 import RPC from './rpc'
 
-const supportedChainIds = Object.values(ChainId) as number[]
+// const supportedChainIds = Object.values(ChainId) as number[]
+const supportedChainIds = [51, 50, 1440002]
 
 export const network = new NetworkConnector({
   defaultChainId: 51,

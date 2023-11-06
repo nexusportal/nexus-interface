@@ -203,7 +203,7 @@ export function useCurrency(currencyId: string | undefined): Currency | null | u
       native: chainId && chainId in NATIVE ? NATIVE[chainId] : undefined,
       wnative: chainId && chainId in WNATIVE ? WNATIVE[chainId] : undefined,
     }),
-    []
+    [chainId]
   )
 
   if (wnative?.address?.toLowerCase() === currencyId?.toLowerCase()) return wnative

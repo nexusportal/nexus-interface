@@ -199,7 +199,7 @@ export const SUPPORTED_NETWORKS: {
   //   blockExplorerUrls: ['https://explorer.palm.io'],
   // },
   [ChainId.XRPL]: {
-    chainId: '0x15f901',
+    chainId: '0x15f902',
     chainName: 'Ripple XRPL',
     nativeCurrency: {
       name: 'Ripple',
@@ -247,24 +247,9 @@ const NetworkModal: FC = () => {
         <HeadlessUiModal.Header header={i18n._(t`Select a network`)} onClose={toggleNetworkModal} />
         <div className="grid grid-flow-row-dense grid-cols-1 gap-4 overflow-y-auto md:grid-cols-2">
           {[
-            // ChainId.ETHEREUM,
-            // ChainId.MATIC,
-            // ChainId.ARBITRUM,
-            // ChainId.AVALANCHE,
-            // ChainId.MOONRIVER,
-            // ChainId.FANTOM,
-            // ChainId.BSC,
-            // ChainId.XDAI,
-            // ChainId.HARMONY,
-            // ChainId.TELOS,
-            // ChainId.CELO,
-            // ChainId.FUSE,
-            // ChainId.OKEX,
-            // ChainId.HECO,
-            // ChainId.PALM,
             ChainId.XRPL,
             ChainId.APOTHEM,
-            ChainId.XDC,
+            // ChainId.XDC,
           ].map((key: ChainId, i: number) => {
             if (chainId === key) {
               return (

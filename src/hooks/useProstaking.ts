@@ -203,7 +203,7 @@ export function useProStakingRewardHistory() {
 
 export function useProStakingUserInfo() {
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
   const contract = useProStakingContract()
 
   const args = useMemo(() => {
@@ -644,7 +644,7 @@ export function useProUserTotalReward() {
 
 export function useMinProAmount() {
   const { chainId } = useActiveWeb3React()
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
   const contract = useProStakingContract()
 
   const results = useSingleCallResult(contract, 'minNexusAmount')?.result
@@ -660,7 +660,7 @@ export function useMinProAmount() {
 
 export function useMinXOracleAmount() {
   const { chainId } = useActiveWeb3React()
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
   const contract = useProStakingContract()
   const results = useSingleCallResult(contract, 'minNexusCollateralAmount')?.result
 
@@ -675,7 +675,7 @@ export function useMinXOracleAmount() {
 
 export function useProStakingInfo() {
   const { chainId } = useActiveWeb3React()
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
   const contract = useProStakingContract()
 
   const results = useSingleCallResult(contract, 'getGlobalStatus')?.result

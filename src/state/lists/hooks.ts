@@ -137,7 +137,7 @@ export function useInactiveListUrls(): string[] {
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {
   const { chainId } = useActiveWeb3React();
-  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
   const activeListUrls = useActiveListUrls()
   const activeTokens = useCombinedTokenMapFromUrls(activeListUrls)
   const { TRANSFORMED_DEFAULT_TOKEN_LIST } = useTransformedTokenList(chain);

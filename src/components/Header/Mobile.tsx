@@ -39,9 +39,9 @@ const Mobile: FC = () => {
   const [xrpPrice, setXrpPrice] = useState('');
   const [nexuPrice, setNexuPrice] = useState('');
 
-  const rpcUrl = chainId == 1440002? RPC[ChainId.XRPL]:RPC[ChainId.APOTHEM]; // Change the ChainId value according to your requirement
+  const rpcUrl = chainId == 1440002 ? RPC[ChainId.XRPL] : RPC[ChainId.APOTHEM]; // Change the ChainId value according to your requirement
   const web3 = new Web3(rpcUrl);
-  const nativeTokenId = chainId == 1440002? "ripple": "xdce-crowd-sale"
+  const nativeTokenId = chainId == 1440002 ? "ripple" : "xdce-crowd-sale"
   useEffect(() => {
     const fetchXrpPrice = async () => {
       try {
@@ -54,11 +54,10 @@ const Mobile: FC = () => {
     };
 
     fetchXrpPrice();
-    // const interval = setInterval(() => {
-    //   fetchXrpPrice();
-    // }, 10000); // 10000 milliseconds = 10 seconds
-    // return () => clearInterval(interval);
-
+    const interval = setInterval(() => {
+      fetchXrpPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -71,11 +70,11 @@ const Mobile: FC = () => {
         const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));
 
         // Create the contract instance for the router
-        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress[chainId?chainId: ChainId.XRPL]);
+        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress[chainId ? chainId : ChainId.XRPL]);
 
 
         // Get the output amounts
-        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress[chainId?chainId:ChainId.XRPL], wXRPAddress[chainId?chainId:ChainId.XRPL]]).call();
+        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress[chainId ? chainId : ChainId.XRPL], wXRPAddress[chainId ? chainId : ChainId.XRPL]]).call();
 
         // Get the output amount for the token
         const outputAmount = amounts[1];
@@ -90,12 +89,10 @@ const Mobile: FC = () => {
     };
 
     fetchNexuPrice();
-
-    // const interval = setInterval(() => {
-    //   fetchNexuPrice();
-    // }, 600000); // 10000 milliseconds = 10 seconds
-    // return () => clearInterval(interval);
-
+    const interval = setInterval(() => {
+      fetchNexuPrice();
+    }, 600000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
   }, []);
 
 

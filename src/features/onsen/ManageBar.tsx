@@ -157,7 +157,7 @@ const ManageBar = ({ farm }) => {
             bottomContent={null}
           />
         }
-        pendingText={"Submiting Request..."}
+        pendingText={"Submitting Request..."}
       />
     </>
   )

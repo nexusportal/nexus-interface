@@ -130,7 +130,7 @@ const nextConfig = {
     defaultLocale: sourceLocale,
   },
   network: {
-    chainIds: [ChainId.XRPL, ChainId.ARBITRUM, ChainId.APOTHEM, ChainId.XDC],
+    chainIds: [ChainId.XRPL, ChainId.APOTHEM, ChainId.XDC],
     defaultChainId: ChainId.APOTHEM,
     domains: [
       // {

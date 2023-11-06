@@ -53,6 +53,7 @@ const Desktop: FC = () => {
     const fetchXrpPrice = async () => {
       try {
         const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${nativeTokenId}&vs_currencies=usd`);
+        if (!response.data) return;
         const price = response.data[nativeTokenId].usd; // Access the price using response.data.ripple.usd
         setXrpPrice(price);
       } catch (error) {
@@ -61,14 +62,14 @@ const Desktop: FC = () => {
     };
 
     fetchXrpPrice();
-    // const interval = setInterval(() => {
-    //   fetchXrpPrice();
-    // }, 10000); // 10000 milliseconds = 10 seconds
-    // return () => clearInterval(interval);
-
-  }, []);
+    const interval = setInterval(() => {
+      fetchXrpPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
+  }, [chainId]);
 
   useEffect(() => {
+    if (!xrpPrice || xrpPrice === "") return;
     const fetchNexuPrice = async () => {
       try {
         const response = await axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=${nativeTokenId}&vs_currencies=usd`);
@@ -97,12 +98,11 @@ const Desktop: FC = () => {
     };
 
     fetchNexuPrice();
-    // const interval = setInterval(() => {
-    //   fetchNexuPrice();
-    // }, 600000); // 10000 milliseconds = 10 seconds
-    // return () => clearInterval(interval);
-
-  }, []);
+    const interval = setInterval(() => {
+      fetchNexuPrice();
+    }, 10000); // 10000 milliseconds = 10 seconds
+    return () => clearInterval(interval);
+  }, [nativeTokenId, xrpPrice]);
 
 
 
