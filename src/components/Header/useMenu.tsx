@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SUSHI_ADDRESS } from '@sushiswap/core-sdk'
-import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon  } from 'app/components/Icon'
+import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon } from 'app/components/Icon'
 import { Feature } from 'app/enums'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -152,6 +152,13 @@ const useMenu: UseMenu = () => {
       icon: <BridgeIcon width={20} />,
     }
 
+    let portfolioMenu: MenuItem = {
+      key: "portfolio",
+      title: i18n._(t`Portfolio`),
+      link: '/portfolio',
+      icon: <WalletIcon width={20} />
+    }
+
     // let analyticsMenu: MenuItem = {
     //   key: 'analytics',
     //   title: i18n._(t`Analytics`),
@@ -198,30 +205,30 @@ const useMenu: UseMenu = () => {
 
     if (featureEnabled(Feature.VESTING, chainId)) {
 
-          // let stakeMenu: MenuItem = {
-    //   key: 'stake',
-    //   title: i18n._(t`Stake`),
-    //   link: '/stake',
-    //   icon: <GlobeIcon width={20} />,
-    // }
+      // let stakeMenu: MenuItem = {
+      //   key: 'stake',
+      //   title: i18n._(t`Stake`),
+      //   link: '/stake',
+      //   icon: <GlobeIcon width={20} />,
+      // }
 
-    
-    // mainItems.push({
+
+      // mainItems.push({
       //   key: 'stake',
       //   title: i18n._(t`Stake`),
       //   items: stakeMenu,
       //   icon: <GlobeIcon width={20} />,
       // })
     }
-    
+
     if (exploreMenu.length > 0)
-    mainItems.push({
-      key: 'explore',
-      title: i18n._(t`Explore`),
-      items: exploreMenu,
-      icon: <FarmIcon width={20} />,
-    })
-    
+      mainItems.push({
+        key: 'explore',
+        title: i18n._(t`Explore`),
+        items: exploreMenu,
+        icon: <FarmIcon width={20} />,
+      })
+
     if (featureEnabled(Feature.LIQUIDITY_MINING, chainId)) {
       const farmItems = {
         key: 'farm',
@@ -242,12 +249,13 @@ const useMenu: UseMenu = () => {
       }
       mainItems.push(farmItems)
     }
-    
+
     mainItems.push(stakeMenu);
     mainItems.push(mintMenu)
     mainItems.push(bridgeMenu)
+    mainItems.push(portfolioMenu)
 
-    
+
 
     // mainItems.push(analyticsMenu)
     // mainItems.push(earnMenu)

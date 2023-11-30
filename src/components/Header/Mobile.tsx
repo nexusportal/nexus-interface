@@ -16,7 +16,7 @@ import { NavigationItem } from './NavigationItem'
 // import { XIcon } from '@heroicons/react/outline'
 // import Typography from 'app/components/Typography'
 import ExternalLink from '../ExternalLink'
-import { Logo } from 'arwes';
+import { Logo, Frame } from 'arwes';
 import XRPLogo from '../../../public/XRP.png'
 import NEXULogo from '../../../public/NEXUS.png'
 import axios from 'axios';
@@ -171,26 +171,32 @@ const Mobile: FC = () => {
                         })}
                       </nav>
 
-                      <div className="flex flex-col gap-4 px-6">
+                      <div className="flex gap-1 px-1 justify-center">
                         {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
-                          <div className="hidden sm:flex">
+                          <div className="flex">
                             <Web3Network />
                           </div>
                         )}
 
-                        <div className="flex items-center justify-start gap-2">
-                          <div className="flex items-center w-auto text-sm font-bold border-2 rounded shadow cursor-pointer pointer-events-auto select-none border-dark-800 hover:border-dark-700 bg-dark-900 whitespace-nowrap">
-                            {account && chainId && userEthBalance && (
-                              <Link href="/portfolio" passHref={true}>
-                                <a className="hidden px-3 text-high-emphesis text-bold md:block">
-                                  {/*@ts-ignore*/}
-                                  {userEthBalance?.toSignificant(4)} {NATIVE[chainId || 1].symbol}
-                                </a>
-                              </Link>
-                            )}
-                            <Web3Status />
+                        <Frame
+                          level={3}
+                          corners={3}
+                          className="w-100"
+                          layer='primary'>
+                          <div className="flex items-center justify-center gap-2">
+                            <div className="flex items-center w-auto text-sm font-bold rounded shadow cursor-pointer pointer-events-auto select-none whitespace-nowrap">
+                              {account && chainId && userEthBalance && (
+                                <Link href="/portfolio" passHref={true}>
+                                  <a className="hidden px-3 text-high-emphesis text-bold md:block">
+                                    {/*@ts-ignore*/}
+                                    {userEthBalance?.toSignificant(4)} {NATIVE[chainId || 1].symbol}
+                                  </a>
+                                </Link>
+                              )}
+                              <Web3Status />
+                            </div>
                           </div>
-                        </div>
+                        </Frame>
                       </div>
                     </div>
                   </div>

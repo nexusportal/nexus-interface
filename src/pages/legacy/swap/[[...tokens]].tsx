@@ -13,6 +13,7 @@ import SwapDetails from 'app/features/legacy/swap/SwapDetails'
 import UnsupportedCurrencyFooter from 'app/features/legacy/swap/UnsupportedCurrencyFooter'
 import HeaderNew from 'app/features/trade/HeaderNew'
 import SwapAssetPanel from 'app/features/trident/swap/SwapAssetPanel'
+import { classNames } from 'app/functions'
 import confirmPriceImpactWithoutFee from 'app/functions/prices'
 import { warningSeverity } from 'app/functions/prices'
 import { computeFiatValuePriceImpact } from 'app/functions/trade'
@@ -39,6 +40,7 @@ import LogoImage from '../../../../public/NEXUS2.png'
 
 import { fetchAPI } from '../../../lib/api'
 import ExternalLink from 'app/components/ExternalLink'
+import { useBentoOrWalletBalance } from 'app/hooks/useBentoOrWalletBalance'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, Words, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
@@ -85,6 +87,8 @@ const Swap = ({ banners }) => {
     urlLoadedTokens.filter((token: Token) => {
       return !Boolean(token.address in defaultTokens)
     })
+
+  const balance = useBentoOrWalletBalance(account ? account : undefined, currencies[Field.INPUT], true)
 
   const {
     wrapType,
@@ -402,6 +406,28 @@ const Swap = ({ banners }) => {
       <SwapLayoutCard>
         <div className="px-2">
           <HeaderNew inputCurrency={currencies[Field.INPUT]} outputCurrency={currencies[Field.OUTPUT]} />
+        </div>
+        <div className="flex justify-end gap-2 pt-2 px-2">
+          {['25', '50', '75', '100'].map((multiplier, i) => (
+            <Button
+              variant="outlined"
+              size="xs"
+              color={'blue'}
+              key={i}
+              onClick={() => {
+                if(!balance) return;
+                handleTypeInput(balance.multiply(multiplier).divide(100).toExact())
+                // @ts-ignore TYPE NEEDS FIXING
+                // setDepositValue(balance.multiply(multiplier).divide(100).toExact())
+              }}
+              className={classNames(
+                'text-md border border-opacity-50',
+                'focus:ring-blue border-blue'
+              )}
+            >
+              {multiplier === '100' ? 'MAX' : multiplier + '%'}
+            </Button>
+          ))}
         </div>
         <div className="flex flex-col gap-3">
           <SwapAssetPanel
