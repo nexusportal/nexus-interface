@@ -70,44 +70,11 @@ const Footer = () => {
                   <GithubIcon width={24} className="text-low-emphesis" />
                 </a>
 
-                <Link href="/portfolio" passHref={true}>
-                  <a className="text-low-emphesis hidden sm:flex">
-                    {/*@ts-ignore*/}
-                    {i18n._(t`Your Wallet`)}
-                  </a>
-                </Link>
-
-                {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
-                  <div
-                    className="hidden sm:flex items-center text-sm cursor-pointer pointer-events-auto select-none text-low-emphesis whitespace-nowrap"
-                    onClick={() => toggleNetworkModal()}
-                  >
-                    {i18n._(t`Network`)}
-                    {/* <div className="grid items-center grid-flow-col  justify-center bg-dark-1000 h-[36px] w-[36px] text-sm rounded pointer-events-auto auto-cols-max text-secondary"> */}
-                    {/*@ts-ignore TYPE NEEDS FIXING*/}
-                    {/* {chainId === ChainId.XRPL ? (
-                      <img src={SGB.src} className="rounded-md" width="22px" height="22px" />
-                    ) : (
-                      <Image
-                        // @ts-ignore TYPE NEEDS FIXING
-                        src={NETWORK_ICON[key]}
-                        alt="Switch Network"
-                        className="rounded-md"
-                        width="22px"
-                        height="22px"
-                      />
-                    )} */}
-
-                    {/* </div> */}
-                  </div>
-                )}
-
-
-                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51]} target="_blank" rel="noreferrer" className='hidden sm:flex'>
+                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51]} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
                 </a>
 
-                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" className='hidden sm:flex' rel="noreferrer">
+                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Privacy`)}</span>
                 </a>
               </div>
