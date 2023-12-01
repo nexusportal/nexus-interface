@@ -36,8 +36,8 @@ const Footer = () => {
     <div className="z-10 w-full  mt-10">
       <Frame animation={true}>
         <Container maxWidth="7xl" className="px-6 mx-auto">
-          <div className="gap-3 pt-8 xs:px-6 sm:gap-4 flex justify-center">
-            <div className="flex flex-col col-span-2 gap-3 sm:col-span-1">
+          <div className="gap-3 py-2 xs:px-6 sm:gap-4 flex justify-between">
+            <div className="flex col-span-2 gap-3 sm:col-span-1">
               {/* <div className="flex items-center justify-start gap-2">
               <div className="">
                 <Image src="https://app.sushi.com/images/logo.svg" alt="Nexus logo" width="28px" height="28px" />
@@ -50,7 +50,7 @@ const Footer = () => {
               {i18n._(t`Our community is building a comprehensive decentralized trading platform for the future of finance. Join
               us!`)}
             </Typography> */}
-              <div className="flex flex-wrap justify-between items-center gap-4">
+              <div className="flex flex-wrap justify-between items-center align-middle gap-4">
                 <a href="https://twitter.com/PoweredByNEXUS" className='' target="_blank" rel="noreferrer">
                   <TwitterIcon width={24} className="text-low-emphesis max-w-none" />
                 </a>
@@ -71,7 +71,7 @@ const Footer = () => {
                 </a>
 
                 <Link href="/portfolio" passHref={true}>
-                  <a className="text-low-emphesis ">
+                  <a className="text-low-emphesis hidden sm:flex">
                     {/*@ts-ignore*/}
                     {i18n._(t`Your Wallet`)}
                   </a>
@@ -79,7 +79,7 @@ const Footer = () => {
 
                 {library && (library.provider.isMetaMask || isCoinbaseWallet) && (
                   <div
-                    className="flex items-center text-sm cursor-pointer pointer-events-auto select-none text-low-emphesis whitespace-nowrap"
+                    className="hidden sm:flex items-center text-sm cursor-pointer pointer-events-auto select-none text-low-emphesis whitespace-nowrap"
                     onClick={() => toggleNetworkModal()}
                   >
                     {i18n._(t`Network`)}
@@ -103,11 +103,11 @@ const Footer = () => {
                 )}
 
 
-                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51]} target="_blank" rel="noreferrer">
+                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51]} target="_blank" rel="noreferrer" className='hidden sm:flex'>
                   <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
                 </a>
 
-                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" rel="noreferrer">
+                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" className='hidden sm:flex' rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Privacy`)}</span>
                 </a>
               </div>
@@ -216,7 +216,7 @@ const Footer = () => {
             <div className="flex flex-row justify-center gap-1 text-right sm:justify-end">
               <div className="flex items-center ">
                 <a href={chainId == 1440002 ? "https://xrpl.org/" : ""} target="_blank" rel="noreferrer">
-                  <img src={chainId == 1440002 ?LogoImage.src : XDCLOGO.src} className={'h-[50px] max-w-none'} alt="Logo" />
+                  <img src={chainId == 1440002 ? LogoImage.src : XDCLOGO.src} className={'h-[50px] max-w-none'} alt="Logo" />
                 </a>
               </div>
               {/* <Typography variant="xs" weight={700} className="mt-2.5 hover:text-high-emphesis">

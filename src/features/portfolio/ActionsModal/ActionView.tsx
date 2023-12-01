@@ -12,8 +12,9 @@ import { ActiveModal } from 'app/features/trident/types'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useAppDispatch } from 'app/state/hooks'
+import { getTokenInfo } from 'app/state/lists/hooks'
 import { useRouter } from 'next/router'
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 
 interface ActionViewProps {
   onClose(): void
@@ -39,19 +40,58 @@ const ActionView: FC<ActionViewProps> = ({ onClose }) => {
     return router.push(`/swap?inputCurrency=${currency?.wrapped.address}`)
   }, [chainId, currency?.isNative, currency?.wrapped.address, router])
 
+  const addToken = useCallback(async (tokenAddress, tokenSymbol, tokenDecimals) => {
+    if (!tokenAddress || !tokenSymbol || !tokenDecimals || !chainId) return;
+    const ethereum = window.ethereum;
+    if (!ethereum || !ethereum.isMetaMask) {
+      console.log('Please install MetaMask.');
+      return;
+    }
+    let tokenImage = getTokenInfo(tokenAddress, chainId === 50 ? "50" : chainId === 1440002 ? "1440002" : "51")
+    try {
+      // @ts-ignore TYPE NEEDS FIXING
+      const wasAdded = await ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: tokenAddress,
+            symbol: tokenSymbol,
+            decimals: tokenDecimals,
+            image: tokenImage,
+          },
+        },
+      });
+
+      if (wasAdded) {
+        console.log('Token was successfully added!');
+      } else {
+        console.log('Token was not added.');
+      }
+    } catch (error) {
+      console.log('Error while adding token:', error);
+    }
+  }, [chainId])
+
   return (
     <div className="flex flex-col gap-4">
-      <HeadlessUiModal.Header header={i18n._(t`Available actions`)} onClose={onClose} />
+      <HeadlessUiModal.Header header={i18n._(t`Available actions`)} onClose={() => onClose()} />
       <ActionItem
         svg={<SwitchHorizontalIcon width={24} />}
         label={i18n._(t`Swap ${currency?.symbol}`)}
         onClick={swapActionHandler}
       />
+      <ActionItem
+        svg={<SwitchHorizontalIcon width={24} />}
+        label={i18n._(t`Add to Metamask`)}
+        onClick={() => addToken(currency?.wrapped.address, currency?.symbol, currency?.decimals)}
+      />
       {/*@ts-ignore TYPE NEEDS FIXING*/}
       {featureEnabled(Feature.BENTOBOX, chainId) && (
         <>
           <ActionItem
-            svg={<BentoboxIcon width={20} height={20} />}
+            svg={null}
+            // svg={<BentoboxIcon width={20} height={20} />}
             label={i18n._(t`Deposit ${currency?.symbol} to BentoBox`)}
             onClick={() => dispatch(setBalancesActiveModal(ActiveModal.DEPOSIT))}
           />

@@ -41,7 +41,7 @@ const ActionsModal: FC = () => {
           onClose={() => dispatch(setBalancesActiveModal(undefined))}
         />
       ) : (
-        <ActionView onClose={() => dispatch(setBalancesActiveModal(undefined))} />
+        <ActionView onClose={()=>dispatch(setBalancesActiveModal(undefined))} />
       )}
     </HeadlessUiModal.Controlled>
   )

@@ -154,7 +154,7 @@ const useMenu: UseMenu = () => {
 
     let portfolioMenu: MenuItem = {
       key: "portfolio",
-      title: i18n._(t`Portfolio`),
+      title: i18n._(t` `),
       link: '/portfolio',
       icon: <WalletIcon width={20} />
     }

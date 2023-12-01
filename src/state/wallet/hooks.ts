@@ -146,8 +146,8 @@ export function useAllTokenBalances(): TokenBalancesMap {
   return useTokenBalances(account ?? undefined, allTokensArray)
 }
 
-export function useAllTokenBalancesWithLoadingIndicator() {
-  const { account } = useActiveWeb3React()
+export function useAllTokenBalancesWithLoadingIndicator(account: string) {
+  // const { account } = useActiveWeb3React()
   const allTokens = useAllTokens()
   const allTokensArray = useMemo(() => Object.values(allTokens ?? {}), [allTokens])
   return useTokenBalancesWithLoadingIndicator(account ?? undefined, allTokensArray)
