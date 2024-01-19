@@ -9,6 +9,7 @@ import XVM from '../../../public/XVM.png'
 import BTC from '../../../public/BTC.png'
 import ETH from '../../../public/ETH.png'
 import WAN from '../../../public/WAN.png'
+import FXD from '../../../public/FXD.png'
 import USDT from '../../../public/USDT.png'
 import USDC from '../../../public/USDC.png'
 import ONE from '../../../public/ONE.png'
@@ -286,6 +287,9 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     if (currency.symbol === 'WAN') {
       return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
     }
+    if (currency.symbol === 'FXD') {
+      return <img alt="img" src={FXD.src} width={size} height={size} className={className} />
+    }
   }
   if (currency?.chainId === ChainId.XDC) {
     return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
@@ -322,6 +326,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
       if (currency.symbol === 'wWAN') {
         return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'FXD') {
+        return <img alt="img" src={FXD.src} width={size} height={size} className={className} />
       }
 
       if (currency.symbol === 'wUSDT') {
@@ -394,6 +402,9 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       }
       if (currency.symbol === 'WAN') {
         return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+      }
+      if (currency.symbol === 'FXD') {
+        return <img alt="img" src={FXD.src} width={size} height={size} className={className} />
       }
     }
     if (currency?.chainId === ChainId.XDC) {

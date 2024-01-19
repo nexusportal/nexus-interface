@@ -231,7 +231,7 @@ const InvestmentDetails = ({ farm }) => {
                   />
                   <div className="text-[11px]">
                     Your Rate: <span className='font-bold'>{(reward.rewardPerBlock * parseFloat(formatNumber(stakedAmount?.toSignificant(6))) / parseFloat(farm.tvl)).toFixed(4)}
-                      ={(parseFloat(formatNumber(stakedAmount?.toSignificant(6))) * 100 / parseFloat(farm.tvl)).toFixed(2)}%</span>
+                      ={(parseFloat(formatNumber(stakedAmount?.toSignificant(6))) * 100 / parseFloat(farm.tvl)).toFixed(4)}%</span>
                   </div>
                   <div className="text-[11px]">
                     Rate:<span className='font-bold'> {reward.rewardPerBlock.toFixed(4)}</span>

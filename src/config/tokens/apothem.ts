@@ -15,3 +15,4 @@ export const xXRP = new Token(ChainId.APOTHEM, '0xef24e7461e3C06B0E0c94ABd869e7A
 export const xUSDT = new Token(ChainId.APOTHEM, '0xC6b2806AA5d1a83117C8332413e239dab469357D', 18, 'xUSDT', 'xUSDT')
 export const xUSDC = new Token(ChainId.APOTHEM, '0x70C7Dac54666ACF89FACe22203B2c9ffE72fCC43', 18, 'xUSDC', 'xUSDC')
 export const WAN = new Token(ChainId.APOTHEM, '0xE84569d385f7642ccAb3439d7d314549333AA81d', 18, 'WAN', 'WAN')
+export const FXD = new Token(ChainId.APOTHEM, '0x51C459F8E4F0BEC584AdC5235BDe4F316e62434c', 18, 'FXD', 'FXD')

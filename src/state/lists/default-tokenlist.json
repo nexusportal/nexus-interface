@@ -112,6 +112,14 @@
         "logoURI": "/NEXUS.png"
       },
       {
+        "name": "FXD",
+        "address": "0x51C459F8E4F0BEC584AdC5235BDe4F316e62434c",
+        "symbol": "FXD",
+        "decimals": 18,
+        "chainId": 51,
+        "logoURI": "/NEXUS.png"
+      },
+      {
         "name": "AIR",
         "address": "0xD4ce3514625F29CDBb8958A25E025883639036C9",
         "symbol": "AIR",
