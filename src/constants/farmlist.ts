@@ -536,6 +536,7 @@ export const swapPairs: Record<string, {
       txCount: 81365,
       untrackedVolumeUSD: 46853.79482616671033425777223395,
       volumeUSD: 4684.23711596607606598865310647,
+      type:2
     },
     {
       decimals: 18,

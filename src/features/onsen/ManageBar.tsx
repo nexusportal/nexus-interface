@@ -72,7 +72,7 @@ const ManageBar = ({ farm }) => {
     chainId || 1,
     getAddress(farm.pair.id),
     farm.pair.type === PairType.KASHI ? Number(farm.pair.asset.decimals) : 18,
-    farm.pair.type === PairType.SINGLE ? farm.pair.symbol : farm.pair.type === PairType.KASHI ? 'KMP' : farm.pair.token0.id === farm.pair.token1.id ? farm.pair.token0.symbol : 'NLP',
+    farm.pair.type === PairType.SINGLE ? farm.pair.token0.symbol : farm.pair.type === PairType.KASHI ? 'KMP' : 'NLP',
     farm.pair.name
   )
 

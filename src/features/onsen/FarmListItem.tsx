@@ -30,7 +30,7 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
 
         <div className="flex flex-col items-start">
           {
-            farm.pair.token0.id === farm.pair.token1.id?(
+            farm?.pair?.type === PairType.SINGLE?(
               <Typography weight={700} className="flex gap-1 text-high-emphesis">
             {farm?.pair?.token0?.symbol}
           </Typography>
