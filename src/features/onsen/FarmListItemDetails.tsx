@@ -66,7 +66,7 @@ const FarmListItemDetails = ({ farm, onDismiss }) => {
             onChange={(view: OnsenModalView) => dispatch(setOnsenModalView(view))}
             variant="filled"
           >
-            {farm.pair.type !== PairType.SINGLE && (
+            {farm.pair.type !== PairType.SINGLE && farm.pair.token0.id !== farm.pair.token1.id && (
               <ToggleButtonGroup.Button value={OnsenModalView.Liquidity}>
                 {farm.pair.type === PairType.KASHI ? i18n._(t`Lending`) : i18n._(t`Liquidity`)}
               </ToggleButtonGroup.Button>

@@ -23,17 +23,25 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
 
   return (
     <div className={classNames(TABLE_TBODY_TR_CLASSNAME, 'grid grid-cols-6')} onClick={onClick}>
-      <div className={classNames('flex gap-2', TABLE_TBODY_TD_CLASSNAME(0, 6))}>
-        {token0 && token1 && <CurrencyLogoArray currencies={[token0, token1]} dense size={32} className='max-w-none' />}
+      <div className={classNames(`flex ${token0 === token1?"gap-7":"gap-2"}`, TABLE_TBODY_TD_CLASSNAME(0, 6))}>
+        {token0 && token1 && (token0 !== token1) && <CurrencyLogoArray currencies={[token0, token1]} dense size={32} className='max-w-none' />}
 
-        {token0 && !token1 && <CurrencyLogo currency={token0} size={32}  className='max-w-none'  />}
+        {(token0 && !token1 || token0 === token1) && <CurrencyLogo currency={token0} size={32}  className='max-w-none'  />}
 
         <div className="flex flex-col items-start">
-          <Typography weight={700} className="flex gap-1 text-high-emphesis">
+          {
+            farm.pair.token0.id === farm.pair.token1.id?(
+              <Typography weight={700} className="flex gap-1 text-high-emphesis">
+            {farm?.pair?.token0?.symbol}
+          </Typography>
+            ):(
+              <Typography weight={700} className="flex gap-1 text-high-emphesis">
             {farm?.pair?.token0?.symbol}
             {farm?.pair?.token1 && <span className="text-low-emphesis">/</span>}
             {farm?.pair?.token1?.symbol}
           </Typography>
+            )
+          }
           {farm?.pair?.type === PairType.SWAP && (
             <Typography variant="xs" className="text-low-emphesis">
               {i18n._(t`Nexus Generator`)}
