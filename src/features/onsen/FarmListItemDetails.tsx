@@ -31,12 +31,12 @@ const FarmListItemDetails = ({ farm, onDismiss }) => {
   const dispatch = useAppDispatch()
   const [content, setContent] = useState<ReactNode>()
   useEffect(() => {
-    if (farm.pair.type === PairType.SINGLE) {
+    if (farm.pair.type === PairType.SINGLE || farm.pair.token0.id === farm.pair.token1.id) {
       dispatch(setOnsenModalView(OnsenModalView.Staking))
     }
   }, [])
 
-  const handleOpenModalView = (index:number) => {
+  const handleOpenModalView = (index: number) => {
     dispatch(setOnsenModalView())
   }
 
@@ -47,14 +47,14 @@ const FarmListItemDetails = ({ farm, onDismiss }) => {
       <div className={classNames('')}>
         <div className={classNames(COLUMN_CONTAINER, content ? '' : 'hidden')}>{content}</div>
         <div className={classNames(COLUMN_CONTAINER, content ? 'hidden' : '')}>
-          <HeadlessUiModal.Header 
+          <HeadlessUiModal.Header
             header={
               <div className="flex gap-0.5 items-center">
                 {view === OnsenModalView.Liquidity
                   ? i18n._(t`Manage liquidity`)
                   : view === OnsenModalView.Position
-                  ? i18n._(t`Your position and rewards`)
-                  : i18n._(t`Stake or unstake your liquidity`)}
+                    ? i18n._(t`Your position and rewards`)
+                    : i18n._(t`Stake or unstake your liquidity`)}
                 <QuestionHelper className="!bg-dark-800 !shadow-xl p-2" text={<InformationDisclosure farm={farm} />} />
               </div>
             }
