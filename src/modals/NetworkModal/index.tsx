@@ -218,7 +218,7 @@ export const SUPPORTED_NETWORKS: {
       decimals: 18,
     },
     rpcUrls: ['https://erpc.apothem.network'],
-    blockExplorerUrls: ['https://explorer.apothem.network'],
+    blockExplorerUrls: ['https://apothem.blocksscan.io/'],
   },
   [ChainId.XDC]: {
     chainId: '0x32',
