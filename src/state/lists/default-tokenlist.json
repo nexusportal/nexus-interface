@@ -3843,6 +3843,14 @@
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
     },
     {
+      "name": "Canary Reborn Token",
+      "address": "0x5369B08B9a5023d6178A1491eE2F44b0B7301Fc9",
+      "symbol": "CRB",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
       "name": "Experimental Wrapped XDC",
       "address": "0xC54De96302981f87a6F80E4607593681B44d670c",
       "symbol": "exXDC",

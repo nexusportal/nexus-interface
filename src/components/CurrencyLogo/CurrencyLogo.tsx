@@ -22,6 +22,7 @@ import LOVE from '../../../public/LOVE.png'
 import SFORT from '../../../public/sFORT.png'
 import PSB from '../../../public/PNG.png'
 import CHIRP from '../../../public/CHIRP.png'
+import CRB from '../../../public/CRB.png'
 import exXDC from '../../../public/exXDC.png'
 import SPRK from '../../../public/SPRK.png'
 import XAC from '../../../public/XAC.png'
@@ -218,6 +219,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img src={CHIRP.src} width={size} height={size} className={className} />
     }
 
+    if (currency.symbol === 'CRB') {
+      return <img src={CRB.src} width={size} height={size} className={className} />
+    }
+
     if (currency.symbol === 'exXDC') {
       return <img src={exXDC.src} width={size} height={size} className={className} />
     }
@@ -336,6 +341,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
       if (currency.symbol === 'CHIRP') {
         return <img src={CHIRP.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'CRB') {
+        return <img src={CRB.src} width={size} height={size} className={className} />
       }
 
       if (currency.symbol === 'exXDC') {
