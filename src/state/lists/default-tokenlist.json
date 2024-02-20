@@ -3851,6 +3851,30 @@
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
     },
     {
+      "name": "Songbird Phoenix Token",
+      "address": "0x7afDe1497da4AeDecFaf6CC32FB0D83572C10426",
+      "symbol": "sPHX",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
+      "name": "Feather",
+      "address": "0x19eA65E3f8fc8F61743d137B5107172f849d8Eb3",
+      "symbol": "FTHR",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
+      "name": "BlueBirdX",
+      "address": "0x29D3dfb4bd040f04Bd0e01C28A4Cb9dE14b47E13",
+      "symbol": "BBX",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
       "name": "Experimental Wrapped XDC",
       "address": "0xC54De96302981f87a6F80E4607593681B44d670c",
       "symbol": "exXDC",
@@ -3902,14 +3926,6 @@
       "name": "LoveToken2",
       "address": "0xb1D60fA6FABd9A2Ad89960d070350552E47fb0D6",
       "symbol": "CARE",
-      "decimals": 18,
-      "chainId": 19,
-      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
-    },
-    {
-      "name": "Canary",
-      "address": "0xB2cD91b79df296ea181AA5f6d729E5136e1853A4",
-      "symbol": "CANARY",
       "decimals": 18,
       "chainId": 19,
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
