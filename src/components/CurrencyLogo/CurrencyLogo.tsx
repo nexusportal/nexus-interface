@@ -26,6 +26,7 @@ import CRB from '../../../public/CRB.png'
 import sPHX from '../../../public/sPHX.png'
 import FTHR from '../../../public/FTHR.png'
 import BBX from '../../../public/BBX.png'
+import XNF from '../../../public/XNF.png'
 import exXDC from '../../../public/exXDC.png'
 import SPRK from '../../../public/SPRK.png'
 import XAC from '../../../public/XAC.png'
@@ -230,6 +231,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img src={BBX.src} width={size} height={size} className={className} />
     }
 
+    if (currency.symbol === 'XNF') {
+      return <img src={XNF.src} width={size} height={size} className={className} />
+    }
+
     if (currency.symbol === 'sPHX') {
       return <img src={sPHX.src} width={size} height={size} className={className} />
     }
@@ -364,6 +369,10 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
       if (currency.symbol === 'BBX') {
         return <img src={BBX.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'XNF') {
+        return <img src={XNF.src} width={size} height={size} className={className} />
       }
 
       if (currency.symbol === 'sPHX') {
