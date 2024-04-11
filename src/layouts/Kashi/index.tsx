@@ -78,7 +78,7 @@ const Layout: FC<LayoutProps> = ({ left, children, right }) => {
           </div>
         </Container>
       </Main>
-      <Popups />
+      {/* <Popups /> */}
     </>
   )
 }

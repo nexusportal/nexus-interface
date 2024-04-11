@@ -13,6 +13,7 @@ import { useActiveWeb3React } from 'app/services/web3'
 import Lottie from 'lottie-react'
 import React, { FC } from 'react'
 import { Loading } from 'arwes';
+import Popups from 'app/components/Popups'
 
 interface ConfirmationPendingContentProps {
   onDismiss: () => void
@@ -80,6 +81,7 @@ export const TransactionSubmittedContent: FC<TransactionSubmittedContentProps> =
           </Typography>
         </Button>
       )}
+      <Popups/>
     </div>
   )
 }

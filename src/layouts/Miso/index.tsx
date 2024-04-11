@@ -113,7 +113,7 @@ const MisoLayout: FC = ({ children }) => {
       <Header />
       <div className="flex flex-col items-center w-full flex flex-grow">
         <div className="w-full flex-grow flex flex-col">{children}</div>
-        <Popups />
+        {/* <Popups /> */}
       </div>
       <Footer />
     </div>

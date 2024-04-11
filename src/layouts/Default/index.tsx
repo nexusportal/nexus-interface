@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
     <div className="z-0 flex flex-col items-center w-full h-screen">
       <Header />
       <Main>{children}</Main>
-      <Popups />
+      {/* <Popups /> */}
       <Footer />
     </div>
   )

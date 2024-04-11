@@ -55,7 +55,7 @@ const TridentLayout: FC = ({ children = [] }) => {
       <Header />
       <div className="flex flex-col items-center flex-grow w-full">
         <div className="flex flex-col flex-grow w-full">{children}</div>
-        <Popups />
+        {/* <Popups /> */}
       </div>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import HeadlessUiModal from 'app/components/Modal/HeadlessUIModal'
+import Popups from 'app/components/Popups'
 import Typography from 'app/components/Typography'
 import React from 'react'
 
@@ -28,6 +29,7 @@ export default function TransactionFailedModal({ isOpen, onDismiss }: Transactio
           {i18n._(t`Please try again`)}
         </Typography>
       </div>
+      <Popups/>
     </HeadlessUiModal.Controlled>
   )
 }

@@ -10,6 +10,7 @@ import React, { FC, useMemo } from 'react'
 
 import SwapModalFooter from './SwapModalFooter'
 import SwapModalHeader from './SwapModalHeader'
+import Popups from 'app/components/Popups'
 
 /**
  * Returns true if the trade requires a confirmation of details before we can submit it
