@@ -6,7 +6,7 @@ import { NetworkConnector } from 'app/entities/connectors'
 import RPC from './rpc'
 
 // const supportedChainIds = Object.values(ChainId) as number[]
-export const supportedChainIds = [ChainId.APOTHEM, ChainId.XDC, ChainId.XRPL]
+export const supportedChainIds = [ChainId.XDC, ChainId.APOTHEM, ChainId.XRPL]
 
 export const getChainIdString = (chainId: number | undefined) => {
   const chain = chainId === ChainId.APOTHEM ? "51" : chainId === ChainId.XRPL ? "1440002" : "50"
