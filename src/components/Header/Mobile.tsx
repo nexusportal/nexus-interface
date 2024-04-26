@@ -38,7 +38,7 @@ const Mobile: FC = () => {
   const [xrpPrice, setXrpPrice] = useState('');
   const [nexuPrice, setNexuPrice] = useState('');
 
-  const rpcUrl = chainId == 1440002 ? RPC[ChainId.XRPL] : RPC[ChainId.APOTHEM]; // Change the ChainId value according to your requirement
+  const rpcUrl = RPC[chainId??ChainId.XDC]; // Change the ChainId value according to your requirement
   const web3 = new Web3(rpcUrl);
   const nativeTokenId = chainId == 1440002 ? "ripple" : "xdce-crowd-sale"
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { ChainId } from '@sushiswap/core-sdk'
 
-const RPC = {
+const RPC: { [chainId: number]: string } = {
 
   [ChainId.ETHEREUM]: 'https://sgb.ftso.com.au/ext/bc/C/rpc',
   [ChainId.FANTOM]: 'https://rpcapi.fantom.network',

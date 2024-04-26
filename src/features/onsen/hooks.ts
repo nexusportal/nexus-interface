@@ -18,6 +18,7 @@ import { getTokenInfo } from 'app/state/lists/hooks'
 import { NEXUS } from 'app/config/tokens'
 
 import { Chef } from './enum'
+import { getChainIdString, isSupportedChainId } from 'app/config/wallets'
 
 export function useChefContract(chef: Chef) {
   const masterChefContract = useMasterChefContract()
@@ -83,7 +84,7 @@ export function useRewardTokens(farm) {
   const args = [String(farm.id)];
   const result = useSingleCallResult(args ? contract : null, 'getRewardTokenInfo', args)?.result;
   const value = result?.[0];
-  const chain = chainId === ChainId.XDC ? "50" : chainId === ChainId.XRPL ? "1440002" : "51";
+  const chain = getChainIdString(chainId);
   // @ts-ignore TYPE NEEDS FIXING
   let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number, remainAmount: number }[] = value?.map((item, ind) => {
     let re = parseFloat(ethers.utils.formatEther(item.distRate));
@@ -105,7 +106,7 @@ export function useRewardTokens(farm) {
 // @ts-ignore TYPE NEEDS FIXING
 export function usePendingSushi(farm) {
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId ? chainId : ChainId.APOTHEM;
+  const chain = getChainIdString(chainId);
   const contract = useChefContract(farm.chef)
 
   const args = useMemo(() => {

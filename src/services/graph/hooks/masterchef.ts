@@ -1,4 +1,5 @@
 import { ChainId } from '@sushiswap/core-sdk'
+import { isSupportedChainId } from 'app/config/wallets'
 import { Chef } from 'app/features/onsen/enum'
 import {
   getMasterChefV1Farms,
@@ -44,7 +45,7 @@ interface useFarmsProps {
 }
 
 export function useMasterChefV1Farms({ chainId, swrConfig = undefined }: useFarmsProps) {
-  const shouldFetch = chainId && (chainId === ChainId.XRPL ||chainId === ChainId.XDC || chainId === ChainId.APOTHEM )
+  const shouldFetch = chainId && isSupportedChainId(chainId)
   const { data } = useSWR(shouldFetch ? ['masterChefV1Farms'] : null, () => getMasterChefV1Farms(undefined), swrConfig)
   console.log(data)
   return useMemo(() => {

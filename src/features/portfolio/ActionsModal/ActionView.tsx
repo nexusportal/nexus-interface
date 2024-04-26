@@ -4,6 +4,7 @@ import { useLingui } from '@lingui/react'
 import { NATIVE } from '@sushiswap/core-sdk'
 import { BentoboxIcon, WalletIcon } from 'app/components/Icon'
 import HeadlessUiModal from 'app/components/Modal/HeadlessUIModal'
+import { getChainIdString } from 'app/config/wallets'
 import { Feature } from 'app/enums/Feature'
 import ActionItem from 'app/features/portfolio/ActionsModal/ActionItem'
 import { setBalancesActiveModal } from 'app/features/portfolio/portfolioSlice'
@@ -47,7 +48,7 @@ const ActionView: FC<ActionViewProps> = ({ onClose }) => {
       console.log('Please install MetaMask.');
       return;
     }
-    let tokenImage = getTokenInfo(tokenAddress, chainId === 50 ? "50" : chainId === 1440002 ? "1440002" : "51")
+    let tokenImage = getTokenInfo(tokenAddress, getChainIdString(chainId))
     try {
       // @ts-ignore TYPE NEEDS FIXING
       const wasAdded = await ethereum.request({

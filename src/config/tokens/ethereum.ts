@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@sushiswap/core-sdk'
+import { ChainId, NEXU, Token } from '@sushiswap/core-sdk'
 
 // Default Ethereum chain tokens
 export const ALPHA = new Token(
@@ -110,21 +110,21 @@ export const XORACLE = new Token(ChainId.XRPL, '0x3965c4716091A1008db59D85a684Db
 export const NEXUS = {
   "1440002": new Token(
     ChainId.XRPL,
-    '0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e',
+    NEXU[ChainId.XRPL],
     18,
     'NEXU',
     'Nexus'
   ),
   "51":new Token(
     ChainId.APOTHEM,
-    '0x997B6116f9Ec280E39C196D797b42eFA3E76B0F4',
+    NEXU[ChainId.APOTHEM],
     18,
     'NEXU',
     'Nexus'
   ),  
   "50":new Token(
     ChainId.XDC,
-    '0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e',
+    NEXU[ChainId.XDC],
     18,
     'NEXU',
     'Nexus'

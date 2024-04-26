@@ -10,6 +10,7 @@ import { useMemo } from 'react'
 
 import { WrappedTokenInfo } from './wrappedTokenInfo'
 import { useActiveWeb3React } from 'app/services/web3'
+import { getChainIdString } from 'app/config/wallets'
 
 export type TokenAddressMap = Readonly<{
   [chainId: number]: Readonly<{
@@ -137,7 +138,7 @@ export function useInactiveListUrls(): string[] {
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {
   const { chainId } = useActiveWeb3React();
-  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
+  const chain = getChainIdString(chainId)
   const activeListUrls = useActiveListUrls()
   const activeTokens = useCombinedTokenMapFromUrls(activeListUrls)
   const { TRANSFORMED_DEFAULT_TOKEN_LIST } = useTransformedTokenList(chain);

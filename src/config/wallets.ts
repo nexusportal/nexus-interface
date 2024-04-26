@@ -8,6 +8,11 @@ import RPC from './rpc'
 // const supportedChainIds = Object.values(ChainId) as number[]
 export const supportedChainIds = [ChainId.APOTHEM, ChainId.XDC, ChainId.XRPL]
 
+export const getChainIdString = (chainId: number | undefined) => {
+  const chain = chainId === ChainId.APOTHEM ? "51" : chainId === ChainId.XRPL ? "1440002" : "50"
+  return chain;
+}
+
 export const isSupportedChainId = (chainId: number | undefined) => {
   if (!chainId) return false;
   return supportedChainIds.includes(chainId);
