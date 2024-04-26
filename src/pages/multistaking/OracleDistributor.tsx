@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { ZERO, ChainId } from '@sushiswap/core-sdk'
+import { ZERO, ChainId, NEXU_DISTRIBUTOR_ADDRESS } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import { NEXUS  } from 'app/config/tokens'
-import {  PRO_ORALCE_DISTRIBUTOR_ADDRESS } from 'app/constants'
 import {  useNextOracleDistributeTime, useProOracleDistributeAction } from 'app/hooks/useProOracleDistributor'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
@@ -100,7 +99,7 @@ const OracleDistributor = () => {
     }
   }
 
-  const balance = useTokenBalance(PRO_ORALCE_DISTRIBUTOR_ADDRESS[chainId ===ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM ], NEXUS[chain])
+  const balance = useTokenBalance(NEXU_DISTRIBUTOR_ADDRESS[chainId ===ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM ], NEXUS[chain])
 
   return (
     <div className="flex flex-row items-center mt-3 space-x-2 text-lg font-normal text-left text-primary">

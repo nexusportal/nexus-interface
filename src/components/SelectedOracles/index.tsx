@@ -1,14 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { ZERO, ChainId } from '@sushiswap/core-sdk'
+import { ZERO, ChainId, NEXUS_NFT_MULTISTAKING_ADDRESS } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
 import { WalletIcon } from 'app/components/Icon'
 import { HeadlessUiModal } from 'app/components/Modal'
 import Typography from 'app/components/Typography'
 import Web3Connect from 'app/components/Web3Connect'
 import { NEXUS } from 'app/config/tokens'
-import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { classNames } from 'app/functions'
 import { ApprovalState, useApproveCallback } from 'app/hooks'
 import {
@@ -46,8 +45,8 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
   return success
 }
 export const SelectedOracles = () => {
-  const { account,chainId } = useActiveWeb3React()
-  const chain = chainId==50?"50": chainId==51?"51":"1440002"
+  const { account, chainId } = useActiveWeb3React()
+  const chain = chainId == 50 ? "50" : chainId == 51 ? "51" : "1440002"
   const maxSelectAmount = 40
 
   ///ipfs://QmV3yAjc2WXQNZycGq3G8B6KGfNZutJFcQM3UuCRiXYgBH/61.json
@@ -115,7 +114,7 @@ export const SelectedOracles = () => {
   // @ts-ignore TYPE NEEDS FIXING
   const [approvalState, approve] = useApproveCallback(
     minXOracleAmount?.multiply(selectedIDs.length),
-    NEXUS_NFT_MULTISTAKING_ADDRESS[chainId?chainId:ChainId.XRPL]
+    NEXUS_NFT_MULTISTAKING_ADDRESS[chainId ? chainId : ChainId.XRPL]
   )
 
   const depositError = !minXOracleAmount

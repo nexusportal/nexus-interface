@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { MenuIcon } from '@heroicons/react/outline'
-import { NATIVE } from '@sushiswap/core-sdk'
+import { NATIVE, NEXU, ROUTER_ADDRESS, WETH9_ADDRESS } from '@sushiswap/core-sdk'
 import useMenu from 'app/components/Header/useMenu'
 import Web3Network from 'app/components/Web3Network'
 import Web3Status from 'app/components/Web3Status'
@@ -21,7 +21,6 @@ import XRPLogo from '../../../public/XRP.png'
 import NEXULogo from '../../../public/NEXUS.png'
 import axios from 'axios';
 import routerABI from 'app/constants/abis/router.json';
-import { nexuTokenAddress, routerAddress, wXRPAddress } from 'app/constants'
 import Web3 from 'web3';
 import { ChainId } from '@sushiswap/core-sdk';
 import RPC from '../../config/rpc';
@@ -70,11 +69,11 @@ const Mobile: FC = () => {
         const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));
 
         // Create the contract instance for the router
-        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress[chainId ? chainId : ChainId.XRPL]);
+        const routerContract = new web3.eth.Contract(routerABI as any, ROUTER_ADDRESS[chainId ? chainId : ChainId.XRPL]);
 
 
         // Get the output amounts
-        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress[chainId ? chainId : ChainId.XRPL], wXRPAddress[chainId ? chainId : ChainId.XRPL]]).call();
+        const amounts = await routerContract.methods.getAmountsOut(amountIn, [NEXU[chainId ? chainId : ChainId.XRPL], WETH9_ADDRESS[chainId ? chainId : ChainId.XRPL]]).call();
 
         // Get the output amount for the token
         const outputAmount = amounts[1];
@@ -133,7 +132,7 @@ const Mobile: FC = () => {
           </div>
 
           <div className="flex items-center mr-1">
-            <ExternalLink href="https://www.thenexusportal.io">
+            <ExternalLink target='_self' href="/">
               <Logo animate resources={LogoImage.src} size={50} alt="Logo" />
             </ExternalLink>
           </div>

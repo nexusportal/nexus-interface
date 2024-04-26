@@ -18,13 +18,21 @@ import {
   SUSHI_ADDRESS,
   TIMELOCK_ADDRESS,
   WNATIVE_ADDRESS,
+  MASTERCHEF_ADDRESS,
+  NEXUS_NFT_MULTISTAKING_ADDRESS,
+  NEXUS_DIFFUSER_ADDRESS,
+  NEXUS_NFT_ADDRESS,
+  NEXUS_NFT_WEIGHT_ADDRESS,
+  NEXU_DISTRIBUTOR_ADDRESS,
+  MULTISTAKING_DISTRIBUTOR_ADDRESS
+
 } from '@sushiswap/core-sdk'
 import { LIMIT_ORDER_HELPER_ADDRESS, STOP_LIMIT_ORDER_ADDRESS } from '@sushiswap/limit-order-sdk'
 import MISO from '@sushiswap/miso/exports/all.json'
 import TRIDENT from '@sushiswap/trident/exports/all.json'
 import { OLD_FARMS } from 'app/config/farms'
 import { tridentMigrationContracts } from 'app/config/tridentMigration'
-import { MASTERCHEF_ADDRESS, NEXUS_NFT_MULTISTAKING_ADDRESS, NEXU_DISTRIBUTOR_ADDRESS, NEXUS_NFT_ADDRESS, NEXUS_NFT_WEIGHT_ADDRESS, PRO_ORALCE_DISTRIBUTOR_ADDRESS, PROPHET_SACRIFICE_ADDRESS, MULTISTAKING_DISTRIBUTOR_ADDRESS } from 'app/constants'
+import { PROPHET_SACRIFICE_ADDRESS } from 'app/constants'
 import {
   ARGENT_WALLET_DETECTOR_ABI,
   ARGENT_WALLET_DETECTOR_MAINNET_ADDRESS,
@@ -200,7 +208,7 @@ export function useProStakingOracleWeightContract(withSignerIfPossible?: boolean
 
 export function useProOracleDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? PRO_ORALCE_DISTRIBUTOR_ADDRESS[chainId] : undefined, PRO_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXU_DISTRIBUTOR_ADDRESS[chainId] : undefined, PRO_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProStakingDistributorContract(withSignerIfPossible?: boolean): Contract | null {
@@ -220,7 +228,7 @@ export function useOracleNFTContract(withSignerIfPossible?: boolean): Contract |
 
 export function useOracleDistributorContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? NEXU_DISTRIBUTOR_ADDRESS[chainId] : undefined, ORACLE_DISTRIBUTOR_ABI, withSignerIfPossible)
+  return useContract(chainId ? NEXUS_DIFFUSER_ADDRESS[chainId] : undefined, ORACLE_DISTRIBUTOR_ABI, withSignerIfPossible)
 }
 
 export function useProphetSacrificeContract(withSignerIfPossible?: boolean): Contract | null {

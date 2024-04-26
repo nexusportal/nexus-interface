@@ -8,6 +8,7 @@ import React, { useCallback, useState } from 'react'
 import { FC } from 'react'
 
 import { getStrapiMedia } from '../../lib/media'
+import { isSupportedChainId } from 'app/config/wallets'
 
 interface BannerProps {
   banners: {
@@ -39,7 +40,7 @@ const Banner: FC<BannerProps> = ({ banners }) => {
     setSlideIndex((prevState) => (prevState - 1 + banners.length) % banners.length)
   }, [banners.length])
 
-  if ((chainId !== ChainId.XRPL && chainId !== ChainId.APOTHEM && chainId !== ChainId.XDC) || banners.length === 0) return <></>
+  if (!isSupportedChainId(chainId) || banners.length === 0) return <></>
 
   const filteredSlides = banners.filter(({ attributes: { startDate, endDate } }) => {
     const now = new Date().getTime()

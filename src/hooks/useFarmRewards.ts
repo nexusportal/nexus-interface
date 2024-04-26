@@ -1,6 +1,5 @@
-import { ChainId, Currency, JSBI, NATIVE, Token } from '@sushiswap/core-sdk'
+import { ChainId, Currency, JSBI, NATIVE, Token, MASTERCHEF_ADDRESS } from '@sushiswap/core-sdk'
 import { ARBITRUM_TOKENS, MATIC_TOKENS, NEXUS, XDAI_TOKENS, USDT, USDC, DAI } from 'app/config/tokens'
-import { MASTERCHEF_ADDRESS } from 'app/constants'
 import { Chef, PairType } from 'app/features/onsen/enum'
 import { useProphetPoolInfos, useRewardTokens, useUserInfo } from 'app/features/onsen/hooks'
 import { aprToApy } from 'app/functions/convert'

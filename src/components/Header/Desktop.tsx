@@ -1,4 +1,4 @@
-import { NATIVE } from '@sushiswap/core-sdk'
+import { NATIVE, NEXU, ROUTER_ADDRESS, WETH9_ADDRESS } from '@sushiswap/core-sdk'
 import Container from 'app/components/Container'
 import { NAV_CLASS } from 'app/components/Header/styles'
 import useMenu from 'app/components/Header/useMenu'
@@ -16,7 +16,6 @@ import XRPLogo from '../../../public/XRP.png'
 import XDCLogo from '../../../public/xdcpay.png'
 import NEXULogo from '../../../public/NEXUS.png'
 import routerABI from 'app/constants/abis/router.json';
-import { nexuTokenAddress, routerAddress, wXRPAddress } from 'app/constants'
 import LogoImage from '../../../public/icons/icon-72x72.png'
 import ExternalLink from '../ExternalLink'
 import { NavigationItem } from './NavigationItem'
@@ -79,11 +78,11 @@ const Desktop: FC = () => {
         const amountIn = web3.utils.toBN('1').mul(web3.utils.toBN(10 ** tokenDecimals));
 
         // Create the contract instance for the router
-        const routerContract = new web3.eth.Contract(routerABI as any, routerAddress[chainId ? chainId : ChainId.XRPL]);
+        const routerContract = new web3.eth.Contract(routerABI as any, ROUTER_ADDRESS[chainId ? chainId : ChainId.XRPL]);
 
 
         // Get the output amounts
-        const amounts = await routerContract.methods.getAmountsOut(amountIn, [nexuTokenAddress[chainId ? chainId : ChainId.XRPL], wXRPAddress[chainId ? chainId : ChainId.XRPL]]).call();
+        const amounts = await routerContract.methods.getAmountsOut(amountIn, [NEXU[chainId ? chainId : ChainId.XRPL], WETH9_ADDRESS[chainId ? chainId : ChainId.XRPL]]).call();
 
         // Get the output amount for the token
         const outputAmount = amounts[1];
@@ -133,7 +132,7 @@ const Desktop: FC = () => {
             <div className="flex items-center justify-between gap-4 px-6 py-2 lg:mt-1">
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
-                  <ExternalLink href="https://www.thenexusportal.io">
+                  <ExternalLink target='_self' href="/">
                     <Logo animate resources={LogoImage.src} size={50} alt="Logo" />
                     {/* <Image src="/logo.png" alt="NEXUSSwap logo" width="24px" height="24px" /> */}
                   </ExternalLink>
@@ -143,7 +142,6 @@ const Desktop: FC = () => {
                   return <NavigationItem node={node} key={node.key} />
                 })}
               </div>
-
 
               <div className="flex items-center justify-end gap-2">
                 {library && (library.provider.isMetaMask || isCoinbaseWallet) && (

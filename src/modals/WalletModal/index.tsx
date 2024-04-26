@@ -9,7 +9,7 @@ import Button from 'app/components/Button'
 import ExternalLink from 'app/components/ExternalLink'
 import HeadlessUiModal from 'app/components/Modal/HeadlessUIModal'
 import Typography from 'app/components/Typography'
-import { injected, SUPPORTED_WALLETS } from 'app/config/wallets'
+import { injected, SUPPORTED_WALLETS, supportedChainIds } from 'app/config/wallets'
 import { OVERLAY_READY } from 'app/entities/connectors/FortmaticConnector'
 import usePrevious from 'app/hooks/usePrevious'
 import { classNames } from 'app/functions'
@@ -224,11 +224,7 @@ const WalletModal: FC<WalletModal> = ({ pendingTransactions, confirmedTransactio
                 : i18n._(t`Error connecting. Try refreshing the page.`)}
             </Typography>
             <div className="grid grid-flow-row-dense grid-cols-1 mt-4 gap-4 overflow-y-auto md:grid-cols-2">
-              {[
-                ChainId.XRPL,
-                ChainId.APOTHEM,
-                // ChainId.XDC,
-              ].map((key: ChainId, i: number) => {
+              {supportedChainIds.map((key: ChainId, i: number) => {
                 return (
                   <button
                     key={i}

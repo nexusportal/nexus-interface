@@ -1,6 +1,7 @@
 import { classNames } from 'app/functions'
 import React, { FC, HTMLProps, useCallback } from 'react'
 import ReactGA from 'react-ga'
+import { useRouter } from 'next/router';
 
 const COLOR = {
   default: 'text-primary hover:text-high-emphesis focus:text-high-emphesis',
@@ -24,6 +25,7 @@ const ExternalLink: FC<ExternalLinkProps> = ({
   endIcon = undefined,
   ...rest
 }) => {
+  const router = useRouter();
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
       // don't prevent default, don't redirect if it's a new tab
@@ -35,7 +37,8 @@ const ExternalLink: FC<ExternalLinkProps> = ({
         event.preventDefault()
         // send a ReactGA event and then trigger a location change
         ReactGA.outboundLink({ label: href }, () => {
-          window.location.href = href
+          // window.location.href = href
+          router.push(href);
         })
       }
     },

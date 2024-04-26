@@ -25,6 +25,7 @@ import XRP from '../../../public/XRP.png'
 import XDC from '../../../public/xdcpay.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
+import { isSupportedChainId } from 'app/config/wallets'
 
 
 
@@ -74,7 +75,7 @@ export const getCurrencyLogoUrls = (currency): string[] => {
       }/logo.png`
     )
 
-    if (currency.chainId === ChainId.XRPL || currency.chainId === ChainId.XDC || currency.chainId === ChainId.APOTHEM) {
+    if (isSupportedChainId(currency.chainId)) {
       // const hostname = window.location.hostname
       // const protocal = window.location.protocol
       // console.log('window.origin', window.origin)

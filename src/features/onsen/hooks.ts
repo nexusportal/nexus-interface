@@ -1,8 +1,7 @@
 import { Zero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
-import { ChainId, CurrencyAmount, JSBI, MASTERCHEF_V2_ADDRESS, MINICHEF_ADDRESS, SUSHI, Currency, Token } from '@sushiswap/core-sdk'
+import { ChainId, CurrencyAmount, JSBI, MASTERCHEF_V2_ADDRESS, MASTERCHEF_ADDRESS, MINICHEF_ADDRESS, SUSHI, Currency, Token } from '@sushiswap/core-sdk'
 import { OLD_FARMS } from 'app/config/farms'
-import { MASTERCHEF_ADDRESS } from 'app/constants'
 import {
   useMasterChefContract,
   useMasterChefV2Contract,

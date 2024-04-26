@@ -15,7 +15,6 @@ import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, S
 import LogoImage from '../../../public/XRP.png'
 import XDCLOGO from '../../../public/xdcpay.png'
 import Container from '../Container'
-import { XDC } from '@sushiswap/core-sdk'
 // import Image from 'next/image'
 // import { ChainId } from '@sushiswap/core-sdk'
 // import { NETWORK_ICON } from 'app/config/networks'
@@ -70,11 +69,11 @@ const Footer = () => {
                   <GithubIcon width={24} className="text-low-emphesis" />
                 </a>
 
-                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51]} target="_blank" rel="noreferrer">
+                <a href={(chainId == 51 || chainId == 1440002) ? docUrls[chainId] : docUrls[51]} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Docs`)}</span>
                 </a>
 
-                <a href={(chainId == 50 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" rel="noreferrer">
+                <a href={(chainId == 51 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Privacy`)}</span>
                 </a>
               </div>

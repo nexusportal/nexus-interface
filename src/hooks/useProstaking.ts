@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { ChainId, CurrencyAmount, JSBI, Token, ZERO } from '@sushiswap/core-sdk'
+import { ChainId, CurrencyAmount, JSBI, Token, ZERO, NEXUS_NFT_MULTISTAKING_ADDRESS } from '@sushiswap/core-sdk'
 import { NEXUS, XORACLE } from 'app/config/tokens'
-import { NEXUS_NFT_MULTISTAKING_ADDRESS } from 'app/constants'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useSingleCallResult, useSingleContractMultipleData } from 'app/state/multicall/hooks'
 import { useTransactionAdder } from 'app/state/transactions/hooks'

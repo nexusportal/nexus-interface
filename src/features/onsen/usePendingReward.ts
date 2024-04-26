@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { ChainId } from '@sushiswap/core-sdk'
+import { ChainId, NEXU } from '@sushiswap/core-sdk'
 import { Fraction } from 'app/entities/bignumber'
 import { useCloneRewarderContract, useComplexRewarderContract, useNexusGeneratorContract } from 'app/hooks/useContract'
 import { useActiveWeb3React } from 'app/services/web3/hooks/useActiveWeb3React'
@@ -8,7 +8,6 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { Chef } from './enum'
 import { formatEther, parseUnits } from '@ethersproject/units'
-import { nexuTokenAddress } from 'app/constants'
 
 // @ts-ignore TYPE NEEDS FIXING
 const usePending = (farm) => {
@@ -45,7 +44,7 @@ const usePending = (farm) => {
         // @ts-ignore TYPE NEEDS FIXING
         const pending = await contract[chainId]?.pendingNexusByUser(farm.id, account)
         const format = parseFloat(formatEther(pending)).toFixed(4);
-        bal[nexuTokenAddress[chainId?chainId:ChainId.XRPL]] = format;
+        bal[NEXU[chainId?chainId:ChainId.XRPL]] = format;
         // @ts-ignore TYPE NEEDS FIXING
         const rewardTokens = farm.rewards.filter((item, i)=> item.currency.symbol !== "NEXU");
         for(let i=0; i< rewardTokens.length; i++) {
