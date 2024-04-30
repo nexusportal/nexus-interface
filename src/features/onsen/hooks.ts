@@ -187,23 +187,51 @@ export function useProphetPoolInfos() {
   }, [numberOfPools])
 
   // @ts-ignore TYPE NEEDS FIXING
-  const poolInfo = useSingleContractMultipleData(args ? contract : null, 'poolInfo', args)
+  const res = useSingleContractMultipleData(args ? contract : null, 'poolInfo', args)
 
-  return useMemo(() => {
-    if (!poolInfo) {
+  const poolInfos = useMemo(() => {
+    if (!res) {
       return []
     }
-    return poolInfo.map((data, i) => ({
+    return res.map((data, i) => ({
       // @ts-ignore TYPE NEEDS FIXING
       id: args[i][0],
       allocPoint: data.result?.allocPoint?.toNumber() || 0,
       lpToken: data.result?.lpToken,
       lastRewardBlock: data.result?.lastRewardBlock || Zero,
-      accProPerShare: data.result?.accProPerShare || Zero,
+      accSushiPerShare: data.result?.accNexusPerShare || Zero,
       // @ts-ignore TYPE NEEDS FIXING
       // pendingTokens: data?.[2]?.result,
     }))
-  }, [args, poolInfo])
+  }, [args, res])
+
+  const farmsList = useMemo(() => {
+    if (args && args.length > 0 && res.length > 0) {
+      if (!res.every(ele => ele.result !== undefined)) return []
+      return res.map((ele, index) => {
+        return {
+          accSushiPerShare: '',
+          allocPoint: ele?.result?.allocPoint?.toNumber() || 0,
+          balance: 0,
+          chef: 0,
+          id: index.toString(),
+          lastRewardTime: 0,
+          owner: {
+            id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+            totalAllocPoint: 100,
+          },
+          pair: ele?.result?.[0],
+          slpBalance: 0,
+          userCount: '1',
+        }
+      }).filter((item, pos, ary) => !pos || item.pair !== ary[pos - 1].pair);
+    }
+    return []
+  }, [args, res])
+
+  return {
+    poolInfos, farmsList
+  }
 }
 export function useChefPositions(contract?: Contract | null, rewarder?: Contract | null, chainId = undefined) {
   const { account } = useActiveWeb3React()

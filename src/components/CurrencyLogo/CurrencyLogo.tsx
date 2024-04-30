@@ -59,21 +59,21 @@ export const getCurrencyLogoUrls = (currency): string[] => {
   const urls: string[] = []
 
   if (currency.chainId in BLOCKCHAIN) {
-    urls.push(
-      // @ts-ignore TYPE NEEDS FIXING
-      `https://raw.githubusercontent.com/sushiswap/logos/main/network/${BLOCKCHAIN[currency.chainId]}/${currency.address
-      }.jpg`
-    )
-    urls.push(
-      // @ts-ignore TYPE NEEDS FIXING
-      `https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${currency.address
-      }/logo.png`
-    )
-    urls.push(
-      // @ts-ignore TYPE NEEDS FIXING
-      `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${currency.address
-      }/logo.png`
-    )
+    // urls.push(
+    //   // @ts-ignore TYPE NEEDS FIXING
+    //   `https://raw.githubusercontent.com/sushiswap/logos/main/network/${BLOCKCHAIN[currency.chainId]}/${currency.address
+    //   }.jpg`
+    // )
+    // urls.push(
+    //   // @ts-ignore TYPE NEEDS FIXING
+    //   `https://raw.githubusercontent.com/sushiswap/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${currency.address
+    //   }/logo.png`
+    // )
+    // urls.push(
+    //   // @ts-ignore TYPE NEEDS FIXING
+    //   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${BLOCKCHAIN[currency.chainId]}/assets/${currency.address
+    //   }/logo.png`
+    // )
 
     if (isSupportedChainId(currency.chainId)) {
       // const hostname = window.location.hostname
@@ -81,7 +81,11 @@ export const getCurrencyLogoUrls = (currency): string[] => {
       // console.log('window.origin', window.origin)
       urls.push(
         // @ts-ignore TYPE NEEDS FIXING
-        `https://dex.thenexusportal.io/${currency.symbol}.png`
+        `https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/${currency.chainId}/${currency.symbol}.png`
+      )
+      urls.push(
+        // @ts-ignore TYPE NEEDS FIXING
+        `https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/${currency.chainId}/${currency.symbol}.jpg`
       )
 
       // urls.push(
@@ -293,7 +297,9 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     }
   }
   if (currency?.chainId === ChainId.XDC) {
-    return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+    if (currency.symbol === 'NEXU') {
+      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+    }
   }
 
 
@@ -409,7 +415,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       }
     }
     if (currency?.chainId === ChainId.XDC) {
-      return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      // return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
     }
   }
 
@@ -439,7 +445,13 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       }
     }
     if (currency.tokenInfo.chainId === ChainId.XDC) {
-      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      if (currency.tokenInfo.symbol === 'NEXUS') {
+        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      }
+      if (currency.tokenInfo.symbol === 'WXDC') {
+        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      }
+      // return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
   }
 

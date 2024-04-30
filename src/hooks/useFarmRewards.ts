@@ -22,13 +22,14 @@ import {
   useFarms,
 } from 'app/services/graph'
 import { useActiveWeb3React } from 'app/services/web3'
-import { useSingleCallResult } from 'app/state/multicall/hooks'
+import { useSingleCallResult, useSingleContractMultipleData } from 'app/state/multicall/hooks'
 import { useTokenBalances } from 'app/state/wallet/hooks'
 import { useMemo } from 'react'
 import { farms, swapPairs } from 'app/constants/farmlist'
 import { getAddress } from 'app/functions'
 
-import { useMasterChefContract } from '.'
+import { useMasterChefContract, useMulticall2Contract } from '.'
+import { getChainIdString } from 'app/config/wallets'
 
 export function useMasterChefRewardReduction() {
   const contract = useMasterChefContract(false)
@@ -47,7 +48,7 @@ export function useMasterChefRewardReduction() {
   const amount2 = reducitonRateValue ? JSBI.BigInt(reducitonRateValue.toString()) : undefined
   const amount3 = periodInfoValue ? JSBI.BigInt(periodInfoValue.toString()) : undefined
   const amount4 = nexusPerBlockValue ? JSBI.BigInt(nexusPerBlockValue.toString()) : undefined
-  
+
 
   const nextReductionBlock = useMemo(() => {
     if (amount1) {
@@ -102,6 +103,50 @@ export function useMasterChefTotalAllocPoint() {
     return 0
   }, [amount])
 }
+export function useMasterChefAllFarms() {
+  const contract = useMasterChefContract(false)
+
+  const farmLengthBig = useSingleCallResult(contract, 'poolLength')?.result?.[0]
+  const amount = farmLengthBig ? JSBI.BigInt(farmLengthBig.toString()) : undefined
+  const farmLength = useMemo(() => {
+    if (amount) {
+      return JSBI.toNumber(amount)
+    }
+    return 0
+  }, [amount])
+
+  const args = useMemo(() => {
+    if (farmLength < 1) return [];
+    const argsArr = Array.from({ length: farmLength }, (_, index) => [`${index}`]);
+    return argsArr;
+  }, [farmLength])
+  // @ts-ignore TYPE NEEDS FIXING
+  const res = useSingleContractMultipleData(contract, "poolInfo", args)
+
+  return useMemo(() => {
+    if (args && args.length > 0 && res.length > 0) {
+      if (!res.every(ele => ele.result !== undefined)) return []
+      return res.map((ele, index) => {
+        return {
+          accSushiPerShare: '',
+          allocPoint: 15,
+          balance: 0,
+          chef: 0,
+          id: index.toString(),
+          lastRewardTime: 0,
+          owner: {
+            id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+            totalAllocPoint: 100,
+          },
+          pair: ele?.result?.[0],
+          slpBalance: 0,
+          userCount: '1',
+        }
+      }).filter((item, pos, ary) => !pos || item.pair !== ary[pos - 1].pair);
+    }
+    return []
+  }, [args, res])
+}
 
 export default function useFarmRewards() {
   const { chainId } = useActiveWeb3React()
@@ -117,13 +162,21 @@ export default function useFarmRewards() {
   // const farms = useFarms({ chainId })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const chain = chainId === 50 ? "50" : chainId === 51 ? "51" : "1440002";
+  const chain = getChainIdString(chainId);
 
-  const liquidityTokens = farms[chain].map((farm: any) => {
-    const token = new Token(parseInt(chain), getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
-    return token;
-  })
-  const farmAddresses = useMemo(() => farms[chain].map((farm: any) => farm.pair), [farms])
+  // const farmsList = useMasterChefAllFarms()
+  const { poolInfos } = useProphetPoolInfos()
+
+  const liquidityTokens = useMemo(() => {
+    // if (!farmsList || farmsList.length < 1) return []
+    return farms[chain].map((farm: any) => {
+      // console.log(farm, getAddress(farm.pair))
+      const token = new Token(parseInt(chain), getAddress(farm.pair), 18, 'NLP', 'NEXUS LP Token')
+      return token;
+    })
+    // return []
+  }, [farms[chain]])
+  // const farmAddresses = useMemo(() => poolInfos.map((farm: any) => farm.lpToken), [poolInfos])
 
   const stakedBalaces = useTokenBalances(chainId ? MASTERCHEF_ADDRESS[chainId] : undefined, liquidityTokens)
 
@@ -157,7 +210,7 @@ export default function useFarmRewards() {
   const averageBlockTime = useAverageBlockTime({ chainId })
 
   const masterChefV1TotalAllocPoint = useMasterChefTotalAllocPoint() //useMasterChefV1TotalAllocPoint()
-  const {rewardPerblock: masterChefV1SushiPerBlock} = useMasterChefRewardReduction() // useMasterChefV1SushiPerBlock()
+  const { rewardPerblock: masterChefV1SushiPerBlock } = useMasterChefRewardReduction() // useMasterChefV1SushiPerBlock()
 
   const [
     sushiPrice,
@@ -191,8 +244,6 @@ export default function useFarmRewards() {
 
   const blocksPerDay = 86400 / Number(averageBlockTime)
 
-  const poolInfos = useProphetPoolInfos()
-
   // @ts-ignore TYPE NEEDS FIXING
 
   const map = (pool) => {
@@ -209,7 +260,7 @@ export default function useFarmRewards() {
     const amount = parseFloat(stakedAmount ? stakedAmount?.toSignificant(10) : '0')
 
     // // @ts-ignore TYPE NEEDS FIXING
-    const swapPair = swapPairs[chain]?.find((pair: any) => pair.id === pool.pair)
+    const swapPair = swapPairs[chain]?.find((pair: any) => pair.id.toLowerCase() === pool.pair.toLowerCase())
     // // @ts-ignore TYPE NEEDS FIXING
     // const swapPair1d = swapPairs1d?.find((pair) => pair.id === pool.pair)
     // // @ts-ignore TYPE NEEDS FIXING
@@ -494,10 +545,10 @@ export default function useFarmRewards() {
     const feeApyPerDay = feeApyPerMonth / 30
     const feeApyPerHour = feeApyPerDay / blocksPerHour
 
-    const roiPerBlock =
+    const roiPerBlock =tvl > 0?
       rewards.reduce((previousValue, currentValue) => {
         return previousValue + currentValue.rewardPerBlock * currentValue.rewardPrice
-      }, 0) / tvl
+      }, 0) / tvl : 0
 
     const rewardAprPerHour = roiPerBlock * blocksPerHour
     const rewardAprPerDay = rewardAprPerHour * 24

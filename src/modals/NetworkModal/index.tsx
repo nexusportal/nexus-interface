@@ -113,7 +113,9 @@ const NetworkModal: FC = () => {
                   toggleNetworkModal()
                   const params = SUPPORTED_NETWORKS[key]
                   try {
-                    await library?.send('wallet_switchEthereumChain', [{ chainId: `0x${key.toString(16)}` }, account])
+                    await library?.send('wallet_switchEthereumChain', [{ chainId: `0x${key.toString(16)}` }, account]).then(() => {
+                      location.reload()
+                    })
                   } catch (switchError) {
                     // This error code indicates that the chain has not been added to MetaMask.
                     // @ts-ignore TYPE NEEDS FIXING
