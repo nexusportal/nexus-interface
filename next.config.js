@@ -58,20 +58,24 @@ const nextConfig = {
       'api.gravityfinance.io',
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/swap',
-        permanent: true,
-      },
-    ]
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: '/swap',
+  //       permanent: true,
+  //     },
+  //   ]
+  // },
   async rewrites() {
     return [
       {
         source: '/stake',
         destination: '/bar',
+      },
+      {
+        source: '/',
+        destination: '/home',
       },
       {
         source: '/add/:token*',

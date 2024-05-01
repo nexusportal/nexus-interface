@@ -56,9 +56,10 @@ export default function Updater(): null {
       const list = lists[listUrl]
       if (list.current && list.pendingUpdate) {
         const bump = getVersionUpgrade(list.current.version, list.pendingUpdate.version)
+        if(bump === VersionUpgrade.NONE) return;
         switch (bump) {
-          case VersionUpgrade.NONE:
-            throw new Error('unexpected no version bump')
+          // case VersionUpgrade.NONE:
+          //   throw new Error('unexpected no version bump')
           case VersionUpgrade.PATCH:
           case VersionUpgrade.MINOR:
             const min = minVersionBump(list.current.tokens, list.pendingUpdate.tokens)
