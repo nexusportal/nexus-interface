@@ -391,13 +391,16 @@ const Swap = ({ banners }) => {
 
       <ExternalLink href="https://www.thenexusportal.io">
         <div className="flex flex-col items-center mb-4">
-          <div className="relative">
-            <div className="absolute bottom-4 right-4 transform translate-x-0 translate-y-0">
-              <Logo animate size={125} />
+          <div className="relative w-full text-center">
+            <div className="inline-block relative">
+              <div className="absolute inset-0 m-auto" style={{ height: '125px', width: '125px' }}>
+                <Logo animate size={125} />
+              </div>
             </div>
           </div>
         </div>
       </ExternalLink>
+
 
       <SwapLayoutCard>
         <div className="px-2">
@@ -411,7 +414,7 @@ const Swap = ({ banners }) => {
               color={'blue'}
               key={i}
               onClick={() => {
-                if(!balance) return;
+                if (!balance) return;
                 handleTypeInput(balance.multiply(multiplier).divide(100).toExact())
                 // @ts-ignore TYPE NEEDS FIXING
                 // setDepositValue(balance.multiply(multiplier).divide(100).toExact())

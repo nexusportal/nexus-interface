@@ -23,6 +23,8 @@ import WATER from '../../../public/images/token/apothem/WATER.png'
 
 import XRP from '../../../public/XRP.png'
 import XDC from '../../../public/XDC.png'
+import WXDC from '../../../public/WXDC.png'
+
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
 import { isSupportedChainId } from 'app/config/wallets'
@@ -245,7 +247,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     }
 
     if (currency.symbol === 'WXDC') {
-      return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
     }
     if (currency.symbol === 'NEXU') {
       return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
@@ -363,7 +365,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       }
 
       if (currency.symbol === 'WXDC') {
-        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+        return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
       }
       if (currency.symbol === 'NEXU') {
         return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
@@ -441,7 +443,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
         return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
       }
       if (currency.tokenInfo.symbol === 'WXDC') {
-        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+        return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
       }
     }
     if (currency.tokenInfo.chainId === ChainId.XDC) {

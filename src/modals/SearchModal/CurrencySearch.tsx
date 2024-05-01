@@ -15,6 +15,7 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useRouter } from 'next/router'
 import React, { KeyboardEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
+import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
 
 import CommonBases from './CommonBases'
 import CurrencyList from './CurrencyList'
@@ -155,7 +156,14 @@ export function CurrencySearch({
       )}
       {showCommonBases && <CommonBases />}
 
+      <Link href="https://github.com/nexusportal/token-list" target="_blank" rel="noreferrer">
+        <span className="text-lg font-bold md:text-m text-green">
+          Get Listed
+        </span>
+      </Link>
+
       {searchToken && !searchTokenIsAdded && <ImportRow token={searchToken} onClick={handleImport} />}
+
       <div className="h-full overflow-hidden overflow-y-auto border rounded border-dark-800 bg-[rgba(0,0,0,0.2)]">
         {filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (
           <CurrencyList

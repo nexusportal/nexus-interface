@@ -181,7 +181,7 @@ const Footer = () => {
 
             <div className="flex flex-row justify-center gap-1 text-right sm:justify-end">
               <div className="flex items-center ">
-                <a href={chainId == 1440002 ? "https://xrpl.org/" : ""} target="_blank" rel="noreferrer">
+                <a href={chainId == 1440002 ? "https://xrpl.org/" : "https://xdc.org/"} target="_blank" rel="noreferrer">
                   <img src={chainId == 1440002 ? LogoImage.src : XDCLOGO.src} className={'h-[50px] max-w-none'} alt="Logo" />
                 </a>
               </div>
