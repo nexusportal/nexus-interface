@@ -219,18 +219,23 @@ export default function Farm(): JSX.Element {
               <AnimatedContent show={anim.entered}>
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
-                    The Nexus Generator initiates with a generation of 5 NEXU per block as rewards. However, this quantity experiences a daily exponential decrease until the maximum supply is attained. The generated NEXU is proportionally allocated to Liquidity Providers who stake their NLP Tokens in the Nexus Generator. Additionally, 10% of the block rewards are automatically channeled to the Nexus Core Multi-Staking System whenever an interaction occurs within the Nexus Generator system.
+                    The Nexus Generator mints and distributes NEXU to proportionally Liquidity Providers each block.
+                    The Nexus Generator also acts as an ecosystem superfarm that can distribute multi-rewards to LP Tokens or single side Token stakes.
+                    Additionally, 10% of the block rewards are  channeled to the Nexus Core Multi-Staking System.
                   </p>
                   <br />
                   <p>
                     The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day!
                     The more NLPs you stake the more of the daily NEXU reward you will get!
                   </p>
-                  <Link href="https://docs.thenexusportal.io/" target="_blank" rel="noreferrer">
+                  <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
                     <span className="text-lg font-bold md:text-xl text-green">
-                      LEARN MORE
+                      Apply For An Ecosystem Superfarm
                     </span>
                   </Link>
+                  <br />
+
+
                 </div>
               </AnimatedContent>
             )}
@@ -260,8 +265,8 @@ export default function Farm(): JSX.Element {
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate > 0 ? reducitonRate.toFixed(4) : 0}%</span></p>
                   <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
-                  <p>Current Nexu Per Block: <span className='font-bold text-green'>{rewardPerblock.toFixed(4)}</span></p>
-                  <p>Next Reduction NEXU Block: <span className='font-bold text-green'>{period > 0 ? (nextReductionBlock + (Math.floor((period + currentBlock - nextReductionBlock) / period) * period)) : nextReductionBlock}</span></p>
+                  <p>Current NEXU Per Block: <span className='font-bold text-green'>{rewardPerblock.toFixed(4)}</span></p>
+                  <p>Next NEXU Reduction Block: <span className='font-bold text-green'>{period > 0 ? (nextReductionBlock + (Math.floor((period + currentBlock - nextReductionBlock) / period) * period)) : nextReductionBlock}</span></p>
                 </div>
                 <div className="w-full h-5 bg-gray-400 opacity-50">
                   <div className="bg-green h-5 max-w-[100%]"

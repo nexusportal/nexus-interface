@@ -139,7 +139,7 @@ const useMenu: UseMenu = () => {
     let mintMenu: MenuItem = {
       key: 'nft',
       title: i18n._(t`Mint`),
-      link: 'https://xdca.minter.thenexusportal.io/',
+      link: 'https://minter.thenexusportal.io/',
       external: true,
       icon: <MintIcon width={20} />,
     }

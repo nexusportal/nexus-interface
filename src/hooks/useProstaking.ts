@@ -11,7 +11,7 @@ import { useAllTokens } from './Tokens'
 import { useOracleNFTContract, useProStakingContract, useProStakingDistributorContract, useProStakingOracleWeightContract } from './useContract'
 
 const fetchNFTMetaInfo = async (id: number) => {
-  const url = `https://ethereals.fra1.cdn.digitaloceanspaces.com/metadata/${id}.json`
+  const url = `https://celestials.fra1.cdn.digitaloceanspaces.com/celest/public/metadata/${id}.json`
   const response = await axios.get(url)
   const token = response.data
 

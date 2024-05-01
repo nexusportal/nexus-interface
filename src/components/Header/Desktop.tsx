@@ -13,7 +13,7 @@ import { useETHBalances } from 'app/state/wallet/hooks'
 import Link from 'next/link'
 import React, { FC, useState, useEffect } from 'react';
 import XRPLogo from '../../../public/XRP.png'
-import XDCLogo from '../../../public/xdcpay.png'
+import XDCLogo from '../../../public/XDC.png'
 import NEXULogo from '../../../public/NEXUS.png'
 import routerABI from 'app/constants/abis/router.json';
 import LogoImage from '../../../public/icons/icon-72x72.png'
@@ -168,9 +168,9 @@ const Desktop: FC = () => {
                     <Web3Status />
                   </div>
                 </Frame>
-                <div className="hidden lg:flex">
+                {/* <div className="hidden lg:flex">
                   <LanguageSwitch />
-                </div>
+                </div> */}
               </div>
             </div>
           </Container>

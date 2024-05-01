@@ -439,8 +439,8 @@ export const SelectedOracles = () => {
               crossOrigin="anonymous"
               referrerPolicy="origin"
               className="object-cover object-center w-full"
-              src={`https://ethereals.fra1.cdn.digitaloceanspaces.com/images/${nft.edition}.jpeg`}
-              alt="oracle"
+              src={`https://celestials.fra1.cdn.digitaloceanspaces.com/celest/public/assets/${nft.edition}.jpeg`}
+              alt="celestials"
             />
           </div>
         ))}
@@ -618,8 +618,8 @@ export const SelectedOracles = () => {
                 <img
                   crossOrigin="anonymous"
                   referrerPolicy="origin"
-                  src={`https://ethereals.fra1.cdn.digitaloceanspaces.com/images/${nft.edition}.jpeg`}
-                  alt="oracle"
+                  src={`https://celestials.fra1.cdn.digitaloceanspaces.com/celest/public/assets/${nft.edition}.jpeg`}
+                  alt="celestials"
                 />
               </div>
             ))}

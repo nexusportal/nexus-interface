@@ -25,7 +25,7 @@ import Option from './Option'
 import PendingView from './PendingView'
 import { NETWORK_LABEL } from 'app/config/networks'
 import XRP from '../../../public/XRP.png'
-import XDC from '../../../public/xdcpay.png'
+import XDC from '../../../public/XDC.png'
 
 enum WALLET_VIEWS {
   OPTIONS,

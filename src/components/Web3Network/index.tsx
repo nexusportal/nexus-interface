@@ -6,7 +6,7 @@ import { useNetworkModalToggle } from 'app/state/application/hooks'
 import Image from 'next/image'
 import React from 'react'
 import XRP from '../../../public/XRP.png'
-import XDC from '../../../public/xdcpay.png'
+import XDC from '../../../public/XDC.png'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';

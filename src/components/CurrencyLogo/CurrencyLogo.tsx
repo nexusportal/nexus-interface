@@ -22,7 +22,7 @@ import SPACE from '../../../public/images/token/apothem/SPACE.png'
 import WATER from '../../../public/images/token/apothem/WATER.png'
 
 import XRP from '../../../public/XRP.png'
-import XDC from '../../../public/xdcpay.png'
+import XDC from '../../../public/XDC.png'
 // import Image from '../../components/Image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
 import { isSupportedChainId } from 'app/config/wallets'

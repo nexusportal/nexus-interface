@@ -13,7 +13,7 @@ import React from 'react'
 import { Arwes, ThemeProvider, Button, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
 import LogoImage from '../../../public/XRP.png'
-import XDCLOGO from '../../../public/xdcpay.png'
+import XDCLOGO from '../../../public/XDC.png'
 import Container from '../Container'
 // import Image from 'next/image'
 // import { ChainId } from '@sushiswap/core-sdk'

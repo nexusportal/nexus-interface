@@ -392,14 +392,10 @@ const Swap = ({ banners }) => {
       <ExternalLink href="https://www.thenexusportal.io">
         <div className="flex flex-col items-center mb-4">
           <div className="relative">
-            <img src={LogoImage.src} className="w-[180px] h-[180px] relative z-10" alt="Logo" />
             <div className="absolute bottom-4 right-4 transform translate-x-0 translate-y-0">
-              <Logo animate size={150} />
+              <Logo animate size={125} />
             </div>
           </div>
-          <h3>
-            <Words animate>Welcome To The Nexus</Words>
-          </h3>
         </div>
       </ExternalLink>
 

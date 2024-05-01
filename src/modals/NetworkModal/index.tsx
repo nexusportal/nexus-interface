@@ -12,7 +12,7 @@ import { useModalOpen, useNetworkModalToggle } from 'app/state/application/hooks
 import Image from 'next/image'
 import React, { FC } from 'react'
 import XRP from '../../../public/XRP.png'
-import XDC from '../../../public/xdcpay.png'
+import XDC from '../../../public/XDC.png'
 import { supportedChainIds } from 'app/config/wallets'
 
 
