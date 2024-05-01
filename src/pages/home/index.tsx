@@ -1,14 +1,12 @@
 import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
 import Head from 'next/head';
 import { TridentBody } from 'app/layouts/Trident';
+import { LOGO } from 'app/components/CurrencyLogo/CurrencyLogo';
+import { ChainId } from '@sushiswap/core-sdk';
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
     return show ? <>{children}</> : null;
 };
-
-const xdcImageSrc = '/images/XDC.png';
-const xrpImageSrc = '/images/XRP.png';
-
 
 export default function Farm(): JSX.Element {
     return (
@@ -47,7 +45,7 @@ export default function Farm(): JSX.Element {
                         <Frame className='!p-0 !pb-1'>
                             <div className="flex items-center justify-start gap-10 px-10">
                                 <div style={{ width: 40, height: 40 }}> {/* Set your desired dimensions */}
-                                    <img src={xdcImageSrc} alt="XDC Network" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                    <img src={LOGO[ChainId.XDC]} alt="XDC Network" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                                 </div>
                                 <Heading className="!m-0">
                                     XDC Network
@@ -73,7 +71,7 @@ export default function Farm(): JSX.Element {
                         <Frame className='!p-0 !pb-1'>
                             <div className="flex items-center justify-start gap-10 px-10">
                                 <div style={{ width: 40, height: 40 }}> {/* Set your desired dimensions */}
-                                    <img src={xrpImageSrc} alt="XDC Network" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                    <img src={LOGO[ChainId.XRPL]} alt="XDC Network" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                                 </div>
                                 <Heading className="!m-0">
                                     XRP EVM Network

@@ -114,10 +114,10 @@ const PalmLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/p
 const MovrLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/movr.jpg'
 const FuseLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/fuse.jpg'
 const TelosLogo = 'https://raw.githubusercontent.com/sushiswap/logos/main/token/telos.jpg'
-const XRPLLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/52.png'
-const XDCLogo = 'https://s2.coinmarketcap.com/static/img/coins/64x64/2634.png'
+const XRPLLogo = `https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/${ChainId.XRPL}/XRP.png`
+const XDCLogo = `https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/${ChainId.XDC}/XDC.png`
 
-const LOGO: Record<ChainId, string> = {
+export const LOGO: Record<ChainId, string> = {
   [ChainId.ETHEREUM]: EthereumLogo,
   [ChainId.KOVAN]: EthereumLogo,
   [ChainId.RINKEBY]: EthereumLogo,

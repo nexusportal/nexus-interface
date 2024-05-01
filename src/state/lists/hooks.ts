@@ -57,7 +57,7 @@ export function useAllLists(): AppState['lists']['byUrl'] {
 }
 
 export function useAllTokensList(chainId: number) {
-  const current = useAllLists()?.[NEXUS_TOKEN_LIST].current;
+  const current = useAllLists()?.[NEXUS_TOKEN_LIST]?.current;
   const tokenList = current?.tokens.filter(ele => ele.chainId === chainId) ?? []
   const allTokens = { ...current, tokens: tokenList };
   return allTokens;
