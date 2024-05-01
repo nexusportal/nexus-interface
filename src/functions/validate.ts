@@ -30,23 +30,20 @@ export function isAddress(value: any): string | false {
     if (value.startsWith("xdc")) {
       addr = "0x" + value.substring(3);
     }
-    return getAddressOrigin(addr)
+    return getAddressOrigin(addr.toLowerCase())
   } catch {
     return false
   }
 }
 
 export function getAddress(value: string | undefined): string {
-  try {
-    if(!value) return "";
-    let addr = value
-    if (value.startsWith("xdc")) {
-      addr = "0x" + value.substring(3);
-    }
-    return getAddressOrigin(addr)
-  } catch {
-    return ""
+  if (!value) return "";
+  let addr = value
+  if (value.startsWith("xdc")) {
+    addr = "0x" + value.substring(3);
   }
+  console.log("Value: ", value, getAddressOrigin(addr.toLowerCase()))
+  return getAddressOrigin(addr.toLowerCase())
 }
 
 export function prefixXDCAddr(etherAddr: string | undefined): string {

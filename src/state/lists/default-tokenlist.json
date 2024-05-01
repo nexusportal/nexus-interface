@@ -191,47 +191,6 @@
       "sushiswap",
       "default"
     ],
-    "tokens": [
-      {
-        "name": "Wrapped XRP",
-        "address": "0xe8e01cbBE3f0ef723C9F13d260477335a4C0a948",
-        "symbol": "WXRP",
-        "decimals": 18,
-        "chainId": 1440002,
-        "logoURI": "/WXRP.png"
-      },
-      {
-        "name": "TOKENONE",
-        "address": "0x77926DA2d20D32f6F1F5f65621296290d589caA9",
-        "symbol": "ONE",
-        "decimals": 18,
-        "chainId": 1440002,
-        "logoURI": "/ONE.png"
-      },
-      {
-        "name": "TOKENTWO",
-        "address": "0xEb7541D63C9d7E922E7f58A7bAA83c4C5fB91060",
-        "symbol": "TWO",
-        "decimals": 18,
-        "chainId": 1440002,
-        "logoURI": "/TWO.png"
-      },
-      {
-        "name": "TOKENTHREE",
-        "address": "0x2Ce736fCCD5924Ac434cFb58D812c8809d1f0109",
-        "symbol": "THREE",
-        "decimals": 18,
-        "chainId": 1440002,
-        "logoURI": "/THREE.png"
-      },
-      {
-        "name": "Nexus",
-        "address": "0xE268aDBDBAEC092C3822dCc00b47CBCE58A9E49e",
-        "symbol": "NEXU",
-        "decimals": 18,
-        "chainId": 1440002,
-        "logoURI": "/NEXUS.png"
-      }
-    ]
+    "tokens": []
   }
 }
