@@ -37,6 +37,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
 import Head from 'next/head'
 import LogoImage from '../../../../public/NEXUS2.png'
+import Link from 'next/link';
 
 import { fetchAPI } from '../../../lib/api'
 import ExternalLink from 'app/components/ExternalLink'
@@ -404,17 +405,20 @@ const Swap = ({ banners }) => {
         onConfirm={handleConfirmTokenWarning}
       />
 
-      <a href="/">
-        <div className="flex flex-col items-center mb-4">
-          <div className="relative w-full text-center">
-            <div className="inline-block relative">
-              <div className="" style={{ height: '125px', width: '125px' }}>
-                <Logo animate size={125} />
+
+      <Link href="/">
+        <a>
+          <div className="flex flex-col items-center mb-4">
+            <div className="relative w-full text-center">
+              <div className="inline-block relative">
+                <div className="" style={{ height: '125px', width: '125px' }}>
+                  <Logo animate size={125} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </Link>
 
 
       <SwapLayoutCard>
