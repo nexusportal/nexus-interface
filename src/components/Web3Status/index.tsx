@@ -18,7 +18,7 @@ import React, { useMemo } from 'react'
 import Loader from '../Loader'
 import Web3Connect from '../Web3Connect'
 
-import PROFILE from '../../../public/profile_icon.webp'
+import PROFILE from '../../../public/profile.png'
 
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {

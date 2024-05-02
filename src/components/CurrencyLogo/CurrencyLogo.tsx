@@ -451,7 +451,7 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
         return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
       }
       if (currency.tokenInfo.symbol === 'WXDC') {
-        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+        return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
       }
       // return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }

@@ -28,7 +28,7 @@ import React, { FC, useEffect, useMemo, useState, useCallback } from 'react'
 
 import NEXUSLogo from '../../../public/NEXUS.png';
 import NEXUSLogo2 from '../../../public/NEXUSCOL.png';
-import NEXUSNFT from '../../../public/profile_icon.webp';
+import NEXUSNFT from '../../../public/profile.png';
 import AssetInput from '../AssetInput'
 import Button from '../Button'
 import { HeadlessUiModal } from '../Modal'
@@ -626,7 +626,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
               <p>
                 YOUR TOTAL POOL SHARE:
                 <br />{' '}
-                <span className="text-blue-300">
+                <span className="text-lg font-bold md:text-xl text-green">
                   {' '}
                   {`${userTotalWeight ? userTotalWeight.toSignificant(6) : ''} = ${rate.toFixed(6)}%`}
                 </span>

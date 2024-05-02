@@ -64,8 +64,7 @@ const UnsupportedCurrencyFooter: FC<UnsupportedCurrencyFooter> = ({ currencies }
               )
             })}
             <Typography variant="sm" weight={700}>
-              {i18n._(t`Some assets are not available through this interface because they may not work well with our smart
-            contract or we are unable to allow trading for legal reasons.`)}
+              {i18n._(t`Some assets are not available through this interface because a pool hasn't been created or there isn't enough liquidity.`)}
             </Typography>
           </HeadlessUiModal.BorderedContent>
         </div>

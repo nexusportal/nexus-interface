@@ -18,7 +18,7 @@ import Typography from '../Typography'
 import Copy from './Copy'
 import Transaction from './Transaction'
 
-import PROFILE from '../../../public/profile_icon.webp'
+import PROFILE from '../../../public/profile.png'
 
 interface AccountDetailsProps {
   toggleWalletModal: () => void

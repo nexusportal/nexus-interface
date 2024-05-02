@@ -45,6 +45,7 @@ import { useBentoOrWalletBalance } from 'app/hooks/useBentoOrWalletBalance'
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, Words, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
 
+
 export async function getServerSideProps() {
   try {
     const { data } = await fetchAPI('/banners?populate=image')
@@ -360,6 +361,18 @@ const Swap = ({ banners }) => {
 
   const showUseDexWarning = useDexWarningOpen()
 
+  const [showChart, setShowChart] = useState(false);
+
+  // Construct the Gecko Terminal URL dynamically
+  const geckoTerminalURL = useMemo(() => {
+    const inputToken = currencies.INPUT?.address;
+    const outputToken = currencies.OUTPUT?.address;
+    if (inputToken && outputToken) {
+      return `https://www.geckoterminal.com/xdc/pools/${inputToken}-${outputToken}?embed=1&info=1&swaps=0`;
+    }
+    return 'https://www.geckoterminal.com/xdc/pools/0xfcabba53dac7b6b19714c7d741a46f6dad260107?embed=1&info=1&swaps=0';
+  }, [currencies.INPUT, currencies.OUTPUT]);
+
   return (
     <>
       <Head>
@@ -368,6 +381,8 @@ const Swap = ({ banners }) => {
         <meta key="twitter:description" name="twitter:description" content="NEXUSSwap AMM" />
         <meta key="og:description" property="og:description" content="NEXUSSwap AMM" />
       </Head>
+
+
 
       <ConfirmSwapModal
         isOpen={showConfirm}
@@ -389,17 +404,17 @@ const Swap = ({ banners }) => {
         onConfirm={handleConfirmTokenWarning}
       />
 
-      <ExternalLink href="https://www.thenexusportal.io">
+      <a href="/">
         <div className="flex flex-col items-center mb-4">
           <div className="relative w-full text-center">
             <div className="inline-block relative">
-              <div className="absolute inset-0 m-auto" style={{ height: '125px', width: '125px' }}>
+              <div className="" style={{ height: '125px', width: '125px' }}>
                 <Logo animate size={125} />
               </div>
             </div>
           </div>
         </div>
-      </ExternalLink>
+      </a>
 
 
       <SwapLayoutCard>
@@ -588,18 +603,45 @@ const Swap = ({ banners }) => {
         </div>
       </SwapLayoutCard>
 
-      <div
-        className="mt-3 coinmarketcap-currency-widget"
-        data-currencyid="12186"
-        data-base="USD"
-        data-secondary=""
-        data-ticker="false"
-        data-rank="false"
-        data-marketcap="false"
-        data-volume="false"
-        data-statsticker="false"
-        data-stats="USD"
-      ></div>
+      <Frame
+        animate={true}
+        level={3}
+        corners={4}
+        layer='success'
+        onClick={() => setShowChart(!showChart)}
+        className="py-2 mx-auto text-center bg-transparent w-max cursor-pointer"
+      >
+        <div className="px-3 py-2">
+          <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
+        </div>
+      </Frame>
+
+      <br />
+      <span className="text-lg font-bold md:text-xl text-green">
+      </span>
+
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}>
+
+        <div style={{ marginRight: '20px' }}> {/* Container for the chart */}
+          {showChart && (
+            <Frame
+              animate
+              corners={4}
+              layer="primary"
+              style={{ width: '1000px', height: '500px', display: 'flex' }}
+            >
+              <iframe
+                src={geckoTerminalURL}
+                style={{ width: '1000px', height: '500px', display: 'flex', border: 'none' }}
+                allowFullScreen
+              ></iframe>
+            </Frame>
+          )}
+        </div>
+      </div>
+
+
+
       <Banner banners={banners} />
     </>
   )
