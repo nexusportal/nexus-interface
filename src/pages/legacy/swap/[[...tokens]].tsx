@@ -365,11 +365,11 @@ const Swap = ({ banners }) => {
 
   // Construct the Gecko Terminal URL dynamically
   const geckoTerminalURL = useMemo(() => {
-    const inputToken = currencies.INPUT?.address;
-    const outputToken = currencies.OUTPUT?.address;
-    if (inputToken && outputToken) {
-      return `https://www.geckoterminal.com/xdc/pools/${inputToken}-${outputToken}?embed=1&info=1&swaps=0`;
-    }
+    // const inputToken = currencies.INPUT?.address;
+    // const outputToken = currencies.OUTPUT?.address;
+    // if (inputToken && outputToken) {
+    //   return `https://www.geckoterminal.com/xdc/pools/${inputToken}-${outputToken}?embed=1&info=1&swaps=0`;
+    // }
     return 'https://www.geckoterminal.com/xdc/pools/0xfcabba53dac7b6b19714c7d741a46f6dad260107?embed=1&info=1&swaps=0';
   }, [currencies.INPUT, currencies.OUTPUT]);
 
