@@ -25,6 +25,8 @@ export default function Farm(): JSX.Element {
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
                                     Create your own markets and trade your favorite assets.
+                                    Stake LPs or single sided tokens and earn multi-rewards.
+                                    Stake NEXU in multi-staking and earn LPs, NEXU and more.
                                 </p>
                                 <br />
                                 <p>
@@ -55,9 +57,9 @@ export default function Farm(): JSX.Element {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    Explore TradeFi RWAs, and more on XDC Network.
+                                    Explore TradeFi, RWAs, Memes, and more on XDC Network.
                                 </p>
-                                <iframe
+                                {/* <iframe
                                     style={{
                                         width: '100%',
                                         height: '500px', // Adjust height as needed
@@ -68,7 +70,7 @@ export default function Farm(): JSX.Element {
                                     allow="clipboard-write"
                                     allowFullScreen
                                     title="GeckoTerminal Embed"
-                                />
+                                /> */}
                             </div>
                         </div>
                     </div>
@@ -90,7 +92,7 @@ export default function Farm(): JSX.Element {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    COMING SOON! See the beta on the devenet for now.
+                                    COMING SOON! See the beta on the devnet now by using the network switch toggle.
                                 </p>
                             </div>
                         </div>

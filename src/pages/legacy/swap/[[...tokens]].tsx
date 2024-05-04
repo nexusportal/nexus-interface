@@ -607,7 +607,8 @@ const Swap = ({ banners }) => {
         </div>
       </SwapLayoutCard>
 
-      <Frame
+      {/* Chart */}
+      {/* <Frame
         animate={true}
         level={3}
         corners={4}
@@ -618,8 +619,8 @@ const Swap = ({ banners }) => {
         <div className="px-3 py-2">
           <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
         </div>
-      </Frame>
-
+      </Frame> */}
+      
       <br />
       <span className="text-lg font-bold md:text-xl text-green">
       </span>

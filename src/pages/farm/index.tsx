@@ -259,11 +259,11 @@ export default function Farm(): JSX.Element {
               <div className="bg-transparent py-4 px-4 w-full sm:w-auto">
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
-                    The supply generation of NEXU  decreases every day by a small percentage of about {(100 - reducitonRate).toFixed(4)}%.
+                    The supply generation of NEXU  decreases every day by a small percentage about {(100 - reducitonRate).toFixed(4)}%. NEXU distribution parameters can change pending Governance vote.
                   </p>
                 </div>
                 <div className="mb-4 text-sm font-normal content md:text-base">
-                  <p>Reduction Rate: <span className='font-bold text-green'>{reducitonRate > 0 ? reducitonRate.toFixed(4) : 0}%</span></p>
+                  <p>Reduction Rate: <span className='font-bold text-green'>{(100 - reducitonRate).toFixed(4)}%</span></p>
                   <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
                   <p>Current NEXU Per Block: <span className='font-bold text-green'>{rewardPerblock.toFixed(4)}</span></p>
                   <p>Next NEXU Reduction Block: <span className='font-bold text-green'>{period > 0 ? (nextReductionBlock + (Math.floor((period + currentBlock - nextReductionBlock) / period) * period)) : nextReductionBlock}</span></p>

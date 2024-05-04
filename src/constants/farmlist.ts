@@ -323,6 +323,21 @@ export const farms = {
       slpBalance: 0,
       userCount: '1',
     },
+    {
+      accSushiPerShare: '',
+      allocPoint: 15,
+      balance: 0,
+      chef: 0,
+      id: '4',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0x834a6cd4cc361e4b9b1694d2e9df3eeb0cb45c5a',
+      slpBalance: 0,
+      userCount: '1',
+    },
   ]
 }
 
@@ -1034,6 +1049,38 @@ export const swapPairs: Record<string, {
       untrackedVolumeUSD: 46853.79482616671033425777223395,
       volumeUSD: 4684.23711596607606598865310647,
       type: 2
+    },
+    {
+      decimals: 18,
+      id: '0x834a6cd4cc361e4b9b1694d2e9df3eeb0cb45c5a',
+      reserve0: 9990.04,
+      reserve1: 1.001,
+      reserveETH: 2,
+      reserveUSD: 10,
+      timestamp: 1621898381,
+      token0: {
+        derivedETH: 0.0003068283960261003490764609134664169,
+        id: '0x834a6cd4cc361e4b9b1694d2e9df3eeb0cb45c5a',
+        name: 'Xinu',
+        symbol: 'XINU',
+        totalSupply: 1680,
+      },
+      token0Price: 0.00048,
+      token1: {
+        derivedETH: 0.0003068283960261003490764609134664169,
+        id: '0x834a6cd4cc361e4b9b1694d2e9df3eeb0cb45c5a',
+        name: 'Xinu',
+        symbol: 'XINU',
+        totalSupply: 1680,
+      },
+
+      token1Price: 0.2,
+      totalSupply: 0.316227765016,
+      trackedReserveETH: 1183.351142427706157233201110976883,
+      txCount: 81365,
+      untrackedVolumeUSD: 46853.79482616671033425777223395,
+      volumeUSD: 4684.23711596607606598865310647,
+      type:2
     },
   ]
 }
