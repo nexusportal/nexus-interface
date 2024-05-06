@@ -1,4 +1,4 @@
-import { TokenList } from '@uniswap/token-lists'
+import { TokenInfo, TokenList } from '@uniswap/token-lists'
 import { NEXUS_TOKEN_LIST, UNSUPPORTED_LIST_URLS } from 'app/config/token-lists'
 import UNSUPPORTED_TOKEN_LIST from 'app/constants/token-lists/sushiswap-v2-unsupported.tokenlist.json'
 import { sortByListPriority } from 'app/functions/list'
@@ -56,15 +56,15 @@ export function useAllLists(): AppState['lists']['byUrl'] {
   return useAppSelector((state) => state.lists.byUrl)
 }
 
-export function useAllTokensList(chainId: number) {
+export function useAllTokensList(chainId: number | undefined) {
+  if (!chainId) return { tokens: [] }
   const current = useAllLists()?.[NEXUS_TOKEN_LIST]?.current;
   const tokenList = current?.tokens.filter(ele => ele.chainId === chainId) ?? []
   const allTokens = { ...current, tokens: tokenList };
   return allTokens;
 }
 
-export function getTokenInfo(address: string, chain: "50" | "51" | "1440002") {
-  const tokenList = useAllTokensList(parseInt(chain)).tokens;
+export function getTokenInfo(tokenList: TokenInfo[], address: string, chain: "50" | "51" | "1440002") {
   const token = tokenList.find(ele => ele.address === address);
   return token;
 }

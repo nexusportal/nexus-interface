@@ -98,7 +98,7 @@ const ProStaking = () => {
   const [selectPro, setSelectPro] = useState(false);
   const [selectCon, setSelectCon] = useState(false);
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId == 50 ? "50" : chainId == 1440002 ?"1440002" : "51"
+  const chain = chainId == 50 ? "50" : chainId == 1440002 ? "1440002" : "51"
 
   const onProDistribute = async () => {
     setPendingTx(true)
@@ -318,7 +318,7 @@ USE AT YOUR OWN RISK!`}
                             size={'sm'}
                             variant={'filled'}
                             loading={pendingTx && selectCon}
-                            disabled={(pendingTx || !account || !enabled || oracleBalance?.equalTo(ZERO)) && selectCon }
+                            disabled={!!(pendingTx || !account || !enabled || oracleBalance?.equalTo(ZERO))}
                             onClick={() => lpConvertClick()}
                             className="inline-flex items-center px-8 font-bold text-white rounded-full cursor-pointer bg-gradient-to-r from-blue to-green"
                           >

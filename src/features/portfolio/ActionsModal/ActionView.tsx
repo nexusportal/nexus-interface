@@ -12,8 +12,8 @@ import { useBalancesSelectedCurrency } from 'app/features/portfolio/useBalancesD
 import { ActiveModal } from 'app/features/trident/types'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
-import { useAppDispatch } from 'app/state/hooks'
-import { getTokenInfo } from 'app/state/lists/hooks'
+import { useAppDispatch, useAppSelector } from 'app/state/hooks'
+import { getTokenInfo, useAllTokensList } from 'app/state/lists/hooks'
 import { useRouter } from 'next/router'
 import React, { FC, useCallback, useEffect } from 'react'
 
@@ -41,6 +41,8 @@ const ActionView: FC<ActionViewProps> = ({ onClose }) => {
     return router.push(`/swap?inputCurrency=${currency?.wrapped.address}`)
   }, [chainId, currency?.isNative, currency?.wrapped.address, router])
 
+  const alltokenslist = useAllTokensList(chainId)
+
   const addToken = useCallback(async (tokenAddress, tokenSymbol, tokenDecimals) => {
     if (!tokenAddress || !tokenSymbol || !tokenDecimals || !chainId) return;
     const ethereum = window.ethereum;
@@ -48,7 +50,7 @@ const ActionView: FC<ActionViewProps> = ({ onClose }) => {
       console.log('Please install MetaMask.');
       return;
     }
-    let tokenImage = getTokenInfo(tokenAddress, getChainIdString(chainId))
+    let tokenImage = getTokenInfo(alltokenslist.tokens, tokenAddress, getChainIdString(chainId))
     try {
       // @ts-ignore TYPE NEEDS FIXING
       const wasAdded = await ethereum.request({

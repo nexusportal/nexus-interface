@@ -14,7 +14,7 @@ import concat from 'lodash/concat'
 import zip from 'lodash/zip'
 import { useCallback, useMemo } from 'react'
 import { ethers } from "ethers"
-import { getTokenInfo } from 'app/state/lists/hooks'
+import { getTokenInfo, useAllTokensList } from 'app/state/lists/hooks'
 import { NEXUS } from 'app/config/tokens'
 
 import { Chef } from './enum'
@@ -85,11 +85,12 @@ export function useRewardTokens(farm) {
   const result = useSingleCallResult(args ? contract : null, 'getRewardTokenInfo', args)?.result;
   const value = result?.[0];
   const chain = getChainIdString(chainId);
+  const alltokenslist = useAllTokensList(chainId)
   // @ts-ignore TYPE NEEDS FIXING
-  let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number, remainAmount: number }[] = value?.map((item, ind) => {
+  let rewards: { currency: Currency; rewardPerBlock: number; rewardPerDay: number; rewardPrice: number, remainAmount: number, token: string, icon: string }[] = value?.map((item, ind) => {
     let re = parseFloat(ethers.utils.formatEther(item.distRate));
     let remainAmount = parseFloat(ethers.utils.formatEther(item.remainAmount));
-    let token = getTokenInfo(item.rewardToken, chain);
+    let token = getTokenInfo(alltokenslist.tokens, item.rewardToken, chain);
     return {
       rewardPerBlock: re,
       rewardPerDay: 24 * 60 * 60 * re,
@@ -100,7 +101,7 @@ export function useRewardTokens(farm) {
       icon: token?.logoURI ?? "Unknown.png",
     }
   }) ?? []
-  return rewards;
+  return rewards.filter((ele) => ele.token != "Unknown");
 }
 
 // @ts-ignore TYPE NEEDS FIXING
