@@ -228,10 +228,16 @@ const SwapAssetPanelHeader: FC<
       <ChevronDownIcon width={18} />
     </div>
   ) : (
-    <Button color="blue" variant="filled" size="sm" id={id} className="!rounded-full !px-2 !py-0 !h-[32px] !pl-3">
+    <Button
+      variant="filled"
+      size="sm"
+      id={id}
+      className="!rounded-full !px-2 !py-0 !h-[32px] !pl-3 !bg-[#26dafd] !bg-opacity-75 !text-[#00000]"
+    >
       {i18n._(t`Select a Token`)}
       <ChevronDownIcon width={18} />
     </Button>
+
   )
 
   return (

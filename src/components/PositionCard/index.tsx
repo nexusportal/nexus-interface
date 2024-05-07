@@ -247,23 +247,39 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
           </div>
           {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.quotient, BIG_INT_ZERO) && (
             <div className="grid grid-cols-2 gap-4">
-              <Button
-                color="blue"
+              <Frame
+                animate={true}
+                level={3}
+                corners={4}
+                layer='success'
                 onClick={() => {
                   router.push(`/add/${currencyId(currency0)}/${currencyId(currency1)}`)
                 }}
+                className="py-2 mx-auto text-center bg-transparent w-full cursor-pointer"
               >
-                {i18n._(t`Add`)}
-              </Button>
-              <Button
-                color="blue"
+                <div className="px-3 py-2 hover:bg-green-500/50" style={{ transition: 'background-color 0.3s ease' }}>
+                  {/* Adjust the opacity by changing the /50 which represents 50% opacity */}
+                  <span>{i18n._(t`Add`)}</span>
+                </div>
+              </Frame>
+
+              <Frame
+                animate={true}
+                level={3}
+                corners={4}
+                layer='alert'
                 onClick={() => {
                   router.push(`/remove/${currencyId(currency0)}/${currencyId(currency1)}`)
                 }}
+                className="py-2 mx-auto text-center bg-transparent w-full cursor-pointer"
               >
-                {i18n._(t`Remove`)}
-              </Button>
+                <div className="px-3 py-2 hover:bg-red-500/50" style={{ transition: 'background-color 0.3s ease' }}>
+                  {/* Similarly here, the /50 after the color makes the hover color 50% transparent */}
+                  <span>{i18n._(t`Remove`)}</span>
+                </div>
+              </Frame>
             </div>
+
           )}
         </div>
       </Transition>
