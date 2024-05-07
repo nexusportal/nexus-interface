@@ -65,7 +65,7 @@ export function useAllTokensList(chainId: number | undefined) {
 }
 
 export function getTokenInfo(tokenList: TokenInfo[], address: string, chain: "50" | "51" | "1440002") {
-  const token = tokenList.find(ele => ele.address === address);
+  const token = tokenList.find(ele => ele.address.toLowerCase() === address.toLowerCase());
   return token;
 }
 
