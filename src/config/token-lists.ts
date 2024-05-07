@@ -5,7 +5,7 @@
 
 export const NEXUS_TOKEN_LIST = 'https://raw.githubusercontent.com/nexusportal/token-list/main/tokens.json'
 
-export const UNSUPPORTED_LIST_URLS: string[] = [NEXUS_TOKEN_LIST]
+export const UNSUPPORTED_LIST_URLS: string[] = []
 
 
 // lower index == higher priority for token import
