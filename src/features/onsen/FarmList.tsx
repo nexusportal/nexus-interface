@@ -66,7 +66,7 @@ const FarmList = ({ farms, term }) => {
               onClick={() => requestSort('pair.token0.symbol')}
             >
               <Typography variant="sm" weight={700}>
-                {i18n._(t`Pool`)}
+                {i18n._(t`Farm`)}
               </Typography>
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'symbol'} />
             </div>

@@ -26,14 +26,17 @@ const SIZE = {
 const FILLED = {
   default:
     'text-higher-emphesis hover:bg-gradient-to-b hover:from-black/20 focus:to-black/20 focus:bg-gradient-to-b focus:from-black/20 hover:to-black/20 active:bg-gradient-to-b active:from-black/40 active:to-black/40 disabled:pointer-events-none disabled:opacity-40',
-  blue: 'bg-blue',
+  blue: 'bg-[rgba(38,218,253,0.8)]', // Custom blue color with 90% opacity
   red: 'bg-red',
   pink: 'bg-pink',
   purple: 'bg-purple',
   gradient:
-  '!bg-gradient-to-r from-blue-400 to-green-400 hover:from-blue-400/80 hover:to-green-400/80 focus:from-blue-400/80 focus:to-green-400/80 active:from-blue-400/70 active:to-green-400/70 focus:border-blue-700',
+    '!bg-gradient-to-r from-[rgba(38,218,253,0.8)] to-[rgba(63,253,63,0.8)] hover:from-[rgba(38,218,253,0.72)] hover:to-[rgba(63,253,63,0.72)] focus:from-[rgba(38,218,253,0.72)] focus:to-[rgba(63,253,63,0.72)] active:from-[rgba(38,218,253,0.65)] active:to-[rgba(63,253,63,0.65)]',
   gray: 'bg-dark-700',
-}
+};
+
+
+
 
 //bg-gradient-to-r from-pink/80 hover:from-pink to-purple/80 hover:to-purple
 const OUTLINED = {
