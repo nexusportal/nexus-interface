@@ -505,7 +505,7 @@ export const ProphetStaking: FC<ProphetStakingProps> = ({ totalPoolSize }) => {
                     sx={{
                       color: 'light-blue',
                       '& .MuiSlider-markLabel': {
-                        color: 'green',
+                        color: '#39FF14',
                         fontWeight: 700,
                       },
                     }}

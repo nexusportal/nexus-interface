@@ -129,6 +129,15 @@ export default function Farm(): JSX.Element {
 
   // const [burnAmount, stakerAmount] = useProphetSacrificeAmount()
 
+  const [isAllFarms, setIsAllFarms] = useState(false);
+
+
+  const toggleFarms = () => {
+    setIsAllFarms(!isAllFarms);
+    const newPath = isAllFarms ? '/farm' : '/farm?filter=portfolio';
+    router.push(newPath);
+  };
+
   return (
     <>
       <Head>
@@ -259,7 +268,7 @@ export default function Farm(): JSX.Element {
               <div className="bg-transparent py-4 px-4 w-full sm:w-auto">
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
-                    The supply generation of NEXU  decreases every day by a small percentage about {(100 - reducitonRate).toFixed(4)}%. NEXU distribution parameters can change pending Governance vote.
+                    The supply generation of NEXU  decreases every day by a small percentage of {(100 - reducitonRate).toFixed(4)}%. NEXU distribution parameters can change pending Governance vote.
                   </p>
                 </div>
                 <div className="mb-4 text-sm font-normal content md:text-base">
@@ -284,10 +293,30 @@ export default function Farm(): JSX.Element {
             )}
           </Project> */}
 
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <Search search={search} term={term} />
-            {/* <OnsenFilter /> */}
+          <div className="flex flex-row justify-between items-center w-full space-x-1">  
+            {/* Frame (Button) */}
+            <Frame
+              animate={true}
+              level={3}
+              corners={4}
+              layer='success'
+              onClick={toggleFarms}
+              className="py-1 text-center bg-transparent cursor-pointer"
+              style={{ flex: 1, maxWidth: '175px', height: '32px' }}
+            >
+              <div className="px-3 hover:bg-green-500/50" style={{ transition: 'background-color 0.3s ease' }}>
+                <span>{isAllFarms ? 'All Farms' : 'Your Farms'}</span>
+              </div>
+            </Frame>
+
+            {/* Search Component */}
+            <div style={{ flex: 1, maxWidth: 'calc(100% - 210px)' }}>
+              <Search search={search} term={term} />
+            </div>
           </div>
+
+
+
           <FarmList farms={result} term={term} />
         </div>
       </TridentBody>

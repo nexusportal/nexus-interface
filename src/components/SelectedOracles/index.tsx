@@ -418,7 +418,7 @@ export const SelectedOracles = () => {
         {walletNFT.map((nft) => (
           <div
             key={nft.edition}
-            className={`item p-4 mb-5 sm:mb-0 w-full sm:w-[calc(50%-20px)] md:w-[calc(25%-20px)] rounded-md border-[5px] border-solid ${selectedIDs.includes(nft.edition) ? 'border-blue-500' : 'border-blue-500/0'
+            className={`item p-4 mb-5 sm:mb-0 w-full sm:w-[calc(50%-20px)] md:w-[calc(25%-20px)] rounded-md border-[5px] border-solid ${selectedIDs.includes(nft.edition) ? 'border-[#39ff14]' : 'border-[#39ff14]/0'
               }`}
             onClick={() => {
               // if (selected === nft.edition) {
@@ -603,8 +603,8 @@ export const SelectedOracles = () => {
               <div
                 key={nft.edition}
                 className={`item p-4 mb-5 sm:mb-0 w-full sm:w-[calc(50%-20px)] md:w-[calc(25%-20px)] rounded-md border-[5px] border-solid ${selectedStakedIDs.length === 0 || !selectedStakedIDs.includes(nft.edition)
-                  ? 'border-blue-500/0'
-                  : 'border-blue-500'
+                  ? 'border-[#39ff14]/0'
+                  : 'border-[#39ff14]'
                   }`}
                 onClick={() => {
                   handleStakedSelectOracles(nft.edition)
