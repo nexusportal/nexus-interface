@@ -42,7 +42,6 @@ export function getAddress(value: string | undefined): string {
   if (value.startsWith("xdc")) {
     addr = "0x" + value.substring(3);
   }
-  console.log("Value: ", value, getAddressOrigin(addr.toLowerCase()))
   return getAddressOrigin(addr.toLowerCase())
 }
 

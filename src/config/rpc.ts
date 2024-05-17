@@ -26,7 +26,7 @@ const RPC: { [chainId: number]: string } = {
   [ChainId.MOONRIVER]: 'https://rpc.moonriver.moonbeam.network',
   [ChainId.TELOS]: 'https://mainnet.telos.net/evm',
   [ChainId.XRPL]: 'https://rpc-evm-sidechain.xrpl.org',
-  [ChainId.XDC]: 'https://rpc.xdcrpc.com',
+  [ChainId.XDC]: 'https://erpc.xinfin.network',
   [ChainId.APOTHEM]: 'https://erpc.apothem.network',
 }
 

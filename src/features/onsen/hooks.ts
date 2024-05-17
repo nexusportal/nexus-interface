@@ -146,8 +146,6 @@ export function usePendingRewards(farm) {
 
   const value = result?.[0]
 
-  console.log("value:", result, args)
-
   const amount = value ? JSBI.BigInt(value.toString()) : undefined
 
   // @ts-ignore TYPE NEEDS FIXING
