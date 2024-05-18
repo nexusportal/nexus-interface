@@ -23,14 +23,13 @@ const icons = [
 ];
 
 const IconsGrid = () => (
-    <div style={{ display: 'flex', alignItems: 'center' }}> {/* Flexbox for horizontal layout and vertical alignment */}
-        {/* <Logo animate layer='primary' size={75} style={{ display: 'inline-block', padding: '10px' }} /> */}
+    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
         {icons.map((icon, index) => (
-            <div key={index} style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
+            <div key={index} style={{ marginRight: '40px', padding: '15px', width: '70px' }}>
                 <img
                     src={icon.src}
                     alt={icon.label}
-                    style={{ width: '50px', height: '50px' }}
+                    style={{ width: '50px', height: '50px', objectFit: 'contain' }}
                 />
                 <p>{icon.label}</p>
             </div>
@@ -151,7 +150,6 @@ export default function Farm() {
                     </div>
                 </Frame>
             </TridentBody>
-
         </>
     );
 }
