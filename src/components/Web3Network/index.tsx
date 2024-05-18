@@ -28,7 +28,7 @@ function Web3Network(): JSX.Element | null {
         corners={2}
         className="w-100"
         layer='primary'>
-        <div className="grid items-center grid-flow-col  justify-center  h-[36px] w-[36px] text-sm rounded pointer-events-auto auto-cols-max text-secondary">
+        <div className="grid items-center grid-flow-col  justify-center  h-[36px] w-[36px] text-sm rounded pointer-events-auto auto-cols-max text-secondary hover:bg-blue-100/25" style={{ transition: 'background-color 0.5s ease' }}>
           {/*@ts-ignore TYPE NEEDS FIXING*/}
 
           {

@@ -1,14 +1,55 @@
-import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
+import React from 'react';
+import {
+    ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame,
+    createTheme, SoundsProvider, createSounds, Link, withSounds, Logo
+} from 'arwes';
 import Head from 'next/head';
 import { TridentBody } from 'app/layouts/Trident';
 import { LOGO } from 'app/components/CurrencyLogo/CurrencyLogo';
 import { ChainId } from '@sushiswap/core-sdk';
 
-const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
-    return show ? <>{children}</> : null;
-};
+const icons = [
+    { src: '/svg-loaders/audio.svg', label: '' },
+    { src: '/svg-loaders/ball-triangle.svg', label: '' },
+    { src: '/svg-loaders/circles.svg', label: '' },
+    { src: '/svg-loaders/grid.svg', label: '' },
+    { src: '/svg-loaders/oval.svg', label: '' },
+    { src: '/svg-loaders/rings.svg', label: '' },
+    { src: '/svg-loaders/puff.svg', label: '' },
+    { src: '/svg-loaders/three-dots.svg', label: '' },
+    { src: '/svg-loaders/tail-spin.svg', label: '' },
+    { src: '/svg-loaders/spinning-circles.svg', label: '' },
+    { src: '/svg-loaders/bars.svg', label: '' },
+];
 
-export default function Farm(): JSX.Element {
+const IconsGrid = () => (
+    <div style={{ display: 'flex', alignItems: 'center' }}> {/* Flexbox for horizontal layout and vertical alignment */}
+        {/* <Logo animate layer='primary' size={75} style={{ display: 'inline-block', padding: '10px' }} /> */}
+        {icons.map((icon, index) => (
+            <div key={index} style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
+                <img
+                    src={icon.src}
+                    alt={icon.label}
+                    style={{ width: '50px', height: '50px' }}
+                />
+                <p>{icon.label}</p>
+            </div>
+        ))}
+    </div>
+);
+
+interface AnimatedContentProps {
+    show: boolean;
+    children: React.ReactNode;
+}
+
+const AnimatedContent: React.FC<AnimatedContentProps> = ({ show, children }) => (show ? <>{children}</> : null);
+
+interface AnimProps {
+    entered: boolean;
+}
+
+export default function Farm() {
     return (
         <>
             <Head>
@@ -19,8 +60,18 @@ export default function Farm(): JSX.Element {
             </Head>
 
             <TridentBody>
+
+                <Frame animate={true} corners={3} className="w-full" layer='primary'>
+                    <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
+                        ALL SYSTEMS NOMINAL
+                    </span>
+                    <div className="">
+                        <IconsGrid />
+                    </div>
+                </Frame>
+
                 <Project animate header="✨ Welcome To The Nexus Portal">
-                    {(anim: { entered: boolean }) => (
+                    {(anim: AnimProps) => (
                         <AnimatedContent show={anim.entered}>
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
@@ -30,7 +81,7 @@ export default function Farm(): JSX.Element {
                                 </p>
                                 <br />
                                 <p>
-                                    Create ecosystem superfarms or stakes to incetivize and reward users for interacting with your token or LP.
+                                    Create ecosystem superfarms or stakes to incentivize and reward users for interacting with your token or LP.
                                 </p>
                                 <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
                                     <span className="text-lg font-bold md:text-xl text-green">
@@ -59,23 +110,17 @@ export default function Farm(): JSX.Element {
                                 <p>
                                     Explore TradeFi, RWAs, Memes, and more on XDC Network.
                                 </p>
-                                {/* <iframe
-                                    style={{
-                                        width: '100%',
-                                        height: '500px', // Adjust height as needed
-                                        border: 'none'
-                                    }}
-                                    src="https://www.geckoterminal.com/xdc/pools/0xfcabba53dac7b6b19714c7d741a46f6dad260107?embed=1&info=1&swaps=1"
-                                    frameBorder="0"
-                                    allow="clipboard-write"
-                                    allowFullScreen
-                                    title="GeckoTerminal Embed"
-                                /> */}
+                                <div>
+                                    <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">XinFin XDC Network</span></p>
+                                    <p>New RPC URL: <Link href="https://erpc.xdcrpc.com/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xdcrpc.com/</span></Link></p>
+                                    <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">50</span></p>
+                                    <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">XDC</span></p>
+                                    <p>Block explorer URL: <Link href="https://xdc.blocksscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.blocksscan.io/</span></Link></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </Frame>
-
 
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
                     <div className='w-full bg-transparent'>
@@ -92,15 +137,21 @@ export default function Farm(): JSX.Element {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    COMING SOON! See the beta on the devnet now by using the network switch toggle.
+                                    COMING SOON TO MAINNET! See the beta on the devnet now by using the network switch toggle.
                                 </p>
+                                <div>
+                                    <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
+                                    <p>New RPC URL: <Link href="https://rpc-evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc-evm-sidechain.xrpl.org</span></Link></p>
+                                    <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">1440002</span></p>
+                                    <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
+                                    <p>Block explorer URL: <Link href="https://evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://evm-sidechain.xrpl.org/</span></Link></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </Frame>
-
-
             </TridentBody>
+
         </>
     );
 }

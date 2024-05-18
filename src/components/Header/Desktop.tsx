@@ -156,7 +156,7 @@ const Desktop: FC = () => {
                   corners={3}
                   className="w-100"
                   layer='primary'>
-                  <div className="flex items-center w-auto text-sm font-bold rounded shadow cursor-pointer pointer-events-auto select-none whitespace-nowrap">
+                  <div className="flex items-center w-auto text-sm font-bold rounded shadow cursor-pointer pointer-events-auto select-none whitespace-nowrap hover:bg-blue-100/25" style={{ transition: 'background-color 0.5s ease' }}>
                     {account && chainId && userEthBalance && (
                       <Link href="/portfolio" passHref={true}>
                         <a className="hidden px-3 text-high-emphesis text-bold md:block">

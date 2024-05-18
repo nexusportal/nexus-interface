@@ -129,18 +129,18 @@ function Web3StatusInner() {
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <div>{ENSName || shortenAddress(account)}</div>
+            <div className="text-green">{ENSName || shortenAddress(account)}</div>
             <Davatar
               size={20}
               address={account}
               defaultComponent={
                 <img src={PROFILE.src} width={20} height={20} alt="Nexus Generator" />
-                // <Image src="https://app.sushi.com/images/chef.svg" alt="Nexus Generator" width={20} height={20} />
               }
               style={{ borderRadius: 5 }}
               provider={library}
             />
           </div>
+
         )}
         {/* {!hasPendingTransactions && connector && (
           <StatusIcon connector={connector} account={account} provider={library} />

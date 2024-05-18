@@ -166,6 +166,15 @@ const InvestmentDetails = ({ farm }) => {
             </Typography>
           </Typography>
         </div>
+        {farm.pair.type === PairType.SINGLE && (
+          <div className="flex items-center gap-2">
+            {token0 && <CurrencyLogo currency={token0} size={18} />}
+            <RewardRow
+              value={formatNumber(stakedAmount?.toSignificant(6))}
+              symbol={farm.pair.token0.symbol}
+            />
+          </div>
+        )}
         {[PairType.KASHI, PairType.SWAP].includes(farm.pair.type) && (
           <div className="flex items-center gap-2">
             {/*@ts-ignore TYPE NEEDS FIXING*/}
@@ -218,7 +227,7 @@ const InvestmentDetails = ({ farm }) => {
         </div>
         <div className='flex justify-start gap-4 flex-wrap text-left'>
           {/* @ts-ignore TYPE NEEDS FIXING */}
-          {farm?.rewards?.map((reward, i) => {
+          {farm?.rewards?.map((reward: any, i: number) => {
             return (
               <div key={i} className="flex items-center gap-1">
                 <div>
