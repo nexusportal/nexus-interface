@@ -43,7 +43,7 @@ import { useTransactionAdder } from 'app/state/transactions/hooks'
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, List, Link, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds, Project, Words } from 'arwes';
 import { lowerCase } from 'lodash'
-
+import PuffLoader from 'public/svg-loaders/puff.svg';
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
   return show ? <>{children}</> : null;
@@ -270,10 +270,22 @@ USE AT YOUR OWN RISK!`}
                       <div className="relative">
                         <div className="flex flex-col items-center mb-4">
                           <div className="relative">
-                            <img src={NexusDiff.src}
-                              alt="Nexus sign" className="w-[180px] h-[180px] relative z-10" />
-                            <div className="absolute bottom-4 right-4 transform translate-x-0 translate-y-0">
-                              <Logo animate size={150} />
+                            <div className="flex flex-col items-center mb-4">
+                              <div className="relative">
+                                <img
+                                  src="/svg-loaders/puff.svg"
+                                  alt="Loader"
+                                  className="absolute top-0 left-0 w-full h-full z-0"
+                                />
+                                <img
+                                  src={NexusDiff.src}
+                                  alt="Nexus sign"
+                                  className="w-[180px] h-[180px] relative z-10"
+                                />
+                                {/* <div className="absolute bottom-4 right-4 transform translate-x-0 translate-y-0">
+                                  <Logo animate size={150} />
+                                </div> */}
+                              </div>
                             </div>
                           </div>
                         </div>

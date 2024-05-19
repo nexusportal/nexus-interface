@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame,
+    ThemeProvider, Loading, Project, Words, Header, Heading, Paragraph, Frame,
     createTheme, SoundsProvider, createSounds, Link, withSounds, Logo
 } from 'arwes';
 import Head from 'next/head';
@@ -62,7 +62,7 @@ export default function Farm() {
 
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
                     <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
-                        ALL SYSTEMS NOMINAL
+                        NEXUS CORES ARE ACTIVE
                     </span>
                     <div className="">
                         <IconsGrid />
@@ -74,11 +74,23 @@ export default function Farm() {
                         <AnimatedContent show={anim.entered}>
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    Create your own markets and trade your favorite assets.
-                                    Stake LPs or single sided tokens and earn multi-rewards.
-                                    Stake NEXU in multi-staking and earn LPs, NEXU and more.
+                                    The Nexus is a multi-dimensional DeFi protocol that is ushering in the next generation of galactic financial infrastructure.
                                 </p>
                                 <br />
+                                <p>
+                                    Create your own markets and trade your favorite assets on multiple networks.
+                                    Stake LPs or single sided tokens and earn multi-rewards through the Nexus Generator superfarm.
+                                    Stake NEXU in multi-staking and earn multiple rewads in LPs, NEXU and more.
+                                </p>
+                            </div>
+                        </AnimatedContent>
+                    )}
+                </Project>
+
+                <Project animate header="🌟 Nexus Generator Ecosystem Superfarms">
+                    {(anim: AnimProps) => (
+                        <AnimatedContent show={anim.entered}>
+                            <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
                                     Create ecosystem superfarms or stakes to incentivize and reward users for interacting with your token or LP.
                                 </p>
@@ -91,6 +103,15 @@ export default function Farm() {
                         </AnimatedContent>
                     )}
                 </Project>
+
+
+                <Header animate>
+                    <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
+                        NETWORKS
+                    </span>
+                </Header>
+
+
 
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
                     <div className='w-full bg-transparent'>
@@ -111,7 +132,7 @@ export default function Farm() {
                                 </p>
                                 <div>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">XinFin XDC Network</span></p>
-                                    <p>New RPC URL: <Link href="https://erpc.xdcrpc.com/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xdcrpc.com/</span></Link></p>
+                                    <p>RPC URL: <Link href="https://erpc.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xinfin.network/</span></Link></p>
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">50</span></p>
                                     <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">XDC</span></p>
                                     <p>Block explorer URL: <Link href="https://xdc.blocksscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.blocksscan.io/</span></Link></p>
@@ -120,6 +141,7 @@ export default function Farm() {
                         </div>
                     </div>
                 </Frame>
+
 
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
                     <div className='w-full bg-transparent'>
@@ -140,7 +162,7 @@ export default function Farm() {
                                 </p>
                                 <div>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
-                                    <p>New RPC URL: <Link href="https://rpc-evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc-evm-sidechain.xrpl.org</span></Link></p>
+                                    <p>RPC URL: <Link href="https://rpc-evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc-evm-sidechain.xrpl.org</span></Link></p>
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">1440002</span></p>
                                     <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
                                     <p>Block explorer URL: <Link href="https://evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://evm-sidechain.xrpl.org/</span></Link></p>
