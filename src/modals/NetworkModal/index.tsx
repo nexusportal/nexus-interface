@@ -4,7 +4,6 @@ import { ChainId } from '@sushiswap/core-sdk'
 import HeadlessUiModal from 'app/components/Modal/HeadlessUIModal'
 import Typography from 'app/components/Typography'
 import { NETWORK_ICON, NETWORK_LABEL } from 'app/config/networks'
-import { classNames } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
 import { ApplicationModal } from 'app/state/application/actions'
 import { useModalOpen, useNetworkModalToggle } from 'app/state/application/hooks'
@@ -14,7 +13,7 @@ import React, { FC } from 'react'
 import XRP from '../../../public/XRP.png'
 import XDC from '../../../public/XDC.png'
 import { supportedChainIds } from 'app/config/wallets'
-
+import { Frame } from 'arwes'
 
 export const SUPPORTED_NETWORKS: {
   [key: number]: {
@@ -76,14 +75,47 @@ const NetworkModal: FC = () => {
     <HeadlessUiModal.Controlled isOpen={networkModalOpen} onDismiss={toggleNetworkModal}>
       <div className="flex flex-col gap-4">
         <HeadlessUiModal.Header header={i18n._(t`Select a network`)} onClose={toggleNetworkModal} />
-        <div className="grid grid-flow-row-dense grid-cols-1 gap-4 overflow-y-auto md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {supportedChainIds.map((key: ChainId, i: number) => {
-            if (chainId === key) {
-              return (
-                <div
-                  key={i}
-                  className="bg-[rgba(0,0,0,0.2)] focus:outline-none flex items-center gap-4 w-full px-4 py-3 rounded border border-purple cursor-default"
-                >
+            const isCurrentChain = chainId === key
+            const layer = isCurrentChain ? 'success' : 'primary'
+
+            return (
+              <Frame
+                key={i}
+                animate={true}
+                level={3}
+                corners={4}
+                layer={layer}
+                className="cursor-pointer w-full p-0"
+                onClick={async () => {
+                  if (!isCurrentChain) {
+                    console.debug(`Switching to chain ${key}`, SUPPORTED_NETWORKS[key])
+                    toggleNetworkModal()
+                    const params = SUPPORTED_NETWORKS[key]
+                    try {
+                      await library?.send('wallet_switchEthereumChain', [{ chainId: `0x${key.toString(16)}` }, account]).then(() => {
+                        location.reload()
+                      })
+                    } catch (switchError) {
+                      // This error code indicates that the chain has not been added to MetaMask.
+                      // @ts-ignore TYPE NEEDS FIXING
+                      if (switchError.code === 4902) {
+                        try {
+                          await library?.send('wallet_addEthereumChain', [params, account])
+                        } catch (addError) {
+                          // handle "add" error
+                          console.error(`Add chain error ${addError}`)
+                        }
+                      }
+                      console.error(`Switch chain error ${switchError}`)
+                      // handle other "switch" errors
+                    }
+                  }
+                }}
+                style={{ marginBottom: '10px' }}
+              >
+                <div className={`flex items-center gap-4 px-4 py-3 rounded hover:bg-green-500/50`} style={{ transition: 'background-color 0.3s ease' }}>
                   {key === ChainId.XRPL ? (
                     <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
                   ) : (key === ChainId.XDC || key === ChainId.APOTHEM) ? (
@@ -103,60 +135,7 @@ const NetworkModal: FC = () => {
                     {NETWORK_LABEL[key]}
                   </Typography>
                 </div>
-              )
-            }
-            return (
-              <button
-                key={i}
-                onClick={async () => {
-                  console.debug(`Switching to chain ${key}`, SUPPORTED_NETWORKS[key])
-                  toggleNetworkModal()
-                  const params = SUPPORTED_NETWORKS[key]
-                  try {
-                    await library?.send('wallet_switchEthereumChain', [{ chainId: `0x${key.toString(16)}` }, account]).then(() => {
-                      location.reload()
-                    })
-                  } catch (switchError) {
-                    // This error code indicates that the chain has not been added to MetaMask.
-                    // @ts-ignore TYPE NEEDS FIXING
-                    if (switchError.code === 4902) {
-                      try {
-                        await library?.send('wallet_addEthereumChain', [params, account])
-                      } catch (addError) {
-                        // handle "add" error
-                        console.error(`Add chain error ${addError}`)
-                      }
-                    }
-                    console.error(`Switch chain error ${switchError}`)
-                    // handle other "switch" errors
-                  }
-                }}
-                className={classNames(
-                  'bg-[rgba(0,0,0,0.2)] focus:outline-none flex items-center gap-4 w-full px-4 py-3 rounded border border-dark-700 hover:border-blue'
-                )}
-              >
-                {/*@ts-ignore TYPE NEEDS FIXING*/}
-                {
-                  key === ChainId.XRPL ? (
-                    <img src={XRP.src} className="rounded-md" width="32px" height="32px" />
-                  ) : (key === ChainId.XDC || key === ChainId.APOTHEM) ? (
-                    <img src={XDC.src} className="rounded-md" width="32px" height="32px" />
-                  ) : (
-                    <Image
-                      // @ts-ignore TYPE NEEDS FIXING
-                      src={NETWORK_ICON[key]}
-                      alt="Switch Network"
-                      className="rounded-md"
-                      width="32px"
-                      height="32px"
-                    />
-                  )}
-
-                {/* <Image src={NETWORK_ICON[key]} alt="Switch Network" className="rounded-md" width="32px" height="32px" /> */}
-                <Typography weight={700} className="text-high-emphesis">
-                  {NETWORK_LABEL[key]}
-                </Typography>
-              </button>
+              </Frame>
             )
           })}
         </div>
