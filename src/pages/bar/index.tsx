@@ -33,6 +33,7 @@ import React, { useEffect, useState } from 'react'
 
 
 import NetworkGuard from '../../guards/Network'
+import { getChainIdString } from 'app/config/wallets'
 
 const INPUT_CHAR_LIMIT = 18
 
@@ -64,8 +65,8 @@ const buttonStyleConnectWallet = `${buttonStyle} text-high-emphesis bg-blue hove
 function Stake() {
   const { i18n } = useLingui()
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId==50?"50": chainId==51?"51":"1440002"
-  const sushiBalance = useTokenBalance(account ?? undefined, SUSHI[chainId === ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM])
+  const chain = getChainIdString(chainId)
+  const sushiBalance = useTokenBalance(account ?? undefined, SUSHI[parseInt(chain) as ChainId])
   const xSushiBalance = useTokenBalance(account ?? undefined, XORACLE)
 
   const { enter, leave } = useSushiBar()
@@ -92,7 +93,7 @@ function Stake() {
 
   const parsedAmount = usingBalance ? balance : tryParseAmount(input, balance?.currency)
 
-  const [approvalState, approve] = useApproveCallback(parsedAmount, BAR_ADDRESS[chainId === ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM])
+  const [approvalState, approve] = useApproveCallback(parsedAmount, BAR_ADDRESS[chainId ? chainId : ChainId.XDC])
 
   const handleInput = (v: string) => {
     if (v.length <= INPUT_CHAR_LIMIT) {
@@ -385,16 +386,14 @@ function Stake() {
                 {/* input overlay: */}
                 <div className="relative w-full h-0 pointer-events-none bottom-14">
                   <div
-                    className={`flex justify-between items-center h-14 rounded px-3 md:px-5 ${
-                      inputError ? ' border border-red' : ''
-                    }`}
+                    className={`flex justify-between items-center h-14 rounded px-3 md:px-5 ${inputError ? ' border border-red' : ''
+                      }`}
                   >
                     <div className="flex items-center space-x-2">
                       {inputError && <ExclamationIcon color="red" width={20} />}
                       <p
-                        className={`text-sm md:text-lg font-bold whitespace-nowrap ${
-                          input ? 'text-high-emphesis' : 'text-secondary'
-                        }`}
+                        className={`text-sm md:text-lg font-bold whitespace-nowrap ${input ? 'text-high-emphesis' : 'text-secondary'
+                          }`}
                       >
                         {`${input ? input : '0'} ${activeTab === 0 ? '' : 'x'}NEXUS`}
                       </p>
@@ -414,7 +413,7 @@ function Stake() {
                   </div>
                 </div>
                 {(approvalState === ApprovalState.NOT_APPROVED || approvalState === ApprovalState.PENDING) &&
-                activeTab === 0 ? (
+                  activeTab === 0 ? (
                   <Button
                     className={`${buttonStyle} text-high-emphesis bg-blue hover:bg-opacity-90`}
                     disabled={approvalState === ApprovalState.PENDING}
@@ -432,10 +431,10 @@ function Stake() {
                       buttonDisabled
                         ? buttonStyleDisabled
                         : !walletConnected
-                        ? buttonStyleConnectWallet
-                        : insufficientFunds
-                        ? buttonStyleInsufficientFunds
-                        : buttonStyleEnabled
+                          ? buttonStyleConnectWallet
+                          : insufficientFunds
+                            ? buttonStyleInsufficientFunds
+                            : buttonStyleEnabled
                     }
                     onClick={handleClickButton}
                     disabled={buttonDisabled || inputError}
@@ -443,12 +442,12 @@ function Stake() {
                     {!walletConnected
                       ? i18n._(t`Connect Wallet`)
                       : !input
-                      ? i18n._(t`Enter Amount`)
-                      : insufficientFunds
-                      ? i18n._(t`Insufficient Balance`)
-                      : activeTab === 0
-                      ? i18n._(t`Confirm Staking`)
-                      : i18n._(t`Confirm Withdrawal`)}
+                        ? i18n._(t`Enter Amount`)
+                        : insufficientFunds
+                          ? i18n._(t`Insufficient Balance`)
+                          : activeTab === 0
+                            ? i18n._(t`Confirm Staking`)
+                            : i18n._(t`Confirm Withdrawal`)}
                   </button>
                 )}
               </div>

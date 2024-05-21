@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 import { ZERO, ChainId, NEXU_DISTRIBUTOR_ADDRESS } from '@sushiswap/core-sdk'
 import Button from 'app/components/Button'
-import { NEXUS  } from 'app/config/tokens'
-import {  useNextOracleDistributeTime, useProOracleDistributeAction } from 'app/hooks/useProOracleDistributor'
+import { NEXUS } from 'app/config/tokens'
+import { useNextOracleDistributeTime, useProOracleDistributeAction } from 'app/hooks/useProOracleDistributor'
 import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import React, { useEffect, useMemo, useState } from 'react'
 import useCountDown from 'react-countdown-hook'
 
 import NEXUSImage from '../../../public/NEXUS.png'
+import { getChainIdString } from 'app/config/wallets'
 
-export const getDateStringFromSeconds = (miliseconds:number) => {
+export const getDateStringFromSeconds = (miliseconds: number) => {
   if (miliseconds === 0 || isNaN(miliseconds)) {
     return ''
   }
@@ -61,12 +62,12 @@ const OracleDistributor = () => {
 
   const [timeLeft, { start, pause, resume, reset }] = useCountDown(leftTime)
 
-  const possible = useMemo(()=>{
-    if(nextDistributeTime && leftTime === 0){
-             return true;
+  const possible = useMemo(() => {
+    if (nextDistributeTime && leftTime === 0) {
+      return true;
     }
     return false;
-  },[nextDistributeTime,leftTime])
+  }, [nextDistributeTime, leftTime])
 
   const harvestScheduleDateString = getDateStringFromSeconds(timeLeft)
 
@@ -79,7 +80,7 @@ const OracleDistributor = () => {
   const [pendingTx, setPendingTx] = useState(false)
 
   const { account, chainId } = useActiveWeb3React()
-  const chain = chainId==50?"50": chainId==51?"51":"1440002"
+  const chain = getChainIdString(chainId)
 
   const { distribute } = useProOracleDistributeAction()
 
@@ -99,7 +100,7 @@ const OracleDistributor = () => {
     }
   }
 
-  const balance = useTokenBalance(NEXU_DISTRIBUTOR_ADDRESS[chainId ===ChainId.XRPL?ChainId.XRPL:ChainId.APOTHEM ], NEXUS[chain])
+  const balance = useTokenBalance(NEXU_DISTRIBUTOR_ADDRESS[parseInt(chain)], NEXUS[chain])
 
   return (
     <div className="flex flex-row items-center mt-3 space-x-2 text-lg font-normal text-left text-primary">
