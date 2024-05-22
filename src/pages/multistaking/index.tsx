@@ -358,7 +358,7 @@ USE AT YOUR OWN RISK!`}
                   <p>{`Current Global Pool Size:  ${totalPoolSize ? totalPoolSize.toSignificant(6) : ''}`}</p>
                   <p>{`Total NEXU Locked:  ${totalProAmount ? totalProAmount.toSignificant(6) : ''}`}</p>
                   <p>{`Total NEXU NFTs Locked:  ${totalNFTCount ? totalNFTCount : ''}`}</p>
-                  <p>{`Total NEXU Collatoral Locked:  ${totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''
+                  <p>{`Total NEXU Collateral Locked:  ${totalxOracleAmount ? totalxOracleAmount.toSignificant(6) : ''
                     }`}</p>
 
                   <Button

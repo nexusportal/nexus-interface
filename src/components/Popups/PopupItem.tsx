@@ -28,7 +28,7 @@ const AnimatedFader = ({ duration }) => (
         }
       }
     `}</style>
-    <div className="animation h-[3px] bg-gradient-to-r from-blue to-pink" />
+    <div className="animation h-[3px] bg-gradient-to-r from-blue to-green" />
   </div>
 )
 
