@@ -182,7 +182,7 @@ const Mobile: FC = () => {
                   leaveTo="translate-x-[-100%]"
                 >
                   <div className="w-screen max-w-sm">
-                    <div className="flex flex-col h-full py-6 overflow-x-hidden overflow-y-scroll shadow-xl bg-dark-800">
+                    <div className="flex flex-col h-full py-6  shadow-xl bg-dark-800">
                       <nav className="flex-1 pl-6" aria-label="Sidebar">
                         {menu.map((node) => {
                           return <NavigationItem node={node} key={node.key} />;
