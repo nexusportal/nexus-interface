@@ -62,7 +62,7 @@ export const SUPPORTED_NETWORKS: {
       'https://erpc.xinfin.network/',
       'https://erpc.xdcrpc.com/'
     ],
-    blockExplorerUrls: ['https://xdc.blocksscan.io/'],
+    blockExplorerUrls: ['https://xdc.blocksscan.io'],
   },
 }
 
