@@ -58,7 +58,10 @@ export const SUPPORTED_NETWORKS: {
       symbol: 'XDC',
       decimals: 18,
     },
-    rpcUrls: ['https://erpc.xinfin.network/'],
+    rpcUrls: [
+      'https://erpc.xinfin.network/',
+      'https://erpc.xdcrpc.com/'
+    ],
     blockExplorerUrls: ['https://xdcscan.io'],
   },
 }
