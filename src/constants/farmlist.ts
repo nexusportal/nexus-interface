@@ -942,7 +942,7 @@ export const swapPairs: Record<string, {
       token1: {
         derivedETH: 0.0003068283960261003490764609134664169,
         id: '0x49d3f7543335cf38fa10889ccff10207e22110b5',
-        name: 'Fantom Dollar',
+        name: 'Fanthom Dollar',
         symbol: 'FXD',
         totalSupply: 1680,
       },
