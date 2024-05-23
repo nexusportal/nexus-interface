@@ -407,6 +407,11 @@
             "internalType": "uint256",
             "name": "accNexusPerShare",
             "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalLockedLP",
+            "type": "uint256"
           }
         ],
         "internalType": "struct NexusGenerator.PoolInfo",
@@ -716,6 +721,11 @@
       {
         "internalType": "uint256",
         "name": "accNexusPerShare",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalLockedLP",
         "type": "uint256"
       }
     ],
