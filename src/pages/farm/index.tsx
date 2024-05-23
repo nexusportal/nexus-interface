@@ -228,18 +228,18 @@ export default function Farm(): JSX.Element {
               <AnimatedContent show={anim.entered}>
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
-                    The Nexus Generator mints and distributes NEXU to proportionally Liquidity Providers each block.
+                    The Nexus Generator superfarm mints and distributes NEXU proportionally to Liquidity Providers each block.
                     The Nexus Generator also acts as an ecosystem superfarm that can distribute multi-rewards to LP Tokens or single side Token stakes.
-                    Additionally, 10% of the block rewards are  channeled to the Nexus Core Multi-Staking System.
+                    10% of the block rewards are channeled to the Nexus Core Multi-Staking System.
                   </p>
                   <br />
                   <p>
-                    The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day!
-                    The more NLPs you stake the more of the daily NEXU reward you will get!
+                    The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day.
+                    The more NLPs you stake the more of the daily NEXU reward you will get.
                   </p>
                   <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
                     <span className="text-lg font-bold md:text-xl text-green">
-                      Apply For An Ecosystem Superfarm
+                      Request An Ecosystem Superfarm
                     </span>
                   </Link>
                   <br />

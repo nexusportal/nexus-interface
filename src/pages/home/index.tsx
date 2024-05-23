@@ -96,7 +96,7 @@ export default function Farm() {
                                 </p>
                                 <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
                                     <span className="text-lg font-bold md:text-xl text-green">
-                                        Apply Now
+                                        Request Superfarm
                                     </span>
                                 </Link>
                             </div>

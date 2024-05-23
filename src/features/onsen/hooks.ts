@@ -19,6 +19,7 @@ import { NEXUS } from 'app/config/tokens'
 
 import { Chef } from './enum'
 import { getChainIdString, isSupportedChainId } from 'app/config/wallets'
+import { formatEther } from '@ethersproject/units'
 
 export function useChefContract(chef: Chef) {
   const masterChefContract = useMasterChefContract()
@@ -192,16 +193,20 @@ export function useProphetPoolInfos() {
     if (!res) {
       return []
     }
-    return res.map((data, i) => ({
-      // @ts-ignore TYPE NEEDS FIXING
-      id: args[i][0],
-      allocPoint: data.result?.allocPoint?.toNumber() || 0,
-      lpToken: data.result?.lpToken,
-      lastRewardBlock: data.result?.lastRewardBlock || Zero,
-      accSushiPerShare: data.result?.accNexusPerShare || Zero,
-      // @ts-ignore TYPE NEEDS FIXING
-      // pendingTokens: data?.[2]?.result,
-    }))
+    return res.map((data, i) => {
+      let totalLockedLP = data.result?.totalLockedLP ? data.result.totalLockedLP : Zero;
+      return {
+        // @ts-ignore TYPE NEEDS FIXING
+        id: args[i][0],
+        allocPoint: data.result?.allocPoint?.toNumber() || 0,
+        lpToken: data.result?.lpToken,
+        lastRewardBlock: data.result?.lastRewardBlock || Zero,
+        accSushiPerShare: data.result?.accNexusPerShare || Zero,
+        totalLockedLP: parseFloat(formatEther(totalLockedLP))
+        // @ts-ignore TYPE NEEDS FIXING
+        // pendingTokens: data?.[2]?.result,
+      }
+    })
   }, [args, res])
 
   const farmsList = useMemo(() => {

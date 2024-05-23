@@ -525,8 +525,9 @@ export default function useFarmRewards() {
     }
 
     // const tvl = (balance / Number(pair.totalSupply)) * Number(pair.reserveUSD)
+    const totalLockedLP = poolInfos?.find((poolInfo) => poolInfo.id === pool.id)?.totalLockedLP ?? 0;
 
-    const tvl = balance
+    const tvl = totalLockedLP
 
     // const tvl = swapPair
     //   ? (balance / Number(swapPair.totalSupply)) * Number(swapPair.reserveUSD)
