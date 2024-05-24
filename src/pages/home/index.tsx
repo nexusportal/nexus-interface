@@ -131,6 +131,7 @@ export default function Farm() {
                                     Explore TradeFi, RWAs, Memes, and more on XDC Network.
                                 </p>
                                 <div>
+                                    <p>Website: <Link href="https://xdc.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xdc.org</span></Link></p>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">XinFin XDC Network</span></p>
                                     <p>RPC URL: <Link href="https://erpc.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xinfin.network/</span></Link></p>
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">50</span></p>
@@ -161,6 +162,7 @@ export default function Farm() {
                                     COMING SOON TO MAINNET! See the beta on the devnet now by using the network switch toggle.
                                 </p>
                                 <div>
+                                    <p>Website: <Link href="https://xrpl.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xrpl.org</span></Link></p>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
                                     <p>RPC URL: <Link href="https://rpc-evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc-evm-sidechain.xrpl.org</span></Link></p>
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">1440002</span></p>

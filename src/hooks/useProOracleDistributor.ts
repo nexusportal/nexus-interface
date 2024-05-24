@@ -17,7 +17,7 @@ export const useProOracleDistributeAction = () => {
         try {
           const tx = await distributor?.distribute()
   
-          return addTransaction(tx, { summary: 'distribute pro' })
+          return addTransaction(tx, { summary: 'Distribute' })
         } catch (e) {
           return e
         }

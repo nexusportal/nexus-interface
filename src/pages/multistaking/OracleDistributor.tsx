@@ -7,8 +7,9 @@ import { useActiveWeb3React } from 'app/services/web3'
 import { useTokenBalance } from 'app/state/wallet/hooks'
 import React, { useEffect, useMemo, useState } from 'react'
 import useCountDown from 'react-countdown-hook'
+import { Token } from '@sushiswap/core-sdk';
 
-import NEXUSImage from '../../../public/NEXUS.png'
+import NEXUSImage from '../../../public/XINU.png'
 import { getChainIdString } from 'app/config/wallets'
 
 export const getDateStringFromSeconds = (miliseconds: number) => {
@@ -100,7 +101,17 @@ const OracleDistributor = () => {
     }
   }
 
-  const balance = useTokenBalance(NEXU_DISTRIBUTOR_ADDRESS[parseInt(chain)], NEXUS[chain])
+  const XINU_ADDRESS = '0x834a6CD4cc361e4B9B1694D2E9Df3eEB0Cb45C5A';
+  const XINU = new Token(
+    50,
+    XINU_ADDRESS,
+    18,
+    'XINU',
+    'XINU Token'
+  );
+
+  // const balance = useTokenBalance(NEXU_DISTRIBUTOR_ADDRESS[parseInt(chain)], NEXUS[chain])
+  const balance = useTokenBalance(NEXU_DISTRIBUTOR_ADDRESS[parseInt(chain)], XINU)
 
   return (
     <div className="flex flex-row items-center mt-3 space-x-2 text-lg font-normal text-left text-primary">
@@ -108,7 +119,7 @@ const OracleDistributor = () => {
         <Button
           size="sm"
           className="p-6"
-          color={'blue'}
+          color={'gradient'}
           onClick={proDistribute}
           disabled={pendingTx || balance?.equalTo(ZERO) || !possible}
         >
@@ -117,7 +128,7 @@ const OracleDistributor = () => {
       </div>
       <div className="flex flex-col text-base">
         <div>
-          NEXUS LEFT: <span>{balance?.toSignificant(6)}</span>
+          XINU LEFT: <span>{balance?.toSignificant(6)}</span>
         </div>
         <div>
           NEXT DIST:{' '}

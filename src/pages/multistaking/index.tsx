@@ -292,13 +292,14 @@ USE AT YOUR OWN RISK!`}
                       </div>
 
                       <div className="flex flex-row mb-3">
-                        <p className="text-lg font-bold md:text-2xl md:font-medium text-high-emphesis">
-                          {i18n._(t`Nexus Diffuser`)}
-                        </p>
+                        <div className="self-end text-lg font-bold md:text-xl text-high-emphesis md:mb-1">
+
+                          Nexus Diffuser
+                        </div>
 
                         <QuestionHelper
                           className="!bg-dark-800 !shadow-xl p-2"
-                          text={`BE AWARE OF GAS SPENDING WHEN CALLING THE DIST/BURN! The Nexus Diffuser receives DEX swap fees (NLPs) Atomically splits them. A portion of the fees are used to buy and burn NEXU, the rest of the NLPs are distributed to the Nexus Core Multi-Staking. Then call the Distibute button in the Global Stats section to distribute rewards to all users.`}
+                          text={`BE AWARE OF GAS SPENDING WHEN CALLING DIFFUSE! The Nexus Diffuser receives DEX swap fees (NLPs) and Atomically splits them. A portion of the fees are used to buy and burn NEXU, the rest of the NLPs are distributed to the Nexus Core Multi-Staking.`}
                         />
                       </div>
 
@@ -371,7 +372,7 @@ USE AT YOUR OWN RISK!`}
                   >
                     {`Distribute`}
                   </Button>
-                  {/* <OracleDistributor /> */}
+                  <OracleDistributor />
                   <br />
                   <br />
                   <br />
