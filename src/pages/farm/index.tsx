@@ -289,11 +289,35 @@ export default function Farm(): JSX.Element {
               </div>
             </div>
           </Frame>
-          {/* </AnimatedContent>
-            )}
-          </Project> */}
 
-          <div className="flex flex-row justify-between items-center w-full space-x-1">  
+          <Frame animate={true} corners={3} className="w-full" layer='alert'>
+            <div className='w-full bg-transparent'>
+              <div className="bg-transparent py-4 px-4 w-full">
+                <div className="mb-4 text-sm font-normal content md:text-base">
+                  <p>
+                    Nexus token generation is currently offline. Nexus generation will likely start at 1 NEXU per block soon after the airdrop!
+                  </p>
+                  <p>
+                    XINU rewards are active for testing at 1 XINU per block, but they will be ramped up soon! See the below coming rewards settings.
+                  </p>
+                  <p>
+                    <ul>
+                      <li>100B to WXDC/XINU at 1000 XINU per block. 30B per year.</li>
+                      <li>30B to WXDC/NEXU at 300 XINU per block. 9B per year.</li>
+                      <li>20B to XINU single at 200 XINU per block. 6B per year.</li>
+                      <li>10B to NEXU single at 100 XINU per block. 3B per year.</li>
+                      <li>10B to WXDC single at 100 XINU per block. 3B per year.</li>
+                      <li>10B to FXD single at 100 XINU per block. 3B per year.</li>
+                    </ul>
+                  </p>
+
+
+                </div>
+              </div>
+            </div>
+          </Frame>
+
+          <div className="flex flex-row justify-between items-center w-full space-x-1">
             {/* Frame (Button) */}
             <Frame
               animate={true}

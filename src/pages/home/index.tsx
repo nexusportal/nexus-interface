@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { TridentBody } from 'app/layouts/Trident';
 import { LOGO } from 'app/components/CurrencyLogo/CurrencyLogo';
 import { ChainId } from '@sushiswap/core-sdk';
+import NEXULogo from '../../../public/NEXUS.png';
 
 const icons = [
     { src: '/svg-loaders/audio.svg', label: '' },
@@ -104,13 +105,43 @@ export default function Farm() {
                     )}
                 </Project>
 
+                <Frame animate={true} corners={3} className="w-full" layer='primary'>
+                    <div className='w-full bg-transparent'>
+                        <Frame className='!p-0 !pb-1'>
+                            <div className="flex items-center justify-start" style={{ alignItems: 'center' }}>
+                                <div style={{ width: 40, height: 40, margin: '10px 20px' }}>
+                                    <img src={NEXULogo.src} alt="Nexus Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                </div>
+                                <Heading className="!m-0">
+                                    Nexus Token
+                                </Heading>
+                            </div>
+                        </Frame>
+                        <div className="bg-transparent py-4 px-4 w-full">
+                            <div className="mb-4 text-sm font-normal content md:text-base">
+                                <p>
+                                    Nexus Token is coming to XDC Network soon!
+                                </p>
+                                <p>
+                                    Mass airdrop to 60K addresses!
+                                </p>
+                                <p>
+                                    The Nexus Rewards will be turned on soon! Earn NEXU, XINU and more through the superfarm!
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </Frame>
+
 
                 <Header animate>
                     <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
                         NETWORKS
                     </span>
                 </Header>
-
+                
+                
 
 
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
