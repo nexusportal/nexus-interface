@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-    ThemeProvider, Loading, Project, Words, Header, Heading, Paragraph, Frame,
+    ThemeProvider, Loading, Project, Words, Header, Heading, Paragraph, Frame, Button,
     createTheme, SoundsProvider, createSounds, Link, withSounds, Logo
 } from 'arwes';
 import Head from 'next/head';
 import { TridentBody } from 'app/layouts/Trident';
 import { LOGO } from 'app/components/CurrencyLogo/CurrencyLogo';
 import { ChainId } from '@sushiswap/core-sdk';
+import NFTLogo from '../../../public/profile.png';
 import NEXULogo from '../../../public/NEXUS.png';
 
 const icons = [
@@ -88,23 +89,6 @@ export default function Farm() {
                     )}
                 </Project>
 
-                <Project animate header="🌟 Nexus Generator Ecosystem Superfarms">
-                    {(anim: AnimProps) => (
-                        <AnimatedContent show={anim.entered}>
-                            <div className="mb-4 text-sm font-normal content md:text-base">
-                                <p>
-                                    Create ecosystem superfarms or stakes to incentivize and reward users for interacting with your token or LP.
-                                </p>
-                                <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
-                                    <span className="text-lg font-bold md:text-xl text-green">
-                                        Request Superfarm
-                                    </span>
-                                </Link>
-                            </div>
-                        </AnimatedContent>
-                    )}
-                </Project>
-
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
                     <div className='w-full bg-transparent'>
                         <Frame className='!p-0 !pb-1'>
@@ -134,14 +118,97 @@ export default function Farm() {
                     </div>
                 </Frame>
 
+                <Frame animate={true} corners={3} className="w-full" layer='primary'>
+                    <div className='w-full bg-transparent'>
+                        <Frame className='!p-0 !pb-1'>
+                            <div className="flex items-center justify-start" style={{ alignItems: 'center' }}>
+                                <div style={{ width: 40, height: 40, margin: '10px 20px' }}>
+                                    <img src={NFTLogo.src} alt="alien Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                </div>
+                                <Heading className="!m-0">
+                                    Nexus Celestials NFTs
+                                </Heading>
+                            </div>
+                        </Frame>
+                        <div className="bg-transparent py-4 px-4 w-full">
+                            <div className="mb-4 text-sm font-normal content md:text-base">
+                                <p>
+                                    The Nexus Celestial are the gaurdians of the Nexus Core.
+                                </p>
+                                <p>
+                                    Each Nexus Celestial has a unique powerlevel.
+                                </p>
+                                <p>
+                                    Some NFTS can multiply the power of your NEXU if time-locked in Multistaking.
+                                </p>
+
+                            </div>
+                            <Button
+                                animate
+                                layer='success'
+                                onClick={() => window.location.href = 'https://minter.thenexusportal.io/'}
+                                style={{
+                                    maxWidth: '175px',
+                                    height: '32px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'background-color 0.3s ease',
+                                    padding: '0'
+                                }}
+                                className="relative group"
+                            >
+                                <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                <span className="relative z-10">Mint Celestial</span>
+                            </Button>
+                        </div>
+
+                    </div>
+                </Frame>
+
+                <Project animate header="🌟 Nexus Generator Ecosystem Superfarms">
+                    {(anim: AnimProps) => (
+                        <AnimatedContent show={anim.entered}>
+                            <div className="mb-4 text-sm font-normal content md:text-base">
+                                <p>
+                                    Create ecosystem superfarms or stakes to incentivize and reward users for interacting with your token or LP.
+                                </p>
+                                <br />
+                                <Button
+                                    animate
+                                    layer='success'
+                                    onClick={() => window.location.href = 'https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request'}
+                                    style={{
+                                        maxWidth: '175px',
+                                        height: '32px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        transition: 'background-color 0.3s ease',
+                                        padding: '0'
+                                    }}
+                                    className="relative group"
+                                >
+                                    <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                    <span className="relative z-10">Request Superfarm</span>
+                                </Button>
+
+                                {/* <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
+                                    <span className="text-lg font-bold md:text-xl text-green">
+                                        Request Superfarm
+                                    </span>
+                                </Link> */}
+                            </div>
+                        </AnimatedContent>
+                    )}
+                </Project>
+
 
                 <Header animate>
                     <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
                         NETWORKS
                     </span>
                 </Header>
-                
-                
 
 
                 <Frame animate={true} corners={3} className="w-full" layer='primary'>
@@ -164,7 +231,9 @@ export default function Farm() {
                                 <div>
                                     <p>Website: <Link href="https://xdc.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xdc.org</span></Link></p>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">XinFin XDC Network</span></p>
+                                    <p>RPC URL: <Link href="https://rpc.xdc.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc.xdc.org/</span></Link></p>
                                     <p>RPC URL: <Link href="https://erpc.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xinfin.network/</span></Link></p>
+                                    <p>RPC URL: <Link href="https://erpc.xdcrpc.com/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xdcrpc.com/</span></Link></p>
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">50</span></p>
                                     <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">XDC</span></p>
                                     <p>Block explorer URL: <Link href="https://xdc.blocksscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.blocksscan.io/</span></Link></p>
@@ -175,7 +244,7 @@ export default function Farm() {
                 </Frame>
 
 
-                <Frame animate={true} corners={3} className="w-full" layer='primary'>
+                <Frame animate corners={3} className="w-full" layer='primary'>
                     <div className='w-full bg-transparent'>
                         <Frame className='!p-0 !pb-1'>
                             <div className="flex items-center justify-start" style={{ alignItems: 'center' }}>
@@ -190,7 +259,7 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    COMING SOON TO MAINNET! See the beta on the devnet now by using the network switch toggle.
+                                    COMING SOON TO MAINNET! See the beta on the devnet now by using the network switch toggle. Check out the Nexus Validator on the devnet!
                                 </p>
                                 <div>
                                     <p>Website: <Link href="https://xrpl.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xrpl.org</span></Link></p>
@@ -201,6 +270,25 @@ export default function Farm() {
                                     <p>Block explorer URL: <Link href="https://evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://evm-sidechain.xrpl.org/</span></Link></p>
                                 </div>
                             </div>
+
+                            <Button
+                                animate
+                                layer='success'
+                                onClick={() => window.location.href = 'https://validators.evm-sidechain.xrpl.org/xrp/validators/ethmvaloper1djhpzrgnrn7x8vhyeaqfpaeg47tqu75y5nyqec'}
+                                style={{
+                                    maxWidth: '175px',
+                                    height: '32px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'background-color 0.3s ease',
+                                    padding: '0'
+                                }}
+                                className="relative group"
+                            >
+                                <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                <span className="relative z-10">Nexus Validator</span>
+                            </Button>
                         </div>
                     </div>
                 </Frame>

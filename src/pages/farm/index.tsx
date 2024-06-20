@@ -24,7 +24,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMasterChefRewardReduction } from 'app/hooks/useFarmRewards'
 import React, { useState } from 'react'
-import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
+import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, Button, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
 import useCurrentBlock from "app/hooks/useCurrentBlock"
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
@@ -319,7 +319,7 @@ export default function Farm(): JSX.Element {
 
           <div className="flex flex-row justify-between items-center w-full space-x-1">
             {/* Frame (Button) */}
-            <Frame
+            {/* <Frame
               animate={true}
               level={3}
               corners={4}
@@ -331,7 +331,27 @@ export default function Farm(): JSX.Element {
               <div className="px-3 hover:bg-green-500/50" style={{ transition: 'background-color 0.3s ease' }}>
                 <span>{isAllFarms ? 'All Farms' : 'Your Farms'}</span>
               </div>
-            </Frame>
+            </Frame> */}
+
+            <Button
+              animate
+              layer='success'
+              onClick={toggleFarms}
+              style={{
+                maxWidth: '175px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background-color 0.3s ease',
+                padding: '0'
+              }}
+              className="relative group"
+            >
+              <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <span className="relative z-10">{isAllFarms ? 'All Farms' : 'Your Farms'}</span>
+            </Button>
+
 
             {/* Search Component */}
             <div style={{ flex: 1, maxWidth: 'calc(100% - 210px)' }}>
