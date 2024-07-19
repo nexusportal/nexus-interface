@@ -274,7 +274,7 @@ export default function Farm() {
                             <Button
                                 animate
                                 layer='success'
-                                onClick={() => window.location.href = 'https://validators.evm-sidechain.xrpl.org/xrp/validators/ethmvaloper1djhpzrgnrn7x8vhyeaqfpaeg47tqu75y5nyqec'}
+                                onClick={() => window.location.href = 'https://governance.xrplevm.org/xrp/validators/ethmvaloper1djhpzrgnrn7x8vhyeaqfpaeg47tqu75y5nyqec'}
                                 style={{
                                     maxWidth: '175px',
                                     height: '32px',
