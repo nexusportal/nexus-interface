@@ -104,10 +104,10 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    Nexus Token is coming to XDC Network soon!
+                                    Nexus Token is live on the XDC Netork! NEXU is the Gaurdian token of the Multi-dimensional Nexus DeFi ecosystem.
                                 </p>
                                 <p>
-                                    Mass airdrop to 60K addresses!
+                                    NEXU will be Mass airdrop to 60K XDC addresses!
                                 </p>
                                 <p>
                                     The Nexus Rewards will be turned on soon! Earn NEXU, XINU and more through the superfarm!
@@ -237,6 +237,9 @@ export default function Farm() {
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">50</span></p>
                                     <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">XDC</span></p>
                                     <p>Block explorer URL: <Link href="https://xdc.blocksscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.blocksscan.io/</span></Link></p>
+                                    <p>Block explorer URL: <Link href="https://xdc.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.network/</span></Link></p>
+                                    <p>Block explorer URL: <Link href="https://xdcscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdcscan.io/</span></Link></p>
+
                                 </div>
                             </div>
                         </div>

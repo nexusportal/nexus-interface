@@ -8,6 +8,7 @@ import { useTokenBalance } from 'app/state/wallet/hooks'
 import React, { useEffect, useMemo, useState } from 'react'
 import useCountDown from 'react-countdown-hook'
 import { Token } from '@sushiswap/core-sdk';
+import QuestionHelper from 'app/components/QuestionHelper'
 
 import NEXUSImage from '../../../public/XINU.png'
 import { getChainIdString } from 'app/config/wallets'
@@ -115,6 +116,7 @@ const OracleDistributor = () => {
 
   return (
     <div className="flex flex-row items-center mt-3 space-x-2 text-lg font-normal text-left text-primary">
+
       <div>
         <Button
           size="sm"
@@ -135,6 +137,10 @@ const OracleDistributor = () => {
           <span className="ml-1 font-medium text-white">{timeLeft === 0 ? 'Now' : harvestScheduleDateString}</span>
         </div>
       </div>
+      <QuestionHelper
+        className="!bg-dark-800 !shadow-xl p-2"
+        text={`This is a public function that must be called by the community to distribute rewards. Call the XINU distribute function to distribute 300K XINU every hour! Then in succession click the "Distribute" button above to make sure the rewards go to multistakers.`}
+      />
     </div>
   )
 }

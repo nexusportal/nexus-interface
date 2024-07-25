@@ -38,7 +38,7 @@ const FarmList = ({ farms, term }) => {
   const { chainId } = useActiveWeb3React()
   const positions = usePositions(chainId)
   const { i18n } = useLingui()
-  const [numDisplayed, setNumDisplayed] = useInfiniteScroll(items)
+  const [numDisplayed, setNumDisplayed] = useState(items.length) // Initially display all items
   const [selectedFarm, setSelectedFarm] = useState<any>()
   const dispatch = useAppDispatch()
   const { open } = useAppSelector(selectOnsen)
@@ -121,8 +121,8 @@ const FarmList = ({ farms, term }) => {
           <div className="divide-y divide-dark-900  min-w-[768px]">
             <InfiniteScroll
               dataLength={numDisplayed}
-              next={() => setNumDisplayed(numDisplayed + 5)}
-              hasMore={true}
+              next={() => setNumDisplayed(items.length)} // Ensure it loads all items
+              hasMore={numDisplayed < items.length} // Continue loading until all items are displayed
               loader={null}
             >
               {items.slice(0, numDisplayed).map((farm, index) => (

@@ -24,7 +24,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMasterChefRewardReduction } from 'app/hooks/useFarmRewards'
 import React, { useState } from 'react'
-import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, Button, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
+import { ThemeProvider, Loading, Project, Words, Heading, Paragraph, Frame, Button, Header, createTheme, SoundsProvider, createSounds, Link, withSounds } from 'arwes';
 import useCurrentBlock from "app/hooks/useCurrentBlock"
 
 const AnimatedContent = ({ show, children }: { show: boolean; children: React.ReactNode }) => {
@@ -250,6 +250,53 @@ export default function Farm(): JSX.Element {
             )}
           </Project>
 
+          <Project animate header="🎇Ecosystem Superfarms">
+            {(anim: { entered: boolean }) => (
+              <AnimatedContent show={anim.entered}>
+                <div className="mb-4 text-sm font-normal content md:text-base">
+                  <p>
+                    The NexusGenerator's innovative functionality allows for the creation of Multi-Earning superfarm stakes!
+                  </p>
+                  <br />
+                  <Frame animate={true} corners={3} layer="success">
+                    <Header animate>
+                      <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
+                        Active Superfarm Incentives
+                      </span>
+                    </Header>
+                    <br />
+                    <div className="flex items-center gap-4 px-1">
+                      <img src="https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/50/XINU.png" alt="XINU Logo" className="w-10 h-10" />
+                      <div className="flex flex-col">
+                        <Link href="https://www.xinu.network/" target="_blank" rel="noreferrer">
+                          <span className="text-lg font-bold md:text-xl text-green">
+                            xinu.network
+                          </span>
+                        </Link>
+                        <p>
+                          XINU is here to incentivize TradFi on the XDC Network! XINU rewards are actively distributing to multiple stakes.
+                        </p>
+                      </div>
+                    </div>
+                    <br />
+                  </Frame>
+                  <br />
+                  <p>
+                    Looking to enhance your token holders and community rewards? Apply for an Ecosystem SuperFarm and incentivize LP for your project with your own token, XINU, or NEXU.
+                  </p>
+                  <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
+                    <span className="text-lg font-bold md:text-xl text-green">
+                      Request An Ecosystem Superfarm
+                    </span>
+                  </Link>
+                  <br />
+                </div>
+              </AnimatedContent>
+            )}
+          </Project>
+
+
+
           <Frame animate={true}
             corners={3}
             className="w-full"
@@ -297,21 +344,6 @@ export default function Farm(): JSX.Element {
                   <p>
                     Nexus token generation is currently offline. Nexus generation will likely start at 1 NEXU per block soon after the airdrop!
                   </p>
-                  <p>
-                    XINU rewards are active for testing at 1 XINU per block, but they will be ramped up soon! See the below coming rewards settings.
-                  </p>
-                  <p>
-                    <ul>
-                      <li>100B to WXDC/XINU at 1000 XINU per block. 30B per year.</li>
-                      <li>30B to WXDC/NEXU at 300 XINU per block. 9B per year.</li>
-                      <li>20B to XINU single at 200 XINU per block. 6B per year.</li>
-                      <li>10B to NEXU single at 100 XINU per block. 3B per year.</li>
-                      <li>10B to WXDC single at 100 XINU per block. 3B per year.</li>
-                      <li>10B to FXD single at 100 XINU per block. 3B per year.</li>
-                    </ul>
-                  </p>
-
-
                 </div>
               </div>
             </div>
