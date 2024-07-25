@@ -255,7 +255,7 @@ export default function Farm(): JSX.Element {
               <AnimatedContent show={anim.entered}>
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
-                    The NexusGenerator's innovative functionality allows for the creation of Multi-Earning superfarm stakes!
+                    The NexusGenerator innovative functionality allows for the creation of Multi-Earning superfarm stakes!
                   </p>
                   <br />
                   <Frame animate={true} corners={3} layer="success">
