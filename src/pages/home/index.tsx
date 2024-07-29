@@ -82,7 +82,7 @@ export default function Farm() {
                                 <p>
                                     Create your own markets and trade your favorite assets on multiple networks.
                                     Stake LPs or single sided tokens and earn multi-rewards through the Nexus Generator superfarm.
-                                    Stake NEXU in multi-staking and earn multiple rewads in LPs, NEXU and more.
+                                    Stake NEXU in multi-staking and earn multiple rewards in LPs, NEXU and more.
                                 </p>
                             </div>
                         </AnimatedContent>
@@ -239,6 +239,7 @@ export default function Farm() {
                                     <p>Block explorer URL: <Link href="https://xdc.blocksscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.blocksscan.io/</span></Link></p>
                                     <p>Block explorer URL: <Link href="https://xdc.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.network/</span></Link></p>
                                     <p>Block explorer URL: <Link href="https://xdcscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdcscan.io/</span></Link></p>
+                                    <p>Block explorer URL: <Link href="https://explorer.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://explorer.xinfin.network/</span></Link></p>
 
                                 </div>
                             </div>

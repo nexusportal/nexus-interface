@@ -150,6 +150,7 @@ const InvestmentDetails = ({ farm }) => {
       />
     </>
   )
+
   else return (
     <>
       <HeadlessUiModal.BorderedContent className="flex flex-col gap-2 bg-dark-1000/40">
@@ -187,13 +188,6 @@ const InvestmentDetails = ({ farm }) => {
               />
             )}
             {farm.pair.type === PairType.SWAP && reserve0 && stakedAmount && totalSupply && (
-              // <RewardRow
-              //   value={formatNumber(
-              //     (farm.pair.reserve0 * Number(stakedAmount?.toExact() ?? 0)) / farm.pair.totalSupply
-              //   )}
-              //   symbol={token0?.symbol}
-              // />
-
               <RewardRow
                 value={formatNumber(reserve0?.multiply(stakedAmount).divide(totalSupply).toSignificant(6))}
                 symbol={token0?.symbol}
@@ -204,11 +198,6 @@ const InvestmentDetails = ({ farm }) => {
         {farm.pair.type === PairType.SWAP && reserve0 && stakedAmount && totalSupply && (
           <div className="flex items-center gap-2">
             {token1 && <CurrencyLogo currency={token1} size={18} />}
-            {/* <RewardRow
-              value={formatNumber((farm.pair.reserve1 * Number(stakedAmount?.toExact() ?? 0)) / farm.pair.totalSupply)}
-              symbol={token1?.symbol}
-            /> */}
-
             <RewardRow
               value={formatNumber(reserve1?.multiply(stakedAmount).divide(totalSupply).toSignificant(6))}
               symbol={token1?.symbol}
@@ -228,6 +217,11 @@ const InvestmentDetails = ({ farm }) => {
         <div className='flex justify-start gap-4 flex-wrap text-left'>
           {/* @ts-ignore TYPE NEEDS FIXING */}
           {farm?.rewards?.map((reward: any, i: number) => {
+            const rewardRate = parseFloat(reward.rewardPerBlock.toFixed(4))
+            const staked = parseFloat(stakedAmount?.toSignificant(6) ?? '0')
+            const tvl = parseFloat(farm.tvl)
+            const yourRateValue = tvl > 0 ? ((rewardRate * staked) / tvl) : 0.00
+            const ratePercentage = rewardRate > 0 ? ((yourRateValue / rewardRate) * 100).toFixed(4) : '0.00'
             return (
               <div key={i} className="flex items-center gap-1">
                 <div>
@@ -239,11 +233,10 @@ const InvestmentDetails = ({ farm }) => {
                     symbol={reward.currency.symbol}
                   />
                   <div className="text-[11px]">
-                    Your Rate: <span className='font-bold'>{parseFloat(farm.tvl) > 0 ? (reward.rewardPerBlock * parseFloat(formatNumber(stakedAmount?.toSignificant(6))) / parseFloat(farm.tvl)).toFixed(4) : 0}
-                      ={parseFloat(farm.tvl) > 0 ? (parseFloat(formatNumber(stakedAmount?.toSignificant(6))) * 100 / parseFloat(farm.tvl)).toFixed(4) : 0}%</span>
+                    Your Rate: <span className='font-bold'>{yourRateValue.toFixed(4)}</span> ({ratePercentage}%)
                   </div>
                   <div className="text-[11px]">
-                    Rate:<span className='font-bold'> {reward.rewardPerBlock.toFixed(4)}</span>
+                    Rate: <span className='font-bold'>{rewardRate.toFixed(4)}</span>
                   </div>
                   <div className="text-[11px]">
                     Max: <span className='font-bold'>{reward.currency.symbol !== "NEXU" ? reward.remainAmount.toFixed(0) : "1,100,000,000"}</span>
