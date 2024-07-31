@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SUSHI_ADDRESS } from '@sushiswap/core-sdk'
-import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon } from 'app/components/Icon'
+import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon, ChartsIcon } from 'app/components/Icon'
 import { Feature } from 'app/enums'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -159,6 +159,14 @@ const useMenu: UseMenu = () => {
       icon: <WalletIcon width={20} />
     }
 
+    let chartsMenu: MenuItem = {
+      key: "charts",
+      title: i18n._(t``),
+      link: 'https://www.geckoterminal.com/xdc/nexus/pools',
+      external: true,
+      icon: <ChartsIcon width={20} />
+    }
+
     // let analyticsMenu: MenuItem = {
     //   key: 'analytics',
     //   title: i18n._(t`Analytics`),
@@ -253,6 +261,7 @@ const useMenu: UseMenu = () => {
     mainItems.push(stakeMenu);
     mainItems.push(mintMenu)
     mainItems.push(bridgeMenu)
+    mainItems.push(chartsMenu)
     mainItems.push(portfolioMenu)
 
 

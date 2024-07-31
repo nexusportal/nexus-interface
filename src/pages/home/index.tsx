@@ -240,6 +240,7 @@ export default function Farm() {
                                     <p>Block explorer URL: <Link href="https://xdc.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdc.network/</span></Link></p>
                                     <p>Block explorer URL: <Link href="https://xdcscan.io/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://xdcscan.io/</span></Link></p>
                                     <p>Block explorer URL: <Link href="https://explorer.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://explorer.xinfin.network/</span></Link></p>
+                                    <p>GeckoTerminal Charts: <Link href="https://www.geckoterminal.com/xdc/nexus/pools" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://www.geckoterminal.com/xdc/nexus/pools</span></Link></p>
 
                                 </div>
                             </div>
