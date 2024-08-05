@@ -38,6 +38,8 @@ import ReactGA from 'react-ga'
 import Head from 'next/head'
 import LogoImage from '../../../../public/NEXUS2.png'
 import Link from 'next/link';
+import { ChartsIcon } from 'app/components/Icon'
+
 
 import { fetchAPI } from '../../../lib/api'
 import ExternalLink from 'app/components/ExternalLink'
@@ -45,6 +47,30 @@ import { useBentoOrWalletBalance } from 'app/hooks/useBentoOrWalletBalance'
 // @ts-ignore: Unreachable code error
 // eslint-disable-next-line simple-import-sort/imports
 import { Arwes, Logo, Words, ThemeProvider, Heading, Paragraph, Frame, createTheme, SoundsProvider, createSounds, withSounds } from 'arwes';
+
+import { Contract } from '@ethersproject/contracts';
+import factoryABI from 'app/constants/abis/uniswap-v2-factory.json'
+
+
+const CONFIG: Record<number, { factoryAddress: string, geckoBaseURL: string, wrappedTokenAddress: string }> = {
+  51: {
+    factoryAddress: '0xAf2977827a72e3CfE18104b0EDAF61Dd0689cd31',
+    geckoBaseURL: 'https://www.geckoterminal.com/apothem/pools/',
+    wrappedTokenAddress: '0x951857744785e80e2de051c32ee7b25f9c458c42',
+  },
+  50: {
+    factoryAddress: '0xAf2977827a72e3CfE18104b0EDAF61Dd0689cd31',
+    geckoBaseURL: 'https://www.geckoterminal.com/xdc/pools/',
+    wrappedTokenAddress: '0x951857744785e80e2de051c32ee7b25f9c458c42',
+  },
+  140002: {
+    factoryAddress: 'XRP_FACTORY_CONTRACT_ADDRESS',
+    geckoBaseURL: 'https://www.geckoterminal.com/xrp/pools/',
+    wrappedTokenAddress: '0xWrappedTokenAddressForChain140002',
+  },
+};
+
+
 
 
 export async function getServerSideProps() {
@@ -64,7 +90,7 @@ export async function getServerSideProps() {
 const Swap = ({ banners }) => {
   const { i18n } = useLingui()
   const loadedUrlParams = useDefaultsFromURLSearch()
-  const { account } = useActiveWeb3React()
+  const { account, library } = useActiveWeb3React()
   const defaultTokens = useAllTokens()
   const [isExpertMode] = useExpertModeManager()
   const { independentField, typedValue, recipient } = useSwapState()
@@ -73,6 +99,10 @@ const Swap = ({ banners }) => {
     useCurrency(loadedUrlParams?.inputCurrencyId),
     useCurrency(loadedUrlParams?.outputCurrencyId),
   ]
+
+  const [geckoTerminalURL, setGeckoTerminalURL] = useState('');
+  const [showChart, setShowChart] = useState(false);
+
 
   const [dismissTokenWarning, setDismissTokenWarning] = useState<boolean>(false)
   const urlLoadedTokens: Token[] = useMemo(
@@ -115,6 +145,7 @@ const Swap = ({ banners }) => {
         },
     [independentField, parsedAmount, showWrap, trade]
   )
+
 
   const fiatValueInput = useUSDCValue(parsedAmounts[Field.INPUT])
   const fiatValueOutput = useUSDCValue(parsedAmounts[Field.OUTPUT])
@@ -199,6 +230,48 @@ const Swap = ({ banners }) => {
       setApprovalSubmitted(true)
     }
   }, [approvalState, approvalSubmitted])
+
+  useEffect(() => {
+    const fetchLPAddress = async () => {
+      if (currencies.INPUT && currencies.OUTPUT && library) {
+        const { chainId } = await library.getNetwork(); // Get the current chain ID
+        const config = CONFIG[chainId];
+
+        if (config) {
+          const factoryContract = new Contract(
+            config.factoryAddress,
+            factoryABI,
+            library.getSigner()
+          );
+
+          const inputAddress = (currencies.INPUT.isNative)
+            ? config.wrappedTokenAddress
+            : (currencies.INPUT as Token).address;
+
+          const outputAddress = (currencies.OUTPUT.isNative)
+            ? config.wrappedTokenAddress
+            : (currencies.OUTPUT as Token).address;
+
+          try {
+            const lpAddress = await factoryContract.getPair(inputAddress, outputAddress);
+            console.log(`LP Address: ${lpAddress}`);
+            const url = `${config.geckoBaseURL}${lpAddress}?embed=1&info=1&swaps=0`;
+            console.log(`Gecko Terminal URL: ${url}`);
+            setGeckoTerminalURL(url);
+          } catch (error) {
+            console.error('Error fetching LP address:', error);
+          }
+        } else {
+          console.error('Unsupported chain ID:', chainId);
+        }
+      }
+    };
+
+    fetchLPAddress();
+  }, [currencies.INPUT, currencies.OUTPUT, library]);
+
+
+
 
   const [useOpenMev] = useUserOpenMev()
   const walletSupportsOpenMev = useWalletSupportsOpenMev()
@@ -362,17 +435,6 @@ const Swap = ({ banners }) => {
 
   const showUseDexWarning = useDexWarningOpen()
 
-  const [showChart, setShowChart] = useState(false);
-
-  // Construct the Gecko Terminal URL dynamically
-  const geckoTerminalURL = useMemo(() => {
-    // const inputToken = currencies.INPUT?.address;
-    // const outputToken = currencies.OUTPUT?.address;
-    // if (inputToken && outputToken) {
-    //   return `https://www.geckoterminal.com/xdc/pools/${inputToken}-${outputToken}?embed=1&info=1&swaps=0`;
-    // }
-    return 'https://www.geckoterminal.com/xdc/pools/0xfcabba53dac7b6b19714c7d741a46f6dad260107?embed=1&info=1&swaps=0';
-  }, [currencies.INPUT, currencies.OUTPUT]);
 
   return (
     <>
@@ -608,7 +670,7 @@ const Swap = ({ banners }) => {
       </SwapLayoutCard>
 
       {/* Chart */}
-      {/* <Frame
+      <Frame
         animate={true}
         level={3}
         corners={4}
@@ -616,34 +678,75 @@ const Swap = ({ banners }) => {
         onClick={() => setShowChart(!showChart)}
         className="py-2 mx-auto text-center bg-transparent w-max cursor-pointer"
       >
-        <div className="px-3 py-2">
+        <div className="px-3 py-2 flex items-center space-x-2">
+          <ChartsIcon width={20} />
           <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
         </div>
-      </Frame> */}
-      
+      </Frame>
+
       <br />
       <span className="text-lg font-bold md:text-xl text-green">
       </span>
 
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}>
-
-        <div style={{ marginRight: '20px' }}> {/* Container for the chart */}
-          {showChart && (
-            <Frame
-              animate
-              corners={4}
-              layer="primary"
-              style={{ width: '1000px', height: '500px', display: 'flex' }}
-            >
-              <iframe
-                src={geckoTerminalURL}
-                style={{ width: '1000px', height: '500px', display: 'flex', border: 'none' }}
-                allowFullScreen
-              ></iframe>
-            </Frame>
-          )}
+      <div>
+        {/* Desktop View */}
+        <div className="desktop-view">
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', width: '100%' }}>
+            <div style={{ marginRight: '20px' }}> {/* Container for the chart */}
+              {showChart && (
+                <Frame
+                  animate
+                  corners={4}
+                  layer="primary"
+                  style={{ width: '1000px', height: '500px', display: 'flex' }}
+                >
+                  <iframe
+                    src={geckoTerminalURL + '&swaps=1'} // Ensure trades are shown
+                    style={{ width: '1000px', height: '500px', display: 'flex', border: 'none' }}
+                    allowFullScreen
+                  ></iframe>
+                </Frame>
+              )}
+            </div>
+          </div>
         </div>
+
+        {/* Mobile View */}
+        <div className="mobile-view">
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', flexWrap: 'wrap', width: '100%' }}>
+            <div style={{ margin: '1px', maxWidth: '100%' }}> {/* Container for the chart */}
+              {showChart && (
+                <Frame animate corners={4} layer="primary" style={{ width: '100%', height: '500px', display: 'flex' }}>
+                  <iframe
+                    src={geckoTerminalURL + '&swaps=1'} // Ensure trades are shown
+                    style={{ width: '100%', height: '500px', display: 'flex', border: 'none' }}
+                    allowFullScreen
+                  ></iframe>
+                </Frame>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+    .desktop-view {
+      display: none;
+    }
+    .mobile-view {
+      display: block;
+    }
+    @media (min-width: 768px) {
+      .desktop-view {
+        display: block;
+      }
+      .mobile-view {
+        display: none;
+      }
+    }
+  `}</style>
       </div>
+
+
 
 
 
