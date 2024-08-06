@@ -670,19 +670,22 @@ const Swap = ({ banners }) => {
       </SwapLayoutCard>
 
       {/* Chart */}
-      <Frame
-        animate={true}
-        level={3}
-        corners={4}
-        layer='success'
-        onClick={() => setShowChart(!showChart)}
-        className="py-2 mx-auto text-center bg-transparent w-max cursor-pointer"
-      >
-        <div className="px-3 py-2 flex items-center space-x-2">
-          <ChartsIcon width={20} />
-          <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
-        </div>
-      </Frame>
+      {account && (
+        <Frame
+          animate={true}
+          level={3}
+          corners={4}
+          layer='success'
+          onClick={() => setShowChart(!showChart)}
+          className="py-2 mx-auto text-center bg-transparent w-max cursor-pointer"
+        >
+          <div className="px-3 py-2 flex items-center space-x-2">
+            <ChartsIcon width={20} />
+            <span>{showChart ? 'Hide Chart' : 'Show Chart'}</span>
+          </div>
+        </Frame>
+      )}
+
 
       <br />
       <span className="text-lg font-bold md:text-xl text-green">
