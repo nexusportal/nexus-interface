@@ -61,7 +61,7 @@ const Footer = () => {
                 <YoutubeIcon width={16} className="text-low-emphesis" />
               </a> */}
 
-                <a href="https://discord.com/invite/nexusportal" target="_blank" rel="noreferrer">
+                <a href="https://discord.com/invite/nexusdefi" target="_blank" rel="noreferrer">
                   <DiscordIcon width={24} className="text-low-emphesis" />
                 </a>
 
