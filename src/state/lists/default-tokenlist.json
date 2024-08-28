@@ -3875,6 +3875,22 @@
       "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
     },
     {
+      "name": "JS Coin",
+      "address": "0x2d2b39a036c3C02D50e2353061898E04433dd8Fa",
+      "symbol": "JSC",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
+      "name": "Nexus",
+      "address": "0x4A8f986CE9f7A30B2E81Fb0c99B98dA988D6E0cF",
+      "symbol": "NEXU",
+      "decimals": 18,
+      "chainId": 19,
+      "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xd0A1E359811322d97991E03f863a0C30C2cF029C/logo.png"
+    },
+    {
       "name": "Xenos Finance",
       "address": "0xAe744d38def6ccf470300F6281Ac9BF16F8cfeD7",
       "symbol": "XNF",

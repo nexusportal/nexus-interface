@@ -26,6 +26,8 @@ import CRB from '../../../public/CRB.png'
 import sPHX from '../../../public/sPHX.png'
 import FTHR from '../../../public/FTHR.png'
 import BBX from '../../../public/BBX.png'
+import NEXU from '../../../public/NEXU.png'
+import JSC from '../../../public/JSC.png'
 import XNF from '../../../public/XNF.png'
 import exXDC from '../../../public/exXDC.png'
 import SPRK from '../../../public/SPRK.png'
@@ -231,6 +233,14 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
       return <img src={BBX.src} width={size} height={size} className={className} />
     }
 
+    if (currency.symbol === 'NEXU') {
+      return <img src={NEXU.src} width={size} height={size} className={className} />
+    }
+
+    if (currency.symbol === 'JSC') {
+      return <img src={JSC.src} width={size} height={size} className={className} />
+    }
+
     if (currency.symbol === 'XNF') {
       return <img src={XNF.src} width={size} height={size} className={className} />
     }
@@ -369,6 +379,14 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
       if (currency.symbol === 'BBX') {
         return <img src={BBX.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'NEXU') {
+        return <img src={NEXU.src} width={size} height={size} className={className} />
+      }
+
+      if (currency.symbol === 'JSC') {
+        return <img src={JSC.src} width={size} height={size} className={className} />
       }
 
       if (currency.symbol === 'XNF') {

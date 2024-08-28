@@ -131,6 +131,22 @@ const useMenu: UseMenu = () => {
       icon: <CurrencyDollarIcon width={20} />,
     }
 
+    let bridgeMenu: MenuItem = {
+      key: 'earn',
+      title: i18n._(t`🌉Bridge`),
+      link: 'https://bridge.wanchain.org/#/AssetBridge',
+      external: true,
+      icon: <CurrencyDollarIcon width={20} />,
+    }
+
+    let v2Menu: MenuItem = {
+      key: 'earn',
+      title: i18n._(t`V2`),
+      link: 'https://oracleswap.io/',
+      external: true,
+      icon: <CurrencyDollarIcon width={20} />,
+    }
+
     let nftMenu: MenuItem = {
       key: 'nft',
       title: i18n._(t`NFT`),
@@ -231,6 +247,9 @@ const useMenu: UseMenu = () => {
     mainItems.push(nftMenu)
     mainItems.push(analyticsMenu)
     mainItems.push(earnMenu)
+    mainItems.push(bridgeMenu)
+    mainItems.push(v2Menu)
+
     // if (featureEnabled(Feature.KASHI, chainId)) {
     //   mainItems.push({
     //     key: 'lending',
