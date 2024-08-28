@@ -85,21 +85,6 @@ export default function useFarmRewards() {
   const farms = [
     {
       accSushiPerShare: '',
-      allocPoint: 160,
-      balance: 0,
-      chef: 0,
-      id: '2',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
-        totalAllocPoint: 1000,
-      },
-      pair: '0x1987E504E70b9ACbAa4E042FDDE4ecB6CEaf5b77',
-      slpBalance: 0,
-      userCount: '0',
-    },
-    {
-      accSushiPerShare: '',
       allocPoint: 60,
       balance: 0,
       chef: 0,
@@ -128,7 +113,21 @@ export default function useFarmRewards() {
       slpBalance: 0,
       userCount: '0',
     },
-
+    {
+      accSushiPerShare: '',
+      allocPoint: 160,
+      balance: 0,
+      chef: 0,
+      id: '2',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
+        totalAllocPoint: 1000,
+      },
+      pair: '0x1987E504E70b9ACbAa4E042FDDE4ecB6CEaf5b77',
+      slpBalance: 0,
+      userCount: '0',
+    },
     {
       accSushiPerShare: '',
       allocPoint: 140,
@@ -351,6 +350,21 @@ export default function useFarmRewards() {
         totalAllocPoint: 1000,
       },
       pair: '0xfDb3c94cA8aD50A35516f2A3d13d257A57A57C02',
+      slpBalance: 0,
+      userCount: '0',
+    },
+    {
+      accSushiPerShare: '',
+      allocPoint: 20,
+      balance: 0,
+      chef: 0,
+      id: '18',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0xA5E4abe4c3693AB0018df7a2b3b35e33E15f3028',
+        totalAllocPoint: 1000,
+      },
+      pair: '0xA76512E223C3F38f00Af47fca9928acc5B3b8ab7',
       slpBalance: 0,
       userCount: '0',
     },
@@ -943,6 +957,36 @@ export default function useFarmRewards() {
       untrackedVolumeUSD: 46853.79482616671033425777223395,
       volumeUSD: 4684.23711596607606598865310647,
     },
+    {
+      decimals: 18,
+      id: '0xA76512E223C3F38f00Af47fca9928acc5B3b8ab7',
+      reserve0: 0.0887405995540289756,
+      reserve1: 0.04641,
+      reserveETH: 1183.351142427706157233201110976883,
+      reserveUSD: 0.004,
+      timestamp: 1621898381,
+      token0: {
+        derivedETH: 0.0003068283960261003490764609134664169,
+        id: '0xd7565b16b65376e2ddb6c71e7971c7185a7ff3ff',
+        name: 'OracleSwap.io',
+        symbol: 'ORACLE',
+        totalSupply: 1680,
+      },
+      token0Price: 0.749748,
+      token1: {
+        derivedETH: 0.0003068283960261003490764609134664169,
+        id: '0x4A8f986CE9f7A30B2E81Fb0c99B98dA988D6E0cF',
+        name: 'Nexus',
+        symbol: 'NEXU',
+        totalSupply: 1680,
+      },
+      token1Price: 0.014,
+      totalSupply: 0.316227765016,
+      trackedReserveETH: 1183.351142427706157233201110976883,
+      txCount: 81365,
+      untrackedVolumeUSD: 46853.79482616671033425777223395,
+      volumeUSD: 4684.23711596607606598865310647,
+    },
   ]
 
   const averageBlockTime = useAverageBlockTime({ chainId })
@@ -966,19 +1010,19 @@ export default function useFarmRewards() {
     fusePrice,
     magicPrice,
   ] = [
-    useSushiPrice(),
-    useEthPrice(),
-    useMaticPrice(),
-    useGnoPrice(),
-    useOnePrice(),
-    useSpellPrice(),
-    useCeloPrice(),
-    useFantomPrice(),
-    useMovrPrice(),
-    useOhmPrice(),
-    useFusePrice(),
-    useMagicPrice(),
-  ]
+      useSushiPrice(),
+      useEthPrice(),
+      useMaticPrice(),
+      useGnoPrice(),
+      useOnePrice(),
+      useSpellPrice(),
+      useCeloPrice(),
+      useFantomPrice(),
+      useMovrPrice(),
+      useOhmPrice(),
+      useFusePrice(),
+      useMagicPrice(),
+    ]
 
   const prolPrice = 0
 
@@ -1074,15 +1118,15 @@ export default function useFarmRewards() {
             pool.rewardToken.symbol === 'ALCX'
               ? pool.rewarder.rewardPerSecond / decimals
               : pool.rewardToken.symbol === 'LDO'
-              ? (77160493827160493 / decimals) * averageBlockTime
-              : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime
+                ? (77160493827160493 / decimals) * averageBlockTime
+                : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime
 
           const rewardPerDay =
             pool.rewardToken.symbol === 'ALCX'
               ? (pool.rewarder.rewardPerSecond / decimals) * blocksPerDay
               : pool.rewardToken.symbol === 'LDO'
-              ? (77160493827160493 / decimals) * averageBlockTime * blocksPerDay
-              : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime * blocksPerDay
+                ? (77160493827160493 / decimals) * averageBlockTime * blocksPerDay
+                : (pool.rewarder.rewardPerSecond / decimals) * averageBlockTime * blocksPerDay
 
           const rewardPrice = pool.rewardToken.derivedETH * ethPrice
 
@@ -1259,7 +1303,7 @@ export default function useFarmRewards() {
       const stakedBalance = Object.values(stakedBalaces).find(
         (token) => token.currency.address.toLowerCase() === pool.pair.toLowerCase()
       )
-      
+
       if (stakedBalance) {
         balance = parseFloat(stakedBalance.toExact())
       }
