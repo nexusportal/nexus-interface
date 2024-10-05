@@ -43,12 +43,12 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
           )}
           {farm?.pair?.type === PairType.SWAP && (
             <Typography variant="xs" className="text-low-emphesis">
-              {i18n._(t`Nexus Generator`)}
+              {/* {i18n._(t`Nexus Generator`)} */}
             </Typography>
           )}
           {farm?.pair?.type === PairType.KASHI && (
             <Typography variant="xs" className="text-low-emphesis">
-              {i18n._(t`Kashi Farm`)}
+              {/* {i18n._(t`Kashi Farm`)} */}
             </Typography>
           )}
         </div>
