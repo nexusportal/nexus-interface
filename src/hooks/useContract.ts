@@ -173,7 +173,7 @@ export function useSushiContract(withSignerIfPossible = true): Contract | null {
 
 export function useMasterChefContract(withSignerIfPossible?: boolean): Contract | null {
   const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? MASTERCHEF_ADDRESS[chainId] : MASTERCHEF_ADDRESS[50], MASTERCHEF_ABI, withSignerIfPossible)
+  return useContract(chainId ? MASTERCHEF_ADDRESS[chainId] : undefined, MASTERCHEF_ABI, withSignerIfPossible)
 }
 
 export function useMasterChefV2Contract(withSignerIfPossible?: boolean): Contract | null {
