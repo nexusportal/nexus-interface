@@ -231,7 +231,7 @@ export default function Farm() {
                                 <div>
                                     <p>Website: <Link href="https://xdc.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xdc.org</span></Link></p>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">XinFin XDC Network</span></p>
-                                    <p>RPC URL: <Link href="https://rpc.xdc.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc.xdc.org/</span></Link></p>
+                                    <p>RPC URL: <Link href="https://rpc.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc.xinfin.network/</span></Link></p>
                                     <p>RPC URL: <Link href="https://erpc.xinfin.network/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xinfin.network/</span></Link></p>
                                     <p>RPC URL: <Link href="https://erpc.xdcrpc.com/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://erpc.xdcrpc.com/</span></Link></p>
                                     <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">50</span></p>

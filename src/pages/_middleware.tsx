@@ -27,7 +27,7 @@ const SUBDOMAIN_CHAIN_ID: { [subdomain: string]: string } = {
   [ChainSubdomain.APOTHEM]: '51',
 }
 
-const DEFAULT_CHAIN_ID = '1440002'
+const DEFAULT_CHAIN_ID = '50'
 
 export function middleware(req: NextRequest) {
   // const response = NextResponse.next()

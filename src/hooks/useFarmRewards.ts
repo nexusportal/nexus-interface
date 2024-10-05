@@ -149,7 +149,7 @@ export function useMasterChefAllFarms() {
 }
 
 export default function useFarmRewards() {
-  const { chainId } = useActiveWeb3React()
+  const { chainId } = useActiveWeb3React();
 
   // @ts-ignore TYPE NEEDS FIXING
   // const positions = usePositions(chainId)
