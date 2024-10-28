@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SUSHI_ADDRESS } from '@sushiswap/core-sdk'
-import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon, ChartsIcon } from 'app/components/Icon'
+import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon, ChartsIcon, RocketIcon } from 'app/components/Icon'
 import { Feature } from 'app/enums'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -258,13 +258,19 @@ const useMenu: UseMenu = () => {
       mainItems.push(farmItems)
     }
 
+    let launchMenu: MenuItem = {
+      key: 'launch',
+      title: i18n._(t`Launch`),
+      link: '/launcher',
+      icon: <RocketIcon width={20} />,
+    }
+
     mainItems.push(stakeMenu);
     mainItems.push(mintMenu)
     mainItems.push(bridgeMenu)
     mainItems.push(chartsMenu)
     mainItems.push(portfolioMenu)
-
-
+    mainItems.push(launchMenu)
 
     // mainItems.push(analyticsMenu)
     // mainItems.push(earnMenu)

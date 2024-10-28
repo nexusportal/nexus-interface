@@ -1,0 +1,489 @@
+import React, { useState, useCallback, useEffect } from 'react'
+
+import { i18n } from '@lingui/core'
+
+import { t } from '@lingui/macro'
+
+import { Frame } from 'arwes'
+
+import { useLauncher } from '../../hooks/useLauncher'
+
+import { useActiveWeb3React } from 'app/services/web3'
+
+import { useTransactionAdder } from 'app/state/transactions/hooks'
+
+import Button from 'app/components/Button'
+
+import Typography from 'app/components/Typography'
+
+import Web3Connect from 'app/components/Web3Connect'
+
+import TransactionConfirmationModal from 'app/modals/TransactionConfirmationModal'
+
+import { HeadlessUiModal } from 'app/components/Modal'
+
+import LaunchedTokens from './LaunchedTokens'
+
+
+
+
+
+
+
+export default function TokenLauncher() {
+  const { account } = useActiveWeb3React()
+  const { createToken, isLoading, nativeFee } = useLauncher()
+  const addTransaction = useTransactionAdder()
+  
+  // Add this line
+  const [activeView, setActiveView] = useState<'launcher' | 'tokens'>('launcher')
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    symbol: '',
+    totalSupply: '',
+    lpPercent: '95',
+    devPercent: '4',
+    initialLiquidity: '1000',
+    description: '',
+    website: '',
+    logo: null as File | null,
+  })
+
+
+
+
+
+
+
+  const [showConfirm, setShowConfirm] = useState(false)
+
+
+
+  const [pendingTx, setPendingTx] = useState(false)
+
+
+
+  const [txHash, setTxHash] = useState('')
+
+
+
+
+
+
+
+  const handleCreateToken = useCallback(async () => {
+    if (!account) return
+    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.initialLiquidity) {
+      alert('Please fill in all required fields')
+      return
+    }
+    
+    setPendingTx(true)
+    setShowConfirm(true)
+
+    try {
+      const tx = await createToken({
+        name: formData.name,
+        symbol: formData.symbol,
+        totalSupply: formData.totalSupply,
+        lpPercent: formData.lpPercent,
+        devPercent: formData.devPercent,
+        initialLiquidity: formData.initialLiquidity
+      })
+
+      setTxHash(tx.hash)
+      addTransaction(tx, { 
+        summary: `Created Token ${formData.name} (${formData.symbol})`
+      })
+
+    } catch (error) {
+      console.error(error)
+      setShowConfirm(false)
+    }
+
+    setPendingTx(false)
+  }, [account, formData, createToken, addTransaction])
+
+
+
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+  }, [txHash])
+
+  useEffect(() => {
+    if (!txHash) return;
+    setPendingTx(false);
+  }, [txHash])
+
+
+
+
+
+
+
+  // Add handler for LP/Dev allocation
+  const handleLPChange = (value: string) => {
+    const lpValue = Number(value)
+    if (lpValue >= 0 && lpValue <= 99) {
+      setFormData(prev => ({
+        ...prev,
+        lpPercent: value,
+        devPercent: (99 - lpValue).toString()
+      }))
+    }
+  }
+
+  const handleDevChange = (value: string) => {
+    const devValue = Number(value)
+    if (devValue >= 0 && devValue <= 50) {
+      setFormData(prev => ({
+        ...prev,
+        devPercent: value,
+        lpPercent: (99 - devValue).toString()
+      }))
+    }
+  }
+
+
+
+
+
+
+
+  return (
+    <div className="flex flex-col mt-12"> {/* Changed from mt-8 to mt-12 */}
+      {/* Toggle Buttons - centered with hover effects */}
+      <div className="flex justify-center gap-4 mb-8">
+        <Frame
+          animate
+          level={activeView === 'launcher' ? 3 : 1}
+          corners={4}
+          layer={activeView === 'launcher' ? 'success' : 'primary'}
+          className="hover:opacity-80 transition duration-200"
+        >
+          <button
+            className={`px-8 py-3 text-sm font-bold ${
+              activeView === 'launcher' ? 'text-green' : 'text-blue'
+            } hover:brightness-110 transition duration-200`}
+            onClick={() => setActiveView('launcher')}
+          >
+            Launch Token
+          </button>
+        </Frame>
+
+        <Frame
+          animate
+          level={activeView === 'tokens' ? 3 : 1}
+          corners={4}
+          layer={activeView === 'tokens' ? 'success' : 'primary'}
+          className="hover:opacity-80 transition duration-200"
+        >
+          <button
+            className={`px-8 py-3 text-sm font-bold ${
+              activeView === 'tokens' ? 'text-green' : 'text-blue'
+            } hover:brightness-110 transition duration-200`}
+            onClick={() => setActiveView('tokens')}
+          >
+            Token List
+          </button>
+        </Frame>
+      </div>
+
+      {/* Content */}
+      {activeView === 'launcher' ? (
+        // Existing launcher form JSX
+        <div className="flex flex-wrap">
+          <div className="w-full md:w-[calc(100%-316px)] md:mr-4">
+            <Frame animate level={3} corners={4} layer='primary'>
+              <div className="flex flex-col gap-4 p-4" style={{ maxWidth: '480px' }}>
+                <Typography variant="h3" weight={700} className="text-high-emphesis mb-4">
+                  {i18n._(t`Launch Your Token`)}
+                </Typography>
+
+                <Typography variant="sm" className="text-grey">
+                  Launch your own token! There is a {nativeFee} XDC fee to launch a token and minimum liquidity of 1000 XDC required. 
+                  1% of the token supply will be allocated as fees, which are distributed to NEXU stakers!
+                  Most Liquidity is added to Nexus and then burnt!
+                </Typography>
+
+                <div className="flex flex-col gap-4">
+                  {/* Image upload and basic info section */}
+                  <div className="flex gap-4">
+                    {/* Image Upload Area */}
+                    <div className="w-[200px]">
+                      <Typography variant="lg" className="text-grey mb-2">🖼️ Token Logo</Typography>
+                      <Frame
+                        animate
+                        level={3}
+                        corners={2}
+                        layer='primary'
+                        className="aspect-square"
+                      >
+                        <div className="flex flex-col items-center justify-center w-full h-full p-4">
+                          {formData.logo ? (
+                            <img
+                              src={URL.createObjectURL(formData.logo)}
+                              alt="Token Logo Preview"
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <div className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-gray-500 rounded">
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                id="logo-upload"
+                                onChange={(e) => setFormData(prev => ({ 
+                                  ...prev, 
+                                  logo: e.target.files ? e.target.files[0] : null 
+                                }))}
+                              />
+                              <label htmlFor="logo-upload" className="cursor-pointer text-center">
+                                <Typography variant="sm" className="text-secondary">
+                                  Click to upload logo
+                                </Typography>
+                              </label>
+                            </div>
+                          )}
+                        </div>
+                      </Frame>
+                    </div>
+
+                    {/* Basic Token Info */}
+                    <div className="flex-1 space-y-4">
+                      <div className="space-y-2">
+                        <Typography variant="lg" className="text-grey">🏷️ Token Name *</Typography>
+                        <Frame animate level={3} corners={2} layer='primary'>
+                          <input
+                            className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                            placeholder="e.g. Ethereum"
+                            value={formData.name}
+                            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                          />
+                        </Frame>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Typography variant="lg" className="text-grey">💎 Token Symbol *</Typography>
+                        <Frame animate level={3} corners={2} layer='primary'>
+                          <input
+                            className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                            placeholder="e.g. ETH"
+                            value={formData.symbol}
+                            onChange={(e) => setFormData(prev => ({ ...prev, symbol: e.target.value }))}
+                          />
+                        </Frame>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Typography variant="lg" className="text-grey">📊 Total Supply *</Typography>
+                        <Frame animate level={3} corners={2} layer='primary'>
+                          <input
+                            className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                            type="number"
+                            placeholder="e.g. 1000000"
+                            value={formData.totalSupply}
+                            onChange={(e) => setFormData(prev => ({ ...prev, totalSupply: e.target.value }))}
+                          />
+                        </Frame>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Allocation Section */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Typography variant="lg" className="text-grey">🔥 LP Allocation % *</Typography>
+                      <Frame animate level={3} corners={2} layer='primary'>
+                        <input
+                          className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                          type="number"
+                          placeholder="Maximum 99%"
+                          value={formData.lpPercent}
+                          onChange={(e) => handleLPChange(e.target.value)}
+                        />
+                      </Frame>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Typography variant="lg" className="text-grey">💻 Dev Allocation % *</Typography>
+                      <Frame animate level={3} corners={2} layer='primary'>
+                        <input
+                          className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                          type="number"
+                          placeholder="Maximum 50%"
+                          value={formData.devPercent}
+                          onChange={(e) => handleDevChange(e.target.value)}
+                        />
+                      </Frame>
+                    </div>
+                  </div>
+
+                  {/* Liquidity and Optional Fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Typography variant="lg" className="text-grey">💰 Initial Liquidity (XDC) *</Typography>
+                      <Frame animate level={3} corners={2} layer='primary'>
+                        <input
+                          className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                          type="number"
+                          min="1000"
+                          placeholder="Minimum 1000 XDC"
+                          value={formData.initialLiquidity}
+                          onChange={(e) => setFormData(prev => ({ ...prev, initialLiquidity: e.target.value }))}
+                        />
+                      </Frame>
+                    </div>
+
+                    {/* Optional Fields */}
+                    <div className="space-y-2">
+                      <Typography variant="lg" className="text-grey">🌐 Website URL</Typography>
+                      <Frame animate level={3} corners={2} layer='primary'>
+                        <input
+                          className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                          placeholder="e.g. https://example.com"
+                          value={formData.website}
+                          onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                        />
+                      </Frame>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Typography variant="lg" className="text-grey">📝 Description</Typography>
+                      <Frame animate level={3} corners={2} layer='primary'>
+                        <textarea
+                          className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
+                          placeholder="Describe your token..."
+                          value={formData.description}
+                          onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                          rows={3}
+                        />
+                      </Frame>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Frame>
+          </div>
+
+          {/* Preview Panel */}
+          <div className="w-full mt-4 md:w-[300px] md:mt-0">
+            <Frame animate level={3} corners={4} layer='primary'>
+              <div className="p-4 space-y-4">
+              <Typography variant="h3" weight={700} className="text-high-emphesis mb-4">
+                  {i18n._(t`Token Preview`)}
+                </Typography>
+
+                {formData.logo && (
+                  <img
+                    src={URL.createObjectURL(formData.logo)}
+                    alt="Token Logo Preview"
+                    className="w-16 h-16 mx-auto rounded-full"
+                  />
+                )}
+
+                <div className="space-y-2">
+                  <Typography variant="sm">Name: {formData.name || '-'}</Typography>
+                  <Typography variant="sm">Symbol: {formData.symbol || '-'}</Typography>
+                  <Typography variant="sm">Total Supply: {formData.totalSupply ? Number(formData.totalSupply).toLocaleString() : '-'}</Typography>
+                  <Typography variant="sm">🔥 LP: {formData.lpPercent}% ({formData.totalSupply ? (Number(formData.totalSupply) * Number(formData.lpPercent) / 100).toLocaleString() : '-'} tokens)</Typography>
+                  <Typography variant="sm">💻 Dev: {formData.devPercent}% ({formData.totalSupply ? (Number(formData.totalSupply) * Number(formData.devPercent) / 100).toLocaleString() : '-'} tokens)</Typography>
+                  <Typography variant="sm">🏦 Fee: 1% ({formData.totalSupply ? (Number(formData.totalSupply) * 0.01).toLocaleString() : '-'} tokens)</Typography>
+                  <Typography variant="sm">Initial Liquidity: {formData.initialLiquidity} XDC</Typography>
+                  <Typography variant="sm">Launch Fee: {nativeFee} XDC</Typography>
+                  <div className="mt-4 pt-4 border-t border-dark-700">
+                    <Typography variant="lg" className="text-high-emphesis">
+                      Total Cost: {Number(formData.initialLiquidity) + Number(nativeFee)} XDC
+                    </Typography>
+                  </div>
+                  
+                  {formData.website && (
+                    <Typography variant="sm">
+                      Website: <a 
+                        href={formData.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue hover:underline"
+                      >
+                        {formData.website}
+                      </a>
+                    </Typography>
+                  )}
+                  
+                  {formData.description && (
+                    <div className="mt-2">
+                      <Typography variant="sm" className="text-grey">Description:</Typography>
+                      <Typography variant="sm" className="whitespace-pre-wrap">
+                        {formData.description}
+                      </Typography>
+                    </div>
+                  )}
+                </div>
+
+                {/* Move button here */}
+                <div className="mt-4">
+                  {!account ? (
+                    <Web3Connect size="lg" color="blue" className="w-full" />
+                  ) : (
+                    <Button
+                      fullWidth
+                      color="blue"
+                      onClick={handleCreateToken}
+                      disabled={pendingTx}
+                    >
+                      {i18n._(t`Create Token`)}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </Frame>
+          </div>
+
+          {showConfirm && (
+            <TransactionConfirmationModal
+              isOpen={showConfirm}
+              onDismiss={handleDismissConfirmation}
+              attemptingTxn={pendingTx}
+              hash={txHash}
+              content={() => (
+                <HeadlessUiModal.Header
+                  header={i18n._(t`Confirming Token Launch`)}
+                  onClose={handleDismissConfirmation}
+                />
+              )}
+              pendingText={"Creating Token..."}
+            />
+          )}
+        </div>
+      ) : (
+        // Token list view
+        <LaunchedTokens />
+      )}
+
+      {/* Keep transaction modal */}
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
