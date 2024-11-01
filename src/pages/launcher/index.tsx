@@ -24,18 +24,13 @@ import { HeadlessUiModal } from 'app/components/Modal'
 
 import LaunchedTokens from './LaunchedTokens'
 
-
-
-
-
-
+const MIN_INITIAL_LIQUIDITY = '10'
 
 export default function TokenLauncher() {
   const { account } = useActiveWeb3React()
   const { createToken, isLoading, nativeFee } = useLauncher()
   const addTransaction = useTransactionAdder()
   
-  // Add this line
   const [activeView, setActiveView] = useState<'launcher' | 'tokens'>('launcher')
   
   const [formData, setFormData] = useState({
@@ -44,32 +39,20 @@ export default function TokenLauncher() {
     totalSupply: '',
     lpPercent: '95',
     devPercent: '4',
-    initialLiquidity: '1000',
+    initialLiquidity: MIN_INITIAL_LIQUIDITY,
     description: '',
     website: '',
     logo: null as File | null,
   })
 
-
-
-
-
-
-
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>('')
   const [pendingTx, setPendingTx] = useState(false)
 
-
-
-
-
-
-
   const handleCreateToken = useCallback(async () => {
     if (!account) return
-    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.initialLiquidity || !formData.logo) {
-      alert('Please fill in all required fields')
+    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.logo || Number(formData.initialLiquidity) < Number(MIN_INITIAL_LIQUIDITY)) {
+      alert('Please fill in all required fields and ensure initial liquidity meets minimum requirement')
       return
     }
     
@@ -99,8 +82,6 @@ export default function TokenLauncher() {
     setPendingTx(false)
   }, [account, formData, createToken, addTransaction])
 
-
-
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)
   }, [txHash])
@@ -110,13 +91,6 @@ export default function TokenLauncher() {
     setPendingTx(false);
   }, [txHash])
 
-
-
-
-
-
-
-  // Add handler for LP/Dev allocation
   const handleLPChange = (value: string) => {
     const lpValue = Number(value)
     if (lpValue >= 0 && lpValue <= 99) {
@@ -139,21 +113,12 @@ export default function TokenLauncher() {
     }
   }
 
-
-
-
-
-
-
-  // Add validation function
   const validateImage = (file: File): string | null => {
-    // Check file type
     const validTypes = ['image/jpeg', 'image/png', 'image/gif']
     if (!validTypes.includes(file.type)) {
       return 'Logo must be JPG, PNG, or GIF format'
     }
 
-    // Check file size (2MB = 2 * 1024 * 1024 bytes)
     const maxSize = 2 * 1024 * 1024 // 2MB in bytes
     if (file.size > maxSize) {
       return 'Logo must be under 2MB'
@@ -162,7 +127,6 @@ export default function TokenLauncher() {
     return null
   }
 
-  // Update the logo input handler
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -177,15 +141,8 @@ export default function TokenLauncher() {
     setFormData(prev => ({ ...prev, logo: file }))
   }
 
-
-
-
-
-
-
   return (
-    <div className="flex flex-col mt-12"> {/* Changed from mt-8 to mt-12 */}
-      {/* Toggle Buttons - centered with hover effects */}
+    <div className="flex flex-col mt-12">
       <div className="flex justify-center gap-4 mb-8">
         <Frame
           animate
@@ -222,9 +179,7 @@ export default function TokenLauncher() {
         </Frame>
       </div>
 
-      {/* Content */}
       {activeView === 'launcher' ? (
-        // Existing launcher form JSX
         <div className="flex flex-wrap">
           <div className="w-full md:w-[calc(100%-316px)] md:mr-4">
             <Frame animate level={3} corners={4} layer='primary'>
@@ -240,9 +195,7 @@ export default function TokenLauncher() {
                 </Typography>
 
                 <div className="flex flex-col gap-4">
-                  {/* Image upload and basic info section */}
                   <div className="flex gap-4">
-                    {/* Image Upload Area */}
                     <div className="w-[200px]">
                       <Typography variant="lg" className="text-grey mb-2">🖼️ Token Logo*</Typography>
                       <Frame
@@ -260,7 +213,6 @@ export default function TokenLauncher() {
                                 alt="Token Logo Preview"
                                 className="w-full h-full object-contain"
                               />
-                              {/* Close button */}
                               <button
                                 onClick={() => setFormData(prev => ({ ...prev, logo: null }))}
                                 className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red flex items-center justify-center hover:bg-red/80 transition-colors"
@@ -290,7 +242,6 @@ export default function TokenLauncher() {
                       </Frame>
                     </div>
 
-                    {/* Basic Token Info */}
                     <div className="flex-1 space-y-4">
                       <div className="space-y-2">
                         <Typography variant="lg" className="text-grey">🏷️ Token Name *</Typography>
@@ -331,7 +282,6 @@ export default function TokenLauncher() {
                     </div>
                   </div>
 
-                  {/* Allocation Section */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Typography variant="lg" className="text-grey">🔥 LP Allocation % *</Typography>
@@ -360,7 +310,6 @@ export default function TokenLauncher() {
                     </div>
                   </div>
 
-                  {/* Liquidity and Optional Fields */}
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Typography variant="lg" className="text-grey">💰 Initial Liquidity (XDC) *</Typography>
@@ -368,15 +317,22 @@ export default function TokenLauncher() {
                         <input
                           className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
                           type="number"
-                          min="1000"
-                          placeholder="Minimum 1000 XDC"
+                          min={MIN_INITIAL_LIQUIDITY}
+                          placeholder={`Minimum ${MIN_INITIAL_LIQUIDITY} XDC`}
                           value={formData.initialLiquidity}
-                          onChange={(e) => setFormData(prev => ({ ...prev, initialLiquidity: e.target.value }))}
+                          onChange={(e) => {
+                            const value = Number(e.target.value)
+                            if (value >= Number(MIN_INITIAL_LIQUIDITY)) {
+                              setFormData(prev => ({ ...prev, initialLiquidity: e.target.value }))
+                            }
+                          }}
                         />
                       </Frame>
+                      <Typography variant="xs" className="text-secondary">
+                        Minimum initial liquidity: {MIN_INITIAL_LIQUIDITY} XDC
+                      </Typography>
                     </div>
 
-                    {/* Optional Fields */}
                     <div className="space-y-2">
                       <Typography variant="lg" className="text-grey">🌐 Website URL</Typography>
                       <Frame animate level={3} corners={2} layer='primary'>
@@ -407,7 +363,6 @@ export default function TokenLauncher() {
             </Frame>
           </div>
 
-          {/* Preview Panel */}
           <div className="w-full mt-4 md:w-[300px] md:mt-0">
             <Frame animate level={3} corners={4} layer='primary'>
               <div className="p-4 space-y-4">
@@ -480,11 +435,8 @@ export default function TokenLauncher() {
           )}
         </div>
       ) : (
-        // Token list view
         <LaunchedTokens />
       )}
-
-      {/* Keep transaction modal */}
     </div>
   )
 }

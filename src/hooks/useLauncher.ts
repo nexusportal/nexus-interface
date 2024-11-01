@@ -58,7 +58,7 @@ export const useLauncher = () => {
   const addTransaction = useTransactionAdder(); // Add this hook
 
   const [isLoading, setIsLoading] = useState(false);
-  const [nativeFee, setNativeFee] = useState<string>('1000'); // Default value
+  const [nativeFee, setNativeFee] = useState<string>('1'); // Default value
 
   // Add useEffect to fetch nativeFee when component mounts
   useEffect(() => {
@@ -67,7 +67,9 @@ export const useLauncher = () => {
       try {
         const contract = new Contract(LAUNCHER_ADDRESS, LAUNCHER_ABI, library)
         const fee = await contract.nativeFee()
-        setNativeFee(ethers.utils.formatEther(fee))
+        const formattedFee = ethers.utils.formatEther(fee)
+        console.log('Fetched native fee from contract:', formattedFee)
+        setNativeFee(formattedFee)
       } catch (error) {
         console.error('Error fetching native fee:', error)
       }
@@ -117,6 +119,21 @@ export const useLauncher = () => {
 
       const totalSupplyInWei = ethers.utils.parseUnits(totalSupply, 18);
       const liquidityInWei = ethers.utils.parseEther(initialLiquidity);
+      const nativeFeeInWei = ethers.utils.parseEther(nativeFee); // Use the fetched nativeFee
+
+      // Calculate total required value (nativeFee + initialLiquidity)
+      const totalRequiredValue = nativeFeeInWei.add(liquidityInWei);
+
+      console.log('Transaction parameters:', {
+        name,
+        symbol,
+        totalSupply: totalSupplyInWei.toString(),
+        lpPercent,
+        devPercent,
+        initialLiquidity: liquidityInWei.toString(),
+        nativeFee: nativeFeeInWei.toString(),
+        totalRequired: totalRequiredValue.toString()
+      });
 
       const tx = await contract.createToken(
         name,
@@ -124,10 +141,12 @@ export const useLauncher = () => {
         totalSupplyInWei,
         Number(lpPercent),
         Number(devPercent),
-        ethers.constants.AddressZero,
+        ethers.constants.AddressZero, // Use native token
         liquidityInWei,
-        true,
-        { value: ethers.utils.parseEther('2') }
+        true, // useNativeFee = true
+        { 
+          value: totalRequiredValue // Send both nativeFee and initialLiquidity
+        }
       );
 
       console.log('Transaction sent:', tx.hash);
