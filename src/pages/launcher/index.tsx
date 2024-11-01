@@ -56,15 +56,9 @@ export default function TokenLauncher() {
 
 
 
-  const [showConfirm, setShowConfirm] = useState(false)
-
-
-
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
+  const [txHash, setTxHash] = useState<string>('')
   const [pendingTx, setPendingTx] = useState(false)
-
-
-
-  const [txHash, setTxHash] = useState('')
 
 
 
@@ -74,7 +68,7 @@ export default function TokenLauncher() {
 
   const handleCreateToken = useCallback(async () => {
     if (!account) return
-    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.initialLiquidity) {
+    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.initialLiquidity || !formData.logo) {
       alert('Please fill in all required fields')
       return
     }
@@ -83,19 +77,19 @@ export default function TokenLauncher() {
     setShowConfirm(true)
 
     try {
-      const tx = await createToken({
+      const result = await createToken({
         name: formData.name,
         symbol: formData.symbol,
         totalSupply: formData.totalSupply,
         lpPercent: formData.lpPercent,
         devPercent: formData.devPercent,
-        initialLiquidity: formData.initialLiquidity
+        initialLiquidity: formData.initialLiquidity,
+        description: formData.description,
+        website: formData.website,
+        logoFile: formData.logo // Make sure to pass the logo file
       })
 
-      setTxHash(tx.hash)
-      addTransaction(tx, { 
-        summary: `Created Token ${formData.name} (${formData.symbol})`
-      })
+      setTxHash(result.hash)
 
     } catch (error) {
       console.error(error)
@@ -143,6 +137,44 @@ export default function TokenLauncher() {
         lpPercent: (99 - devValue).toString()
       }))
     }
+  }
+
+
+
+
+
+
+
+  // Add validation function
+  const validateImage = (file: File): string | null => {
+    // Check file type
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif']
+    if (!validTypes.includes(file.type)) {
+      return 'Logo must be JPG, PNG, or GIF format'
+    }
+
+    // Check file size (2MB = 2 * 1024 * 1024 bytes)
+    const maxSize = 2 * 1024 * 1024 // 2MB in bytes
+    if (file.size > maxSize) {
+      return 'Logo must be under 2MB'
+    }
+
+    return null
+  }
+
+  // Update the logo input handler
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const error = validateImage(file)
+    if (error) {
+      alert(error)
+      e.target.value = '' // Reset input
+      return
+    }
+
+    setFormData(prev => ({ ...prev, logo: file }))
   }
 
 
@@ -212,36 +244,44 @@ export default function TokenLauncher() {
                   <div className="flex gap-4">
                     {/* Image Upload Area */}
                     <div className="w-[200px]">
-                      <Typography variant="lg" className="text-grey mb-2">🖼️ Token Logo</Typography>
+                      <Typography variant="lg" className="text-grey mb-2">🖼️ Token Logo*</Typography>
                       <Frame
                         animate
                         level={3}
                         corners={2}
                         layer='primary'
-                        className="aspect-square"
+                        className="aspect-square relative" // Added relative for positioning
                       >
                         <div className="flex flex-col items-center justify-center w-full h-full p-4">
                           {formData.logo ? (
-                            <img
-                              src={URL.createObjectURL(formData.logo)}
-                              alt="Token Logo Preview"
-                              className="w-full h-full object-contain"
-                            />
+                            <div className="relative w-full h-full">
+                              <img
+                                src={URL.createObjectURL(formData.logo)}
+                                alt="Token Logo Preview"
+                                className="w-full h-full object-contain"
+                              />
+                              {/* Close button */}
+                              <button
+                                onClick={() => setFormData(prev => ({ ...prev, logo: null }))}
+                                className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red flex items-center justify-center hover:bg-red/80 transition-colors"
+                              >
+                                <span className="text-white text-sm">×</span>
+                              </button>
+                            </div>
                           ) : (
                             <div className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-gray-500 rounded">
                               <input
                                 type="file"
-                                accept="image/*"
+                                accept="image/jpeg,image/png,image/gif"
                                 className="hidden"
                                 id="logo-upload"
-                                onChange={(e) => setFormData(prev => ({ 
-                                  ...prev, 
-                                  logo: e.target.files ? e.target.files[0] : null 
-                                }))}
+                                onChange={handleLogoChange}
                               />
                               <label htmlFor="logo-upload" className="cursor-pointer text-center">
                                 <Typography variant="sm" className="text-secondary">
                                   Click to upload logo
+                                  <br />
+                                  <span className="text-xs">(JPG, PNG, or GIF under 2MB)</span>
                                 </Typography>
                               </label>
                             </div>
@@ -371,7 +411,7 @@ export default function TokenLauncher() {
           <div className="w-full mt-4 md:w-[300px] md:mt-0">
             <Frame animate level={3} corners={4} layer='primary'>
               <div className="p-4 space-y-4">
-              <Typography variant="h3" weight={700} className="text-high-emphesis mb-4">
+                <Typography variant="h3" weight={700} className="text-high-emphesis mb-4">
                   {i18n._(t`Token Preview`)}
                 </Typography>
 
@@ -387,41 +427,24 @@ export default function TokenLauncher() {
                   <Typography variant="sm">Name: {formData.name || '-'}</Typography>
                   <Typography variant="sm">Symbol: {formData.symbol || '-'}</Typography>
                   <Typography variant="sm">Total Supply: {formData.totalSupply ? Number(formData.totalSupply).toLocaleString() : '-'}</Typography>
+                  <Typography variant="sm">Website: {formData.website || '-'}</Typography>
+                  <Typography variant="sm">Description: {formData.description || '-'}</Typography>
+                </div>
+
+                <div className="border-t border-dark-700 pt-4 space-y-2">
                   <Typography variant="sm">🔥 LP: {formData.lpPercent}% ({formData.totalSupply ? (Number(formData.totalSupply) * Number(formData.lpPercent) / 100).toLocaleString() : '-'} tokens)</Typography>
                   <Typography variant="sm">💻 Dev: {formData.devPercent}% ({formData.totalSupply ? (Number(formData.totalSupply) * Number(formData.devPercent) / 100).toLocaleString() : '-'} tokens)</Typography>
                   <Typography variant="sm">🏦 Fee: 1% ({formData.totalSupply ? (Number(formData.totalSupply) * 0.01).toLocaleString() : '-'} tokens)</Typography>
                   <Typography variant="sm">Initial Liquidity: {formData.initialLiquidity} XDC</Typography>
                   <Typography variant="sm">Launch Fee: {nativeFee} XDC</Typography>
-                  <div className="mt-4 pt-4 border-t border-dark-700">
-                    <Typography variant="lg" className="text-high-emphesis">
-                      Total Cost: {Number(formData.initialLiquidity) + Number(nativeFee)} XDC
-                    </Typography>
-                  </div>
-                  
-                  {formData.website && (
-                    <Typography variant="sm">
-                      Website: <a 
-                        href={formData.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue hover:underline"
-                      >
-                        {formData.website}
-                      </a>
-                    </Typography>
-                  )}
-                  
-                  {formData.description && (
-                    <div className="mt-2">
-                      <Typography variant="sm" className="text-grey">Description:</Typography>
-                      <Typography variant="sm" className="whitespace-pre-wrap">
-                        {formData.description}
-                      </Typography>
-                    </div>
-                  )}
                 </div>
 
-                {/* Move button here */}
+                <div className="border-t border-dark-700 pt-4">
+                  <Typography variant="lg" className="text-high-emphesis">
+                    Total Cost: {Number(formData.initialLiquidity) + Number(nativeFee)} XDC
+                  </Typography>
+                </div>
+
                 <div className="mt-4">
                   {!account ? (
                     <Web3Connect size="lg" color="blue" className="w-full" />
@@ -465,6 +488,10 @@ export default function TokenLauncher() {
     </div>
   )
 }
+
+
+
+
 
 
 
