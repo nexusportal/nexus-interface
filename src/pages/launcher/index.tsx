@@ -24,7 +24,7 @@ import { HeadlessUiModal } from 'app/components/Modal'
 
 import LaunchedTokens from './LaunchedTokens'
 
-const MIN_INITIAL_LIQUIDITY = '10'
+const MIN_INITIAL_LIQUIDITY = '1'
 
 export default function TokenLauncher() {
   const { account } = useActiveWeb3React()
@@ -51,11 +51,17 @@ export default function TokenLauncher() {
 
   const handleCreateToken = useCallback(async () => {
     if (!account) return
-    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.logo || Number(formData.initialLiquidity) < Number(MIN_INITIAL_LIQUIDITY)) {
+    if (!formData.name || !formData.symbol || !formData.totalSupply || !formData.lpPercent || !formData.devPercent || !formData.logo || !formData.website || Number(formData.initialLiquidity) < Number(MIN_INITIAL_LIQUIDITY)) {
       alert('Please fill in all required fields and ensure initial liquidity meets minimum requirement')
       return
     }
     
+    const urlPattern = /^https?:\/\/.+\..+/
+    if (!urlPattern.test(formData.website)) {
+      alert('Please enter a valid website URL (must start with http:// or https://)')
+      return
+    }
+
     setPendingTx(true)
     setShowConfirm(true)
 
@@ -334,7 +340,7 @@ export default function TokenLauncher() {
                     </div>
 
                     <div className="space-y-2">
-                      <Typography variant="lg" className="text-grey">🌐 Website URL</Typography>
+                      <Typography variant="lg" className="text-grey">🌐 Link *</Typography>
                       <Frame animate level={3} corners={2} layer='primary'>
                         <input
                           className="w-full p-2 rounded bg-dark-900 text-grey text-sm"
@@ -343,6 +349,9 @@ export default function TokenLauncher() {
                           onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
                         />
                       </Frame>
+                      <Typography variant="xs" className="text-secondary">
+                        Must include https:// or http://
+                      </Typography>
                     </div>
 
                     <div className="space-y-2">

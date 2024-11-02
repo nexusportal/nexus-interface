@@ -3,7 +3,7 @@ import { Frame } from 'arwes'
 import Typography from 'app/components/Typography'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { ExternalLinkIcon, GlobeIcon } from '@heroicons/react/solid'
+import { ExternalLinkIcon, GlobeIcon, InformationCircleIcon } from '@heroicons/react/solid'
 import { db } from '../../config/firebase'
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 import { formatDistanceToNow } from 'date-fns'
@@ -16,6 +16,8 @@ import Web3 from 'web3'
 import RPC from 'app/config/rpc'
 import { ChainId } from '@sushiswap/core-sdk'
 import { Contract } from '@ethersproject/contracts'
+import { Dialog } from '@headlessui/react'
+import { Fragment } from 'react'
 
 interface TokenData {
   name: string
@@ -41,6 +43,7 @@ interface TokenData {
   }
   price?: number
   marketCap?: number
+  totalSupply: string
 }
 
 // Helper function to truncate address
@@ -116,6 +119,225 @@ const calculateMarketCap = async (tokenAddress: string, price: number, library: 
   }
 }
 
+// Add helper function to format total supply
+const formatTotalSupply = (supply: string | undefined) => {
+  if (!supply) return '-'
+  const num = parseFloat(supply)
+  if (num >= 1e9) {
+    return `${(num / 1e9).toFixed(2)}B`
+  } else if (num >= 1e6) {
+    return `${(num / 1e6).toFixed(2)}M`
+  } else if (num >= 1e3) {
+    return `${(num / 1e3).toFixed(2)}K`
+  }
+  return num.toLocaleString()
+}
+
+// Add this helper function at the top with other helpers
+const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      // You could add a toast notification here if you want
+      console.log('Copied to clipboard')
+    })
+    .catch((err) => {
+      console.error('Failed to copy:', err)
+    })
+}
+
+interface DescriptionModalProps {
+  isOpen: boolean
+  onClose: () => void
+  token: TokenData | null
+}
+
+// Update the DescriptionModal component
+const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => {
+  const [showCopied, setShowCopied] = useState(false);
+
+  if (!isOpen || !token) return null;
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    copyToClipboard(token.tokenAddress);
+    setShowCopied(true);
+    setTimeout(() => setShowCopied(false), 2000); // Hide after 2 seconds
+  };
+
+  // Update the address and copy button section
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div 
+        className="fixed inset-0 bg-black/70" 
+        onClick={onClose}
+      />
+      
+      <div className="relative min-h-screen flex items-center justify-center p-4">
+        <Frame
+          animate
+          level={3}
+          corners={4}
+          layer='primary'
+          className="relative bg-dark-900 max-w-2xl w-full"
+        >
+          <div className="p-5">
+            {/* Header with Logo */}
+            <div className="flex items-center gap-4 mb-5">
+              {token.logoUrl && (
+                <img 
+                  src={token.logoUrl} 
+                  alt={token.name} 
+                  className="w-16 h-16 rounded-full"
+                />
+              )}
+              <div>
+                <h3 className="text-2xl font-bold text-grey mb-1">
+                  {token.name} <span className="text-secondary">({token.symbol})</span>
+                </h3>
+                <div className="flex items-center gap-2">
+                  <a 
+                    href={`https://explorer.xinfin.network/tokens/${token.tokenAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue hover:text-high-emphesis text-sm"
+                  >
+                    {truncateAddress(token.tokenAddress)}
+                  </a>
+                  <div className="relative flex items-center gap-1">
+                    <button
+                      onClick={handleCopy}
+                      className="text-secondary hover:text-high-emphesis transition-colors"
+                    >
+                      <span role="img" aria-label="copy" className="text-sm">
+                        📋
+                      </span>
+                    </button>
+                    {showCopied && (
+                      <span className="absolute left-full ml-2 whitespace-nowrap text-xs text-green animate-fade-in-out">
+                        Copied!
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Token Information Grid */}
+            <div className="grid grid-cols-2 gap-3 mb-5">
+              <Frame animate level={2} corners={2} className="p-4">
+                <div className="space-y-3">
+                  <h4 className="text-grey font-medium">Token Details</h4>
+                  <div className="space-y-2">
+                    <p className="text-sm">
+                      <span className="text-grey">Total Supply:</span>{' '}
+                      <span className="text-secondary">{formatTotalSupply(token.totalSupply)}</span>
+                    </p>
+                    <p className="text-sm">
+                      <span className="text-grey">Market Cap:</span>{' '}
+                      <span className="text-secondary">{formatMarketCap(token.marketCap)}</span>
+                    </p>
+                    <p className="text-sm">
+                      <span className="text-grey">Price:</span>{' '}
+                      <span className="text-secondary">{formatPrice(token.price)}</span>
+                    </p>
+                  </div>
+                </div>
+              </Frame>
+
+              <Frame animate level={2} corners={2} className="p-4">
+                <div className="space-y-3">
+                  <h4 className="text-grey font-medium">Launch Details</h4>
+                  <div className="space-y-2">
+                    <p className="text-sm">
+                      <span className="text-grey">LP Allocation:</span>{' '}
+                      <span className="text-secondary">{token.lpAllocation}%</span>
+                    </p>
+                    <p className="text-sm">
+                      <span className="text-grey">Dev Allocation:</span>{' '}
+                      <span className="text-secondary">{token.devAllocation}%</span>
+                    </p>
+                    <p className="text-sm">
+                      <span className="text-grey">Initial Liquidity:</span>{' '}
+                      <span className="text-secondary">{token.initialLiquidity} XDC</span>
+                    </p>
+                  </div>
+                </div>
+              </Frame>
+            </div>
+
+            {/* Description */}
+            <Frame animate level={2} corners={2} className="p-4 mb-5">
+              <div className="space-y-2">
+                <h4 className="text-grey font-medium">Description</h4>
+                <p className="text-sm text-secondary whitespace-pre-wrap">
+                  {token.description || 'No description available'}
+                </p>
+              </div>
+            </Frame>
+
+            {/* Links */}
+            <Frame animate level={2} corners={2} className="p-4 mb-5">
+              <div className="space-y-2">
+                <h4 className="text-grey font-medium">Links</h4>
+                <div className="flex flex-wrap gap-4">
+                  <a 
+                    href={token.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
+                  >
+                    🌐 Website
+                  </a>
+                  <a 
+                    href={`https://explorer.xinfin.network/tokens/${token.tokenAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
+                  >
+                    🔍 Token Contract
+                  </a>
+                  <a 
+                    href={`https://explorer.xinfin.network/tokens/${token.lpAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
+                  >
+                    🌊 LP Contract
+                  </a>
+                  <a 
+                    href={`https://geckoterminal.com/xdc/pools/${token.lpAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
+                  >
+                    📊 Chart
+                  </a>
+                  <a 
+                    href={`/swap?inputCurrency=ETH&outputCurrency=${token.tokenAddress}`}
+                    className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
+                  >
+                    💱 Trade
+                  </a>
+                </div>
+              </div>
+            </Frame>
+
+            {/* Close Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={onClose}
+                className="bg-blue hover:bg-blue/80 text-high-emphesis px-4 py-2 rounded text-sm font-medium transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </Frame>
+      </div>
+    </div>
+  );
+};
+
 export default function LaunchedTokens() {
   const [tokens, setTokens] = useState<TokenData[]>([])
   const [loading, setLoading] = useState(true)
@@ -125,6 +347,8 @@ export default function LaunchedTokens() {
   const [sortDirection, setSortDirection] = useState<'desc' | 'asc'>('desc')
   const [searchTerm, setSearchTerm] = useState('')
   const [xdcPrice, setXdcPrice] = useState<number | null>(null)
+  const [selectedToken, setSelectedToken] = useState<TokenData | null>(null);
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
 
   // First fetch tokens
   useEffect(() => {
@@ -333,6 +557,12 @@ export default function LaunchedTokens() {
     setTokens(sortedTokens)
   }
 
+  // Update the click handler in the token row
+  const handleTokenClick = (token: TokenData) => {
+    setSelectedToken(token);
+    setIsDescriptionModalOpen(true);
+  };
+
   return (
     <>
       {/* Search Box */}
@@ -355,7 +585,7 @@ export default function LaunchedTokens() {
       <div className="w-full overflow-x-auto" style={{ padding: "10px" }}>
         <div className="min-w-[1200px]">
           <Frame animate level={3} corners={4} layer='primary'>
-            <div className="grid grid-cols-8">
+            <div className="grid grid-cols-9">
               {/* Token Info */}
               <div className="col-span-2 flex gap-1 items-center cursor-pointer p-3"
                    onClick={() => handleSort('name')}>
@@ -385,6 +615,17 @@ export default function LaunchedTokens() {
                   Market Cap 📊
                 </Typography>
                 {sortBy === 'marketCap' && (
+                  <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                )}
+              </div>
+
+              {/* Total Supply */}
+              <div className="flex gap-1 items-center cursor-pointer justify-end p-3"
+                   onClick={() => handleSort('totalSupply')}>
+                <Typography variant="sm" weight={700}>
+                  Total Supply 📈
+                </Typography>
+                {sortBy === 'totalSupply' && (
                   <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
                 )}
               </div>
@@ -457,8 +698,15 @@ export default function LaunchedTokens() {
           ) : (
             currentTokens.map((token, i) => {
               return (
-                <div key={token.tokenAddress} className={classNames('p-4', i % 2 === 0 ? 'bg-dark-800' : 'bg-dark-900')}>
-                  <div className="grid grid-cols-8 gap-4 items-center">
+                <div 
+                  key={token.tokenAddress} 
+                  className={classNames(
+                    'p-4 cursor-pointer transition-colors duration-200 hover:bg-green/20',
+                    i % 2 === 0 ? 'bg-dark-800' : 'bg-dark-900'
+                  )}
+                  onClick={() => handleTokenClick(token)}
+                >
+                  <div className="grid grid-cols-9 gap-4 items-center">
                     {/* Token Info */}
                     <div className="col-span-2 flex items-center gap-3">
                       <div className="w-12 h-12 flex-shrink-0">
@@ -553,6 +801,13 @@ export default function LaunchedTokens() {
                       </Typography>
                     </div>
 
+                    {/* Total Supply - Moved here */}
+                    <div className="text-right">
+                      <Typography variant="xs" className="text-secondary">
+                        {formatTotalSupply(token.totalSupply)}
+                      </Typography>
+                    </div>
+
                     {/* Dev Allocation - from Firebase */}
                     <div className="text-right">
                       <Typography variant="xs" className="text-secondary">
@@ -633,6 +888,15 @@ export default function LaunchedTokens() {
           </div>
         </div>
       </Frame>
+
+      <DescriptionModal
+        isOpen={isDescriptionModalOpen}
+        onClose={() => {
+          setIsDescriptionModalOpen(false);
+          setSelectedToken(null);
+        }}
+        token={selectedToken}
+      />
     </>
   )
 }

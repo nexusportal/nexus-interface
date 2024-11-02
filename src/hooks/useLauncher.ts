@@ -50,7 +50,18 @@ export interface TokenMetadata {
   tokenAddress: string
   website: string
   name: string
+  totalSupply: string  // Add this field
 }
+
+// Add a debug logging helper
+const debug = (step: string, data?: any) => {
+  console.group(`🚀 Token Launch - ${step}`);
+  console.log('Timestamp:', new Date().toISOString());
+  if (data) {
+    console.log('Data:', data);
+  }
+  console.groupEnd();
+};
 
 export const useLauncher = () => {
 
@@ -109,100 +120,124 @@ export const useLauncher = () => {
     website,
     logoFile
   }) => {
-    if (!library || !account) throw new Error('Wallet not connected');
+    debug('Starting Token Creation Process');
+    
+    if (!library || !account) {
+      debug('Error: Wallet Not Connected');
+      throw new Error('Wallet not connected');
+    }
+    
     setIsLoading(true);
+    debug('Initial Parameters', {
+      name,
+      symbol,
+      totalSupply,
+      lpPercent,
+      devPercent,
+      initialLiquidity,
+      description,
+      website,
+      hasLogoFile: !!logoFile
+    });
 
     try {
-      console.log('Starting token creation...');
+      debug('Preparing Contract Interaction');
       const signer = library.getSigner();
       const contract = new Contract(LAUNCHER_ADDRESS, LAUNCHER_ABI, signer);
 
       const totalSupplyInWei = ethers.utils.parseUnits(totalSupply, 18);
       const liquidityInWei = ethers.utils.parseEther(initialLiquidity);
-      const nativeFeeInWei = ethers.utils.parseEther(nativeFee); // Use the fetched nativeFee
-
-      // Calculate total required value (nativeFee + initialLiquidity)
+      const nativeFeeInWei = ethers.utils.parseEther(nativeFee);
       const totalRequiredValue = nativeFeeInWei.add(liquidityInWei);
 
-      console.log('Transaction parameters:', {
-        name,
-        symbol,
-        totalSupply: totalSupplyInWei.toString(),
-        lpPercent,
-        devPercent,
-        initialLiquidity: liquidityInWei.toString(),
-        nativeFee: nativeFeeInWei.toString(),
-        totalRequired: totalRequiredValue.toString()
+      debug('Contract Parameters', {
+        totalSupplyInWei: totalSupplyInWei.toString(),
+        liquidityInWei: liquidityInWei.toString(),
+        nativeFeeInWei: nativeFeeInWei.toString(),
+        totalRequiredValue: totalRequiredValue.toString()
       });
 
+      debug('Sending Transaction');
       const tx = await contract.createToken(
         name,
         symbol,
         totalSupplyInWei,
         Number(lpPercent),
         Number(devPercent),
-        ethers.constants.AddressZero, // Use native token
+        ethers.constants.AddressZero,
         liquidityInWei,
-        true, // useNativeFee = true
-        { 
-          value: totalRequiredValue // Send both nativeFee and initialLiquidity
-        }
+        true,
+        { value: totalRequiredValue }
       );
 
-      console.log('Transaction sent:', tx.hash);
-      const receipt = await tx.wait();
+      debug('Transaction Sent', { hash: tx.hash });
       
-      addTransaction(tx, {
-        summary: `Created Token ${name} (${symbol})`
+      debug('Waiting for Transaction Receipt');
+      const receipt = await tx.wait();
+      debug('Transaction Receipt Received', { 
+        blockNumber: receipt.blockNumber,
+        gasUsed: receipt.gasUsed.toString(),
+        events: receipt.events?.map(e => e.event)
       });
 
-      console.log('Transaction receipt:', receipt);
-      console.log('Full receipt events:', receipt.events);
-
-      // After successful transaction, check for logo
       if (!logoFile) {
+        debug('Error: Missing Logo File');
         throw new Error('Logo is required to complete token setup');
       }
 
-      // Find the TokenCreated event
+      debug('Processing TokenCreated Event');
       const tokenCreatedEvent = receipt.events?.find(
         (e: any) => e.event === 'TokenCreated'
       );
       
       if (!tokenCreatedEvent || !tokenCreatedEvent.args) {
+        debug('Error: TokenCreated Event Not Found');
         throw new Error('TokenCreated event not found in transaction receipt');
       }
 
-      // Find the PairCreated event - it might be nested in logs
+      debug('Processing PairCreated Event');
+      let lpAddress;
       const pairCreatedEvent = receipt.events?.find(
         (e: any) => e.event === 'PairCreated'
-      ) || receipt.logs?.find(
-        (log: any) => log.topics[0] === '0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9' // PairCreated topic
       );
 
-      if (!pairCreatedEvent) {
-        console.error('Full receipt:', receipt);
-        throw new Error('PairCreated event not found in transaction receipt');
+      if (pairCreatedEvent && pairCreatedEvent.args) {
+        lpAddress = pairCreatedEvent.args.pair;
+        debug('Found LP Address from Event', { lpAddress });
+      } else {
+        debug('Searching for PairCreated in Logs');
+        const pairCreatedLog = receipt.logs?.find(
+          (log: any) => log.topics[0] === '0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9'
+        );
+
+        if (pairCreatedLog) {
+          const abiCoder = new ethers.utils.AbiCoder();
+          const decodedData = abiCoder.decode(['address'], pairCreatedLog.data);
+          lpAddress = decodedData[0];
+          debug('Found LP Address from Logs', { lpAddress });
+        }
+      }
+
+      if (!lpAddress) {
+        debug('Error: LP Address Not Found', { receipt });
+        throw new Error('Could not find LP address in transaction receipt');
       }
 
       const tokenAddress = tokenCreatedEvent.args.tokenAddress;
-      const lpAddress = pairCreatedEvent.args?.pair || pairCreatedEvent.address;
       const launchTime = tokenCreatedEvent.args.launchTime || Math.floor(Date.now() / 1000);
 
-      console.log('Token created:', {
+      debug('Token Details', {
         tokenAddress,
         lpAddress,
         launchTime
       });
 
-      // Try to upload logo and save metadata
       try {
-        console.log('Uploading logo...');
+        debug('Starting Logo Upload');
         const logoUrl = await uploadLogo(logoFile, symbol);
-        console.log('Logo uploaded:', logoUrl);
+        debug('Logo Upload Complete', { logoUrl });
 
-        console.log('Saving to Firebase...');
-        await saveTokenMetadata({
+        const metadata = {
           name,
           symbol,
           tokenAddress,
@@ -214,14 +249,19 @@ export const useLauncher = () => {
           lpAllocation: lpPercent.toString(),
           devAllocation: devPercent.toString(),
           initialLiquidity: initialLiquidity.toString(),
-          chainId: chainId?.toString() || '50'
-        });
-        console.log('Saved to Firebase successfully');
+          chainId: chainId?.toString() || '50',
+          totalSupply: totalSupply.toString()  // Add this field
+        };
+
+        debug('Saving Metadata to Firebase', metadata);
+        await saveTokenMetadata(metadata);
+        debug('Firebase Save Complete');
+
       } catch (firebaseError) {
-        console.error('Firebase error:', firebaseError);
-        // Don't throw here - token is created, just metadata failed
+        debug('Firebase Error', firebaseError);
       }
 
+      debug('Token Creation Process Complete');
       return {
         hash: tx.hash,
         receipt,
@@ -231,10 +271,11 @@ export const useLauncher = () => {
       };
 
     } catch (error) {
-      console.error('Error in createToken:', error);
+      debug('Error in Token Creation Process', error);
       throw error;
     } finally {
       setIsLoading(false);
+      debug('Process Finished');
     }
   }, [library, account, chainId, addTransaction]); // Add addTransaction to deps
 

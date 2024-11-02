@@ -13,33 +13,42 @@ const firebaseConfig = {
   appId: "1:945363227757:web:fdae08f289fdc4c9329b64"
 }
 
+console.log('🔥 Initializing Firebase...')
 const app = initializeApp(firebaseConfig)
 export const storage = getStorage(app)
 export const db = getFirestore(app)
+console.log('✅ Firebase initialized successfully')
 
 export const saveTokenMetadata = async (tokenData: TokenMetadata) => {
+  console.log('🔥 Starting saveTokenMetadata...')
+  console.log('📝 Token data to save:', tokenData)
+  
   try {
     const docRef = await addDoc(collection(db, 'tokens'), {
       ...tokenData,
       createdAt: new Date()
     })
-    console.log('Token metadata saved with ID:', docRef.id)
+    console.log('✅ Token metadata saved with ID:', docRef.id)
     return docRef.id
   } catch (error) {
-    console.error('Error saving token metadata:', error)
+    console.error('❌ Error saving token metadata:', error)
     throw error
   }
 }
 
 export const uploadLogo = async (file: File, tokenSymbol: string): Promise<string> => {
+  console.log('🔥 Starting logo upload for token:', tokenSymbol)
+  
   try {
     const storageRef = ref(storage, `token-logos/${tokenSymbol.toLowerCase()}.png`)
+    console.log('📤 Uploading file...')
     const snapshot = await uploadBytes(storageRef, file)
+    console.log('🔗 Getting download URL...')
     const url = await getDownloadURL(snapshot.ref)
-    console.log('Logo uploaded successfully:', url)
+    console.log('✅ Logo uploaded successfully:', url)
     return url
   } catch (error) {
-    console.error('Error uploading logo:', error)
+    console.error('❌ Error uploading logo:', error)
     throw error
   }
 }
