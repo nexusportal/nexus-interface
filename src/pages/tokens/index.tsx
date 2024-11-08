@@ -199,7 +199,7 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
                 </h3>
                 <div className="flex items-center gap-2">
                   <a
-                    href={`https://explorer.xinfin.network/tokens/${token.tokenAddress}`}
+                    href={`https://xdcscan.com/token/${token.tokenAddress}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue hover:text-high-emphesis text-sm"
@@ -292,7 +292,7 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
                     🌐 Website
                   </a>
                   <a
-                    href={`https://explorer.xinfin.network/tokens/${token.tokenAddress}`}
+                    href={`https://xdcscan.com/token/${token.tokenAddress}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
@@ -300,7 +300,7 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
                     🔍 Token Contract
                   </a>
                   <a
-                    href={`https://explorer.xinfin.network/tokens/${token.lpAddress}`}
+                    href={`https://xdcscan.com/token/${token.lpAddress}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
@@ -315,17 +315,23 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
                   >
                     📊 Chart
                   </a>
-                  <Link
-                    href={{
-                      pathname: '/legacy/swap/[[...tokens]]',
-                      query: { tokens: token.tokenAddress }
-                    }}
+                  <a
+                    href={`/legacy/swap/${token.tokenAddress}`}
                     className="text-blue hover:text-high-emphesis text-sm flex items-center gap-1"
                   >
                     <span role="img" aria-label="swap" className="text-base">
                       💱
                     </span>
-                  </Link>
+                  </a>
+                  <a href={`https://xdcscan.com/token/${token.lpAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue hover:text-high-emphesis"
+                  >
+                    <span role="img" aria-label="liquidity pool" className="text-base">
+                      🌊
+                    </span>
+                  </a>
                 </div>
               </div>
             </Frame>
@@ -347,6 +353,25 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
 };
 
 export default function Tokens() {
+  const { chainId } = useActiveWeb3React()
+
+  // Add chain check
+  if (chainId !== ChainId.XDC) {
+    return (
+      <Container id="tokens-page" className="py-4 md:py-8 lg:py-12" maxWidth="7xl">
+        <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+          <Frame animate level={3} corners={4} layer='alert'>
+            <div className="p-4">
+              <Typography variant="lg" className="text-high-emphesis text-center">
+              Launcher Is Only Available On XDC!
+              </Typography>
+            </div>
+          </Frame>
+        </div>
+      </Container>
+    )
+  }
+
   // Add state variables
   const [tokens, setTokens] = useState<TokenData[]>([])
   const [loading, setLoading] = useState(true)
@@ -594,7 +619,7 @@ export default function Tokens() {
                               </div>
                               <Typography variant="xs" className="text-secondary truncate">
                                 <a
-                                  href={`https://explorer.xinfin.network/tokens/${token.tokenAddress}`}
+                                  href={`https://xdcscan.com/token/${token.tokenAddress}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="hover:text-high-emphesis"
@@ -623,18 +648,15 @@ export default function Tokens() {
                                     📊
                                   </span>
                                 </a>
-                                <Link
-                                  href={{
-                                    pathname: '/legacy/swap/[[...tokens]]',
-                                    query: { tokens: token.tokenAddress }
-                                  }}
+                                <a
+                                  href={`/legacy/swap/${token.tokenAddress}`}
                                   className="text-blue hover:text-high-emphesis"
                                 >
                                   <span role="img" aria-label="swap" className="text-base">
                                     💱
                                   </span>
-                                </Link>
-                                <a href={`https://explorer.xinfin.network/tokens/${token.lpAddress}`}
+                                </a>
+                                <a href={`https://xdcscan.com/token/${token.lpAddress}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="text-blue hover:text-high-emphesis"

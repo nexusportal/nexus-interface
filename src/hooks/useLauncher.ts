@@ -177,7 +177,7 @@ export const useLauncher = () => {
       debug('Transaction Receipt Received', { 
         blockNumber: receipt.blockNumber,
         gasUsed: receipt.gasUsed.toString(),
-        events: receipt.events?.map(e => e.event)
+        events: receipt.events?.map((e: { event: string }) => e.event)
       });
 
       if (!logoFile) {

@@ -22,10 +22,12 @@ import TransactionConfirmationModal from 'app/modals/TransactionConfirmationModa
 
 import { HeadlessUiModal } from 'app/components/Modal'
 
-const MIN_INITIAL_LIQUIDITY = '1'
+import { ChainId } from '@sushiswap/core-sdk'
+
+const MIN_INITIAL_LIQUIDITY = '1000'
 
 export default function TokenLauncher() {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const { createToken, isLoading, nativeFee } = useLauncher()
   const addTransaction = useTransactionAdder()
   
@@ -46,6 +48,20 @@ export default function TokenLauncher() {
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>('')
   const [pendingTx, setPendingTx] = useState(false)
+
+  if (chainId !== ChainId.XDC) {
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+        <Frame animate level={3} corners={4} layer='alert'>
+          <div className="p-4">
+            <Typography variant="lg" className="text-high-emphesis text-center">
+              Launcher Is Only Available On XDC!
+            </Typography>
+          </div>
+        </Frame>
+      </div>
+    )
+  }
 
   const handleCreateToken = useCallback(async () => {
     if (!account) return
