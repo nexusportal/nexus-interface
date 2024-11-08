@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { SUSHI_ADDRESS } from '@sushiswap/core-sdk'
-import { PoolIcon, StakeIcon, MintIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon, ChartsIcon, RocketIcon } from 'app/components/Icon'
+import { PoolIcon, StakeIcon, MintIcon, TokenIcon, FarmIcon, SwapIcon, BridgeIcon, WalletIcon, ChartsIcon, RocketIcon } from 'app/components/Icon'
 import { Feature } from 'app/enums'
 import { featureEnabled } from 'app/functions'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -138,7 +138,7 @@ const useMenu: UseMenu = () => {
 
     let mintMenu: MenuItem = {
       key: 'nft',
-      title: i18n._(t`Mint`),
+      title: i18n._(t``),
       link: 'https://minter.thenexusportal.io/',
       external: true,
       icon: <MintIcon width={20} />,
@@ -146,7 +146,7 @@ const useMenu: UseMenu = () => {
 
     let bridgeMenu: MenuItem = {
       key: 'bridge',
-      title: i18n._(t`Bridge`),
+      title: i18n._(t``),
       link: 'https://bridge.wanchain.org/',
       external: true,
       icon: <BridgeIcon width={20} />,
@@ -174,6 +174,13 @@ const useMenu: UseMenu = () => {
     //   external: true,
     //   icon: <PresentationChartBarIcon width={20} />,
     // }
+
+    let tokensMenu: MenuItem = {
+      key: 'tokens',
+      title: i18n._(t`Tokens`),
+      link: '/tokens',
+      icon: <TokenIcon width={20} />,
+    }
 
     const mainItems: Menu = [tradeMenu]
     const exploreMenu: MenuItemLeaf[] = []
@@ -266,11 +273,12 @@ const useMenu: UseMenu = () => {
     }
 
     mainItems.push(stakeMenu);
+    mainItems.push(tokensMenu)
+    mainItems.push(launchMenu)
     mainItems.push(mintMenu)
     mainItems.push(bridgeMenu)
     mainItems.push(chartsMenu)
     mainItems.push(portfolioMenu)
-    mainItems.push(launchMenu)
 
     // mainItems.push(analyticsMenu)
     // mainItems.push(earnMenu)
