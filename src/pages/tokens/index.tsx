@@ -1,7 +1,7 @@
 import Container from 'app/components/Container'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
-import { Frame } from 'arwes'
+import { Frame, Loading, Heading } from 'arwes'
 import Typography from 'app/components/Typography'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
@@ -21,6 +21,7 @@ import { Contract } from '@ethersproject/contracts'
 import { Dialog } from '@headlessui/react'
 import { Fragment } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface TokenData {
   name: string
@@ -187,10 +188,12 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
             {/* Header with Logo */}
             <div className="flex items-center gap-4 mb-5">
               {token.logoUrl && (
-                <img
+                <Image
                   src={token.logoUrl}
                   alt={token.name}
-                  className="w-16 h-16 rounded-full"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover"
                 />
               )}
               <div>
@@ -353,26 +356,8 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
 };
 
 export default function Tokens() {
+  // ALL hooks at the top
   const { chainId } = useActiveWeb3React()
-
-  // Add chain check
-  if (chainId !== ChainId.XDC) {
-    return (
-      <Container id="tokens-page" className="py-4 md:py-8 lg:py-12" maxWidth="7xl">
-        <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-          <Frame animate level={3} corners={4} layer='alert'>
-            <div className="p-4">
-              <Typography variant="lg" className="text-high-emphesis text-center">
-              Launcher Is Only Available On XDC!
-              </Typography>
-            </div>
-          </Frame>
-        </div>
-      </Container>
-    )
-  }
-
-  // Add state variables
   const [tokens, setTokens] = useState<TokenData[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(0)
@@ -384,7 +369,7 @@ export default function Tokens() {
   const [selectedToken, setSelectedToken] = useState<TokenData | null>(null)
   const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false)
 
-  // Add useEffect for fetching tokens
+  // useEffect after state hooks
   useEffect(() => {
     const fetchTokens = async () => {
       try {
@@ -405,6 +390,23 @@ export default function Tokens() {
 
     fetchTokens()
   }, [])
+
+  // Chain check AFTER all hooks
+  if (chainId !== ChainId.XDC) {
+    return (
+      <Container id="tokens-page" className="py-4 md:py-8 lg:py-12" maxWidth="7xl">
+        <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+          <Frame animate level={3} corners={4} layer='alert'>
+            <div className="p-4">
+              <Typography variant="lg" className="text-high-emphesis text-center">
+                Launcher Is Only Available On XDC!
+              </Typography>
+            </div>
+          </Frame>
+        </div>
+      </Container>
+    )
+  }
 
   // Add filtered tokens
   const filteredTokens = tokens.filter(token => {
@@ -446,6 +448,13 @@ export default function Tokens() {
         <meta key="twitter:description" name="twitter:description" content="NEXUSSwap tokens." />
         <meta key="og:description" property="og:description" content="NEXUSSwap tokens." />
       </Head>
+
+      <div className="flex items-center justify-start gap-10 px-10 mb-6">
+        <Loading animate />
+        <Heading className="!m-0">
+          TOKENS BETA
+        </Heading>
+      </div>
 
       <div className="flex flex-col gap-4">
         {/* Search Box - Made responsive */}
@@ -592,10 +601,12 @@ export default function Tokens() {
                           <div className="col-span-2 flex items-center gap-3">
                             <div className="w-12 h-12 flex-shrink-0">
                               {token.logoUrl && (
-                                <img
+                                <Image
                                   src={token.logoUrl}
                                   alt={token.name}
-                                  className="w-full h-full rounded-full object-cover"
+                                  width={48}
+                                  height={48}
+                                  className="rounded-full object-cover"
                                 />
                               )}
                             </div>

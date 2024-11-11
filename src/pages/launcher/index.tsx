@@ -4,7 +4,7 @@ import { i18n } from '@lingui/core'
 
 import { t } from '@lingui/macro'
 
-import { Frame } from 'arwes'
+import { Frame, Loading, Heading } from 'arwes'
 
 import { useLauncher } from '../../hooks/useLauncher'
 
@@ -48,20 +48,6 @@ export default function TokenLauncher() {
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>('')
   const [pendingTx, setPendingTx] = useState(false)
-
-  if (chainId !== ChainId.XDC) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-        <Frame animate level={3} corners={4} layer='alert'>
-          <div className="p-4">
-            <Typography variant="lg" className="text-high-emphesis text-center">
-              Launcher Is Only Available On XDC!
-            </Typography>
-          </div>
-        </Frame>
-      </div>
-    )
-  }
 
   const handleCreateToken = useCallback(async () => {
     if (!account) return
@@ -161,8 +147,29 @@ export default function TokenLauncher() {
     setFormData(prev => ({ ...prev, logo: file }))
   }
 
+  if (chainId !== ChainId.XDC) {
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-200px)]">
+        <Frame animate level={3} corners={4} layer='alert'>
+          <div className="p-4">
+            <Typography variant="lg" className="text-high-emphesis text-center">
+              Launcher Is Only Available On XDC!
+            </Typography>
+          </div>
+        </Frame>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col mt-12">
+      <div className="flex items-center justify-start gap-10 px-10 mb-6">
+        <Loading animate />
+        <Heading className="!m-0">
+          NEXUS LAUNCHER BETA
+        </Heading>
+      </div>
+      
       <div className="flex flex-wrap">
         <div className="w-full md:w-[calc(100%-316px)] md:mr-4">
           <Frame animate level={3} corners={4} layer='primary'>
@@ -174,8 +181,18 @@ export default function TokenLauncher() {
               <Typography variant="sm" className="text-grey">
                 Launch your own token! 
                 There is a {nativeFee} XDC fee to launch a token and there is a 1% fee on created token supply, min 10% of fees are distributed to NEXU stakers!
-                Minimum liquidity of 1000 XDC required.
-                By default, at least 50% of Token Supply + Liquidity is automatically added to Nexus and then burnt!
+                Minimum liquidity of 1000 XDC and 50% of the token supply is required.
+                Liquidity is automatically added to Nexus and then burnt!
+                Save some of your token supply to be used as a incentive liquidity provider incentive in the{' '}
+                <a 
+                  href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green hover:brightness-110 transition-colors"
+                  style={{ textShadow: '0 0 10px #00ff00' }}
+                >
+                  Nexus Generator Superfarm!
+                </a>
               </Typography>
 
               <div className="flex flex-col gap-4">

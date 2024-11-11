@@ -33,9 +33,19 @@ function Web3Network(): JSX.Element | null {
 
           {
           chainId === ChainId.XRPL ? (
-            <img src={XRP.src} className="rounded-md" width="22px" height="22px" />
+            <Image
+              src={XRP.src}
+              alt="XRP"
+              width={22}
+              height={22}
+            />
           ) :(chainId === ChainId.XDC ||chainId === ChainId.APOTHEM ) ?  (
-            <img src={XDC.src} className="rounded-md" width="22px" height="22px" />
+            <Image
+              src={XDC.src}
+              alt="XDC"
+              width={22}
+              height={22}
+            />
           ) : (
             <Image
               // @ts-ignore TYPE NEEDS FIXING

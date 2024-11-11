@@ -128,17 +128,23 @@ function Web3StatusInner() {
             <Loader stroke="white" />
           </div>
         ) : (
-          <div className="flex items-center gap-3 pr-2">
+          <div className="flex items-center gap-2">
             <div className="text-green">{ENSName || shortenAddress(account)}</div>
-            <Davatar
-              size={20}
-              address={account}
-              defaultComponent={
-                <img src={PROFILE.src} width={20} height={20} alt="Nexus Generator" />
-              }
-              style={{ borderRadius: 5 }}
-              provider={library}
-            />
+            <div className="rounded" style={{ borderRadius: 5 }}>
+              <Davatar
+                size={20}
+                address={account}
+                defaultComponent={
+                  <Image 
+                    src={PROFILE.src} 
+                    width={20} 
+                    height={20} 
+                    alt="Nexus Generator"
+                  />
+                }
+                provider={library}
+              />
+            </div>
           </div>
         )}
       </div>
