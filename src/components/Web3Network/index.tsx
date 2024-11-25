@@ -33,28 +33,37 @@ function Web3Network(): JSX.Element | null {
 
           {
           chainId === ChainId.XRPL ? (
-            <Image
+            <img
               src={XRP.src}
               alt="XRP"
               width={22}
               height={22}
+              style={{ width: '22px', height: '22px' }}
             />
           ) :(chainId === ChainId.XDC ||chainId === ChainId.APOTHEM ) ?  (
-            <Image
+            <img
               src={XDC.src}
               alt="XDC"
               width={22}
               height={22}
+              style={{ width: '22px', height: '22px' }}
             />
           ) : (
-            <Image
-              // @ts-ignore TYPE NEEDS FIXING
-              src={NETWORK_ICON[chainId]}
-              alt="Switch Network"
-              className="rounded-md"
-              width="22px"
-              height="22px"
-            />
+            <div className="w-[22px] h-[22px] relative">
+              <img
+                src={NETWORK_ICON[chainId as keyof typeof NETWORK_ICON]}
+                alt={`Network ${chainId}`}
+                className="rounded-md"
+                width="22"
+                height="22"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                onError={(e) => {
+                  console.error('Failed to load network icon:', e)
+                  // Optionally set a fallback image
+                  // e.currentTarget.src = '/fallback-icon.png'
+                }}
+              />
+            </div>
           )}
 
           {/* <Image src={NETWORK_ICON[chainId]} alt="Switch Network" className="rounded-md" width="22px" height="22px" /> */}

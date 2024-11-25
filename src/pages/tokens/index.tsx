@@ -48,6 +48,7 @@ interface TokenData {
   price?: number
   marketCap?: number
   totalSupply: string
+  holders: number
 }
 
 // Helper function to truncate address
@@ -246,6 +247,10 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
                       <span className="text-grey">Price:</span>{' '}
                       <span className="text-secondary">{formatPrice(token.price)}</span>
                     </p>
+                    <p className="text-sm">
+                      <span className="text-grey">Holders:</span>{' '}
+                      <span className="text-secondary">{token.holders?.toLocaleString() || '0'}</span>
+                    </p>
                   </div>
                 </div>
               </Frame>
@@ -355,6 +360,29 @@ const DescriptionModal = ({ isOpen, onClose, token }: DescriptionModalProps) => 
   );
 };
 
+// Update the fetchHoldersCount function
+const fetchHoldersCount = async (tokenAddress: string) => {
+  try {
+    // Use the token info endpoint instead
+    const response = await axios.get(`https://api-xdc.blocksscan.io/api?module=token&action=tokeninfo&contractaddress=${tokenAddress}`)
+    console.log('Token info API response for', tokenAddress, ':', response.data)
+    
+    if (response.data && response.data.status === '1' && response.data.result) {
+      // Get holders count from token info
+      const holders = response.data.result.holders
+      if (holders) {
+        console.log(`Found ${holders} holders for ${tokenAddress}`)
+        return parseInt(holders)
+      }
+    }
+    console.log('No holders data found for', tokenAddress)
+    return 0
+  } catch (error) {
+    console.error('Error fetching token info for', tokenAddress, ':', error)
+    return 0
+  }
+}
+
 export default function Tokens() {
   // ALL hooks at the top
   const { chainId } = useActiveWeb3React()
@@ -380,7 +408,16 @@ export default function Tokens() {
           createdAt: doc.data().createdAt?.toDate(),
           launchDate: doc.data().launchDate?.toDate()
         })) as TokenData[]
-        setTokens(tokensList)
+
+        // Fetch holders count for each token
+        const tokensWithHolders = await Promise.all(
+          tokensList.map(async (token) => {
+            const holders = await fetchHoldersCount(token.tokenAddress)
+            return { ...token, holders }
+          })
+        )
+
+        setTokens(tokensWithHolders)
       } catch (error) {
         console.error('Error fetching tokens:', error)
       } finally {
@@ -476,7 +513,7 @@ export default function Tokens() {
           <div className="min-w-[1000px]">
             {/* Table Header */}
             <Frame animate level={3} corners={4} layer='primary'>
-              <div className="grid grid-cols-9">
+              <div className="grid grid-cols-10">
                 {/* Token Info */}
                 <div className="col-span-2 flex gap-1 items-center cursor-pointer p-3"
                   onClick={() => handleSort('name')}>
@@ -514,7 +551,7 @@ export default function Tokens() {
                 <div className="flex gap-1 items-center cursor-pointer justify-end p-3"
                   onClick={() => handleSort('totalSupply')}>
                   <Typography variant="sm" weight={700}>
-                    Total Supply 📈
+                    Supply 📈
                   </Typography>
                   {sortBy === 'totalSupply' && (
                     <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -550,6 +587,17 @@ export default function Tokens() {
                     Initial XDC 💎
                   </Typography>
                   {sortBy === 'initialLiquidity' && (
+                    <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                  )}
+                </div>
+
+                {/* Holders */}
+                <div className="flex gap-1 items-center cursor-pointer justify-end p-3"
+                  onClick={() => handleSort('holders')}>
+                  <Typography variant="sm" weight={700}>
+                    Holders 👥
+                  </Typography>
+                  {sortBy === 'holders' && (
                     <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
                   )}
                 </div>
@@ -596,7 +644,7 @@ export default function Tokens() {
                         )}
                         onClick={() => handleTokenClick(token)}
                       >
-                        <div className="grid grid-cols-9 gap-4 items-center">
+                        <div className="grid grid-cols-10 gap-4 items-center">
                           {/* Token Info */}
                           <div className="col-span-2 flex items-center gap-3">
                             <div className="w-12 h-12 flex-shrink-0">
@@ -719,6 +767,13 @@ export default function Tokens() {
                           <div className="text-right">
                             <Typography variant="xs" className="text-secondary">
                               {token.initialLiquidity} XDC
+                            </Typography>
+                          </div>
+
+                          {/* Holders */}
+                          <div className="text-right">
+                            <Typography variant="xs" className="text-secondary">
+                              {token.holders?.toLocaleString() || '-'}
                             </Typography>
                           </div>
 

@@ -135,12 +135,15 @@ function Web3StatusInner() {
                 size={20}
                 address={account}
                 defaultComponent={
-                  <Image 
-                    src={PROFILE.src} 
-                    width={20} 
-                    height={20} 
-                    alt="Nexus Generator"
-                  />
+                  <div className="w-[20px] h-[20px] relative rounded overflow-hidden">
+                    <img
+                      src={PROFILE.src}
+                      alt="Nexus Generator"
+                      width={20}
+                      height={20}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </div>
                 }
                 provider={library}
               />
