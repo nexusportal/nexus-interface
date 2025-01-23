@@ -54,16 +54,18 @@ const Footer = () => {
                   <TwitterIcon width={24} className="text-low-emphesis max-w-none" />
                 </a>
 
-                {/* <a href="https://t.me/NexusOffical" target="_blank" rel="noreferrer">
-                <TelegramIcon width={16} className="text-low-emphesis" />
-              </a>
-              <a href="https://www.youtube.com/channel/" target="_blank" rel="noreferrer">
+                <a href="https://t.me/thenexusportal" target="_blank" rel="noreferrer">
+                  <TelegramIcon width={16} className="text-low-emphesis" />
+                </a>
+
+                {/* <a href="https://www.youtube.com/channel/" target="_blank" rel="noreferrer">
                 <YoutubeIcon width={16} className="text-low-emphesis" />
               </a> */}
 
-                <a href="https://discord.com/invite/nexusdefi" target="_blank" rel="noreferrer">
+                <a href="https://discord.gg/vHXCHsJSPx" target="_blank" rel="noreferrer">
                   <DiscordIcon width={24} className="text-low-emphesis" />
                 </a>
+
 
                 <a href="https://github.com/nexusportal" target="_blank" rel="noreferrer">
                   <GithubIcon width={24} className="text-low-emphesis" />
