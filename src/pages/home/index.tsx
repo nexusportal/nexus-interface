@@ -104,7 +104,7 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    Nexus Token is live on the XDC Netork! NEXU is the Gaurdian token of the Multi-dimensional Nexus DeFi ecosystem.
+                                    Nexus Token is live on the XDC Network! NEXU is the Guardian token of the Multi-dimensional Nexus DeFi ecosystem.
                                 </p>
                                 <p>
                                     NEXU will be Mass airdrop to 60K XDC addresses!
@@ -133,10 +133,10 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    The Nexus Celestial are the gaurdians of the Nexus Core.
+                                    The Nexus Celestial are the guardians of the Nexus Core.
                                 </p>
                                 <p>
-                                    Each Nexus Celestial has a unique powerlevel.
+                                    Each Nexus Celestial has a unique power level.
                                 </p>
                                 <p>
                                     Some NFTS can multiply the power of your NEXU if time-locked in Multistaking.

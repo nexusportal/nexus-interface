@@ -120,8 +120,7 @@ const Desktop: FC = () => {
   return (
     <>
       <header className="fixed z-20 hidden w-full lg:block" style={{ height: HEADER_HEIGHT }}>
-        <nav className={classNames(showUseDexWarning && 'before:backdrop-blur-[20px]')}>
-
+        <nav className={classNames("bg-dark-900/20 backdrop-blur-md", NAV_CLASS)}>
           <Container maxWidth="7xl" className="mx-auto">
             {/* {showUseDexWarning && (
               <div className="py-2 px-4 text-[1rem] text-high-emphesis bg-[#eb4326] relative">
@@ -141,7 +140,7 @@ const Desktop: FC = () => {
               </div>
             )} */}
 
-            <div className="flex items-center justify-between gap-4 px-6 py-2 lg:mt-1">
+            <div className="flex items-center justify-between gap-4 px-6 py-2">
               <div className="flex gap-4">
                 <div className="flex items-center mr-4">
                   <ExternalLink target='_self' href="/">

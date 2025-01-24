@@ -48,6 +48,7 @@ const sendTx = async (txFunc: () => Promise<any>): Promise<boolean> => {
 export default function Farm(): JSX.Element {
   const { i18n } = useLingui()
   const { chainId } = useActiveWeb3React()
+  const [showLearnMore, setShowLearnMore] = useState(false);
 
   const currentBlock = useCurrentBlock();
 
@@ -237,101 +238,108 @@ export default function Farm(): JSX.Element {
                     The Rewards column shows which pairs receive NEXU as well as SuperFarm rewards. The rewards are proportionally distributed to NLP Stakers of that pair each day.
                     The more NLPs you stake the more of the daily NEXU reward you will get.
                   </p>
-
                   <br />
-
-
+                  <Button
+                    animate
+                    layer='success'
+                    onClick={() => setShowLearnMore(!showLearnMore)}
+                    style={{
+                      maxWidth: '175px',
+                      height: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'background-color 0.3s ease',
+                      padding: '0'
+                    }}
+                    className="relative group"
+                  >
+                    <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                    <span className="relative z-10">{showLearnMore ? 'Hide Details' : 'Learn More'}</span>
+                  </Button>
                 </div>
               </AnimatedContent>
             )}
           </Project>
 
-          <Project animate header="🎇Ecosystem Superfarms">
-            {(anim: { entered: boolean }) => (
-              <AnimatedContent show={anim.entered}>
-                <div className="mb-4 text-sm font-normal content md:text-base">
-                  <p>
-                    The NexusGenerator innovative functionality allows for the creation of Multi-Earning superfarm stakes!
-                  </p>
-                  <br />
-                  <Frame animate={true} corners={3} layer="success">
-                    <Header animate>
-                      <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
-                        Active Superfarm Incentives
-                      </span>
-                    </Header>
-                    <br />
-                    <div className="flex items-center gap-4 px-1">
-                      <img src="https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/50/XINU.png" alt="XINU Logo" className="w-10 h-10" />
-                      <div className="flex flex-col">
-                        <Link href="https://www.xinu.network/" target="_blank" rel="noreferrer">
-                          <span className="text-lg font-bold md:text-xl text-green">
-                            xinu.network
+          {showLearnMore && (
+            <>
+              <Project animate header="🎇Ecosystem Superfarms">
+                {(anim: { entered: boolean }) => (
+                  <AnimatedContent show={anim.entered}>
+                    <div className="mb-4 text-sm font-normal content md:text-base">
+                      <p>
+                        The NexusGenerator innovative functionality allows for the creation of Multi-Earning superfarm stakes!
+                      </p>
+                      <br />
+                      <Frame animate={true} corners={3} layer="success">
+                        <Header animate>
+                          <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
+                            Active Superfarm Incentives
                           </span>
-                        </Link>
-                        <p>
-                          XINU is here to incentivize TradFi on the XDC Network! XINU rewards are actively distributing to multiple stakes.
-                        </p>
+                        </Header>
+                        <br />
+                        <div className="flex items-center gap-4 px-1">
+                          <img src="https://raw.githubusercontent.com/nexusportal/token-list/main/assets/token/50/XINU.png" alt="XINU Logo" className="w-10 h-10" />
+                          <div className="flex flex-col">
+                            <a href="https://www.xinu.network/" target="_blank" rel="noreferrer" className="text-lg font-bold md:text-xl text-green">
+                              xinu.network
+                            </a>
+                            <p>
+                              XINU is here to incentivize DefFi on the XDC Network! XINU rewards are actively distributing to multiple stakes.
+                            </p>
+                          </div>
+                        </div>
+                        <br />
+                      </Frame>
+                      <br />
+                      <p>
+                        Looking to enhance your token holders and community rewards? Apply for an Ecosystem SuperFarm and incentivize LP for your project with your own token, XINU, or NEXU.
+                      </p>
+                      <a href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer" className="text-lg font-bold md:text-xl text-green">
+                        Request An Ecosystem Superfarm
+                      </a>
+                    </div>
+                  </AnimatedContent>
+                )}
+              </Project>
+
+              <Frame animate={true} corners={3} className="w-full" layer='primary'>
+                <div className='w-full bg-transparent'>
+                  <Frame className='!p-0 !pb-1'>
+                    <div className="flex items-center justify-start gap-10 px-10">
+                      <Loading animate />
+                      <Heading className="!m-0">
+                        NEXUS CYCLES
+                      </Heading>
+                    </div>
+                  </Frame>
+                  <div className="bg-transparent py-4 px-4 w-full">
+                    <div className="mb-4 text-sm font-normal content md:text-base">
+                      <p>
+                        The supply generation of NEXU decreases every day by a small percentage of {(100 - reducitonRate).toFixed(4)}%. NEXU distribution parameters can change pending Governance vote.
+                      </p>
+                    </div>
+                    <div className="mb-4 text-sm font-normal content md:text-base">
+                      <p>Reduction Rate: <span className='font-bold text-green'>{(100 - reducitonRate).toFixed(4)}%</span></p>
+                      <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
+                      <p>Current NEXU Per Block: <span className='font-bold text-green'>{rewardPerblock.toFixed(4)}</span></p>
+                      <p>Next NEXU Reduction Block: <span className='font-bold text-green'>{period > 0 ? (nextReductionBlock + (Math.floor((period + currentBlock - nextReductionBlock) / period) * period)) : nextReductionBlock}</span></p>
+                    </div>
+                    <div className="w-full h-5 bg-gray-900">
+                      <div className="bg-green h-5 max-w-[100%] opacity-70"
+                        style={{
+                          width: `${(period > 0 ? (
+                            ((currentBlock - nextReductionBlock - Math.floor((currentBlock - nextReductionBlock) / period) * period) * 100) / period
+                          ) : 0).toFixed(0)}%`,
+                        }}>
                       </div>
                     </div>
-                    <br />
-                  </Frame>
-                  <br />
-                  <p>
-                    Looking to enhance your token holders and community rewards? Apply for an Ecosystem SuperFarm and incentivize LP for your project with your own token, XINU, or NEXU.
-                  </p>
-                  <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
-                    <span className="text-lg font-bold md:text-xl text-green">
-                      Request An Ecosystem Superfarm
-                    </span>
-                  </Link>
-                  <br />
-                </div>
-              </AnimatedContent>
-            )}
-          </Project>
-
-
-
-          <Frame animate={true}
-            corners={3}
-            className="w-full"
-            layer='primary'
-          >
-            <div className='w-full sm:w-auto bg-transparent'>
-              <Frame className='!p-0 !pb-1'>
-                <div className="flex items-center justify-start gap-10 px-10">
-                  <Loading animate />
-                  <Heading className="!m-0">
-                    NEXUS CYCLES
-                  </Heading>
-                </div>
-
-              </Frame>
-              <div className="bg-transparent py-4 px-4 w-full sm:w-auto">
-                <div className="mb-4 text-sm font-normal content md:text-base">
-                  <p>
-                    The supply generation of NEXU decreases every day by a small percentage of {(100 - reducitonRate).toFixed(4)}%. NEXU distribution parameters can change pending Governance vote.
-                  </p>
-                </div>
-                <div className="mb-4 text-sm font-normal content md:text-base">
-                  <p>Reduction Rate: <span className='font-bold text-green'>{(100 - reducitonRate).toFixed(4)}%</span></p>
-                  <p>Reduction Period: <span className='font-bold text-green'>{period}</span></p>
-                  <p>Current NEXU Per Block: <span className='font-bold text-green'>{rewardPerblock.toFixed(4)}</span></p>
-                  <p>Next NEXU Reduction Block: <span className='font-bold text-green'>{period > 0 ? (nextReductionBlock + (Math.floor((period + currentBlock - nextReductionBlock) / period) * period)) : nextReductionBlock}</span></p>
-                </div>
-                <div className="w-full h-5 bg-gray-900 ">
-                  <div className="bg-green h-5 max-w-[100%] opacity-70"
-                    style={{
-                      width: `${(period > 0 ? (
-                        ((currentBlock - nextReductionBlock - Math.floor((currentBlock - nextReductionBlock) / period) * period) * 100) / period
-                      ) : 0).toFixed(0)}%`,
-                    }}>
                   </div>
                 </div>
-              </div>
-            </div>
-          </Frame>
+              </Frame>
+            </>
+          )}
 
           <Frame animate={true} corners={3} className="w-full" layer='alert'>
             <div className='w-full bg-transparent'>
