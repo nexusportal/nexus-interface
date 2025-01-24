@@ -249,18 +249,7 @@ const useMenu: UseMenu = () => {
         key: 'farm',
         title: i18n._(t`Farm`),
         icon: <FarmIcon width={20} />,
-        items: [
-          {
-            key: 'your-farms',
-            title: i18n._(t`Your Farms`),
-            link: '/farm?filter=portfolio',
-          },
-          {
-            key: 'all-farms',
-            title: i18n._(t`All Farms`),
-            link: '/farm',
-          },
-        ],
+        link: '/farm',
       }
       mainItems.push(farmItems)
     }
@@ -273,8 +262,8 @@ const useMenu: UseMenu = () => {
     }
 
     mainItems.push(stakeMenu);
-    mainItems.push(tokensMenu)
-    mainItems.push(launchMenu)
+    // mainItems.push(tokensMenu)
+    // mainItems.push(launchMenu)
     mainItems.push(mintMenu)
     mainItems.push(bridgeMenu)
     mainItems.push(chartsMenu)

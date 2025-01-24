@@ -112,7 +112,58 @@ export default function Farm() {
                                 <p>
                                     The Nexus Rewards will be turned on soon! Earn NEXU, XINU and more through the superfarm!
                                 </p>
-
+                                <div className="flex items-center gap-4 mt-4">
+                                    <Button
+                                        animate
+                                        layer='success'
+                                        onClick={() => window.location.href = 'https://www.dextools.io/app/en/xdc/pair-explorer/0xbc1ffa0ecfce838197ab48edd579b2d179593d35'}
+                                        style={{
+                                            maxWidth: '175px',
+                                            height: '32px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'background-color 0.3s ease',
+                                            padding: '0 16px'
+                                        }}
+                                        className="relative group"
+                                    >
+                                        <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                        <div className="flex items-center gap-2">
+                                            <img 
+                                                src="https://cdn.worldvectorlogo.com/logos/dextools.svg" 
+                                                alt="Dextools" 
+                                                style={{ width: '20px', height: '20px' }}
+                                            />
+                                            <span className="relative z-10">Dextools</span>
+                                        </div>
+                                    </Button>
+                                    <Button
+                                        animate
+                                        layer='success'
+                                        onClick={() => window.location.href = 'https://www.geckoterminal.com/xdc/pools/0xbc1ffa0ecfce838197ab48edd579b2d179593d35'}
+                                        style={{
+                                            maxWidth: '175px',
+                                            height: '32px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'background-color 0.3s ease',
+                                            padding: '0 16px'
+                                        }}
+                                        className="relative group"
+                                    >
+                                        <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                        <div className="flex items-center gap-2">
+                                            <img 
+                                                src="https://pbs.twimg.com/profile_images/1555154853621481473/xmJanf0q_400x400.png" 
+                                                alt="GeckoTerminal" 
+                                                style={{ width: '20px', height: '20px', borderRadius: '50%' }}
+                                            />
+                                            <span className="relative z-10">Gecko Terminal</span>
+                                        </div>
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -174,30 +225,44 @@ export default function Farm() {
                                     Create ecosystem superfarms or stakes to incentivize and reward users for interacting with your token or LP.
                                 </p>
                                 <br />
-                                <Button
-                                    animate
-                                    layer='success'
-                                    onClick={() => window.location.href = 'https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request'}
-                                    style={{
-                                        maxWidth: '175px',
-                                        height: '32px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        transition: 'background-color 0.3s ease',
-                                        padding: '0'
-                                    }}
-                                    className="relative group"
-                                >
-                                    <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                                    <span className="relative z-10">Request Superfarm</span>
-                                </Button>
-
-                                {/* <Link href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer">
-                                    <span className="text-lg font-bold md:text-xl text-green">
-                                        Request Superfarm
-                                    </span>
-                                </Link> */}
+                                <div className="flex items-center gap-4">
+                                    <Button
+                                        animate
+                                        layer='success'
+                                        onClick={() => window.location.href = '/farm'}
+                                        style={{
+                                            maxWidth: '175px',
+                                            height: '32px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'background-color 0.3s ease',
+                                            padding: '0'
+                                        }}
+                                        className="relative group"
+                                    >
+                                        <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                        <span className="relative z-10">View Farms</span>
+                                    </Button>
+                                    <Button
+                                        animate
+                                        layer='success'
+                                        onClick={() => window.location.href = 'https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request'}
+                                        style={{
+                                            maxWidth: '175px',
+                                            height: '32px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'background-color 0.3s ease',
+                                            padding: '0'
+                                        }}
+                                        className="relative group"
+                                    >
+                                        <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                        <span className="relative z-10">Request Superfarm</span>
+                                    </Button>
+                                </div>
                             </div>
                         </AnimatedContent>
                     )}
