@@ -191,7 +191,7 @@ export default function TokenLauncher() {
                   className="text-green hover:brightness-110 transition-colors"
                   style={{ textShadow: '0 0 10px #00ff00' }}
                 >
-                  Nexus Generator Superfarm!
+                  Nexus Generator SuperFarm!
                 </a>
               </Typography>
 

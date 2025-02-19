@@ -78,9 +78,7 @@ const Footer = () => {
                 <a href={(chainId == 51 || chainId == 1440002) ? docUrls[chainId] : docUrls[51] + "/about-nexus/privacy"} target="_blank" rel="noreferrer">
                   <span className="text-low-emphesis">{i18n._(t`Privacy`)}</span>
                 </a>
-                <a href="https://www.geckoterminal.com/xdc/nexus/pools" target="_blank" rel="noreferrer">
-                  <span className="text-low-emphesis">{i18n._(t`Gecko Charts`)}</span>
-                </a>
+
               </div>
             </div>
             {/* <div className="flex flex-col gap-1 text-right">

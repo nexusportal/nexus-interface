@@ -89,7 +89,7 @@ const FarmList = ({ farms, term }) => {
               onClick={() => requestSort('rewards[0].rewardPerDay')}
             >
               <Typography variant="sm" weight={700}>
-                {i18n._(t`NexuPerDay`)}
+                {i18n._(t`NEXU/Day`)}
               </Typography>
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'rewards[0].rewardPerDay'} />
             </div>
@@ -98,7 +98,7 @@ const FarmList = ({ farms, term }) => {
               onClick={() => requestSort('rewards[0].rewardPerBlock')}
             >
               <Typography variant="sm" weight={700}>
-                {i18n._(t`NexuPerBlock`)}
+                {i18n._(t`NEXU/Block`)}
               </Typography>
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'rewards[0].rewardPerBlock'} />
             </div>
@@ -107,7 +107,7 @@ const FarmList = ({ farms, term }) => {
               onClick={() => requestSort('rewards[0].rewardPerBlock')}
             >
               <Typography variant="sm" weight={700}>
-                {i18n._(t`NexuPercent`)}
+                {i18n._(t`NEXU%`)}
               </Typography>
               <SortIcon id={sortConfig.key} direction={sortConfig.direction} active={sortConfig.key === 'rewards[0].rewardPerBlock'} />
             </div>

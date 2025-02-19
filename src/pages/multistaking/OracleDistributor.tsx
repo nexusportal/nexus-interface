@@ -139,7 +139,7 @@ const OracleDistributor = () => {
       </div>
       <QuestionHelper
         className="!bg-dark-800 !shadow-xl p-2"
-        text={`This is a public function that must be called by the community to distribute rewards. Call the XINU distribute function to distribute 300K XINU every hour! Then in succession click the "Distribute" button above to make sure the rewards go to multistakers.`}
+        text={`This is a public function that must be called by the community to distribute rewards. Call the XINU distribute function to distribute 300K XINU every hour! Then in succession click the "Distribute" button above to make sure the rewards go to stakers.`}
       />
     </div>
   )

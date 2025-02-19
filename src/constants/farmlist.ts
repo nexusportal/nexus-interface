@@ -433,13 +433,13 @@ export const farms = {
       allocPoint: 0,
       balance: 0,
       chef: 0,
-      id: '11',
+      id: '22',
       lastRewardTime: 12505142,
       owner: {
         id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
         totalAllocPoint: 100,
       },
-      pair: '0x6a312cf102c37cb8a57f887998891aa7a1870088',
+      pair: '0xE11f4eA53938b443A7C9ef72Fd158Cf077F4481c',
       slpBalance: 0,
       userCount: '1',
     },
@@ -578,7 +578,21 @@ export const farms = {
       slpBalance: 0,
       userCount: '1',
     },
-    
+    {
+      accSushiPerShare: '',
+      allocPoint: 0,
+      balance: 0,
+      chef: 0,
+      id: '21',
+      lastRewardTime: 12505142,
+      owner: {
+        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
+        totalAllocPoint: 100,
+      },
+      pair: '0xEC8F7C985AAa681B7A672B9b3fC5D8A9D0806b15',
+      slpBalance: 0,
+      userCount: '1',
+    },
   ]
 }
 
@@ -1328,7 +1342,7 @@ export const swapPairs: Record<string, {
 
     {
       decimals: 18,
-      id: '0x6a312cf102c37cb8a57f887998891aa7a1870088',
+      id: '0xE11f4eA53938b443A7C9ef72Fd158Cf077F4481c',
       reserve0: 9990.04,
       reserve1: 1.001,
       reserveETH: 2,
@@ -1344,7 +1358,7 @@ export const swapPairs: Record<string, {
       token0Price: 0.00048,
       token1: {
         derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x8b20C72f1B138A41D2193dd056E117dce915ba8b',
+        id: '0x3fb46c4db76d8e9f69f3f8388f43a7ca7e140807',
         name: 'Dog With Purpose',
         symbol: 'DOPU',
         totalSupply: 1680,
@@ -1832,6 +1846,36 @@ export const swapPairs: Record<string, {
       untrackedVolumeUSD: 46853.79482616671033425777223395,
       volumeUSD: 4684.23711596607606598865310647,
       type:2
+    },
+    {
+      decimals: 18,
+      id: '0xEC8F7C985AAa681B7A672B9b3fC5D8A9D0806b15',
+      reserve0: 9990.04,
+      reserve1: 1.001,
+      reserveETH: 2,
+      reserveUSD: 10,
+      timestamp: 1621898381,
+      token0: {
+        derivedETH: 0.0003068283960261003490764609134664169,
+        id: '0x7f115f68a789f819047b94efa0114aa9829b83d8',
+        name: 'PrimeStakeXDC',
+        symbol: 'pstXDC',
+        totalSupply: 1680,
+      },
+      token0Price: 0.00048,
+      token1: {
+        derivedETH: 0.0003068283960261003490764609134664169,
+        id: '0x6daf228391e388b05bbc682fea3cb1cc3e38c44e',
+        name: 'Nexus Token',
+        symbol: 'NEXU',
+        totalSupply: 1680,
+      },
+      token1Price: 0.2,
+      totalSupply: 0.316227765016,
+      trackedReserveETH: 1183.351142427706157233201110976883,
+      txCount: 81365,
+      untrackedVolumeUSD: 46853.79482616671033425777223395,
+      volumeUSD: 4684.23711596607606598865310647,
     },
   ]
 }

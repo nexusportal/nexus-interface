@@ -229,8 +229,8 @@ export default function Farm(): JSX.Element {
               <AnimatedContent show={anim.entered}>
                 <div className="mb-4 text-sm font-normal content md:text-base">
                   <p>
-                    The Nexus Generator superfarm mints and distributes NEXU proportionally to Liquidity Providers each block.
-                    The Nexus Generator also acts as an ecosystem superfarm that can distribute multi-rewards to LP Tokens or single side Token stakes.
+                    The Nexus Generator SuperFarm mints and distributes NEXU proportionally to Liquidity Providers each block.
+                    The Nexus Generator also acts as an ecosystem SuperFarm that can distribute multi-rewards to LP Tokens or single side Token stakes.
                     10% of the block rewards are channeled to the Nexus Core Multi-Staking System.
                   </p>
                   <br />
@@ -264,18 +264,18 @@ export default function Farm(): JSX.Element {
 
           {showLearnMore && (
             <>
-              <Project animate header="🎇Ecosystem Superfarms">
+              <Project animate header="🎇Ecosystem SuperFarms">
                 {(anim: { entered: boolean }) => (
                   <AnimatedContent show={anim.entered}>
                     <div className="mb-4 text-sm font-normal content md:text-base">
                       <p>
-                        The NexusGenerator innovative functionality allows for the creation of Multi-Earning superfarm stakes!
+                        The NexusGenerator innovative functionality allows for the creation of Multi-Earning SuperFarm stakes!
                       </p>
                       <br />
                       <Frame animate={true} corners={3} layer="success">
                         <Header animate>
                           <span className="text-lg font-bold md:text-xl text-green" style={{ display: 'inline-block', marginRight: '40px', padding: '15px' }}>
-                            Active Superfarm Incentives
+                            Active SuperFarm Incentives
                           </span>
                         </Header>
                         <br />
@@ -297,7 +297,7 @@ export default function Farm(): JSX.Element {
                         Looking to enhance your token holders and community rewards? Apply for an Ecosystem SuperFarm and incentivize LP for your project with your own token, XINU, or NEXU.
                       </p>
                       <a href="https://docs.thenexusportal.io/guide/nexus-generator/superfarm-request" target="_blank" rel="noreferrer" className="text-lg font-bold md:text-xl text-green">
-                        Request An Ecosystem Superfarm
+                        Request An Ecosystem SuperFarm
                       </a>
                     </div>
                   </AnimatedContent>

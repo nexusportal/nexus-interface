@@ -13,7 +13,7 @@ The NEXU token has a 1.1 Billion max supply. It is Minted by the NexusGenerator 
 - [NEXUS TOKEN](https://github.com/nexusportal/nexus-smartcontracts/blob/main/contracts/NexusToken.sol)
 
 ### NEXUS GENERATOR(Yield Farming Contract)
-This is where users can stake their liquidity tokens ($NLPs) to earn $NEXU and potentially more Superfarm Rewards.
+This is where users can stake their liquidity tokens ($NLPs) to earn $NEXU and potentially more SuperFarm Rewards.
 - [NEXUS GENERATOR](https://github.com/nexusportal/nexus-smartcontracts/blob/main/contracts/NexusGenerator.sol)
 
 ### NEXUS FACTORY
@@ -40,7 +40,7 @@ The Nexus NFT weights are stored in this smart contract. The Nexus Core Multi-St
 - [NEXUS NFT WEIGHTS](https://github.com/nexusportal/nexus-smartcontracts/blob/main/contracts/NexusNFTWeight.sol)
 
 ### NEXUS CORE MULTISTAKING
-The Nexus Core is where users can stake and time-lock their $NEXU Tokens and Nexus NFTs to earn $NEXU, $NLPs and potentially other Tokens from many different sources. Some sources may including fees from Superfarm deposits and
+The Nexus Core is where users can stake and time-lock their $NEXU Tokens and Nexus NFTs to earn $NEXU, $NLPs and potentially other Tokens from many different sources. Some sources may including fees from SuperFarm deposits and
 - [NEXUS CORE MULTISTAKING](https://github.com/nexusportal/nexus-smartcontracts/blob/main/contracts/NexusNFTMultiStaking.sol)
 
 ### NEXUS CORE MULTISTAKING DISTRIBUTOR

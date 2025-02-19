@@ -81,7 +81,7 @@ export default function Farm() {
                                 <br />
                                 <p>
                                     Create your own markets and trade your favorite assets on multiple networks.
-                                    Stake LPs or single sided tokens and earn multi-rewards through the Nexus Generator superfarm.
+                                    Stake LPs or single sided tokens and earn multi-rewards through the Nexus Generator SuperFarm.
                                     Stake NEXU in multi-staking and earn multiple rewards in LPs, NEXU and more.
                                 </p>
                             </div>
@@ -104,15 +104,15 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    Nexus Token is live on the XDC Network! NEXU is the Guardian token of the Multi-dimensional Nexus DeFi ecosystem.
+                                    Nexus Token is live on the XDC Network! NEXU is the guardian token of the multi-dimensional Nexus DeFi ecosystem.
                                 </p>
                                 <p>
-                                    NEXU will be Mass airdrop to 60K XDC addresses!
+                                    NEXU was mass airdroped to 60K XDC addresses!
                                 </p>
                                 <p>
-                                    The Nexus Rewards will be turned on soon! Earn NEXU, XINU and more through the superfarm!
+                                    The Nexus Rewards will be turned on soon! Earn NEXU, XINU and more through the SuperFarm!
                                 </p>
-                                <div className="flex items-center gap-4 mt-4">
+                                <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-4 mt-4">
                                     <Button
                                         animate
                                         layer='success'
@@ -157,13 +157,16 @@ export default function Farm() {
                                         <div className="flex items-center gap-2">
                                             <img 
                                                 src="https://pbs.twimg.com/profile_images/1555154853621481473/xmJanf0q_400x400.png" 
-                                                alt="GeckoTerminal" 
+                                                alt="Gecko Terminal" 
                                                 style={{ width: '20px', height: '20px', borderRadius: '50%' }}
                                             />
                                             <span className="relative z-10">Gecko Terminal</span>
                                         </div>
                                     </Button>
                                 </div>
+                                <p className="text-sm text-gray-400 mt-4 text-center sm:text-left">
+                                    GeckoTerminal & Dextools provide real-time market data for NEXU. Click to view charts and analytics.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -184,13 +187,13 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    The Nexus Celestial are the guardians of the Nexus Core.
+                                    The Nexus Celestials are the guardians of the Nexus Core.
                                 </p>
                                 <p>
-                                    Each Nexus Celestial has a unique power level.
+                                    Each Celestial has a unique power level.
                                 </p>
                                 <p>
-                                    Some NFTS can multiply the power of your NEXU if time-locked in Multistaking.
+                                    Some NFTs can multiply the power of your NEXU if time-locked in Multi-staking.
                                 </p>
 
                             </div>
@@ -217,12 +220,12 @@ export default function Farm() {
                     </div>
                 </Frame>
 
-                <Project animate header="🌟 Nexus Generator Ecosystem Superfarms">
+                <Project animate header="🌟 Nexus Generator Ecosystem SuperFarms">
                     {(anim: AnimProps) => (
                         <AnimatedContent show={anim.entered}>
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    Create ecosystem superfarms or stakes to incentivize and reward users for interacting with your token or LP.
+                                    Create ecosystem SuperFarms or stakes to incentivize and reward users for interacting with your token or LP.
                                 </p>
                                 <br />
                                 <div className="flex items-center gap-4">
@@ -260,7 +263,7 @@ export default function Farm() {
                                         className="relative group"
                                     >
                                         <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                                        <span className="relative z-10">Request Superfarm</span>
+                                        <span className="relative z-10">Request SuperFarm</span>
                                     </Button>
                                 </div>
                             </div>
