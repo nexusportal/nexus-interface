@@ -24,6 +24,12 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
   // Calculate NEXU allocation percentage
   const nexuAllocationPercentage = (farm.allocPoint * 100 / farm.owner.totalAllocPoint).toFixed(1)
 
+  console.log('Rendering FarmListItem:', {
+    farmId: farm.id,
+    rewards: farm.rewards.map((r: { currency: { symbol: string } }) => r.currency.symbol),
+    nexuAllocationPercentage
+  });
+
   return (
     <div className={classNames(TABLE_TBODY_TR_CLASSNAME, 'grid grid-cols-6')} onClick={onClick}>
       <div className={classNames(`flex ${token0 === token1 ? "gap-7" : "gap-2"}`, TABLE_TBODY_TD_CLASSNAME(0, 6))}>
@@ -69,7 +75,7 @@ const FarmListItem: FC<FarmListItem> = ({ farm, onClick }) => {
               className="flex gap-1.5 text-high-emphesis justify-center items-center"
               component="span"
             >
-              <CurrencyLogo currency={reward.currency} size={32} />
+              <CurrencyLogo currency={reward.currency} size="32px" className="max-w-none" />
             </Typography>
           )
         ))}

@@ -341,7 +341,7 @@ export default function Farm(): JSX.Element {
             </>
           )}
 
-          <Frame animate={true} corners={3} className="w-full" layer='alert'>
+          {/* <Frame animate={true} corners={3} className="w-full" layer='alert'>
             <div className='w-full bg-transparent'>
               <div className="bg-transparent py-4 px-4 w-full">
                 <div className="mb-4 text-sm font-normal content md:text-base">
@@ -351,7 +351,7 @@ export default function Farm(): JSX.Element {
                 </div>
               </div>
             </div>
-          </Frame>
+          </Frame> */}
 
           <div className="flex flex-row justify-between items-center w-full space-x-1">
             {/* Frame (Button) */}

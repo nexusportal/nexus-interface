@@ -493,36 +493,6 @@ export const farms = {
       allocPoint: 0,
       balance: 0,
       chef: 0,
-      id: '15',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-        totalAllocPoint: 100,
-      },
-      pair: '0x75cee4ddd53855b68ede201fcc9f86ae31a52c9f',
-      slpBalance: 0,
-      userCount: '1',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 0,
-      balance: 0,
-      chef: 0,
-      id: '16',
-      lastRewardTime: 12505142,
-      owner: {
-        id: '0x58Bd25E8A922550Df320815575B632B011b7F2B8',
-        totalAllocPoint: 100,
-      },
-      pair: '0x6e8579964f166715f23ff3c59440eed7cbeedc1c',
-      slpBalance: 0,
-      userCount: '1',
-    },
-    {
-      accSushiPerShare: '',
-      allocPoint: 0,
-      balance: 0,
-      chef: 0,
       id: '17',
       lastRewardTime: 12505142,
       owner: {
@@ -1438,38 +1408,6 @@ export const swapPairs: Record<string, {
 
     {
       decimals: 18,
-      id: '0x75cee4ddd53855b68ede201fcc9f86ae31a52c9f',
-      reserve0: 9990.04,
-      reserve1: 1.001,
-      reserveETH: 2,
-      reserveUSD: 10,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x951857744785e80e2de051c32ee7b25f9c458c42',
-        name: 'Wrapped XDC',
-        symbol: 'WXDC',
-        totalSupply: 1680,
-      },
-      token0Price: 0.00048,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x0E11710AAd67E7427CfbC12c353284C2e335F62c',
-        name: 'PrimeNumbers Token',
-        symbol: 'PRNT',
-        totalSupply: 1680,
-      },
-
-      token1Price: 0.2,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
-
-    {
-      decimals: 18,
       id: '0x6da2726239792b14a2963db8e066f46bddaf5b14',
       reserve0: 9990.04,
       reserve1: 1.001,
@@ -1500,37 +1438,7 @@ export const swapPairs: Record<string, {
       volumeUSD: 4684.23711596607606598865310647,
     },
 
-    {
-      decimals: 18,
-      id: '0x6e8579964f166715f23ff3c59440eed7cbeedc1c',
-      reserve0: 9990.04,
-      reserve1: 1.001,
-      reserveETH: 2,
-      reserveUSD: 10,
-      timestamp: 1621898381,
-      token0: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0x951857744785e80e2de051c32ee7b25f9c458c42',
-        name: 'Wrapped XDC',
-        symbol: 'WXDC',
-        totalSupply: 1680,
-      },
-      token0Price: 0.00048,
-      token1: {
-        derivedETH: 0.0003068283960261003490764609134664169,
-        id: '0xB3f18b584263191A33169f6393487E43e9586329',
-        name: 'WadzPay Token',
-        symbol: 'WTK',
-        totalSupply: 1680,
-      },
 
-      token1Price: 0.2,
-      totalSupply: 0.316227765016,
-      trackedReserveETH: 1183.351142427706157233201110976883,
-      txCount: 81365,
-      untrackedVolumeUSD: 46853.79482616671033425777223395,
-      volumeUSD: 4684.23711596607606598865310647,
-    },
 
     {
       decimals: 18,

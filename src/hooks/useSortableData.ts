@@ -1,5 +1,10 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { useMemo, useState } from 'react'
+import { useCallback, useState, useMemo } from 'react'
+
+interface SortConfig {
+  key: string
+  direction: 'ascending' | 'descending'
+}
 
 function getNested(theObject: any, path: string, separator = '.') {
   try {
@@ -15,53 +20,51 @@ function getNested(theObject: any, path: string, separator = '.') {
   }
 }
 
-const useSortableData = (items: any, config: any = null) => {
-  const [sortConfig, setSortConfig] = useState(config)
-  const sortedItems = useMemo(() => {
-    if (items && items.length > 0) {
-      const sortableItems = [...items]
-      if (sortConfig !== null) {
-        sortableItems.sort((a, b) => {
-          const aValue = getNested(a, sortConfig.key)
-          const bValue = getNested(b, sortConfig.key)
+export default function useSortableData(items: any[], config: SortConfig | null = null) {
+  const [sortConfig, setSortConfig] = useState<SortConfig | null>(config)
 
-          if (aValue instanceof BigNumber && bValue instanceof BigNumber) {
-            if (aValue.lt(bValue)) {
-              return sortConfig.direction === 'ascending' ? -1 : 1
-            }
-            if (aValue.gt(bValue)) {
-              return sortConfig.direction === 'ascending' ? 1 : -1
-            }
-          } else if (aValue === Infinity) {
-            return sortConfig.direction === 'ascending' ? -1 : 1
-          } else if (bValue === Infinity) {
-            return sortConfig.direction === 'ascending' ? 1 : -1
-          } else {
-            if (aValue < bValue) {
-              return sortConfig.direction === 'ascending' ? -1 : 1
-            }
-            if (aValue > bValue) {
-              return sortConfig.direction === 'ascending' ? 1 : -1
-            }
-          }
-          return 0
-        })
-      }
-      return sortableItems
+  const sortedItems = useMemo(() => {
+    let sortableItems = [...items]
+    if (sortConfig !== null) {
+      sortableItems.sort((a, b) => {
+        let aValue: any = a[sortConfig.key]
+        let bValue: any = b[sortConfig.key]
+
+        // Special handling for nested properties using dot notation
+        if (sortConfig.key.includes('.')) {
+          const keys = sortConfig.key.split('.')
+          aValue = keys.reduce((obj: any, key: string) => obj?.[key], a)
+          bValue = keys.reduce((obj: any, key: string) => obj?.[key], b)
+        }
+
+        // Special handling for allocPoint percentage
+        if (sortConfig.key === 'allocPoint') {
+          aValue = (a.allocPoint * 100) / a.owner.totalAllocPoint
+          bValue = (b.allocPoint * 100) / b.owner.totalAllocPoint
+        }
+
+        if (aValue < bValue) {
+          return sortConfig.direction === 'ascending' ? -1 : 1
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'ascending' ? 1 : -1
+        }
+        return 0
+      })
     }
-    return []
+    return sortableItems
   }, [items, sortConfig])
 
-  const requestSort = (key: any, direction = 'ascending') => {
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
-      direction = 'descending'
-    } else if (sortConfig && sortConfig.key === key && sortConfig.direction === 'descending') {
-      direction = 'ascending'
-    }
-    setSortConfig({ key, direction })
-  }
+  const requestSort = useCallback(
+    (key: string) => {
+      let direction: 'ascending' | 'descending' = 'descending'
+      if (sortConfig && sortConfig.key === key && sortConfig.direction === 'descending') {
+        direction = 'ascending'
+      }
+      setSortConfig({ key, direction })
+    },
+    [sortConfig]
+  )
 
   return { items: sortedItems, requestSort, sortConfig }
 }
-
-export default useSortableData

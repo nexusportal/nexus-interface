@@ -14,12 +14,13 @@ interface LogoProps {
   alt?: string
   className?: string
   style?: React.CSSProperties
+  unoptimized?: boolean
 }
 
 /**
  * Renders an image by sequentially trying a list of URIs, and then eventually a fallback triangle alert
  */
-const Logo: FC<LogoProps> = ({ srcs, width, height, alt = '', className, style }) => {
+const Logo: FC<LogoProps> = ({ srcs, width, height, alt = '', className, style, unoptimized }) => {
   const [, refresh] = useState<number>(0)
   const src = srcs.find((src) => !BAD_SRCS[src])
   return (
@@ -35,6 +36,7 @@ const Logo: FC<LogoProps> = ({ srcs, width, height, alt = '', className, style }
         alt={alt}
         layout="fixed"
         className={classNames('rounded-full', className)}
+        unoptimized={unoptimized}
       />
     </div>
   )

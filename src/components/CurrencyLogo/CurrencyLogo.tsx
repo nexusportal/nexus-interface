@@ -25,7 +25,7 @@ import XRP from '../../../public/XRP.png'
 import XDC from '../../../public/XDC.png'
 import WXDC from '../../../public/WXDC.png'
 
-// import Image from '../../components/Image'
+import Image from 'next/image'
 import Logo, { UNKNOWN_ICON } from '../Logo'
 import { isSupportedChainId } from 'app/config/wallets'
 
@@ -158,9 +158,10 @@ export interface CurrencyLogoProps {
   size?: string | number
   style?: React.CSSProperties
   className?: string
+  unoptimized?: boolean
 }
 
-const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '24px', className, style }) => {
+const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '24px', className, style, unoptimized = true }) => {
 
   const uriLocations = useHttpLocations(
     currency instanceof WrappedTokenInfo ? currency.logoURI || currency.tokenInfo.logoURI : undefined
@@ -186,121 +187,121 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
 
 
   if (currency?.equals(WNATIVE[currency.chainId]) && currency?.chainId === ChainId.XRPL) {
-    return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+    return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
   }
 
   if (currency?.isNative && currency?.chainId === ChainId.XRPL) {
-    return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+    return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
   }
   if (currency?.equals(WNATIVE[currency.chainId]) && (currency?.chainId === ChainId.APOTHEM || currency?.chainId === ChainId.XDC)) {
-    return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+    return <Image alt="img" src={XDC.src} width={size} height={size} className={className} unoptimized />
   }
 
   if (currency?.isNative && (currency?.chainId === ChainId.APOTHEM || currency?.chainId === ChainId.XDC)) {
-    return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+    return <Image alt="img" src={XDC.src} width={size} height={size} className={className} unoptimized />
   }
 
   if (currency?.chainId === ChainId.XRPL) {
     if (currency.symbol === 'XRP') {
-      return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'WXRP') {
-      return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'NEXU') {
-      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'NEXUS') {
-      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'THREE') {
-      return <img alt="img" src={THREE.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={THREE.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'TWO') {
-      return <img alt="img" src={TWO.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={TWO.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'ONE') {
-      return <img alt="img" src={ONE.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={ONE.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'WXRP') {
-      return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'wUSDT') {
-      return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={USDT.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'wUSDC') {
-      return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={USDC.src} width={size} height={size} className={className} unoptimized />
     }
 
   }
   if (currency?.chainId === ChainId.APOTHEM) {
     if (currency.symbol === 'XDC') {
-      return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={XDC.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'WXDC') {
-      return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={WXDC.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'NEXU') {
-      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'NEXUS') {
-      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'AIR') {
-      return <img alt="img" src={AIR.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={AIR.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'WATER') {
-      return <img alt="img" src={WATER.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={WATER.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'FIRE') {
-      return <img alt="img" src={FIRE.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={FIRE.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'EARTH') {
-      return <img alt="img" src={EARTH.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={EARTH.src} width={size} height={size} className={className} unoptimized />
     }
 
     if (currency.symbol === 'SPACE') {
-      return <img alt="img" src={SPACE.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={SPACE.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'xBTC') {
-      return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={BTC.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'xETH') {
-      return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={ETH.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'xXRP') {
-      return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'xUSDT') {
-      return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={USDT.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'xUSDC') {
-      return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={USDC.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'WAN') {
-      return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={WAN.src} width={size} height={size} className={className} unoptimized />
     }
     if (currency.symbol === 'FXD') {
-      return <img alt="img" src={FXD.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={FXD.src} width={size} height={size} className={className} unoptimized />
     }
   }
   if (currency?.chainId === ChainId.XDC) {
     if (currency.symbol === 'NEXU') {
-      return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+      return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
     }
   }
 
@@ -311,109 +312,109 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
   if (currency instanceof Token) {
     if (currency.chainId === ChainId.XRPL) {
       if (currency.symbol === 'NEXUS') {
-        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'XVM') {
-        return <img alt="img" src={XVM.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XVM.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'XRP') {
-        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'WXRP') {
-        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'wBTC') {
-        return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={BTC.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'WETH') {
-        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'wWAN') {
-        return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WAN.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'FXD') {
-        return <img alt="img" src={FXD.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={FXD.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'wUSDT') {
-        return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={USDT.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'wUSDC') {
-        return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={USDC.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'XRP') {
-        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'WXRP') {
-        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
       }
 
     }
 
     if (currency?.chainId === ChainId.APOTHEM) {
       if (currency.symbol === 'XDC') {
-        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XDC.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'WXDC') {
-        return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXDC.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'NEXU') {
-        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'NEXUS') {
-        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'AIR') {
-        return <img alt="img" src={AIR.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={AIR.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'WATER') {
-        return <img alt="img" src={WATER.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WATER.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'FIRE') {
-        return <img alt="img" src={FIRE.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={FIRE.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'EARTH') {
-        return <img alt="img" src={EARTH.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={EARTH.src} width={size} height={size} className={className} unoptimized />
       }
 
       if (currency.symbol === 'SPACE') {
-        return <img alt="img" src={SPACE.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={SPACE.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'xBTC') {
-        return <img alt="img" src={BTC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={BTC.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'xETH') {
-        return <img alt="img" src={ETH.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={ETH.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'xXRP') {
-        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'xUSDT') {
-        return <img alt="img" src={USDT.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={USDT.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'xUSDC') {
-        return <img alt="img" src={USDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={USDC.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'WAN') {
-        return <img alt="img" src={WAN.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WAN.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.symbol === 'FXD') {
-        return <img alt="img" src={FXD.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={FXD.src} width={size} height={size} className={className} unoptimized />
       }
     }
     if (currency?.chainId === ChainId.XDC) {
@@ -425,39 +426,39 @@ const CurrencyLogo: FunctionComponent<CurrencyLogoProps> = ({ currency, size = '
     if (currency.tokenInfo.chainId === ChainId.XRPL) {
 
       if (currency.tokenInfo.symbol === 'NEXUS') {
-        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.tokenInfo.symbol === 'XRP') {
-        return <img alt="img" src={XRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XRP.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.tokenInfo.symbol === 'WXRP') {
-        return <img alt="img" src={WXRP.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXRP.src} width={size} height={size} className={className} unoptimized />
       }
     }
     if (currency.tokenInfo.chainId === ChainId.APOTHEM) {
 
       if (currency.tokenInfo.symbol === 'NEXUS') {
-        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.tokenInfo.symbol === 'XDC') {
-        return <img alt="img" src={XDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={XDC.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.tokenInfo.symbol === 'WXDC') {
-        return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXDC.src} width={size} height={size} className={className} unoptimized />
       }
     }
     if (currency.tokenInfo.chainId === ChainId.XDC) {
       if (currency.tokenInfo.symbol === 'NEXUS') {
-        return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={NEXUS.src} width={size} height={size} className={className} unoptimized />
       }
       if (currency.tokenInfo.symbol === 'WXDC') {
-        return <img alt="img" src={WXDC.src} width={size} height={size} className={className} />
+        return <Image alt="img" src={WXDC.src} width={size} height={size} className={className} unoptimized />
       }
       // return <img alt="img" src={NEXUS.src} width={size} height={size} className={className} />
     }
   }
 
-  return <Logo srcs={srcs} width={size} height={size} alt={currency?.symbol} className={className} style={style} />
+  return <Logo srcs={srcs} width={size} height={size} alt={currency?.symbol} className={className} style={style} unoptimized={unoptimized} />
 }
 
 export default CurrencyLogo
