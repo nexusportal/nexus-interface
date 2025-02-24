@@ -192,7 +192,7 @@ const ManageBar = ({ farm }) => {
 
           <Typography variant="sm" className="text-secondary">
             {isNexuSingleStake 
-              ? i18n._(t`Minimum stake requirement is ${MIN_NEXU_DISPLAY} NEXU. Use the buttons below to set amount or enter manually.`)
+              ? i18n._(t`Minimum stake requirement is `) + ' ' + MIN_NEXU_DISPLAY + ' ' + i18n._(t`NEXU. Use the buttons below to set amount or enter manually.`)
               : i18n._(t`Use one of the buttons to set a percentage or enter a value manually using the input field`)}
           </Typography>
         </div>
@@ -242,7 +242,7 @@ const ManageBar = ({ farm }) => {
           layer='alert'
         >
           <Typography variant="sm" weight={700} className="text-red text-center">
-            MUST STAKE 100K+ NEXU TO ENTER
+            {i18n._(t`MUST STAKE `) + ' ' + MIN_NEXU_DISPLAY + ' ' + i18n._(t`+ NEXU TO ENTER`)}
           </Typography>
         </Frame>
       )}
@@ -256,7 +256,7 @@ const ManageBar = ({ farm }) => {
             color="red"
             disabled={true}
           >
-            {i18n._(t`Minimum 100k NEXU`)}
+            {i18n._(t`Minimum `) + ' ' + MIN_NEXU_DISPLAY + ' ' + i18n._(t`NEXU`)}
           </Button>
         ) : isDepositValid &&
           (approvalState === ApprovalState.NOT_APPROVED || approvalState === ApprovalState.PENDING) ? (
