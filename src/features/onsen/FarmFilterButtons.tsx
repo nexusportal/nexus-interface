@@ -77,7 +77,7 @@ const FarmFilterButtons: React.FC<FarmFilterButtonsProps> = ({
     <div className="flex gap-8 mb-4">
       <div>
         <Typography variant="sm" weight={700} className="mb-2">
-          {i18n._(t`Filter by Stake Token`)}
+          {i18n._(t`Filter by Token`)}
         </Typography>
         <div className="flex flex-wrap gap-2">
           {stakeTokens.map((token) => (

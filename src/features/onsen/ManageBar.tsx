@@ -27,6 +27,7 @@ import useMasterChef from './useMasterChef'
 import { ethers } from "ethers";
 import { parseEther } from '@ethersproject/units'
 import { getAddress } from 'app/functions'
+import { Frame } from 'arwes'
 
 const APPROVAL_ADDRESSES = {
   [Chef.MASTERCHEF]: {
@@ -65,7 +66,13 @@ const ManageBar = ({ farm }) => {
   const { deposit, withdraw } = useMasterChef(farm.chef)
   const addTransaction = useTransactionAdder()
   const [isExpertMode] = useExpertModeManager()
-  const [isWithdraw, setIsWithdraw] = useState(false);
+  const [isWithdraw, setIsWithdraw] = useState(false)
+
+  // Add minimum stake constant for NEXU
+  const MIN_NEXU_STAKE = '100000000000000000000000' // 100K NEXU in wei
+  const MIN_NEXU_DISPLAY = '100,000' // Display value
+  const isNexuSingleStake = farm.pair.type === PairType.SINGLE && farm.pair.token0.symbol === 'NEXU'
+
   const liquidityToken = new Token(
     // @ts-ignore TYPE NEEDS FIXING
     chainId || 1,
@@ -82,18 +89,23 @@ const ManageBar = ({ farm }) => {
   // @ts-ignore TYPE NEEDS FIXING
   const [approvalState, approve] = useApproveCallback(parsedDepositValue, APPROVAL_ADDRESSES[farm.chef][chainId])
 
+  const meetsMinimumStake = !isNexuSingleStake || (parsedDepositValue && BigNumber.from(parsedDepositValue.quotient.toString()).gte(BigNumber.from(MIN_NEXU_STAKE)))
+
   const depositError = !parsedDepositValue
     ? 'Enter an amount'
     : balance?.lessThan(parsedDepositValue)
-      ? 'Insufficient balance'
-      : undefined
-  const isDepositValid = !depositError
+    ? 'Insufficient balance'
+    : isNexuSingleStake && !meetsMinimumStake
+    ? `Minimum stake is ${MIN_NEXU_DISPLAY} NEXU`
+    : undefined
+
+  const isDepositValid = !depositError && meetsMinimumStake
   const withdrawError = !parsedWithdrawValue
     ? 'Enter an amount'
     : // @ts-ignore TYPE NEEDS FIXING
     stakedAmount?.lessThan(parsedWithdrawValue)
-      ? 'Insufficient balance'
-      : undefined
+    ? 'Insufficient balance'
+    : undefined
   const isWithdrawValid = !withdrawError
 
   async function onWithdraw() {
@@ -179,7 +191,9 @@ const ManageBar = ({ farm }) => {
           </div>
 
           <Typography variant="sm" className="text-secondary">
-            {i18n._(t`Use one of the buttons to set a percentage or enter a value manually using the input field`)}
+            {isNexuSingleStake 
+              ? i18n._(t`Minimum stake requirement is ${MIN_NEXU_DISPLAY} NEXU. Use the buttons below to set amount or enter manually.`)
+              : i18n._(t`Use one of the buttons to set a percentage or enter a value manually using the input field`)}
           </Typography>
         </div>
 
@@ -219,9 +233,31 @@ const ManageBar = ({ farm }) => {
           showMax={false}
         />
       </HeadlessUiModal.BorderedContent>
+
+      {isNexuSingleStake && toggle && !meetsMinimumStake && (
+        <Frame
+          animate={true}
+          corners={2}
+          className="p-2 mt-4 mb-2 bg-red/20"
+          layer='alert'
+        >
+          <Typography variant="sm" weight={700} className="text-red text-center">
+            MUST STAKE 100K+ NEXU TO ENTER
+          </Typography>
+        </Frame>
+      )}
+
       {toggle ? (
         !account ? (
           <Web3Connect size="lg" color="blue" fullWidth />
+        ) : isNexuSingleStake && !meetsMinimumStake ? (
+          <Button
+            fullWidth
+            color="red"
+            disabled={true}
+          >
+            {i18n._(t`Minimum 100k NEXU`)}
+          </Button>
         ) : isDepositValid &&
           (approvalState === ApprovalState.NOT_APPROVED || approvalState === ApprovalState.PENDING) ? (
           <Button
@@ -229,7 +265,7 @@ const ManageBar = ({ farm }) => {
             loading={approvalState === ApprovalState.PENDING}
             color="gradient"
             onClick={approve}
-            disabled={approvalState !== ApprovalState.NOT_APPROVED}
+            disabled={approvalState !== ApprovalState.NOT_APPROVED || !meetsMinimumStake}
           >
             {i18n._(t`Approve`)}
           </Button>
@@ -239,7 +275,7 @@ const ManageBar = ({ farm }) => {
             loading={pendingTx}
             color={!isDepositValid && !!parsedDepositValue ? 'red' : 'blue'}
             onClick={() => onDeposit()}
-            disabled={!isDepositValid || pendingTx}
+            disabled={!isDepositValid || pendingTx || !meetsMinimumStake}
           >
             {depositError || i18n._(t`Confirm Deposit`)}
           </Button>
