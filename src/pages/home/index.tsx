@@ -156,7 +156,7 @@ export default function Farm() {
                                         <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                                         <div className="flex items-center gap-2">
                                             <img 
-                                                src="https://pbs.twimg.com/profile_images/1555154853621481473/xmJanf0q_400x400.png" 
+                                                src="https://developers.moralis.com/wp-content/uploads/web3wiki/1306-geckoterminal/63bcb3e6e22f806838125dae_EZEchbRiFBjoTyIpqnbGAGGXX5pqbVV2XsyuxNNleuo-1-300x300.png" 
                                                 alt="Gecko Terminal" 
                                                 style={{ width: '20px', height: '20px', borderRadius: '50%' }}
                                             />
@@ -332,22 +332,22 @@ export default function Farm() {
                         <div className="bg-transparent py-4 px-4 w-full">
                             <div className="mb-4 text-sm font-normal content md:text-base">
                                 <p>
-                                    COMING SOON TO MAINNET! See the beta on the devnet now by using the network switch toggle. Check out the Nexus Validator on the devnet!
+                                    COMING SOON TO MAINNET! Check out the Nexus Validator on the testnet!
                                 </p>
                                 <div>
-                                    <p>Website: <Link href="https://xrpl.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xrpl.org</span></Link></p>
+                                    <p>Website: <Link href="https://www.xrplevm.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">xrplevm.org</span></Link></p>
                                     <p>Network name: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
-                                    <p>RPC URL: <Link href="https://rpc-evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://rpc-evm-sidechain.xrpl.org</span></Link></p>
-                                    <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">1440002</span></p>
+                                    <p>RPC URL: <Link href="https://rpc.testnet.xrplevm.org/" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">rpc.testnet.xrplevm.org/                                    </span></Link></p>
+                                    <p>Chain ID: <span className="text-lg font-bold md:text-xl text-gray">1449000</span></p>
                                     <p>Currency symbol: <span className="text-lg font-bold md:text-xl text-gray">eXRP</span></p>
-                                    <p>Block explorer URL: <Link href="https://evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">https://evm-sidechain.xrpl.org/</span></Link></p>
+                                    <p>Block explorer URL: <Link href="https://evm-sidechain.xrpl.org" target="_blank" rel="noreferrer"><span className="text-lg font-bold md:text-xl text-gray">evm-sidechain.xrpl.org/</span></Link></p>
                                 </div>
                             </div>
 
                             <Button
                                 animate
                                 layer='success'
-                                onClick={() => window.location.href = 'https://governance.xrplevm.org/xrp/validators/ethmvaloper1djhpzrgnrn7x8vhyeaqfpaeg47tqu75y5nyqec'}
+                                onClick={() => window.location.href = 'https://governance.testnet.xrplevm.org/xrplevm/validators/ethmvaloper1p0u8nwst0eew0h20qadk9820pzzvxpe9793syu'}
                                 style={{
                                     maxWidth: '175px',
                                     height: '32px',
