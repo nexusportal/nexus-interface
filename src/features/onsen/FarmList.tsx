@@ -152,6 +152,14 @@ const FarmList: React.FC<FarmListProps> = ({ farms, term }) => {
         icon: tokenList.tokens.find(t => t.symbol === 'WXDC')?.logoURI
       },
       { 
+        symbol: 'psXDC',
+        icon: tokenList.tokens.find(t => t.symbol === 'psXDC')?.logoURI
+      },
+      { 
+        symbol: 'pstXDC',
+        icon: tokenList.tokens.find(t => t.symbol === 'pstXDC')?.logoURI
+      },
+      { 
         symbol: 'XINU',
         icon: tokenList.tokens.find(t => t.symbol === 'XINU')?.logoURI
       }
