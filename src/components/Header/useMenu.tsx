@@ -291,25 +291,7 @@ const useMenu: UseMenu = () => {
     //   })
     // }
 
-    // if (featureEnabled(Feature.MISO, chainId)) {
-    //   mainItems.push({
-    //     key: 'launchpad',
-    //     title: i18n._(t`Launchpad`),
-    //     icon: <RocketIcon width={20} />,
-    //     items: [
-    //       {
-    //         key: 'marketplace',
-    //         title: i18n._(t`Marketplace`),
-    //         link: '/miso',
-    //       },
-    //       {
-    //         key: 'launch',
-    //         title: i18n._(t`Launch`),
-    //         link: '/miso/auction',
-    //       },
-    //     ],
-    //   })
-    // }
+
 
     // let analyticsMenu: MenuItem = {
     //   key: 'analytics',

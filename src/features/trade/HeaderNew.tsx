@@ -4,7 +4,7 @@ import { Currency } from '@sushiswap/core-sdk'
 import NavLink from 'app/components/NavLink'
 import Settings from 'app/components/Settings'
 import Typography from 'app/components/Typography'
-import MyOrders from 'app/features/legacy/limit-order/MyOrders'
+
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
@@ -44,20 +44,9 @@ const HeaderNew: FC<HeaderNewProps> = ({ inputCurrency, outputCurrency }) => {
             {i18n._(t`Swap`)}
           </Typography>
         </NavLink>
-        {/* <NavLink
-          activeClassName="text-high-emphesis"
-          href={{
-            pathname: '/limit-order',
-            query: getQuery(inputCurrency, outputCurrency),
-          }}
-        >
-          <Typography weight={700} className="text-secondary hover:text-white">
-            {i18n._(t`Limit`)}
-          </Typography>
-        </NavLink> */}
+
       </div>
       <div className="flex gap-4">
-        {isLimitOrder && <MyOrders />}
         <Settings className="!w-6 !h-6" />
       </div>
     </div>

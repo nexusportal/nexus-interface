@@ -25,10 +25,9 @@ import {
   NEXUS_NFT_WEIGHT_ADDRESS,
   NEXU_DISTRIBUTOR_ADDRESS,
   MULTISTAKING_DISTRIBUTOR_ADDRESS
-
 } from '@sushiswap/core-sdk'
-import { LIMIT_ORDER_HELPER_ADDRESS, STOP_LIMIT_ORDER_ADDRESS } from '@sushiswap/limit-order-sdk'
-import MISO from '@sushiswap/miso/exports/all.json'
+
+
 import TRIDENT from '@sushiswap/trident/exports/all.json'
 import { OLD_FARMS } from 'app/config/farms'
 import { tridentMigrationContracts } from 'app/config/tridentMigration'
@@ -52,15 +51,13 @@ import { ERC20_BYTES32_ABI } from 'app/constants/abis/erc20'
 import ERC20_ABI from 'app/constants/abis/erc20.json'
 import FACTORY_ABI from 'app/constants/abis/factory.json'
 import INARI_ABI from 'app/constants/abis/inari.json'
-import LIMIT_ORDER_ABI from 'app/constants/abis/limit-order.json'
-import LIMIT_ORDER_HELPER_ABI from 'app/constants/abis/limit-order-helper.json'
+
 import MAKER_ABI from 'app/constants/abis/maker.json'
 import MASTERCHEF_ABI from 'app/constants/abis/masterchef.json'
 import MASTERCHEF_V2_ABI from 'app/constants/abis/masterchef-v2.json'
 import MEOWSHI_ABI from 'app/constants/abis/meowshi.json'
 import MERKLE_DISTRIBUTOR_ABI from 'app/constants/abis/merkle-distributor.json'
 import MINICHEF_ABI from 'app/constants/abis/minichef-v2.json'
-import MISO_HELPER_ABI from 'app/constants/abis/miso-helper.json'
 import MULTICALL2_ABI from 'app/constants/abis/multicall2.json'
 import ORACLE_DISTRIBUTOR_ABI from 'app/constants/abis/oracledistributor.json'
 import ORACLE_NFT_ABI from 'app/constants/abis/oraclenft.json'
@@ -280,20 +277,6 @@ export function useMeowshiContract(withSignerIfPossible?: boolean): Contract | n
   return useContract('  ', MEOWSHI_ABI, withSignerIfPossible)
 }
 
-export function useLimitOrderContract(withSignerIfPossibe?: boolean): Contract | null {
-  const { chainId } = useActiveWeb3React()
-  // @ts-ignore TYPE NEEDS FIXING
-  return useContract(STOP_LIMIT_ORDER_ADDRESS[chainId], LIMIT_ORDER_ABI, withSignerIfPossibe)
-}
-
-export function useLimitOrderHelperContract(withSignerIfPossible?: boolean): Contract | null {
-  const { chainId } = useActiveWeb3React()
-  return useContract(
-    chainId ? LIMIT_ORDER_HELPER_ADDRESS[chainId] : undefined,
-    LIMIT_ORDER_HELPER_ABI,
-    withSignerIfPossible
-  )
-}
 
 export function useInariContract(withSignerIfPossible?: boolean): Contract | null {
   return useContract('0x195E8262AA81Ba560478EC6Ca4dA73745547073f', INARI_ABI, withSignerIfPossible)
@@ -336,12 +319,6 @@ export function useStablePoolFactory(withSignerIfPossible?: boolean): Contract |
   return useContract(factory?.address, factory?.abi, withSignerIfPossible)
 }
 
-export function useMisoHelperContract(withSignerIfPossible = true): Contract | null {
-  const { chainId } = useActiveWeb3React()
-  // @ts-ignore TYPE NEEDS FIXING
-  const factory = MISO[chainId]?.[CHAIN_KEY[chainId]]?.contracts.MISOHelper
-  return useContract(factory?.address, MISO_HELPER_ABI, withSignerIfPossible)
-}
 
 export function useSushiRollContract(version: 'v1' | 'v2' = 'v2'): Contract | null {
   const { chainId } = useActiveWeb3React()

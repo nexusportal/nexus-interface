@@ -98,11 +98,7 @@ const Footer = () => {
                 {i18n._(t`Lending`)}
               </Typography>
             </Link>
-            <Link href="/miso" passHref={true}>
-              <Typography variant="xs" className="text-low-emphesis hover:text-high-emphesis">
-                {i18n._(t`Launchpad`)}
-              </Typography>
-            </Link>
+
             <a href="https://shoyunft.com" target="_blank" rel="noreferrer">
               <Typography variant="xs" className="text-low-emphesis hover:text-high-emphesis">
                 {i18n._(t`Shoyu NFT`)}
