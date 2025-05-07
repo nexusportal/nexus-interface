@@ -8,7 +8,6 @@ import { getAddress } from 'app/functions'
 import { CurrencyLogo } from 'app/components/CurrencyLogo'
 import { HeadlessUiModal } from 'app/components/Modal'
 import Typography from 'app/components/Typography'
-import { useKashiPair } from 'app/features/kashi/hooks'
 import { easyAmount, formatNumber } from 'app/functions'
 import { useCurrency } from 'app/hooks/Tokens'
 import { useActiveWeb3React } from 'app/services/web3'
@@ -44,7 +43,6 @@ const InvestmentDetails = ({ farm }) => {
   const { harvest } = useMasterChef(farm.chef)
   const router = useRouter()
   const addTransaction = useTransactionAdder()
-  // const kashiPair = useKashiPair(farm.pair.id)
   const [pendingTx, setPendingTx] = useState(false)
   const [txHash, setTxHash] = useState<string>('')
   const [showConfirm, setShowConfirm] = useState<boolean>(false)

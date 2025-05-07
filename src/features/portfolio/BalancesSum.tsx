@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { Currency, CurrencyAmount, NATIVE, ZERO } from '@sushiswap/core-sdk'
 import Typography, { TypographyVariant } from 'app/components/Typography'
-import { reduceBalances } from 'app/features/portfolio/AssetBalances/kashi/hooks'
+
 import SumUSDCValues from 'app/features/trident/SumUSDCValues'
 import { currencyFormatter } from 'app/functions'
 import { useTridentLiquidityPositions } from 'app/services/graph'
@@ -71,7 +71,7 @@ export const BalancesSum: FC<{ account: string }> = ({ account }) => {
     const combined = [...walletBalances, ...bentoBalances]
     return {
       total: combined.length,
-      balances: reduceBalances(combined),
+      balances: combined.filter((cur) => cur?.greaterThan(ZERO)),
     }
   }, [bentoBalances, walletBalances])
 
