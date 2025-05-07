@@ -59,7 +59,6 @@ export const SUPPORTED_NETWORKS: {
       decimals: 18,
     },
     rpcUrls: [
-      'https://rpc.xinfin.network/',
       'https://erpc.xinfin.network/',
       'https://erpc.xdcrpc.com/'
     ],
